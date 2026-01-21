@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Key, FolderOpen, Cloud, Check } from "lucide-react";
 import type { AppState } from "./PhotoVaultApp";
 import { dummyBackupPhrase } from "./PhotoVaultApp";
+import { generateKeyPair, keyToRecoveryPhrase, saveKeyToStorage } from "@/lib/crypto";
 
 interface OnboardingFlowProps {
   state: AppState;
@@ -19,9 +20,19 @@ export function OnboardingFlow({ state, setState, step, setStep, onComplete }: O
   const [showImportDialog, setShowImportDialog] = useState(false);
 
   const generateEncryptionKey = () => {
-    console.log("Generate key, show 12 words on next screen");
-    const key = dummyBackupPhrase.join(" ");
-    setState(prev => ({ ...prev, encryptionKey: key, backupPhrase: dummyBackupPhrase }));
+    // Generate REAL encryption key
+    const keyPair = generateKeyPair();
+    const recoveryPhrase = keyToRecoveryPhrase(keyPair.secretKey);
+    const phraseWords = recoveryPhrase.split('-').slice(0, 12); // Take first 12 chunks
+    
+    // Save to localStorage
+    saveKeyToStorage(keyPair.secretKey);
+    
+    setState(prev => ({ 
+      ...prev, 
+      encryptionKey: recoveryPhrase, 
+      backupPhrase: phraseWords 
+    }));
     setShowPhraseStep(true);
   };
 

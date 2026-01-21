@@ -120,3 +120,11 @@ It can also happen if the client has a browser extension installed which messes 
                           >
                   ...
 
+[00:23:35.505] Server  LOG     ✓ Compiled in 175ms
+[00:23:42.684] Server  LOG     ✓ Compiled in 202ms
+[00:24:24.549] Browser LOG     Generate key, show 12 words on next screen
+[00:24:28.595] Browser LOG     TODO: Verify checkbox, proceed to step 2
+[00:26:47.938] Server  LOG     ✓ Compiled in 444ms
+[00:27:18.076] Server  LOG     ✓ Compiled in 378ms
+[00:27:23.706] Server  LOG     ✓ Compiled in 199ms
+[00:27:31.645] Server  LOG     ✓ Compiled in 121ms

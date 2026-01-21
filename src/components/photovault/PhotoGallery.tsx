@@ -1,7 +1,9 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Search, SlidersHorizontal, X, Check, Lock } from "lucide-react";
+import { Search, SlidersHorizontal, X, Check, Lock, Upload } from "lucide-react";
+import { useEncryption } from "@/hooks/use-encryption";
+import { useGalleryData } from "@/hooks/use-gallery-data";
 
 interface PhotoGalleryProps {
   photosCount: number;
@@ -72,8 +74,28 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
   
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
 
-  // Use a smaller set for demo (50 photos)
-  const photos = generatePhotos(Math.min(photosCount, 50));
+  // Encryption & Real Photo Storage
+  const { secretKey, hasKey } = useEncryption();
+  const { 
+    photos: realPhotos, 
+    uploadPhoto, 
+    deletePhoto: deleteRealPhoto,
+    decryptPhoto,
+    isUploading 
+  } = useGalleryData(secretKey);
+
+  // Use real photos if available, otherwise use placeholders
+  const photos = realPhotos.length > 0 
+    ? realPhotos.map(p => ({
+        id: p.id?.toString() || p.cid,
+        cid: p.cid,
+        placeholderUrl: '', // Will be decrypted on-demand
+        category: 'photo',
+        date: p.uploadedAt.toISOString().split('T')[0],
+        metadata: p,
+      }))
+    : generatePhotos(Math.min(photosCount, 50));
+  
   const photoGroups = groupPhotosByDate(photos);
 
   const filteredPhotos = photos.filter(photo => {
@@ -124,6 +146,12 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
     { id: "city", label: "Stadt" },
     { id: "landscape", label: "Landschaft" },
   ];
+
+  // Handle file upload
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    files.forEach(file => uploadPhoto(file));
+  };
 
   return (
     <div className="flex flex-col h-full bg-[#F2F2F7]">
@@ -182,6 +210,18 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
               <h1 className="sf-pro-display text-[20px] text-[#1D1D1F]">Galerie</h1>
             </div>
             <div className="flex items-center gap-4">
+              {/* Upload Button */}
+              <label className="ios-tap-target cursor-pointer">
+                <Upload className={`w-6 h-6 ${isUploading ? 'text-[#8E8E93] animate-pulse' : 'text-[#007AFF]'}`} />
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  disabled={isUploading}
+                />
+              </label>
               <button
                 onClick={() => setShowSearch(true)}
                 className="ios-tap-target"

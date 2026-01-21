@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { Image, Clock, Shield, HelpCircle, X } from "lucide-react";
 import type { AppState } from "./PhotoVaultApp";
+import { useEncryption } from "@/hooks/use-encryption";
+import { useGalleryData } from "@/hooks/use-gallery-data";
 
 interface DashboardProps {
   state: AppState;
@@ -12,6 +14,13 @@ interface DashboardProps {
 export function Dashboard({ state, setState }: DashboardProps) {
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
+  // Get real photo count from encryption layer
+  const { secretKey } = useEncryption();
+  const { photoCount } = useGalleryData(secretKey);
+  
+  // Use real photo count if available
+  const displayPhotoCount = photoCount > 0 ? photoCount : state.photosCount;
 
   const toggleBackup = () => {
     console.log("TODO: Toggle backup with confirmation dialog");
@@ -100,7 +109,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
       <div className="grid grid-cols-3 gap-3 mb-6">
         <MetricCard
           icon={<Image className="w-5 h-5 text-[#007AFF]" />}
-          value={state.photosCount.toLocaleString()}
+          value={displayPhotoCount.toLocaleString()}
           label="Fotos gesichert"
           tooltip={tooltips.photos}
           showTooltip={showTooltip === "photos"}
