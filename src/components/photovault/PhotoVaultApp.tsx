@@ -6,6 +6,7 @@ import { Dashboard } from "./Dashboard";
 import { SettingsPanel } from "./SettingsPanel";
 import { PhotoGallery } from "./PhotoGallery";
 import { Images, Shield, Settings } from "lucide-react";
+import ShieldLoader from "@/components/ui/shield-loader";
 
 export interface AppState {
   isOnboarded: boolean;
@@ -18,14 +19,28 @@ export interface AppState {
   permanence: number;
   encryptionKey: string;
   backupPhrase: string[];
-  devices: { id: string; name: string; lastActive: string; syncing?: boolean }[];
+  devices: {
+    id: string;
+    name: string;
+    lastActive: string;
+    syncing?: boolean;
+  }[];
   photoSource: "photos-app" | "files-app";
 }
 
 export const dummyBackupPhrase = [
-  "beach", "ocean", "sunset", "cloud",
-  "tree", "river", "mountain", "forest",
-  "valley", "lake", "meadow", "canyon"
+  "beach",
+  "ocean",
+  "sunset",
+  "cloud",
+  "tree",
+  "river",
+  "mountain",
+  "forest",
+  "valley",
+  "lake",
+  "meadow",
+  "canyon",
 ];
 
 const defaultState: AppState = {
@@ -41,7 +56,12 @@ const defaultState: AppState = {
   backupPhrase: dummyBackupPhrase,
   devices: [
     { id: "1", name: "iPhone 14 Pro", lastActive: "Aktiv" },
-    { id: "2", name: "MacBook Pro", lastActive: "Synchronisiert...", syncing: true },
+    {
+      id: "2",
+      name: "MacBook Pro",
+      lastActive: "Synchronisiert...",
+      syncing: true,
+    },
   ],
   photoSource: "photos-app",
 };
@@ -52,19 +72,26 @@ export function PhotoVaultApp() {
   const [state, setState] = useState<AppState>(defaultState);
   const [currentScreen, setCurrentScreen] = useState<Screen>("onboarding");
   const [onboardingStep, setOnboardingStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Check if user has been onboarded
   useEffect(() => {
-    const onboarded = localStorage.getItem("photovault_onboarded");
-    if (onboarded === "true") {
-      setState(prev => ({ ...prev, isOnboarded: true }));
-      setCurrentScreen("gallery");
-    }
+    // Simulate loading time for demo purposes
+    const loadingTimer = setTimeout(() => {
+      const onboarded = localStorage.getItem("photovault_onboarded");
+      if (onboarded === "true") {
+        setState((prev) => ({ ...prev, isOnboarded: true }));
+        setCurrentScreen("gallery");
+      }
+      setIsLoading(false);
+    }, 2000); // Show loader for 2 seconds
+
+    return () => clearTimeout(loadingTimer);
   }, []);
 
   const completeOnboarding = () => {
     localStorage.setItem("photovault_onboarded", "true");
-    setState(prev => ({ ...prev, isOnboarded: true }));
+    setState((prev) => ({ ...prev, isOnboarded: true }));
     setCurrentScreen("gallery");
     console.log("Onboarding completed with state:", state);
   };
@@ -72,7 +99,7 @@ export function PhotoVaultApp() {
   const restartOnboarding = () => {
     console.log("TODO: Navigate to onboarding screen 1");
     localStorage.removeItem("photovault_onboarded");
-    setState(prev => ({ ...prev, isOnboarded: false }));
+    setState((prev) => ({ ...prev, isOnboarded: false }));
     setOnboardingStep(1);
     setCurrentScreen("onboarding");
   };
@@ -80,6 +107,11 @@ export function PhotoVaultApp() {
   const navigateTo = (screen: Screen) => {
     setCurrentScreen(screen);
   };
+
+  // Show loading screen
+  if (isLoading) {
+    return <ShieldLoader />;
+  }
 
   // Show onboarding without bottom nav
   if (currentScreen === "onboarding") {
@@ -107,10 +139,7 @@ export function PhotoVaultApp() {
             <PhotoGallery photosCount={state.photosCount} />
           )}
           {currentScreen === "dashboard" && (
-            <Dashboard
-              state={state}
-              setState={setState}
-            />
+            <Dashboard state={state} setState={setState} />
           )}
           {currentScreen === "settings" && (
             <SettingsPanel

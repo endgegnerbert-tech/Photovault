@@ -2,35 +2,41 @@
  * useEncryption Hook - Key Management
  */
 
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from "react";
 import {
-    generateKeyPair,
-    saveKeyToStorage,
-    loadKeyFromStorage,
-    clearKeyFromStorage,
-    keyToRecoveryPhrase,
-    recoveryPhraseToKey,
-} from '@/lib/crypto';
+  generateKeyPair,
+  saveKeyToStorage,
+  loadKeyFromStorage,
+  clearKeyFromStorage,
+  keyToRecoveryPhrase,
+  recoveryPhraseToKey,
+} from "@/lib/crypto";
 
 export function useEncryption() {
-    const [secretKey, setSecretKey] = useState<Uint8Array | null>(null);
-    const [isInitialized, setIsInitialized] = useState(false);
-    const [recoveryPhrase, setRecoveryPhrase] = useState<string | null>(null);
+  const [secretKey, setSecretKey] = useState<Uint8Array | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [recoveryPhrase, setRecoveryPhrase] = useState<string | null>(null);
+  const [isGeneratingKey, setIsGeneratingKey] = useState(false);
 
-    // Load key on mount
-    useEffect(() => {
-        const key = loadKeyFromStorage();
-        if (key) {
-            setSecretKey(key);
-            setRecoveryPhrase(keyToRecoveryPhrase(key));
-        }
-        setIsInitialized(true);
-    }, []);
+  // Load key on mount
+  useEffect(() => {
+    const key = loadKeyFromStorage();
+    if (key) {
+      setSecretKey(key);
+      setRecoveryPhrase(keyToRecoveryPhrase(key));
+    }
+    setIsInitialized(true);
+  }, []);
 
-    // Generate new key
-    const generateNewKey = useCallback(() => {
+  // Generate new key
+  const generateNewKey = useCallback((): Promise<string> => {
+    return new Promise((resolve) => {
+      setIsGeneratingKey(true);
+
+      // Simulate key generation time
+      setTimeout(() => {
         const keyPair = generateKeyPair();
         const key = keyPair.secretKey;
 
@@ -39,37 +45,41 @@ export function useEncryption() {
 
         const phrase = keyToRecoveryPhrase(key);
         setRecoveryPhrase(phrase);
+        setIsGeneratingKey(false);
 
-        return phrase;
-    }, []);
+        resolve(phrase);
+      }, 1500);
+    });
+  }, []);
 
-    // Restore from recovery phrase
-    const restoreFromPhrase = useCallback((phrase: string) => {
-        try {
-            const key = recoveryPhraseToKey(phrase);
-            setSecretKey(key);
-            saveKeyToStorage(key);
-            setRecoveryPhrase(phrase);
-            return true;
-        } catch {
-            return false;
-        }
-    }, []);
+  // Restore from recovery phrase
+  const restoreFromPhrase = useCallback((phrase: string) => {
+    try {
+      const key = recoveryPhraseToKey(phrase);
+      setSecretKey(key);
+      saveKeyToStorage(key);
+      setRecoveryPhrase(phrase);
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
 
-    // Logout / Clear key
-    const clearKey = useCallback(() => {
-        setSecretKey(null);
-        setRecoveryPhrase(null);
-        clearKeyFromStorage();
-    }, []);
+  // Logout / Clear key
+  const clearKey = useCallback(() => {
+    setSecretKey(null);
+    setRecoveryPhrase(null);
+    clearKeyFromStorage();
+  }, []);
 
-    return {
-        secretKey,
-        isInitialized,
-        hasKey: !!secretKey,
-        recoveryPhrase,
-        generateNewKey,
-        restoreFromPhrase,
-        clearKey,
-    };
+  return {
+    secretKey,
+    isInitialized,
+    hasKey: !!secretKey,
+    recoveryPhrase,
+    isGeneratingKey,
+    generateNewKey,
+    restoreFromPhrase,
+    clearKey,
+  };
 }

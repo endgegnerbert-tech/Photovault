@@ -484,11 +484,6 @@ body {
   margin-right: -.25rem;
 }
 
-.mx-1 {
-  margin-left: .25rem;
-  margin-right: .25rem;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -619,6 +614,10 @@ body {
   height: 0;
 }
 
+.h-0\.5 {
+  height: .125rem;
+}
+
 .h-1 {
   height: .25rem;
 }
@@ -637,6 +636,10 @@ body {
 
 .h-14 {
   height: 3.5rem;
+}
+
+.h-16 {
+  height: 4rem;
 }
 
 .h-2 {
@@ -743,10 +746,6 @@ body {
   height: 1px;
 }
 
-.h-16 {
-  height: 4rem;
-}
-
 .max-h-\[300px\] {
   max-height: 300px;
 }
@@ -793,6 +792,10 @@ body {
 
 .w-14 {
   width: 3.5rem;
+}
+
+.w-16 {
+  width: 4rem;
 }
 
 .w-2 {
@@ -895,10 +898,6 @@ body {
   width: 1px;
 }
 
-.w-16 {
-  width: 4rem;
-}
-
 .min-w-0 {
   min-width: 0;
 }
@@ -913,10 +912,6 @@ body {
 
 .min-w-\[var\(--radix-select-trigger-width\)\] {
   min-width: var(--radix-select-trigger-width);
-}
-
-.max-w-7xl {
-  max-width: 80rem;
 }
 
 .max-w-\[270px\] {
@@ -1130,6 +1125,10 @@ body {
   gap: 1rem;
 }
 
+.gap-6 {
+  gap: 1.5rem;
+}
+
 .gap-\[2px\] {
   gap: 2px;
 }
@@ -1204,14 +1203,6 @@ body {
 
 .whitespace-nowrap {
   white-space: nowrap;
-}
-
-.break-all {
-  word-break: break-all;
-}
-
-.rounded {
-  border-radius: .25rem;
 }
 
 .rounded-2xl {
@@ -1372,6 +1363,10 @@ body {
 
 .bg-\[\#007AFF\]\/10 {
   background-color: #007aff1a;
+}
+
+.bg-\[\#007AFF\]\/20 {
+  background-color: #007aff33;
 }
 
 .bg-\[\#1D1D1F\] {
@@ -1640,11 +1635,6 @@ body {
   padding-bottom: 1.5rem;
 }
 
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
 .pb-1 {
   padding-bottom: .25rem;
 }
@@ -1733,21 +1723,12 @@ body {
   text-align: center;
 }
 
-.text-right {
-  text-align: right;
-}
-
 .align-middle {
   vertical-align: middle;
 }
 
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
 }
 
 .text-\[0\.8rem\] {
@@ -2137,12 +2118,6 @@ body {
 
 .ease-in-out {
   animation-timing-function: cubic-bezier(.4, 0, .2, 1);
-}
-
-.glass {
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  background: #ffffff0d;
 }
 
 @keyframes pulse-glow {
@@ -2829,11 +2804,6 @@ body {
     border-radius: var(--radius);
   }
 
-  .sm\:px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
   .sm\:text-left {
     text-align: left;
   }
@@ -2872,11 +2842,6 @@ body {
 @media (min-width: 1024px) {
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .lg\:px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
   }
 }
 

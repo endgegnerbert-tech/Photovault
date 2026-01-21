@@ -1,0 +1,329 @@
+/* Hauptcontainer für den Ladebildschirm */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  /* Überlagert den Rest der Seite */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #1a1e23;
+  /* Ein dunkler Hintergrund hebt den Effekt hervor */
+  z-index: 9999;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  overflow: hidden;
+  /* Verhindert Scrollbalken durch fliegende Partikel */
+}
+
+/* Der Container, der die Form des Schildes definiert */
+.shield-container {
+  position: relative;
+  width: 200px;
+  height: 240px;
+  display: grid;
+  /* Ein 10x15 Raster für unsere 150 Partikel */
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  gap: 2px;
+  /* Kleiner Abstand zwischen den Partikeln */
+  z-index: 20;
+  /* Muss über dem Icon liegen */
+
+  /* Die Magie für die Schildform! */
+  clip-path: polygon(50% 0%, 100% 10%, 100% 75%, 50% 100%, 0% 75%, 0% 10%);
+}
+
+/* Styling für jedes einzelne Partikel */
+.particle {
+  width: 100%;
+  height: 100%;
+  /* Variierende Farben für unterschiedliche Partikel */
+  background-color: #00d1ff;
+  /* Standardfarbe */
+
+  /* Startzustand: Unsichtbar und klein */
+  opacity: 0;
+  transform: scale(0);
+
+  /* Die Animation, die jedes Partikel durchläuft.
+     SPEED UP: 1.5s (war 3s) */
+  animation: buildUpAndSmoke 1.5s forwards;
+}
+
+/* Spezielle Partikel für die Schildstruktur */
+.particle:nth-child(10n) {
+  background-color: #00a2ff;
+  /* Dunkleres Blau für Struktur */
+  animation-delay: 0.1s;
+}
+
+.particle:nth-child(10n + 1) {
+  background-color: #00e6ff;
+  /* Helleres Blau für Akzente */
+  animation-delay: 0.2s;
+}
+
+.particle:nth-child(10n + 2) {
+  background-color: #00bfff;
+  /* Mittleres Blau */
+  animation-delay: 0.3s;
+}
+
+.particle:nth-child(10n + 3) {
+  background-color: #00cfff;
+  /* Helles Cyan */
+  animation-delay: 0.4s;
+}
+
+/* Zentrale Partikel für den Schildkern - Speed optimized */
+.particle:nth-child(75) {
+  background-color: #ffffff;
+  animation-delay: 0.5s;
+  transform: scale(1.2);
+}
+
+.particle:nth-child(76) {
+  background-color: #ffffff;
+  animation-delay: 0.55s;
+  transform: scale(1.2);
+}
+
+.particle:nth-child(77) {
+  background-color: #ffffff;
+  animation-delay: 0.6s;
+  transform: scale(1.2);
+}
+
+.particle:nth-child(78) {
+  background-color: #ffffff;
+  animation-delay: 0.65s;
+  transform: scale(1.2);
+}
+
+/* Die Keyframe-Animation für den Aufbau und den "Rauch"-Effekt */
+@keyframes buildUpAndSmoke {
+
+  /* 1. Phase: Partikel erscheint schnell */
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(90deg);
+    box-shadow: none;
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: scale(1.2) rotate(0deg);
+  }
+
+  /* 2. Phase: Energie-Blitz */
+  70% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 25px 15px rgba(0, 209, 255, 0.7);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 5px 2px rgba(0, 209, 255, 0.3);
+  }
+}
+
+/* Der Lade-Text */
+.loading-text {
+  position: absolute;
+  bottom: -40px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  animation: fadeInText 0.5s forwards 1.2s;
+}
+
+/* Strukturlinien für das Schild */
+.shield-container::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(0, 209, 255, 0.3);
+  clip-path: polygon(50% 0%, 100% 10%, 100% 75%, 50% 100%, 0% 75%, 0% 10%);
+  z-index: 10;
+  pointer-events: none;
+  animation: pulseBorder 3s infinite;
+}
+
+.shield-container::after {
+  content: "";
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  left: 10%;
+  top: 10%;
+  border: 1px solid rgba(0, 209, 255, 0.2);
+  clip-path: polygon(50% 0%, 100% 10%, 100% 75%, 50% 100%, 0% 75%, 0% 10%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Pulsierende Animation für die Struktur */
+@keyframes pulseBorder {
+
+  0%,
+  100% {
+    border-color: rgba(0, 209, 255, 0.3);
+  }
+
+  50% {
+    border-color: rgba(0, 209, 255, 0.6);
+  }
+}
+
+/* Fade-in Animation für den Text */
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Strukturlinien */
+.shield-structure {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.structure-line {
+  position: absolute;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(0, 209, 255, 0.4),
+      transparent);
+  height: 2px;
+  animation: slideLine 4s infinite alternate;
+}
+
+.line-1 {
+  width: 80%;
+  top: 20%;
+  left: 10%;
+  transform: rotate(-15deg);
+}
+
+.line-2 {
+  width: 80%;
+  top: 40%;
+  left: 10%;
+  transform: rotate(15deg);
+}
+
+.line-3 {
+  width: 80%;
+  top: 60%;
+  left: 10%;
+  transform: rotate(-15deg);
+}
+
+.line-4 {
+  width: 80%;
+  top: 80%;
+  left: 10%;
+  transform: rotate(15deg);
+}
+
+@keyframes slideLine {
+  0% {
+    opacity: 0.3;
+    transform: translateX(-20px) rotate(-15deg);
+  }
+
+  100% {
+    opacity: 0.8;
+    transform: translateX(20px) rotate(-15deg);
+  }
+}
+
+/* =========================================
+   PEEKING PHOTO ICON (Das Highlight!)
+   ========================================= */
+
+.peeking-photo-icon {
+  position: absolute;
+  /* Zentriert im Container (hinter dem Schild startend) */
+  top: 50%;
+  left: 50%;
+  /* Startposition: Genau mittig, klein und rotiert */
+  transform: translate(-50%, -50%) scale(0.5) rotate(-20deg);
+
+  width: 90px;
+  height: 90px;
+  z-index: 5;
+  /* WICHTIG: Kleiner als shield-container (20), also dahinter */
+
+  /* Styling im "Photos App" Look (Blau, wie gewünscht) */
+  background: linear-gradient(135deg, #007AFF, #5AC8FA);
+  /* iOS Blue Gradient */
+  border-radius: 22px;
+  /* App Icon Shape */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Schatten für Tiefe */
+  box-shadow: 0 10px 25px rgba(0, 122, 255, 0.4);
+  /* Ein feiner weißer Rand für Kontrast */
+  border: 2px solid rgba(255, 255, 255, 0.3);
+
+  /* Initiale Opacity 0 */
+  opacity: 0;
+
+  /* Die Animation */
+  animation: peekOut 1.0s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.8s;
+}
+
+/* Das Icon selbst (Berg/Sonne) */
+.peeking-photo-icon svg {
+  width: 60%;
+  height: 60%;
+  color: white;
+  /* Weißes Icon auf blauem Grund */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  stroke-width: 2px;
+}
+
+/* Animation: Hervorlugen */
+@keyframes peekOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotate(-20deg);
+  }
+
+  50% {
+    opacity: 1;
+    /* Schon sichtbar, während es sich bewegt */
+  }
+
+  100% {
+    opacity: 1;
+    /* Endposition: Versetzt nach RECHTS OBEN (hinter der Schulter des Schildes) */
+    /* X: +60% (nach rechts), Y: -70% (nach oben) */
+    transform: translate(60%, -70%) scale(1) rotate(15deg);
+  }
+}

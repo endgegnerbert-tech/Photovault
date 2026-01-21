@@ -4,7 +4,14 @@ import { useState, useEffect } from "react";
 import { Key, FolderOpen, Cloud, Check } from "lucide-react";
 import type { AppState } from "./PhotoVaultApp";
 import { dummyBackupPhrase } from "./PhotoVaultApp";
-import { generateKeyPair, keyToRecoveryPhrase, saveKeyToStorage } from "@/lib/crypto";
+import {
+  generateKeyPair,
+  keyToRecoveryPhrase,
+  saveKeyToStorage,
+} from "@/lib/crypto";
+import ProgressIndicator from "@/components/ui/progress-indicator";
+import ShieldLoader from "@/components/ui/shield-loader";
+import { useEncryption } from "@/hooks/use-encryption";
 
 interface OnboardingFlowProps {
   state: AppState;
@@ -14,24 +21,28 @@ interface OnboardingFlowProps {
   onComplete: () => void;
 }
 
-export function OnboardingFlow({ state, setState, step, setStep, onComplete }: OnboardingFlowProps) {
+export function OnboardingFlow({
+  state,
+  setState,
+  step,
+  setStep,
+  onComplete,
+}: OnboardingFlowProps) {
   const [showPhraseStep, setShowPhraseStep] = useState(false);
   const [phraseConfirmed, setPhraseConfirmed] = useState(false);
   const [showImportDialog, setShowImportDialog] = useState(false);
+  const { isGeneratingKey } = useEncryption();
 
-  const generateEncryptionKey = () => {
-    // Generate REAL encryption key
-    const keyPair = generateKeyPair();
-    const recoveryPhrase = keyToRecoveryPhrase(keyPair.secretKey);
-    const phraseWords = recoveryPhrase.split('-').slice(0, 12); // Take first 12 chunks
-    
-    // Save to localStorage
-    saveKeyToStorage(keyPair.secretKey);
-    
-    setState(prev => ({ 
-      ...prev, 
-      encryptionKey: recoveryPhrase, 
-      backupPhrase: phraseWords 
+  const { generateNewKey } = useEncryption();
+
+  const generateEncryptionKey = async () => {
+    const phrase = await generateNewKey();
+    const phraseWords = phrase?.split("-").slice(0, 12) || dummyBackupPhrase; // Take first 12 chunks
+
+    setState((prev) => ({
+      ...prev,
+      encryptionKey: phrase || "",
+      backupPhrase: phraseWords,
     }));
     setShowPhraseStep(true);
   };
@@ -50,51 +61,28 @@ export function OnboardingFlow({ state, setState, step, setStep, onComplete }: O
 
   const selectSource = (source: "photos-app" | "files-app") => {
     console.log("Selected photo source:", source);
-    setState(prev => ({ ...prev, photoSource: source }));
+    setState((prev) => ({ ...prev, photoSource: source }));
     setStep(3);
   };
 
   const selectPlan = (plan: "free" | "backup-plus") => {
     console.log(plan === "free" ? "Set Free Plan" : "Set Backup+ Plan");
-    setState(prev => ({ ...prev, selectedPlan: plan }));
+    setState((prev) => ({ ...prev, selectedPlan: plan }));
     onComplete();
   };
 
   // Calculate visual step for progress indicator (1, 1b, 2, 3 → shows as 1, 1, 2, 3)
   const visualStep = showPhraseStep ? 1 : step;
 
+  // Show loader during key generation
+  if (isGeneratingKey) {
+    return <ShieldLoader />;
+  }
+
   return (
     <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset">
       {/* Progress Indicator */}
-      <div className="flex items-center justify-center gap-1 mb-8">
-        {[1, 2, 3].map((i, index) => (
-          <div key={i} className="flex items-center">
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-[14px] font-semibold ${
-                i < visualStep
-                  ? "bg-[#30D158] text-white"
-                  : i === visualStep
-                  ? "bg-[#007AFF] text-white"
-                  : "bg-[#E5E5EA] text-[#8E8E93]"
-              }`}
-            >
-              {i < visualStep ? <Check className="w-4 h-4" /> : i}
-            </div>
-            {index < 2 && (
-              <div
-                className={`w-12 h-1 mx-1 rounded-full ${
-                  i < visualStep ? "bg-[#30D158]" : "bg-[#E5E5EA]"
-                }`}
-              />
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Step Label */}
-      <p className="text-[13px] text-[#6E6E73] text-center mb-6">
-        Schritt {visualStep} von 3
-      </p>
+      <ProgressIndicator currentStep={visualStep} />
 
       {step === 1 && !showPhraseStep && (
         <KeyCreationStep
@@ -153,11 +141,13 @@ function KeyCreationStep({
         <p className="text-[17px] leading-relaxed text-[#6E6E73] max-w-[300px] mb-6">
           Dieser Schlüssel verschlüsselt alle Fotos. Speichere ihn gut:
         </p>
-        
+
         <div className="bg-[#F2F2F7] rounded-xl p-4 w-full max-w-[300px]">
           <div className="flex items-center gap-3 mb-2">
             <Key className="w-5 h-5 text-[#007AFF]" />
-            <span className="text-[15px] text-[#1D1D1F] font-medium">12-Wort Backup-Phrase</span>
+            <span className="text-[15px] text-[#1D1D1F] font-medium">
+              12-Wort Backup-Phrase
+            </span>
           </div>
           <p className="text-[13px] text-[#6E6E73]">
             Wird im nächsten Schritt erstellt und angezeigt
@@ -226,7 +216,8 @@ function BackupPhraseStep({
         {/* Warning */}
         <div className="bg-[#FF3B30]/10 rounded-xl p-4 mb-6">
           <p className="text-[13px] text-[#FF3B30] text-center">
-            ⚠️ Teile diese Wörter niemals mit anderen. Wer sie hat, kann auf deine Fotos zugreifen.
+            ⚠️ Teile diese Wörter niemals mit anderen. Wer sie hat, kann auf
+            deine Fotos zugreifen.
           </p>
         </div>
 
@@ -237,9 +228,7 @@ function BackupPhraseStep({
         >
           <div
             className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${
-              confirmed
-                ? "bg-[#007AFF] border-[#007AFF]"
-                : "border-[#C7C7CC]"
+              confirmed ? "bg-[#007AFF] border-[#007AFF]" : "border-[#C7C7CC]"
             }`}
           >
             {confirmed && <Check className="w-4 h-4 text-white" />}
@@ -254,9 +243,7 @@ function BackupPhraseStep({
         onClick={onContinue}
         disabled={!confirmed}
         className={`w-full h-[50px] text-[17px] font-semibold rounded-xl ios-tap-target ${
-          confirmed
-            ? "bg-[#007AFF] text-white"
-            : "bg-[#E5E5EA] text-[#8E8E93]"
+          confirmed ? "bg-[#007AFF] text-white" : "bg-[#E5E5EA] text-[#8E8E93]"
         }`}
       >
         Weiter
@@ -305,8 +292,8 @@ function SourceSelectionStep({
         {/* Help Text */}
         <div className="bg-[#F2F2F7] rounded-xl p-4 mb-6">
           <p className="text-[15px] text-[#6E6E73] text-center">
-            💡 <strong>Tipp:</strong> Die meisten Nutzer wählen "Fotos-App". 
-            Du kannst dies später in den Einstellungen ändern.
+            💡 <strong>Tipp:</strong> Die meisten Nutzer wählen "Fotos-App". Du
+            kannst dies später in den Einstellungen ändern.
           </p>
         </div>
 
@@ -316,14 +303,22 @@ function SourceSelectionStep({
               key={source.id}
               onClick={() => onSelect(source.id)}
               className={`w-full p-4 rounded-xl bg-white text-left ios-tap-target transition-all ${
-                selectedSource === source.id ? "ring-2 ring-[#007AFF] shadow-lg" : ""
+                selectedSource === source.id
+                  ? "ring-2 ring-[#007AFF] shadow-lg"
+                  : ""
               }`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-[17px] font-medium text-[#1D1D1F]">{source.label}</p>
-                  <p className="text-[15px] text-[#6E6E73] mt-0.5">{source.description}</p>
-                  <p className="text-[13px] text-[#8E8E93] mt-1">{source.details}</p>
+                  <p className="text-[17px] font-medium text-[#1D1D1F]">
+                    {source.label}
+                  </p>
+                  <p className="text-[15px] text-[#6E6E73] mt-0.5">
+                    {source.description}
+                  </p>
+                  <p className="text-[13px] text-[#8E8E93] mt-1">
+                    {source.details}
+                  </p>
                 </div>
                 <div
                   className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
@@ -353,7 +348,7 @@ function PlanSelectionStep({
   onSelect: (plan: "free" | "backup-plus") => void;
 }) {
   const [tempSelected, setTempSelected] = useState<"free" | "backup-plus">(
-    selectedPlan as "free" | "backup-plus"
+    selectedPlan as "free" | "backup-plus",
   );
 
   const plans = [
@@ -362,7 +357,11 @@ function PlanSelectionStep({
       label: "FREE",
       subtitle: "Auf deinen Geräten",
       price: "0€/Monat",
-      features: ["Unbegrenzte Fotos", "Zero-Knowledge Verschlüsselung", "Multi-Device Sync"],
+      features: [
+        "Unbegrenzte Fotos",
+        "Zero-Knowledge Verschlüsselung",
+        "Multi-Device Sync",
+      ],
       description: "Perfekt für den Start",
     },
     {
@@ -370,7 +369,11 @@ function PlanSelectionStep({
       label: "BACKUP+",
       subtitle: "Dauerhaft im Netz",
       price: "2,99€/Monat",
-      features: ["Alles von Free", "200 GB Cloud-Backup", "Schnellere Synchronisierung"],
+      features: [
+        "Alles von Free",
+        "200 GB Cloud-Backup",
+        "Schnellere Synchronisierung",
+      ],
       recommended: true,
       description: "Maximale Sicherheit",
     },
@@ -394,7 +397,7 @@ function PlanSelectionStep({
         {/* Help Text */}
         <div className="bg-[#F2F2F7] rounded-xl p-4 mb-4">
           <p className="text-[13px] text-[#6E6E73] text-center">
-            🎯 <strong>Empfehlung:</strong> Starte mit FREE und upgrade später, 
+            🎯 <strong>Empfehlung:</strong> Starte mit FREE und upgrade später,
             wenn du mehr Speicher brauchst.
           </p>
         </div>
@@ -405,7 +408,9 @@ function PlanSelectionStep({
               key={plan.id}
               onClick={() => setTempSelected(plan.id)}
               className={`w-full p-4 rounded-xl bg-white text-left ios-tap-target relative transition-all ${
-                tempSelected === plan.id ? "ring-2 ring-[#007AFF] shadow-lg" : ""
+                tempSelected === plan.id
+                  ? "ring-2 ring-[#007AFF] shadow-lg"
+                  : ""
               }`}
             >
               {plan.recommended && (
@@ -426,7 +431,10 @@ function PlanSelectionStep({
                   </p>
                   <ul className="mt-3 space-y-1.5">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="text-[15px] text-[#6E6E73] flex items-center gap-2">
+                      <li
+                        key={feature}
+                        className="text-[15px] text-[#6E6E73] flex items-center gap-2"
+                      >
                         <span className="text-[#30D158]">✓</span> {feature}
                       </li>
                     ))}
