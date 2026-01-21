@@ -46,18 +46,18 @@ Das Projekt ist ein initialisiertes **Next.js** Projekt mit **TailwindCSS** und 
     -   Realtime Subscriptions für sofortige Updates auf anderen Geräten.
 4.  **Remote Pinning**: Integration von Web3.storage (oder Supabase Storage als Fallback/Hot-Storage).
 
-### Phase 4: Desktop Experience (Woche 4-5)
+### Phase 3: Desktop Experience (Woche 4-5)
 *Ziel: Native Performance & OS Integration.*
 1.  **Tauri Integration**: `npm run tauri init`.
 2.  **File System Bridge**: Rust-Commands zum direkten Lesen/Schreiben von Dateien (umgeht Browser-Sandboxing für Performance).
 3.  **System Tray**: Status-Anzeige (Syncing...).
 
-### Phase 5: Monetization (Woche 6)
+### Phase 4: Monetization (Woche 6)
 *Ziel: Business Logic.*
 1.  **Stripe Checkout**: Integration in UI.
 2.  **Supabase Edge Functions**: Webhooks zur Verarbeitung von Zahlungen und setzen der `subscription_tier`.
 
-### Phase 6: AI Extensions (Nach Launch / Hinten angestellt)
+### Phase 5: AI Extensions (Nach Launch / Hinten angestellt)
 *Ziel: Intelligente Suche (Client-Side).*
 -   Nach erfolgreichem Launch von Core & Sync.
 -   Integration von `tensorflow.js` und Vector-Search.
