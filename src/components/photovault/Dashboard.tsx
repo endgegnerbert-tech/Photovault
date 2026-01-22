@@ -25,28 +25,27 @@ export function Dashboard({ state, setState }: DashboardProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
   
-  // Persistent Settings
-  const { backupActive, setBackupActive, permanence } = useSettingsStore((state: SettingsState) => ({
-    backupActive: state.backupActive,
-    setBackupActive: state.setBackupActive,
-    permanence: 0 // TODO: Add permanence to store or calc
-  }));
+  // Persistent Settings - Using individual selectors for stability
+  const backupActive = useSettingsStore((state) => state.backupActive);
+  const setBackupActive = useSettingsStore((state) => state.setBackupActive);
+  const lastBackup = useSettingsStore((state) => state.lastBackup);
+  const setLastBackup = useSettingsStore((state) => state.setLastBackup);
+  const permanence = useSettingsStore((state) => state.permanence);
 
   // Get real photo count from encryption layer
-  const { secretKey } = useEncryption();
-  const { photoCount } = useGalleryData(secretKey);
+  // Note: hasKey is checked to avoid calling useGalleryData without a key
+  const { secretKey, hasKey } = useEncryption();
+  const { photoCount } = useGalleryData(hasKey ? secretKey : null);
 
   // Use real photo count if available
   const displayPhotoCount = photoCount > 0 ? photoCount : state.photosCount;
 
   const toggleBackup = () => {
-    // console.log("TODO: Toggle backup with confirmation dialog");
     setShowConfirmDialog(true);
   };
 
   const confirmToggle = () => {
     const newState = !backupActive;
-    console.log(newState ? "Activate Backup" : "Deactivate Backup");
     setBackupActive(newState);
     setShowConfirmDialog(false);
   };
@@ -86,17 +85,12 @@ export function Dashboard({ state, setState }: DashboardProps) {
 
           uploaded++;
           setUploadProgress({ current: uploaded, total: photosWithBlobs.length });
-          console.log(`Uploaded ${uploaded}/${photosWithBlobs.length}: ${photo.cid}`);
         } catch (err) {
           console.error(`Failed to upload ${photo.cid}:`, err);
         }
       }
 
-      setState((prev) => ({
-        ...prev,
-        lastBackup: "Gerade eben",
-      }));
-
+      setLastBackup("Gerade eben");
       console.log(`Backup complete: ${uploaded} photos uploaded`);
     } catch (err) {
       console.error("Backup failed:", err);
@@ -142,8 +136,8 @@ export function Dashboard({ state, setState }: DashboardProps) {
               </p>
               <p className="text-[15px] text-[#6E6E73]">
                 {backupActive
-                  ? "Deine Fotos werden geschützt"
-                  : "Tippe zum Aktivieren"}
+                   ? "Deine Fotos werden geschützt"
+                   : "Tippe zum Aktivieren"}
               </p>
             </div>
           </div>
@@ -153,8 +147,8 @@ export function Dashboard({ state, setState }: DashboardProps) {
             }`}
           >
             <div
-              className={`w-[27px] h-[27px] rounded-full bg-white shadow-sm ${
-                backupActive ? "ml-auto" : ""
+              className={`w-[27px] h-[27px] rounded-full bg-white shadow-sm transition-transform duration-200 transform ${
+                backupActive ? "translate-x-5" : ""
               }`}
             />
           </div>
@@ -180,7 +174,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
         />
         <MetricCard
           icon={<CustomIcon name="clock" size={20} />}
-          value={state.lastBackup}
+          value={lastBackup}
           label="Letztes Backup"
           tooltip={tooltips.lastBackup}
           showTooltip={showTooltip === "lastBackup"}
@@ -190,7 +184,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
         />
         <MetricCard
           icon={<CustomIcon name="shield" size={20} />}
-          value={`${state.permanence}%`}
+          value={`${permanence}%`}
           label="Dauerhaft"
           tooltip={tooltips.permanence}
           showTooltip={showTooltip === "permanence"}
@@ -208,7 +202,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
           backupActive
             ? "bg-[#007AFF] text-white"
             : "bg-[#30D158] text-white"
-        } disabled:opacity-70`}
+        } disabled:opacity-70 flex items-center justify-center`}
       >
         {isUploading ? (
           <span className="flex items-center justify-center gap-2">

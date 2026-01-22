@@ -37,7 +37,8 @@ export function OnboardingFlow({
   
   // Persistent Stores
   const { isGeneratingKey, generateNewKey, recoveryPhrase } = useEncryption();
-  const { setSelectedPlan, setAutoBackupEnabled } = useSettingsStore();
+  const setSelectedPlan = useSettingsStore(state => state.setSelectedPlan);
+  const setAutoBackupEnabled = useSettingsStore(state => state.setAutoBackupEnabled);
 
   const generateEncryptionKey = async () => {
     const phrase = await generateNewKey();

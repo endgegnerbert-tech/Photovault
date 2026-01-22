@@ -54,20 +54,12 @@ export function SettingsPanel({
   const [realDevices, setRealDevices] = useState<Device[]>([]);
   
   // Persistent Settings
-  const { 
-    autoBackupEnabled, 
-    setAutoBackupEnabled,
-    backgroundBackupEnabled,
-    setBackgroundBackupEnabled,
-    selectedPlan,
-    setSelectedPlan,
-    // Note: photoSource requires extending the store if we want to persist it too. 
-    // For now assuming photoSource is still in AppState or we add it to store.
-    // Let's assume we maintain hybrid until fully refactored, or better:
-    // We should add photoSource to the store if it's not there.
-    // Looking at the create_file for settings-store, it didn't include photoSource.
-    // I will stick to AppState for photoSource for this step, or update store.
-  } = useSettingsStore();
+  const autoBackupEnabled = useSettingsStore(state => state.autoBackupEnabled);
+  const setAutoBackupEnabled = useSettingsStore(state => state.setAutoBackupEnabled);
+  const backgroundBackupEnabled = useSettingsStore(state => state.backgroundBackupEnabled);
+  const setBackgroundBackupEnabled = useSettingsStore(state => state.setBackgroundBackupEnabled);
+  const selectedPlan = useSettingsStore(state => state.selectedPlan);
+  const setSelectedPlan = useSettingsStore(state => state.setSelectedPlan);
 
   const { recoveryPhrase, generateNewKey, clearKey } = useEncryption();
   const currentDeviceId = typeof window !== "undefined" ? getDeviceId() : "";
