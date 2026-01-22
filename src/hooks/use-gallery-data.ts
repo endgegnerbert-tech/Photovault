@@ -13,12 +13,22 @@ import {
     getPhotoCount,
     type PhotoMetadata,
 } from '@/lib/storage/local-db';
-import { encryptFile, decryptFile } from '@/lib/crypto';
+import { encryptFile, decryptFile, getUserKeyHash } from '@/lib/crypto';
 import { uploadCIDMetadata, uploadPhotoBlob, updatePhotoStoragePath } from '@/lib/supabase';
 import { getDeviceId } from '@/lib/deviceId';
 
 export function useGalleryData(secretKey: Uint8Array | null) {
     const queryClient = useQueryClient();
+    const [userKeyHash, setUserKeyHash] = useState<string | null>(null);
+
+    // Generate Key Hash when secretKey changes
+    useEffect(() => {
+        if (secretKey) {
+            getUserKeyHash(secretKey).then(setUserKeyHash);
+        } else {
+            setUserKeyHash(null);
+        }
+    }, [secretKey]);
 
     // Query: Load all photos
     const {
@@ -64,7 +74,7 @@ export function useGalleryData(secretKey: Uint8Array | null) {
             // Sync to Supabase Cloud
             const deviceId = getDeviceId();
             try {
-                await uploadCIDMetadata(cid, file.size, deviceId, nonce, file.type);
+                await uploadCIDMetadata(cid, file.size, deviceId, nonce, file.type, userKeyHash || undefined);
                 console.log('Photo metadata synced to cloud:', cid);
             } catch (error) {
                 console.error('Cloud metadata sync failed (photo saved locally):', error);
@@ -129,5 +139,6 @@ export function useGalleryData(secretKey: Uint8Array | null) {
         deletePhoto: deleteMutation.mutate,
         decryptPhoto,
         isUploading: uploadMutation.isPending,
+        userKeyHash
     };
 }

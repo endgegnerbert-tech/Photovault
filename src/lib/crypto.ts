@@ -122,6 +122,16 @@ export async function decryptFile(
 }
 
 /**
+ * Generiert einen stabilen Hash aus dem Secret Key für die Gruppierung von Geräten/Daten
+ */
+export async function getUserKeyHash(secretKey: Uint8Array): Promise<string> {
+    const msgUint8 = new TextEncoder().encode(encodeBase64(secretKey));
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16);
+}
+
+/**
  * Speichert Secret Key verschlüsselt im LocalStorage
  * Verwendet ein Master Password (optional für MVP)
  */

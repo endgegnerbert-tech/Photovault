@@ -61,16 +61,27 @@ export function SettingsPanel({
   const selectedPlan = useSettingsStore(state => state.selectedPlan);
   const setSelectedPlan = useSettingsStore(state => state.setSelectedPlan);
 
-  const { recoveryPhrase, generateNewKey, clearKey } = useEncryption();
+  const { secretKey, recoveryPhrase, generateNewKey, clearKey } = useEncryption();
   const currentDeviceId = typeof window !== "undefined" ? getDeviceId() : "";
+  const [userKeyHash, setUserKeyHash] = useState<string | null>(null);
 
-  // Fetch real devices from Supabase
+  // Get userKeyHash
   useEffect(() => {
+    if (secretKey) {
+      import("@/lib/crypto").then(m => m.getUserKeyHash(secretKey)).then(setUserKeyHash);
+    }
+  }, [secretKey]);
+
+  // Fetch real devices from Supabase using hash
+  useEffect(() => {
+    if (!userKeyHash) return;
+
     const fetchDevices = async () => {
       try {
         const { data, error } = await supabase
           .from("devices")
           .select("*")
+          .eq("user_key_hash", userKeyHash)
           .order("created_at", { ascending: false });
 
         if (error) {
@@ -85,38 +96,29 @@ export function SettingsPanel({
     };
 
     fetchDevices();
-  }, []);
+  }, [userKeyHash]);
 
   // Get the real backup phrase words
   const realBackupPhraseWords = recoveryPhrase?.split("-").slice(0, 12) || [];
 
   const toggleAutoBackup = () => {
-    console.log("Update Auto-Backup Preference:", !autoBackupEnabled);
     setAutoBackupEnabled(!autoBackupEnabled);
   };
 
   const toggleBackgroundBackup = () => {
-    console.log("Update Background Preference:", !backgroundBackupEnabled);
     setBackgroundBackupEnabled(!backgroundBackupEnabled);
   };
 
   const viewBackupPhrase = () => {
-    console.log("Display Backup Phrase");
     setShowPhraseWarning(false);
     setShowBackupPhrase(true);
   };
 
   const handleGenerateNewKey = async () => {
-    console.log("Generate New Encryption Key");
-    
-    // Clear existing key and generate new one
     clearKey();
     const newPhrase = await generateNewKey();
 
     if (newPhrase) {
-      const words = newPhrase.split("-").slice(0, 12);
-      // We don't need to update State for keys anymore as useEncryption handles it
-      // but we might need to reset 'photosCount' in AppState if that's where it lives
       setState((prev) => ({
         ...prev,
         photosCount: 0,
@@ -127,8 +129,15 @@ export function SettingsPanel({
   };
 
   const addDevice = () => {
-    console.log("Show QR code or key import");
+    // Show the pairing modal
+    setShowDevices(false);
+    // Since DevicePairing is normally inside Dashboard, 
+    // we should probably have it available here too or trigger a global state.
+    // In this component, we can just add the DevicePairing modal here as well.
+    setShowPairingFromSettings(true);
   };
+
+  const [showPairingFromSettings, setShowPairingFromSettings] = useState(false);
 
   const changeSource = (source: "photos-app" | "files-app") => {
     console.log("Update backup source preference:", source);
@@ -454,14 +463,22 @@ export function SettingsPanel({
       {/* Plan Selector Modal */}
       {showPlanSelector && (
         <PlanSelectorModal
-          currentPlan={state.selectedPlan}
+          currentPlan={selectedPlan}
           onSelect={changePlan}
           onClose={() => setShowPlanSelector(false)}
         />
       )}
+
+      {/* Device Pairing Modal */}
+      <DevicePairing 
+        isOpen={showPairingFromSettings} 
+        onClose={() => setShowPairingFromSettings(false)} 
+      />
     </div>
   );
 }
+
+import { DevicePairing } from "@/components/features/settings/DevicePairing";
 
 function SettingsToggleRow({
   label,

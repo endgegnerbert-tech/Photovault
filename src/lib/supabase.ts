@@ -25,6 +25,7 @@ export interface Device {
   device_type?: string
   public_key?: string
   created_at?: string
+  user_key_hash?: string
 }
 
 // Helper: Upload CID metadata to Supabase
@@ -33,7 +34,8 @@ export async function uploadCIDMetadata(
   fileSize: number,
   deviceId: string,
   nonce?: string,
-  mimeType?: string
+  mimeType?: string,
+  userKeyHash?: string
 ) {
   const { data, error } = await supabase
     .from('photos_metadata')
@@ -43,7 +45,8 @@ export async function uploadCIDMetadata(
       device_id: deviceId,
       pinned_locally: true,
       nonce,
-      mime_type: mimeType
+      mime_type: mimeType,
+      user_key_hash: userKeyHash
     }])
     .select()
 
@@ -55,11 +58,16 @@ export async function uploadCIDMetadata(
 }
 
 // Helper: Load all CIDs from Supabase
-export async function loadCIDsFromSupabase(_currentDeviceId?: string) {
-  const { data, error } = await supabase
+export async function loadCIDsFromSupabase(_currentDeviceId: string, userKeyHash?: string) {
+  let query = supabase
     .from('photos_metadata')
     .select('cid, device_id, uploaded_at, file_size_bytes, storage_path, nonce, mime_type')
-    .order('uploaded_at', { ascending: false })
+
+  if (userKeyHash) {
+    query = query.eq('user_key_hash', userKeyHash)
+  }
+
+  const { data, error } = await query.order('uploaded_at', { ascending: false })
 
   if (error) {
     console.error('Supabase Load Error:', error)
@@ -84,13 +92,15 @@ export async function cidExistsInSupabase(cid: string): Promise<boolean> {
 }
 
 // Helper: Register device
-export async function registerDevice(deviceName: string, deviceType?: string) {
+export async function registerDevice(id: string, deviceName: string, deviceType?: string, userKeyHash?: string) {
   const { data, error } = await supabase
     .from('devices')
-    .insert([{
+    .upsert([{
+      id,
       device_name: deviceName,
-      device_type: deviceType
-    }])
+      device_type: deviceType,
+      user_key_hash: userKeyHash
+    }], { onConflict: 'id' })
     .select()
 
   if (error) {

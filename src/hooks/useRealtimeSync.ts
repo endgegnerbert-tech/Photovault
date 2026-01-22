@@ -5,10 +5,11 @@
 'use client';
 
 import { useEffect, useCallback, useState } from 'react';
-import { supabase, loadCIDsFromSupabase } from '@/lib/supabase';
+import { supabase, loadCIDsFromSupabase, registerDevice } from '@/lib/supabase';
 import { remoteStorage } from '@/lib/storage/remote-storage';
 import { getDeviceId } from '@/lib/deviceId';
 import { getPhotoByCID, savePhoto } from '@/lib/storage/local-db';
+import { getUserKeyHash } from '@/lib/crypto';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 
 export interface SyncedPhoto {
@@ -36,8 +37,37 @@ export function useRealtimeSync(options: UseRealtimeSyncOptions = {}) {
   const [isConnected, setIsConnected] = useState(false);
   const [lastSyncError, setLastSyncError] = useState<Error | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [userKeyHash, setUserKeyHash] = useState<string | null>(null);
 
   const deviceId = typeof window !== 'undefined' ? getDeviceId() : 'server';
+
+  // Generate Key Hash when secretKey changes
+  useEffect(() => {
+    if (secretKey) {
+      getUserKeyHash(secretKey).then(setUserKeyHash);
+    } else {
+      setUserKeyHash(null);
+    }
+  }, [secretKey]);
+
+  // Register device in cloud when hash is available
+  useEffect(() => {
+    if (userKeyHash && deviceId !== 'server') {
+      const register = async () => {
+        try {
+          const { getDeviceName, getDeviceType } = await import('@/lib/deviceId');
+          const name = getDeviceName();
+          const type = getDeviceType();
+
+          await registerDevice(deviceId, name, type, userKeyHash);
+          console.log('Device registered with hash:', userKeyHash);
+        } catch (err) {
+          console.error('Failed to register device:', err);
+        }
+      };
+      register();
+    }
+  }, [userKeyHash, deviceId]);
 
   // Fetch missing photo content from Supabase Storage
   const fetchMissingContent = useCallback(async (photo: SyncedPhoto) => {
@@ -47,7 +77,6 @@ export function useRealtimeSync(options: UseRealtimeSyncOptions = {}) {
       // Check if we already have this photo locally
       const localPhoto = await getPhotoByCID(photo.cid);
       if (localPhoto?.encryptedBlob) {
-        console.log('Photo already exists locally:', photo.cid);
         return false;
       }
 
@@ -82,7 +111,7 @@ export function useRealtimeSync(options: UseRealtimeSyncOptions = {}) {
   // Load initial CIDs from Supabase
   const loadRemoteCIDs = useCallback(async () => {
     try {
-      const data = await loadCIDsFromSupabase(deviceId);
+      const data = await loadCIDsFromSupabase(deviceId, userKeyHash || undefined);
       const photos: SyncedPhoto[] = data.map((row) => ({
         cid: row.cid,
         device_id: row.device_id,
@@ -101,7 +130,21 @@ export function useRealtimeSync(options: UseRealtimeSyncOptions = {}) {
       setLastSyncError(error as Error);
       return [];
     }
-  }, [deviceId]);
+  }, [deviceId, userKeyHash]);
+
+  // Effect to automatically fetch missing content for all remote CIDs when key is available
+  useEffect(() => {
+    if (secretKey && remoteCIDs.length > 0) {
+      const fetchAllMissing = async () => {
+        for (const photo of remoteCIDs) {
+          if (photo.storage_path) {
+            await fetchMissingContent(photo);
+          }
+        }
+      };
+      fetchAllMissing();
+    }
+  }, [secretKey, remoteCIDs, fetchMissingContent]);
 
   // Subscribe to realtime changes
   useEffect(() => {
@@ -114,6 +157,7 @@ export function useRealtimeSync(options: UseRealtimeSyncOptions = {}) {
       await loadRemoteCIDs();
 
       // Subscribe to INSERT events
+      // Filter by user_key_hash in realtime if possible, or filter locally
       channel = supabase
         .channel('photos_metadata_changes')
         .on(
@@ -132,7 +176,13 @@ export function useRealtimeSync(options: UseRealtimeSyncOptions = {}) {
               storage_path: string | null;
               nonce: string | null;
               mime_type: string | null;
+              user_key_hash: string | null;
             };
+
+            // Only process if it belongs to this user
+            if (userKeyHash && newPhoto.user_key_hash !== userKeyHash) {
+              return;
+            }
 
             const syncedPhoto: SyncedPhoto = {
               cid: newPhoto.cid,
@@ -192,7 +242,7 @@ export function useRealtimeSync(options: UseRealtimeSyncOptions = {}) {
         supabase.removeChannel(channel);
       }
     };
-  }, [enabled, deviceId, onNewPhoto, onPhotoDeleted, loadRemoteCIDs, fetchMissingContent]);
+  }, [enabled, deviceId, userKeyHash, onNewPhoto, onPhotoDeleted, loadRemoteCIDs, fetchMissingContent]);
 
   // Force refresh
   const refresh = useCallback(async () => {
@@ -211,5 +261,6 @@ export function useRealtimeSync(options: UseRealtimeSyncOptions = {}) {
     refresh,
     fetchMissingContent,
     deviceId,
+    userKeyHash,
   };
 }

@@ -6,6 +6,7 @@ import { CustomIcon } from "@/components/ui/custom-icon";
 import { useEncryption } from "@/hooks/use-encryption";
 import { useGalleryData } from "@/hooks/use-gallery-data";
 import { useRealtimeSync, type SyncedPhoto } from "@/hooks/useRealtimeSync";
+import { DecryptedThumbnail } from "./DecryptedThumbnail";
 
 interface PhotoGalleryProps {
   photosCount: number;
@@ -353,10 +354,10 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
                     className="relative aspect-square overflow-hidden bg-[#E5E5EA]"
                   >
                     {isRealPhoto ? (
-                      // Real encrypted photo - show placeholder until decryption
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#E5E5EA] to-[#C7C7CC]">
-                        <CustomIcon name="lock" size={32} />
-                      </div>
+                      <DecryptedThumbnail 
+                        photo={photo.metadata} 
+                        secretKey={secretKey} 
+                      />
                     ) : photo.placeholderUrl ? (
                       // Placeholder photo (demo data)
                       <img
