@@ -427,15 +427,30 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$key$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Key$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/key.js [app-ssr] (ecmascript) <export default as Key>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$folder$2d$open$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FolderOpen$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/folder-open.js [app-ssr] (ecmascript) <export default as FolderOpen>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cloud$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Cloud$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/cloud.js [app-ssr] (ecmascript) <export default as Cloud>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript) <export default as Check>");
+(()=>{
+    const e = new Error("Cannot find module '@/public/key.svg'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+(()=>{
+    const e = new Error("Cannot find module '@/public/Openfolder.svg'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+(()=>{
+    const e = new Error("Cannot find module '@/public/cloud.svg'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$photovault$2f$PhotoVaultApp$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/photovault/PhotoVaultApp.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$progress$2d$indicator$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/progress-indicator.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$shield$2d$loader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/shield-loader.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$encryption$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-encryption.ts [app-ssr] (ecmascript)");
 "use client";
+;
+;
+;
 ;
 ;
 ;
@@ -491,7 +506,7 @@ function OnboardingFlow({ state, setState, step, setStep, onComplete }) {
     if (isGeneratingKey) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$shield$2d$loader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-            lineNumber: 79,
+            lineNumber: 84,
             columnNumber: 12
         }, this);
     }
@@ -502,7 +517,7 @@ function OnboardingFlow({ state, setState, step, setStep, onComplete }) {
                 currentStep: visualStep
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 85,
+                lineNumber: 90,
                 columnNumber: 7
             }, this),
             step === 1 && !showPhraseStep && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(KeyCreationStep, {
@@ -510,7 +525,7 @@ function OnboardingFlow({ state, setState, step, setStep, onComplete }) {
                 onImport: importExistingKey
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 88,
+                lineNumber: 93,
                 columnNumber: 9
             }, this),
             step === 1 && showPhraseStep && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BackupPhraseStep, {
@@ -520,7 +535,7 @@ function OnboardingFlow({ state, setState, step, setStep, onComplete }) {
                 onContinue: confirmPhraseAndContinue
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 95,
+                lineNumber: 100,
                 columnNumber: 9
             }, this),
             step === 2 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SourceSelectionStep, {
@@ -528,7 +543,7 @@ function OnboardingFlow({ state, setState, step, setStep, onComplete }) {
                 onSelect: selectSource
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 104,
+                lineNumber: 109,
                 columnNumber: 9
             }, this),
             step === 3 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PlanSelectionStep, {
@@ -536,20 +551,20 @@ function OnboardingFlow({ state, setState, step, setStep, onComplete }) {
                 onSelect: selectPlan
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 111,
+                lineNumber: 116,
                 columnNumber: 9
             }, this),
             showImportDialog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ImportKeyDialog, {
                 onClose: ()=>setShowImportDialog(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 119,
+                lineNumber: 124,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-        lineNumber: 83,
+        lineNumber: 88,
         columnNumber: 5
     }, this);
 }
@@ -562,16 +577,16 @@ function KeyCreationStep({ onContinue, onImport }) {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "w-20 h-20 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-6",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$key$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Key$3e$__["Key"], {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(KeyIcon, {
                             className: "w-10 h-10 text-[#007AFF]"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 136,
+                            lineNumber: 141,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 135,
+                        lineNumber: 140,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -579,7 +594,7 @@ function KeyCreationStep({ onContinue, onImport }) {
                         children: "Erstelle deinen Schlüssel"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 138,
+                        lineNumber: 143,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -587,7 +602,7 @@ function KeyCreationStep({ onContinue, onImport }) {
                         children: "Dieser Schlüssel verschlüsselt alle Fotos. Speichere ihn gut:"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 141,
+                        lineNumber: 146,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -596,11 +611,11 @@ function KeyCreationStep({ onContinue, onImport }) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex items-center gap-3 mb-2",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$key$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Key$3e$__["Key"], {
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(KeyIcon, {
                                         className: "w-5 h-5 text-[#007AFF]"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 152,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -608,13 +623,13 @@ function KeyCreationStep({ onContinue, onImport }) {
                                         children: "12-Wort Backup-Phrase"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                        lineNumber: 148,
+                                        lineNumber: 153,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 146,
+                                lineNumber: 151,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -622,19 +637,19 @@ function KeyCreationStep({ onContinue, onImport }) {
                                 children: "Wird im nächsten Schritt erstellt und angezeigt"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 152,
+                                lineNumber: 157,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 145,
+                        lineNumber: 150,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 134,
+                lineNumber: 139,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -646,7 +661,7 @@ function KeyCreationStep({ onContinue, onImport }) {
                         children: "Schlüssel erstellen"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 159,
+                        lineNumber: 164,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -655,19 +670,19 @@ function KeyCreationStep({ onContinue, onImport }) {
                         children: "Ich habe bereits einen Schlüssel"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 165,
+                        lineNumber: 170,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 158,
+                lineNumber: 163,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-        lineNumber: 133,
+        lineNumber: 138,
         columnNumber: 5
     }, this);
 }
@@ -686,7 +701,7 @@ function BackupPhraseStep({ phrase, confirmed, onConfirmChange, onContinue }) {
                                 children: "Notiere diese Wörter"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 191,
+                                lineNumber: 196,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -694,13 +709,13 @@ function BackupPhraseStep({ phrase, confirmed, onConfirmChange, onContinue }) {
                                 children: "Speichere sie sicher ab. Du brauchst sie zur Wiederherstellung."
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 194,
+                                lineNumber: 199,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 190,
+                        lineNumber: 195,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -713,7 +728,7 @@ function BackupPhraseStep({ phrase, confirmed, onConfirmChange, onContinue }) {
                                         children: index + 1
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                        lineNumber: 206,
+                                        lineNumber: 211,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -721,18 +736,18 @@ function BackupPhraseStep({ phrase, confirmed, onConfirmChange, onContinue }) {
                                         children: word
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                        lineNumber: 209,
+                                        lineNumber: 214,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, index, true, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 202,
+                                lineNumber: 207,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 200,
+                        lineNumber: 205,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -742,12 +757,12 @@ function BackupPhraseStep({ phrase, confirmed, onConfirmChange, onContinue }) {
                             children: "⚠️ Teile diese Wörter niemals mit anderen. Wer sie hat, kann auf deine Fotos zugreifen."
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 218,
+                            lineNumber: 223,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 217,
+                        lineNumber: 222,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -760,12 +775,12 @@ function BackupPhraseStep({ phrase, confirmed, onConfirmChange, onContinue }) {
                                     className: "w-4 h-4 text-white"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                    lineNumber: 234,
+                                    lineNumber: 239,
                                     columnNumber: 27
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 229,
+                                lineNumber: 234,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -773,19 +788,19 @@ function BackupPhraseStep({ phrase, confirmed, onConfirmChange, onContinue }) {
                                 children: "Ich habe die Wörter notiert"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 236,
+                                lineNumber: 241,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 225,
+                        lineNumber: 230,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 189,
+                lineNumber: 194,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -795,13 +810,13 @@ function BackupPhraseStep({ phrase, confirmed, onConfirmChange, onContinue }) {
                 children: "Weiter"
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 242,
+                lineNumber: 247,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-        lineNumber: 188,
+        lineNumber: 193,
         columnNumber: 5
     }, this);
 }
@@ -830,16 +845,16 @@ function SourceSelectionStep({ selectedSource, onSelect }) {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "w-20 h-20 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-6",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$folder$2d$open$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FolderOpen$3e$__["FolderOpen"], {
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FolderOpenIcon, {
                                 className: "w-10 h-10 text-[#007AFF]"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 282,
+                                lineNumber: 287,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 281,
+                            lineNumber: 286,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -847,7 +862,7 @@ function SourceSelectionStep({ selectedSource, onSelect }) {
                             children: "Wähle Backup-Quelle"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 284,
+                            lineNumber: 289,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -855,13 +870,13 @@ function SourceSelectionStep({ selectedSource, onSelect }) {
                             children: "Wo sind deine Fotos gespeichert?"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 287,
+                            lineNumber: 292,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                    lineNumber: 280,
+                    lineNumber: 285,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -874,19 +889,19 @@ function SourceSelectionStep({ selectedSource, onSelect }) {
                                 children: "Tipp:"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 295,
+                                lineNumber: 300,
                                 columnNumber: 16
                             }, this),
                             ' Die meisten Nutzer wählen "Fotos-App". Du kannst dies später in den Einstellungen ändern.'
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 294,
+                        lineNumber: 299,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                    lineNumber: 293,
+                    lineNumber: 298,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -905,7 +920,7 @@ function SourceSelectionStep({ selectedSource, onSelect }) {
                                                 children: source.label
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                lineNumber: 313,
+                                                lineNumber: 318,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -913,7 +928,7 @@ function SourceSelectionStep({ selectedSource, onSelect }) {
                                                 children: source.description
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                lineNumber: 316,
+                                                lineNumber: 321,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -921,13 +936,13 @@ function SourceSelectionStep({ selectedSource, onSelect }) {
                                                 children: source.details
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                lineNumber: 319,
+                                                lineNumber: 324,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                        lineNumber: 312,
+                                        lineNumber: 317,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -936,39 +951,39 @@ function SourceSelectionStep({ selectedSource, onSelect }) {
                                             className: "w-2.5 h-2.5 rounded-full bg-white"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                            lineNumber: 331,
+                                            lineNumber: 336,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                        lineNumber: 323,
+                                        lineNumber: 328,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 311,
+                                lineNumber: 316,
                                 columnNumber: 15
                             }, this)
                         }, source.id, false, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 302,
+                            lineNumber: 307,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                    lineNumber: 300,
+                    lineNumber: 305,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-            lineNumber: 279,
+            lineNumber: 284,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-        lineNumber: 278,
+        lineNumber: 283,
         columnNumber: 5
     }, this);
 }
@@ -1012,16 +1027,16 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "w-20 h-20 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-6",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cloud$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Cloud$3e$__["Cloud"], {
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(CloudIcon, {
                                     className: "w-10 h-10 text-[#007AFF]"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                    lineNumber: 387,
+                                    lineNumber: 392,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 386,
+                                lineNumber: 391,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -1029,7 +1044,7 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                 children: "Wähle Speicherplan"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 389,
+                                lineNumber: 394,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1037,13 +1052,13 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                 children: "Du kannst das später jederzeit ändern"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 392,
+                                lineNumber: 397,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 385,
+                        lineNumber: 390,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1056,19 +1071,19 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                     children: "Empfehlung:"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                    lineNumber: 400,
+                                    lineNumber: 405,
                                     columnNumber: 16
                                 }, this),
                                 " Starte mit FREE und upgrade später, wenn du mehr Speicher brauchst."
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 399,
+                            lineNumber: 404,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 398,
+                        lineNumber: 403,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1082,7 +1097,7 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                         children: "EMPFOHLEN"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                        lineNumber: 417,
+                                        lineNumber: 422,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1096,7 +1111,7 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                                         children: plan.label
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                        lineNumber: 423,
+                                                        lineNumber: 428,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1104,7 +1119,7 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                                         children: plan.subtitle
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                        lineNumber: 426,
+                                                        lineNumber: 431,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1112,7 +1127,7 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                                         children: plan.description
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                        lineNumber: 429,
+                                                        lineNumber: 434,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1125,7 +1140,7 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                                                         children: "✓"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                                        lineNumber: 438,
+                                                                        lineNumber: 443,
                                                                         columnNumber: 25
                                                                     }, this),
                                                                     " ",
@@ -1133,12 +1148,12 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                                                 ]
                                                             }, feature, true, {
                                                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                                lineNumber: 434,
+                                                                lineNumber: 439,
                                                                 columnNumber: 23
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                        lineNumber: 432,
+                                                        lineNumber: 437,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1146,13 +1161,13 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                                         children: plan.price
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                        lineNumber: 442,
+                                                        lineNumber: 447,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                lineNumber: 422,
+                                                lineNumber: 427,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1161,35 +1176,35 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                                                     className: "w-2.5 h-2.5 rounded-full bg-white"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                    lineNumber: 454,
+                                                    lineNumber: 459,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                                lineNumber: 446,
+                                                lineNumber: 451,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                        lineNumber: 421,
+                                        lineNumber: 426,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, plan.id, true, {
                                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                                lineNumber: 407,
+                                lineNumber: 412,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                        lineNumber: 405,
+                        lineNumber: 410,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 384,
+                lineNumber: 389,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1198,13 +1213,13 @@ function PlanSelectionStep({ selectedPlan, onSelect }) {
                 children: "PhotoVault starten"
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                lineNumber: 463,
+                lineNumber: 468,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-        lineNumber: 383,
+        lineNumber: 388,
         columnNumber: 5
     }, this);
 }
@@ -1220,7 +1235,7 @@ function ImportKeyDialog({ onClose }) {
                     children: "Schlüssel importieren"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                    lineNumber: 479,
+                    lineNumber: 484,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1228,7 +1243,7 @@ function ImportKeyDialog({ onClose }) {
                     children: "Gib deine 12-Wort Backup-Phrase ein"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                    lineNumber: 482,
+                    lineNumber: 487,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1238,7 +1253,7 @@ function ImportKeyDialog({ onClose }) {
                     className: "w-full h-[100px] bg-[#F2F2F7] rounded-xl p-4 text-[15px] text-[#1D1D1F] resize-none mb-4"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                    lineNumber: 485,
+                    lineNumber: 490,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1253,7 +1268,7 @@ function ImportKeyDialog({ onClose }) {
                             children: "Importieren"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 492,
+                            lineNumber: 497,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1262,24 +1277,24 @@ function ImportKeyDialog({ onClose }) {
                             children: "Abbrechen"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                            lineNumber: 501,
+                            lineNumber: 506,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-                    lineNumber: 491,
+                    lineNumber: 496,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-            lineNumber: 478,
+            lineNumber: 483,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/photovault/OnboardingFlow.tsx",
-        lineNumber: 477,
+        lineNumber: 482,
         columnNumber: 5
     }, this);
 }
@@ -1460,11 +1475,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/image.js [app-ssr] (ecmascript) <export default as Image>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/clock.js [app-ssr] (ecmascript) <export default as Clock>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/shield.js [app-ssr] (ecmascript) <export default as Shield>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$help$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HelpCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-help.js [app-ssr] (ecmascript) <export default as HelpCircle>");
+(()=>{
+    const e = new Error("Cannot find module '@/public/shield.svg'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$encryption$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-encryption.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$gallery$2d$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-gallery-data.ts [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -1517,7 +1537,7 @@ function Dashboard({ state, setState }) {
                         children: "Backup"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 58,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1525,13 +1545,13 @@ function Dashboard({ state, setState }) {
                         children: "Verschlüsseltes Photo-Backup"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 59,
+                        lineNumber: 62,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 57,
+                lineNumber: 60,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1545,16 +1565,16 @@ function Dashboard({ state, setState }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: `w-14 h-14 rounded-full flex items-center justify-center ${state.backupActive ? "bg-[#30D158]/10" : "bg-[#E5E5EA]"}`,
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ShieldIcon, {
                                         className: `w-7 h-7 ${state.backupActive ? "text-[#30D158]" : "text-[#8E8E93]"}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                        lineNumber: 74,
+                                        lineNumber: 79,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 69,
+                                    lineNumber: 74,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1568,7 +1588,7 @@ function Dashboard({ state, setState }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                            lineNumber: 81,
+                                            lineNumber: 86,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1576,19 +1596,19 @@ function Dashboard({ state, setState }) {
                                             children: state.backupActive ? "Deine Fotos werden geschützt" : "Tippe zum Aktivieren"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                            lineNumber: 84,
+                                            lineNumber: 89,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 80,
+                                    lineNumber: 85,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 68,
+                            lineNumber: 73,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1597,23 +1617,23 @@ function Dashboard({ state, setState }) {
                                 className: `w-[27px] h-[27px] rounded-full bg-white shadow-sm ${state.backupActive ? "ml-auto" : ""}`
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                lineNumber: 94,
+                                lineNumber: 101,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 89,
+                            lineNumber: 96,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                    lineNumber: 67,
+                    lineNumber: 72,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 63,
+                lineNumber: 68,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1621,7 +1641,7 @@ function Dashboard({ state, setState }) {
                 children: "Automatisch neue Fotos sichern"
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 104,
+                lineNumber: 111,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1632,7 +1652,7 @@ function Dashboard({ state, setState }) {
                             className: "w-5 h-5 text-[#007AFF]"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 111,
+                            lineNumber: 118,
                             columnNumber: 17
                         }, void 0),
                         value: displayPhotoCount.toLocaleString(),
@@ -1642,7 +1662,7 @@ function Dashboard({ state, setState }) {
                         onTap: ()=>setShowTooltip(showTooltip === "photos" ? null : "photos")
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 110,
+                        lineNumber: 117,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MetricCard, {
@@ -1650,7 +1670,7 @@ function Dashboard({ state, setState }) {
                             className: "w-5 h-5 text-[#007AFF]"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 119,
+                            lineNumber: 128,
                             columnNumber: 17
                         }, void 0),
                         value: state.lastBackup,
@@ -1660,15 +1680,15 @@ function Dashboard({ state, setState }) {
                         onTap: ()=>setShowTooltip(showTooltip === "lastBackup" ? null : "lastBackup")
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 118,
+                        lineNumber: 127,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MetricCard, {
-                        icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
+                        icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ShieldIcon, {
                             className: "w-5 h-5 text-[#007AFF]"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 127,
+                            lineNumber: 138,
                             columnNumber: 17
                         }, void 0),
                         value: `${state.permanence}%`,
@@ -1678,13 +1698,13 @@ function Dashboard({ state, setState }) {
                         onTap: ()=>setShowTooltip(showTooltip === "permanence" ? null : "permanence")
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 126,
+                        lineNumber: 137,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 109,
+                lineNumber: 116,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1693,7 +1713,7 @@ function Dashboard({ state, setState }) {
                 children: state.backupActive ? "Jetzt sichern" : "Backup aktivieren"
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 137,
+                lineNumber: 150,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1704,19 +1724,19 @@ function Dashboard({ state, setState }) {
                         "Deine Fotos sind verschlüsselt.",
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 152,
+                            lineNumber: 165,
                             columnNumber: 11
                         }, this),
                         "Niemand kann sie sehen."
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                    lineNumber: 150,
+                    lineNumber: 163,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 149,
+                lineNumber: 162,
                 columnNumber: 7
             }, this),
             showConfirmDialog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1732,7 +1752,7 @@ function Dashboard({ state, setState }) {
                                     children: state.backupActive ? "Backup deaktivieren?" : "Backup aktivieren?"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 162,
+                                    lineNumber: 175,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1740,13 +1760,13 @@ function Dashboard({ state, setState }) {
                                     children: state.backupActive ? "Neue Fotos werden nicht mehr automatisch gesichert." : "Neue Fotos werden automatisch verschlüsselt und gesichert."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 165,
+                                    lineNumber: 180,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 161,
+                            lineNumber: 174,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1758,7 +1778,7 @@ function Dashboard({ state, setState }) {
                                     children: "Abbrechen"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 172,
+                                    lineNumber: 187,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1767,30 +1787,30 @@ function Dashboard({ state, setState }) {
                                     children: state.backupActive ? "Deaktivieren" : "Aktivieren"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 178,
+                                    lineNumber: 193,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 171,
+                            lineNumber: 186,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                    lineNumber: 160,
+                    lineNumber: 173,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 159,
+                lineNumber: 172,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-        lineNumber: 55,
+        lineNumber: 58,
         columnNumber: 5
     }, this);
 }
@@ -1810,13 +1830,13 @@ function MetricCard({ icon, value, label, tooltip, showTooltip, onTap }) {
                                 className: "w-3 h-3 text-[#C7C7CC] absolute -right-1 -top-1"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                lineNumber: 217,
+                                lineNumber: 232,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 215,
+                        lineNumber: 230,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1824,7 +1844,7 @@ function MetricCard({ icon, value, label, tooltip, showTooltip, onTap }) {
                         children: value
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 219,
+                        lineNumber: 234,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1832,13 +1852,13 @@ function MetricCard({ icon, value, label, tooltip, showTooltip, onTap }) {
                         children: label
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 220,
+                        lineNumber: 237,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 211,
+                lineNumber: 226,
                 columnNumber: 7
             }, this),
             showTooltip && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1849,19 +1869,19 @@ function MetricCard({ icon, value, label, tooltip, showTooltip, onTap }) {
                         className: "absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-[#1D1D1F]"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 227,
+                        lineNumber: 244,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 225,
+                lineNumber: 242,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-        lineNumber: 210,
+        lineNumber: 225,
         columnNumber: 5
     }, this);
 }
@@ -1876,14 +1896,29 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-ssr] (ecmascript) <export default as ChevronRight>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$smartphone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Smartphone$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/smartphone.js [app-ssr] (ecmascript) <export default as Smartphone>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-ssr] (ecmascript) <export default as Plus>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/loader-circle.js [app-ssr] (ecmascript) <export default as Loader2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript) <export default as Check>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/refresh-cw.js [app-ssr] (ecmascript) <export default as RefreshCw>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$folder$2d$open$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FolderOpen$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/folder-open.js [app-ssr] (ecmascript) <export default as FolderOpen>");
+(()=>{
+    const e = new Error("Cannot find module '@/public/smartphone.svg'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+(()=>{
+    const e = new Error("Cannot find module '@/public/RefreshCw.svg'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
+(()=>{
+    const e = new Error("Cannot find module '@/public/Openfolder.svg'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$photovault$2f$PhotoVaultApp$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/photovault/PhotoVaultApp.tsx [app-ssr] (ecmascript)");
 "use client";
+;
+;
+;
 ;
 ;
 ;
@@ -1968,7 +2003,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
             onAddDevice: addDevice
         }, void 0, false, {
             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-            lineNumber: 70,
+            lineNumber: 95,
             columnNumber: 7
         }, this);
     }
@@ -1982,12 +2017,12 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                     children: "Einstellungen"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 82,
+                    lineNumber: 107,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 81,
+                lineNumber: 106,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2001,7 +2036,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                 children: "Backup"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 88,
+                                lineNumber: 115,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2014,14 +2049,14 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                         onToggle: toggleAutoBackup
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 92,
+                                        lineNumber: 119,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "h-[0.5px] bg-[#E5E5EA] ml-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 98,
+                                        lineNumber: 125,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SettingsToggleRow, {
@@ -2031,14 +2066,14 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                         onToggle: toggleBackgroundBackup
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 99,
+                                        lineNumber: 126,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "h-[0.5px] bg-[#E5E5EA] ml-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 105,
+                                        lineNumber: 132,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2048,11 +2083,11 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex items-center gap-3",
                                                 children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$folder$2d$open$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FolderOpen$3e$__["FolderOpen"], {
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FolderOpenIcon, {
                                                         className: "w-5 h-5 text-[#007AFF]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 111,
+                                                        lineNumber: 138,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2063,7 +2098,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                                 children: "Backup-Quelle"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                                lineNumber: 113,
+                                                                lineNumber: 140,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2071,44 +2106,44 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                                 children: state.photoSource === "photos-app" ? "Fotos-App" : "Dateien-App"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                                lineNumber: 114,
+                                                                lineNumber: 143,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 112,
+                                                        lineNumber: 139,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 110,
+                                                lineNumber: 137,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                 className: "w-5 h-5 text-[#C7C7CC]"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 119,
+                                                lineNumber: 150,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 106,
+                                        lineNumber: 133,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 91,
+                                lineNumber: 118,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 87,
+                        lineNumber: 114,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2119,7 +2154,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                 children: "Speicher"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 126,
+                                lineNumber: 157,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2136,7 +2171,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                         children: "Aktueller Plan"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 132,
+                                                        lineNumber: 163,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2144,13 +2179,13 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                         children: state.selectedPlan === "free" ? "Free" : "Backup+"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 133,
+                                                        lineNumber: 166,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 131,
+                                                lineNumber: 162,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2158,20 +2193,20 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                 children: state.selectedPlan === "free" ? "Fotos auf deinen Geräten" : "200 GB Cloud-Backup"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 137,
+                                                lineNumber: 170,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 130,
+                                        lineNumber: 161,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "h-[0.5px] bg-[#E5E5EA] ml-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 143,
+                                        lineNumber: 176,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2184,7 +2219,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                     children: "Verwendet"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                    lineNumber: 146,
+                                                    lineNumber: 179,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2195,25 +2230,25 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                    lineNumber: 147,
+                                                    lineNumber: 180,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 145,
+                                            lineNumber: 178,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 144,
+                                        lineNumber: 177,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "h-[0.5px] bg-[#E5E5EA] ml-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 152,
+                                        lineNumber: 185,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2225,32 +2260,32 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                 children: state.selectedPlan === "free" ? "Upgrade zu Backup+" : "Plan verwalten"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 157,
+                                                lineNumber: 190,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                 className: "w-5 h-5 text-[#C7C7CC]"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 160,
+                                                lineNumber: 195,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 153,
+                                        lineNumber: 186,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 129,
+                                lineNumber: 160,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 125,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2261,7 +2296,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                 children: "Geräte"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 167,
+                                lineNumber: 202,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2276,11 +2311,11 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex items-center gap-3",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$smartphone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Smartphone$3e$__["Smartphone"], {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SmartphoneIcon, {
                                                     className: "w-5 h-5 text-[#007AFF]"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                    lineNumber: 179,
+                                                    lineNumber: 214,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2288,13 +2323,13 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                     children: "Verbundene Geräte"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                    lineNumber: 180,
+                                                    lineNumber: 215,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 178,
+                                            lineNumber: 213,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2305,37 +2340,37 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                     children: state.devices.length
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                    lineNumber: 183,
+                                                    lineNumber: 220,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                     className: "w-5 h-5 text-[#C7C7CC]"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                    lineNumber: 184,
+                                                    lineNumber: 223,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 182,
+                                            lineNumber: 219,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                    lineNumber: 171,
+                                    lineNumber: 206,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 170,
+                                lineNumber: 205,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 166,
+                        lineNumber: 201,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2346,7 +2381,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                 children: "Sicherheit"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 192,
+                                lineNumber: 231,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2361,27 +2396,27 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                 children: "Backup-Phrase anzeigen"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 200,
+                                                lineNumber: 239,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                 className: "w-5 h-5 text-[#C7C7CC]"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 201,
+                                                lineNumber: 242,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 196,
+                                        lineNumber: 235,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "h-[0.5px] bg-[#E5E5EA] ml-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 244,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2393,26 +2428,26 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                 children: "Neuen Schlüssel erstellen"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 208,
+                                                lineNumber: 249,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                 className: "w-5 h-5 text-[#C7C7CC]"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 209,
+                                                lineNumber: 252,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 204,
+                                        lineNumber: 245,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 195,
+                                lineNumber: 234,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2420,13 +2455,13 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                 children: "Teile diese Wörter niemals mit anderen."
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 212,
+                                lineNumber: 255,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 191,
+                        lineNumber: 230,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2437,7 +2472,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                 children: "Setup"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 219,
+                                lineNumber: 262,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2452,11 +2487,11 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex items-center gap-3",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$refresh$2d$cw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RefreshCw$3e$__["RefreshCw"], {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(RefreshCwIcon, {
                                                     className: "w-5 h-5 text-[#007AFF]"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                    lineNumber: 231,
+                                                    lineNumber: 274,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2464,31 +2499,31 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                                     children: "Onboarding wiederholen"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                    lineNumber: 232,
+                                                    lineNumber: 275,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 230,
+                                            lineNumber: 273,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                             className: "w-5 h-5 text-[#C7C7CC]"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 234,
+                                            lineNumber: 279,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                    lineNumber: 223,
+                                    lineNumber: 266,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 222,
+                                lineNumber: 265,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2496,19 +2531,19 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                 children: "Schlüssel, Quelle und Plan neu einrichten"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 237,
+                                lineNumber: 282,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 218,
+                        lineNumber: 261,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 85,
+                lineNumber: 112,
                 columnNumber: 7
             }, this),
             showPhraseWarning && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Modal, {
@@ -2520,7 +2555,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                 onCancel: ()=>setShowPhraseWarning(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 245,
+                lineNumber: 290,
                 columnNumber: 9
             }, this),
             showBackupPhrase && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2533,7 +2568,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                             children: "Deine Backup-Phrase"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 259,
+                            lineNumber: 304,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2541,7 +2576,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                             children: "Notiere diese Wörter und bewahre sie sicher auf."
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 262,
+                            lineNumber: 307,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2554,7 +2589,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                             children: index + 1
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 273,
+                                            lineNumber: 321,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2562,18 +2597,18 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                             children: word
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 324,
                                             columnNumber: 19
                                         }, this)
                                     ]
                                 }, index, true, {
                                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                    lineNumber: 269,
+                                    lineNumber: 317,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 267,
+                            lineNumber: 312,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2583,12 +2618,12 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                                 children: "⚠️ Teile diese Wörter niemals mit anderen"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 285,
+                                lineNumber: 333,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 284,
+                            lineNumber: 332,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2597,18 +2632,18 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                             children: "Fertig"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 290,
+                            lineNumber: 338,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 258,
+                    lineNumber: 303,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 257,
+                lineNumber: 302,
                 columnNumber: 9
             }, this),
             showNewKeyWarning && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Modal, {
@@ -2620,7 +2655,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                 onCancel: ()=>setShowNewKeyWarning(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 302,
+                lineNumber: 350,
                 columnNumber: 9
             }, this),
             showSourceSelector && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SourceSelectorModal, {
@@ -2629,7 +2664,7 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                 onClose: ()=>setShowSourceSelector(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 314,
+                lineNumber: 362,
                 columnNumber: 9
             }, this),
             showPlanSelector && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(PlanSelectorModal, {
@@ -2638,13 +2673,13 @@ function SettingsPanel({ state, setState, onRestartOnboarding }) {
                 onClose: ()=>setShowPlanSelector(false)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 323,
+                lineNumber: 371,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-        lineNumber: 79,
+        lineNumber: 104,
         columnNumber: 5
     }, this);
 }
@@ -2661,7 +2696,7 @@ function SettingsToggleRow({ label, description, enabled, onToggle }) {
                         children: label
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 350,
+                        lineNumber: 398,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2669,13 +2704,13 @@ function SettingsToggleRow({ label, description, enabled, onToggle }) {
                         children: description
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 351,
+                        lineNumber: 399,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 349,
+                lineNumber: 397,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2684,18 +2719,18 @@ function SettingsToggleRow({ label, description, enabled, onToggle }) {
                     className: `w-[27px] h-[27px] rounded-full bg-white shadow-sm ${enabled ? "ml-auto" : ""}`
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 358,
+                    lineNumber: 406,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 353,
+                lineNumber: 401,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-        lineNumber: 345,
+        lineNumber: 393,
         columnNumber: 5
     }, this);
 }
@@ -2712,7 +2747,7 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                         children: "← Zurück"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 381,
+                        lineNumber: 434,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -2720,13 +2755,13 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                         children: "Geräte"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 387,
+                        lineNumber: 440,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 380,
+                lineNumber: 433,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2740,17 +2775,17 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                                         className: "h-[0.5px] bg-[#E5E5EA] ml-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 394,
+                                        lineNumber: 447,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-3 p-4",
                                         children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$smartphone$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Smartphone$3e$__["Smartphone"], {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SmartphoneIcon, {
                                                 className: "w-8 h-8 text-[#007AFF]"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 396,
+                                                lineNumber: 449,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2761,7 +2796,7 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                                                         children: device.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 398,
+                                                        lineNumber: 451,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2769,20 +2804,20 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                                                         children: device.lastActive
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 399,
+                                                        lineNumber: 452,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 397,
+                                                lineNumber: 450,
                                                 columnNumber: 17
                                             }, this),
                                             device.syncing ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
                                                 className: "w-5 h-5 text-[#007AFF] animate-spin"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 402,
+                                                lineNumber: 457,
                                                 columnNumber: 19
                                             }, this) : device.lastActive === "Aktiv" ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex items-center gap-1",
@@ -2791,7 +2826,7 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                                                         className: "w-4 h-4 text-[#30D158]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 405,
+                                                        lineNumber: 460,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2799,30 +2834,30 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                                                         children: "Dieses Gerät"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 406,
+                                                        lineNumber: 461,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 404,
+                                                lineNumber: 459,
                                                 columnNumber: 19
                                             }, this) : null
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 395,
+                                        lineNumber: 448,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, device.id, true, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 393,
+                                lineNumber: 446,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 391,
+                        lineNumber: 444,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2833,7 +2868,7 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                                 className: "w-5 h-5 text-[#007AFF]"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 418,
+                                lineNumber: 475,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2841,13 +2876,13 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                                 children: "Neues Gerät verbinden"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 419,
+                                lineNumber: 476,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 414,
+                        lineNumber: 471,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2855,19 +2890,19 @@ function DevicesView({ devices, onBack, onAddDevice }) {
                         children: "Scanne den QR-Code oder gib deine Backup-Phrase ein"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                        lineNumber: 422,
+                        lineNumber: 481,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                lineNumber: 390,
+                lineNumber: 443,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-        lineNumber: 378,
+        lineNumber: 431,
         columnNumber: 5
     }, this);
 }
@@ -2894,7 +2929,7 @@ function SourceSelectorModal({ currentSource, onSelect, onClose }) {
                     children: "Backup-Quelle"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 455,
+                    lineNumber: 514,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2902,7 +2937,7 @@ function SourceSelectorModal({ currentSource, onSelect, onClose }) {
                     children: "Wo sind deine Fotos gespeichert?"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 458,
+                    lineNumber: 517,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2920,7 +2955,7 @@ function SourceSelectorModal({ currentSource, onSelect, onClose }) {
                                                 children: source.label
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 473,
+                                                lineNumber: 532,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2928,13 +2963,13 @@ function SourceSelectorModal({ currentSource, onSelect, onClose }) {
                                                 children: source.description
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 474,
+                                                lineNumber: 535,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 472,
+                                        lineNumber: 531,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2943,28 +2978,28 @@ function SourceSelectorModal({ currentSource, onSelect, onClose }) {
                                             className: "w-2.5 h-2.5 rounded-full bg-white"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 484,
+                                            lineNumber: 547,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 476,
+                                        lineNumber: 539,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 471,
+                                lineNumber: 530,
                                 columnNumber: 15
                             }, this)
                         }, source.id, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 464,
+                            lineNumber: 523,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 462,
+                    lineNumber: 521,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2973,18 +3008,18 @@ function SourceSelectorModal({ currentSource, onSelect, onClose }) {
                     children: "Abbrechen"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 492,
+                    lineNumber: 555,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-            lineNumber: 454,
+            lineNumber: 513,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-        lineNumber: 453,
+        lineNumber: 512,
         columnNumber: 5
     }, this);
 }
@@ -3023,7 +3058,7 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                     children: "Speicherplan"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 532,
+                    lineNumber: 603,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3031,7 +3066,7 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                     children: "Du kannst jederzeit wechseln"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 535,
+                    lineNumber: 606,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3050,7 +3085,7 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                                                 children: plan.label
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 550,
+                                                lineNumber: 621,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3058,7 +3093,7 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                                                 children: plan.subtitle
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 553,
+                                                lineNumber: 624,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -3071,7 +3106,7 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                                                                 children: "✓"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                                lineNumber: 559,
+                                                                lineNumber: 633,
                                                                 columnNumber: 25
                                                             }, this),
                                                             " ",
@@ -3079,12 +3114,12 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                                                         ]
                                                     }, feature, true, {
                                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                        lineNumber: 558,
+                                                        lineNumber: 629,
                                                         columnNumber: 23
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 556,
+                                                lineNumber: 627,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3092,13 +3127,13 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                                                 children: plan.price
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                                lineNumber: 563,
+                                                lineNumber: 637,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 549,
+                                        lineNumber: 620,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3107,28 +3142,28 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                                             className: "w-2.5 h-2.5 rounded-full bg-white"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                            lineNumber: 575,
+                                            lineNumber: 649,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                        lineNumber: 567,
+                                        lineNumber: 641,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                                lineNumber: 548,
+                                lineNumber: 619,
                                 columnNumber: 15
                             }, this)
                         }, plan.id, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 541,
+                            lineNumber: 612,
                             columnNumber: 13
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 539,
+                    lineNumber: 610,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3137,18 +3172,18 @@ function PlanSelectorModal({ currentPlan, onSelect, onClose }) {
                     children: "Abbrechen"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 583,
+                    lineNumber: 657,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-            lineNumber: 531,
+            lineNumber: 602,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-        lineNumber: 530,
+        lineNumber: 601,
         columnNumber: 5
     }, this);
 }
@@ -3166,7 +3201,7 @@ function Modal({ title, message, confirmLabel, confirmDestructive, onConfirm, on
                             children: title
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 613,
+                            lineNumber: 687,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3174,13 +3209,13 @@ function Modal({ title, message, confirmLabel, confirmDestructive, onConfirm, on
                             children: message
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 614,
+                            lineNumber: 690,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 612,
+                    lineNumber: 686,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3192,7 +3227,7 @@ function Modal({ title, message, confirmLabel, confirmDestructive, onConfirm, on
                             children: "Abbrechen"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 617,
+                            lineNumber: 695,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3201,24 +3236,24 @@ function Modal({ title, message, confirmLabel, confirmDestructive, onConfirm, on
                             children: confirmLabel
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                            lineNumber: 623,
+                            lineNumber: 701,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-                    lineNumber: 616,
+                    lineNumber: 694,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-            lineNumber: 611,
+            lineNumber: 685,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/photovault/SettingsPanel.tsx",
-        lineNumber: 610,
+        lineNumber: 684,
         columnNumber: 5
     }, this);
 }
@@ -3236,11 +3271,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sliders$2d$horizontal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SlidersHorizontal$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/sliders-horizontal.js [app-ssr] (ecmascript) <export default as SlidersHorizontal>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript) <export default as Check>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Lock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/lock.js [app-ssr] (ecmascript) <export default as Lock>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/upload.js [app-ssr] (ecmascript) <export default as Upload>");
+(()=>{
+    const e = new Error("Cannot find module '@/public/lock.svg'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$encryption$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-encryption.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$gallery$2d$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-gallery-data.ts [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -3272,7 +3312,7 @@ const generatePhotos = (count)=>{
             cid: `Qm${Math.random().toString(36).substring(2, 15)}${Math.random().toString(36).substring(2, 15)}`,
             placeholderUrl: `https://picsum.photos/seed/${i + 100}/400/400`,
             category: categories[i % categories.length],
-            date: date.toISOString().split('T')[0],
+            date: date.toISOString().split("T")[0],
             metadata: undefined
         };
     });
@@ -3297,15 +3337,15 @@ const formatDateLabel = (dateStr)=>{
     const today = new Date();
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
-    if (dateStr === today.toISOString().split('T')[0]) {
+    if (dateStr === today.toISOString().split("T")[0]) {
         return "Heute";
-    } else if (dateStr === yesterday.toISOString().split('T')[0]) {
+    } else if (dateStr === yesterday.toISOString().split("T")[0]) {
         return "Gestern";
     } else {
-        return date.toLocaleDateString('de-DE', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'long'
+        return date.toLocaleDateString("de-DE", {
+            weekday: "long",
+            day: "numeric",
+            month: "long"
         });
     }
 };
@@ -3325,9 +3365,9 @@ function PhotoGallery({ photosCount }) {
     const photos = realPhotos.length > 0 ? realPhotos.map((p)=>({
             id: p.id?.toString() || p.cid,
             cid: p.cid,
-            placeholderUrl: '',
-            category: 'photo',
-            date: p.uploadedAt.toISOString().split('T')[0],
+            placeholderUrl: "",
+            category: "photo",
+            date: p.uploadedAt.toISOString().split("T")[0],
             metadata: p
         })) : generatePhotos(Math.min(photosCount, 50));
     const photoGroups = groupPhotosByDate(photos);
@@ -3417,7 +3457,7 @@ function PhotoGallery({ photosCount }) {
                                     className: "w-4 h-4 text-[#8E8E93]"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 164,
+                                    lineNumber: 181,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3429,13 +3469,13 @@ function PhotoGallery({ photosCount }) {
                                     autoFocus: true
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 165,
+                                    lineNumber: 182,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 163,
+                            lineNumber: 180,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3447,13 +3487,13 @@ function PhotoGallery({ photosCount }) {
                             children: "Abbrechen"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 174,
+                            lineNumber: 191,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                    lineNumber: 162,
+                    lineNumber: 179,
                     columnNumber: 11
                 }, this) : selectMode ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                     children: [
@@ -3466,7 +3506,7 @@ function PhotoGallery({ photosCount }) {
                             children: "Abbrechen"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 186,
+                            lineNumber: 203,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3477,7 +3517,7 @@ function PhotoGallery({ photosCount }) {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 195,
+                            lineNumber: 212,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3488,7 +3528,7 @@ function PhotoGallery({ photosCount }) {
                             children: "Löschen"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 198,
+                            lineNumber: 215,
                             columnNumber: 13
                         }, this)
                     ]
@@ -3497,11 +3537,11 @@ function PhotoGallery({ photosCount }) {
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex items-center gap-2",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Lock$3e$__["Lock"], {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(LockIcon, {
                                     className: "w-5 h-5 text-[#30D158]"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 210,
+                                    lineNumber: 230,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -3509,13 +3549,13 @@ function PhotoGallery({ photosCount }) {
                                     children: "Galerie"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 211,
+                                    lineNumber: 231,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 209,
+                            lineNumber: 229,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3525,10 +3565,10 @@ function PhotoGallery({ photosCount }) {
                                     className: "ios-tap-target cursor-pointer",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$upload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Upload$3e$__["Upload"], {
-                                            className: `w-6 h-6 ${isUploading ? 'text-[#8E8E93] animate-pulse' : 'text-[#007AFF]'}`
+                                            className: `w-6 h-6 ${isUploading ? "text-[#8E8E93] animate-pulse" : "text-[#007AFF]"}`
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                            lineNumber: 216,
+                                            lineNumber: 238,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3540,13 +3580,13 @@ function PhotoGallery({ photosCount }) {
                                             disabled: isUploading
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                            lineNumber: 217,
+                                            lineNumber: 241,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 215,
+                                    lineNumber: 237,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3556,12 +3596,12 @@ function PhotoGallery({ photosCount }) {
                                         className: "w-6 h-6 text-[#007AFF]"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                        lineNumber: 230,
+                                        lineNumber: 254,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 226,
+                                    lineNumber: 250,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3571,25 +3611,25 @@ function PhotoGallery({ photosCount }) {
                                         className: `w-6 h-6 ${selectedFilter ? "text-[#30D158]" : "text-[#007AFF]"}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                        lineNumber: 236,
+                                        lineNumber: 260,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 232,
+                                    lineNumber: 256,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 213,
+                            lineNumber: 235,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                lineNumber: 160,
+                lineNumber: 177,
                 columnNumber: 7
             }, this),
             showFilter && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3603,7 +3643,7 @@ function PhotoGallery({ photosCount }) {
                             children: "Alle"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 247,
+                            lineNumber: 273,
                             columnNumber: 13
                         }, this),
                         categories.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -3612,18 +3652,18 @@ function PhotoGallery({ photosCount }) {
                                 children: cat.label
                             }, cat.id, false, {
                                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                lineNumber: 258,
+                                lineNumber: 284,
                                 columnNumber: 15
                             }, this))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                    lineNumber: 246,
+                    lineNumber: 272,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                lineNumber: 245,
+                lineNumber: 271,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3639,12 +3679,12 @@ function PhotoGallery({ photosCount }) {
                                         children: group.label
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                        lineNumber: 280,
+                                        lineNumber: 306,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 279,
+                                    lineNumber: 305,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3669,16 +3709,16 @@ function PhotoGallery({ photosCount }) {
                                                 isRealPhoto ? // Real encrypted photo - show placeholder until decryption
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "w-full h-full flex items-center justify-center bg-gradient-to-br from-[#E5E5EA] to-[#C7C7CC]",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Lock$3e$__["Lock"], {
+                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(LockIcon, {
                                                         className: "w-8 h-8 text-[#8E8E93]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                                        lineNumber: 306,
+                                                        lineNumber: 334,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                                    lineNumber: 305,
+                                                    lineNumber: 333,
                                                     columnNumber: 23
                                                 }, this) : photo.placeholderUrl ? // Placeholder photo (demo data)
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -3688,7 +3728,7 @@ function PhotoGallery({ photosCount }) {
                                                     loading: "lazy"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                                    lineNumber: 310,
+                                                    lineNumber: 338,
                                                     columnNumber: 23
                                                 }, this) : null,
                                                 selectMode && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3699,35 +3739,35 @@ function PhotoGallery({ photosCount }) {
                                                             className: "w-4 h-4 text-white"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                                            lineNumber: 328,
+                                                            lineNumber: 356,
                                                             columnNumber: 29
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                                        lineNumber: 320,
+                                                        lineNumber: 348,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                                    lineNumber: 319,
+                                                    lineNumber: 347,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, photo.id, true, {
                                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                            lineNumber: 290,
+                                            lineNumber: 318,
                                             columnNumber: 19
                                         }, this);
                                     })
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 284,
+                                    lineNumber: 312,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, group.date, true, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 277,
+                            lineNumber: 303,
                             columnNumber: 11
                         }, this)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3738,7 +3778,7 @@ function PhotoGallery({ photosCount }) {
                                 children: "Lange drücken zum Auswählen • Tippen zum Öffnen"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                lineNumber: 342,
+                                lineNumber: 370,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3749,19 +3789,19 @@ function PhotoGallery({ photosCount }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                lineNumber: 345,
+                                lineNumber: 373,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                        lineNumber: 341,
+                        lineNumber: 369,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                lineNumber: 275,
+                lineNumber: 301,
                 columnNumber: 7
             }, this),
             fullscreenPhoto && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3777,12 +3817,12 @@ function PhotoGallery({ photosCount }) {
                                     className: "w-6 h-6 text-white"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 359,
+                                    lineNumber: 387,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                lineNumber: 355,
+                                lineNumber: 383,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -3790,25 +3830,26 @@ function PhotoGallery({ photosCount }) {
                                 children: [
                                     "Foto ",
                                     photos.findIndex((p)=>p.id === fullscreenPhoto) + 1,
-                                    " von ",
+                                    " von",
+                                    " ",
                                     photos.length
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                lineNumber: 361,
+                                lineNumber: 389,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "w-10"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                lineNumber: 364,
+                                lineNumber: 393,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                        lineNumber: 354,
+                        lineNumber: 382,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3821,11 +3862,11 @@ function PhotoGallery({ photosCount }) {
                                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex flex-col items-center gap-4",
                                     children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Lock$3e$__["Lock"], {
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(LockIcon, {
                                             className: "w-16 h-16 text-white/60"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                            lineNumber: 375,
+                                            lineNumber: 404,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3833,13 +3874,13 @@ function PhotoGallery({ photosCount }) {
                                             children: "Entschlüsselung wird implementiert..."
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                            lineNumber: 376,
+                                            lineNumber: 405,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 374,
+                                    lineNumber: 403,
                                     columnNumber: 19
                                 }, this);
                             }
@@ -3851,7 +3892,7 @@ function PhotoGallery({ photosCount }) {
                                     className: "max-w-full max-h-full object-contain rounded-lg"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 386,
+                                    lineNumber: 415,
                                     columnNumber: 19
                                 }, this);
                             }
@@ -3859,7 +3900,7 @@ function PhotoGallery({ photosCount }) {
                         })()
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                        lineNumber: 366,
+                        lineNumber: 395,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("footer", {
@@ -3867,41 +3908,41 @@ function PhotoGallery({ photosCount }) {
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex items-center gap-2 text-[13px] text-white/60",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Lock$3e$__["Lock"], {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(LockIcon, {
                                     className: "w-4 h-4"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 399,
+                                    lineNumber: 428,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                     children: "Ende-zu-Ende verschlüsselt"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                                    lineNumber: 400,
+                                    lineNumber: 429,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                            lineNumber: 398,
+                            lineNumber: 427,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                        lineNumber: 397,
+                        lineNumber: 426,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-                lineNumber: 353,
+                lineNumber: 381,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/PhotoGallery.tsx",
-        lineNumber: 158,
+        lineNumber: 175,
         columnNumber: 5
     }, this);
 }

@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Image, Clock, Shield, HelpCircle, X } from "lucide-react";
+import { Image, Clock, HelpCircle, X } from "lucide-react";
+
+// Import custom SVG icons
+import ShieldIcon from "@/components/icons/shield.svg";
 import type { AppState } from "./PhotoVaultApp";
 import { useEncryption } from "@/hooks/use-encryption";
 import { useGalleryData } from "@/hooks/use-gallery-data";
@@ -18,7 +21,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
   // Get real photo count from encryption layer
   const { secretKey } = useEncryption();
   const { photoCount } = useGalleryData(secretKey);
-  
+
   // Use real photo count if available
   const displayPhotoCount = photoCount > 0 ? photoCount : state.photosCount;
 
@@ -30,7 +33,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
   const confirmToggle = () => {
     const newState = !state.backupActive;
     console.log(newState ? "Activate Backup" : "Deactivate Backup");
-    setState(prev => ({ ...prev, backupActive: newState }));
+    setState((prev) => ({ ...prev, backupActive: newState }));
     setShowConfirmDialog(false);
   };
 
@@ -38,7 +41,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
     console.log("TODO: Start backup with progress bar");
     console.log("Trigger Backup Process");
     console.log("Update Backup Metadata");
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       lastBackup: "Gerade eben",
       photosCount: prev.photosCount + Math.floor(Math.random() * 10),
@@ -56,7 +59,9 @@ export function Dashboard({ state, setState }: DashboardProps) {
       {/* Header */}
       <header className="mb-6">
         <h1 className="sf-pro-display text-[28px] text-[#1D1D1F]">Backup</h1>
-        <p className="text-[15px] text-[#6E6E73] mt-1">Verschlüsseltes Photo-Backup</p>
+        <p className="text-[15px] text-[#6E6E73] mt-1">
+          Verschlüsseltes Photo-Backup
+        </p>
       </header>
 
       {/* Status Toggle */}
@@ -71,7 +76,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
                 state.backupActive ? "bg-[#30D158]/10" : "bg-[#E5E5EA]"
               }`}
             >
-              <Shield
+              <ShieldIcon
                 className={`w-7 h-7 ${
                   state.backupActive ? "text-[#30D158]" : "text-[#8E8E93]"
                 }`}
@@ -82,7 +87,9 @@ export function Dashboard({ state, setState }: DashboardProps) {
                 Backup {state.backupActive ? "Aktiv" : "Aus"}
               </p>
               <p className="text-[15px] text-[#6E6E73]">
-                {state.backupActive ? "Deine Fotos werden geschützt" : "Tippe zum Aktivieren"}
+                {state.backupActive
+                  ? "Deine Fotos werden geschützt"
+                  : "Tippe zum Aktivieren"}
               </p>
             </div>
           </div>
@@ -99,7 +106,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
           </div>
         </div>
       </button>
-      
+
       {/* Help text below toggle */}
       <p className="text-[13px] text-[#6E6E73] px-2 mb-6">
         Automatisch neue Fotos sichern
@@ -113,7 +120,9 @@ export function Dashboard({ state, setState }: DashboardProps) {
           label="Fotos gesichert"
           tooltip={tooltips.photos}
           showTooltip={showTooltip === "photos"}
-          onTap={() => setShowTooltip(showTooltip === "photos" ? null : "photos")}
+          onTap={() =>
+            setShowTooltip(showTooltip === "photos" ? null : "photos")
+          }
         />
         <MetricCard
           icon={<Clock className="w-5 h-5 text-[#007AFF]" />}
@@ -121,15 +130,19 @@ export function Dashboard({ state, setState }: DashboardProps) {
           label="Letztes Backup"
           tooltip={tooltips.lastBackup}
           showTooltip={showTooltip === "lastBackup"}
-          onTap={() => setShowTooltip(showTooltip === "lastBackup" ? null : "lastBackup")}
+          onTap={() =>
+            setShowTooltip(showTooltip === "lastBackup" ? null : "lastBackup")
+          }
         />
         <MetricCard
-          icon={<Shield className="w-5 h-5 text-[#007AFF]" />}
+          icon={<ShieldIcon className="w-5 h-5 text-[#007AFF]" />}
           value={`${state.permanence}%`}
           label="Dauerhaft"
           tooltip={tooltips.permanence}
           showTooltip={showTooltip === "permanence"}
-          onTap={() => setShowTooltip(showTooltip === "permanence" ? null : "permanence")}
+          onTap={() =>
+            setShowTooltip(showTooltip === "permanence" ? null : "permanence")
+          }
         />
       </div>
 
@@ -160,7 +173,9 @@ export function Dashboard({ state, setState }: DashboardProps) {
           <div className="bg-white w-full max-w-[270px] rounded-2xl overflow-hidden">
             <div className="p-4 text-center">
               <h3 className="sf-pro-display text-[17px] text-[#1D1D1F] mb-1">
-                {state.backupActive ? "Backup deaktivieren?" : "Backup aktivieren?"}
+                {state.backupActive
+                  ? "Backup deaktivieren?"
+                  : "Backup aktivieren?"}
               </h3>
               <p className="text-[13px] text-[#6E6E73] leading-relaxed">
                 {state.backupActive
@@ -216,10 +231,12 @@ function MetricCard({
           {icon}
           <HelpCircle className="w-3 h-3 text-[#C7C7CC] absolute -right-1 -top-1" />
         </div>
-        <p className="text-[17px] font-semibold text-[#1D1D1F] truncate">{value}</p>
+        <p className="text-[17px] font-semibold text-[#1D1D1F] truncate">
+          {value}
+        </p>
         <p className="text-[11px] text-[#6E6E73]">{label}</p>
       </button>
-      
+
       {/* Tooltip */}
       {showTooltip && (
         <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-[180px] bg-[#1D1D1F] text-white text-[13px] p-3 rounded-lg z-10 text-center">

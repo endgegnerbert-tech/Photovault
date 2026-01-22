@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronRight, Smartphone, Plus, Loader2, Check, RefreshCw, FolderOpen, Cloud } from "lucide-react";
+import { ChevronRight, Plus, Loader2, Check } from "lucide-react";
+
+// Import custom SVG icons
+import SmartphoneIcon from "@/components/icons/smartphone.svg";
+import RefreshCwIcon from "@/components/icons/RefreshCw.svg";
+import FolderOpenIcon from "@/components/icons/Openfolder.svg";
+import CloudIcon from "@/components/icons/cloud.svg";
 import type { AppState } from "./PhotoVaultApp";
 import { dummyBackupPhrase } from "./PhotoVaultApp";
 
@@ -11,7 +17,11 @@ interface SettingsPanelProps {
   onRestartOnboarding: () => void;
 }
 
-export function SettingsPanel({ state, setState, onRestartOnboarding }: SettingsPanelProps) {
+export function SettingsPanel({
+  state,
+  setState,
+  onRestartOnboarding,
+}: SettingsPanelProps) {
   const [showDevices, setShowDevices] = useState(false);
   const [showPhraseWarning, setShowPhraseWarning] = useState(false);
   const [showNewKeyWarning, setShowNewKeyWarning] = useState(false);
@@ -22,13 +32,13 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
   const toggleAutoBackup = () => {
     const newValue = !state.autoBackupEnabled;
     console.log("Update Auto-Backup Preference:", newValue);
-    setState(prev => ({ ...prev, autoBackupEnabled: newValue }));
+    setState((prev) => ({ ...prev, autoBackupEnabled: newValue }));
   };
 
   const toggleBackgroundBackup = () => {
     const newValue = !state.backgroundBackupEnabled;
     console.log("Update Background Preference:", newValue);
-    setState(prev => ({ ...prev, backgroundBackupEnabled: newValue }));
+    setState((prev) => ({ ...prev, backgroundBackupEnabled: newValue }));
   };
 
   const viewBackupPhrase = () => {
@@ -41,11 +51,26 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
     console.log("Generate New Encryption Key");
     console.log("Clear Existing Backup Data");
     const words = [
-      "mango", "noble", "ocean", "prime", "quest", "royal",
-      "solar", "titan", "ultra", "vivid", "world", "xenon"
+      "mango",
+      "noble",
+      "ocean",
+      "prime",
+      "quest",
+      "royal",
+      "solar",
+      "titan",
+      "ultra",
+      "vivid",
+      "world",
+      "xenon",
     ];
     const key = words.join(" ");
-    setState(prev => ({ ...prev, encryptionKey: key, backupPhrase: words, photosCount: 0 }));
+    setState((prev) => ({
+      ...prev,
+      encryptionKey: key,
+      backupPhrase: words,
+      photosCount: 0,
+    }));
     setShowNewKeyWarning(false);
   };
 
@@ -55,13 +80,13 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
 
   const changeSource = (source: "photos-app" | "files-app") => {
     console.log("TODO: Update backup source preference:", source);
-    setState(prev => ({ ...prev, photoSource: source }));
+    setState((prev) => ({ ...prev, photoSource: source }));
     setShowSourceSelector(false);
   };
 
   const changePlan = (plan: "free" | "backup-plus") => {
     console.log("TODO: Show plan selection modal", plan);
-    setState(prev => ({ ...prev, selectedPlan: plan }));
+    setState((prev) => ({ ...prev, selectedPlan: plan }));
     setShowPlanSelector(false);
   };
 
@@ -79,7 +104,9 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
     <div className="h-full flex flex-col pb-4 overflow-y-auto">
       {/* Header */}
       <header className="px-5 pt-6 pb-4 bg-[#F2F2F7]">
-        <h1 className="sf-pro-display text-[28px] text-[#1D1D1F]">Einstellungen</h1>
+        <h1 className="sf-pro-display text-[28px] text-[#1D1D1F]">
+          Einstellungen
+        </h1>
       </header>
 
       <div className="flex-1 px-5">
@@ -108,11 +135,15 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
               className="w-full flex items-center justify-between p-4 ios-tap-target"
             >
               <div className="flex items-center gap-3">
-                <FolderOpen className="w-5 h-5 text-[#007AFF]" />
+                <FolderOpenIcon className="w-5 h-5 text-[#007AFF]" />
                 <div className="text-left">
-                  <span className="text-[17px] text-[#1D1D1F] block">Backup-Quelle</span>
+                  <span className="text-[17px] text-[#1D1D1F] block">
+                    Backup-Quelle
+                  </span>
                   <span className="text-[13px] text-[#6E6E73]">
-                    {state.photoSource === "photos-app" ? "Fotos-App" : "Dateien-App"}
+                    {state.photoSource === "photos-app"
+                      ? "Fotos-App"
+                      : "Dateien-App"}
                   </span>
                 </div>
               </div>
@@ -129,7 +160,9 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
           <div className="bg-white rounded-xl overflow-hidden">
             <div className="p-4">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[17px] text-[#1D1D1F]">Aktueller Plan</span>
+                <span className="text-[17px] text-[#1D1D1F]">
+                  Aktueller Plan
+                </span>
                 <span className="text-[15px] font-semibold text-[#007AFF]">
                   {state.selectedPlan === "free" ? "Free" : "Backup+"}
                 </span>
@@ -155,7 +188,9 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
               className="w-full flex items-center justify-between p-4 ios-tap-target"
             >
               <span className="text-[17px] text-[#007AFF]">
-                {state.selectedPlan === "free" ? "Upgrade zu Backup+" : "Plan verwalten"}
+                {state.selectedPlan === "free"
+                  ? "Upgrade zu Backup+"
+                  : "Plan verwalten"}
               </span>
               <ChevronRight className="w-5 h-5 text-[#C7C7CC]" />
             </button>
@@ -176,11 +211,15 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
               className="w-full flex items-center justify-between p-4 ios-tap-target"
             >
               <div className="flex items-center gap-3">
-                <Smartphone className="w-5 h-5 text-[#007AFF]" />
-                <span className="text-[17px] text-[#1D1D1F]">Verbundene Geräte</span>
+                <SmartphoneIcon className="w-5 h-5 text-[#007AFF]" />
+                <span className="text-[17px] text-[#1D1D1F]">
+                  Verbundene Geräte
+                </span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[15px] text-[#6E6E73]">{state.devices.length}</span>
+                <span className="text-[15px] text-[#6E6E73]">
+                  {state.devices.length}
+                </span>
                 <ChevronRight className="w-5 h-5 text-[#C7C7CC]" />
               </div>
             </button>
@@ -197,7 +236,9 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
               onClick={() => setShowPhraseWarning(true)}
               className="w-full flex items-center justify-between p-4 ios-tap-target"
             >
-              <span className="text-[17px] text-[#1D1D1F]">Backup-Phrase anzeigen</span>
+              <span className="text-[17px] text-[#1D1D1F]">
+                Backup-Phrase anzeigen
+              </span>
               <ChevronRight className="w-5 h-5 text-[#C7C7CC]" />
             </button>
             <div className="h-[0.5px] bg-[#E5E5EA] ml-4" />
@@ -205,7 +246,9 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
               onClick={() => setShowNewKeyWarning(true)}
               className="w-full flex items-center justify-between p-4 ios-tap-target"
             >
-              <span className="text-[17px] text-[#FF3B30]">Neuen Schlüssel erstellen</span>
+              <span className="text-[17px] text-[#FF3B30]">
+                Neuen Schlüssel erstellen
+              </span>
               <ChevronRight className="w-5 h-5 text-[#C7C7CC]" />
             </button>
           </div>
@@ -228,8 +271,10 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
               className="w-full flex items-center justify-between p-4 ios-tap-target"
             >
               <div className="flex items-center gap-3">
-                <RefreshCw className="w-5 h-5 text-[#007AFF]" />
-                <span className="text-[17px] text-[#1D1D1F]">Onboarding wiederholen</span>
+                <RefreshCwIcon className="w-5 h-5 text-[#007AFF]" />
+                <span className="text-[17px] text-[#1D1D1F]">
+                  Onboarding wiederholen
+                </span>
               </div>
               <ChevronRight className="w-5 h-5 text-[#C7C7CC]" />
             </button>
@@ -262,10 +307,13 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
             <p className="text-[15px] text-[#6E6E73] text-center mb-4">
               Notiere diese Wörter und bewahre sie sicher auf.
             </p>
-            
+
             {/* 12 words in grid */}
             <div className="grid grid-cols-3 gap-2 mb-4">
-              {(state.backupPhrase.length > 0 ? state.backupPhrase : dummyBackupPhrase).map((word, index) => (
+              {(state.backupPhrase.length > 0
+                ? state.backupPhrase
+                : dummyBackupPhrase
+              ).map((word, index) => (
                 <div
                   key={index}
                   className="bg-[#F2F2F7] rounded-lg p-2 text-center"
@@ -279,14 +327,14 @@ export function SettingsPanel({ state, setState, onRestartOnboarding }: Settings
                 </div>
               ))}
             </div>
-            
+
             {/* Warning */}
             <div className="bg-[#FF3B30]/10 rounded-xl p-3 mb-4">
               <p className="text-[13px] text-[#FF3B30] text-center">
                 ⚠️ Teile diese Wörter niemals mit anderen
               </p>
             </div>
-            
+
             <button
               onClick={() => setShowBackupPhrase(false)}
               className="w-full h-[50px] bg-[#007AFF] text-white text-[17px] font-semibold rounded-xl ios-tap-target"
@@ -370,7 +418,12 @@ function DevicesView({
   onBack,
   onAddDevice,
 }: {
-  devices: { id: string; name: string; lastActive: string; syncing?: boolean }[];
+  devices: {
+    id: string;
+    name: string;
+    lastActive: string;
+    syncing?: boolean;
+  }[];
   onBack: () => void;
   onAddDevice: () => void;
 }) {
@@ -393,17 +446,21 @@ function DevicesView({
             <div key={device.id}>
               {index > 0 && <div className="h-[0.5px] bg-[#E5E5EA] ml-4" />}
               <div className="flex items-center gap-3 p-4">
-                <Smartphone className="w-8 h-8 text-[#007AFF]" />
+                <SmartphoneIcon className="w-8 h-8 text-[#007AFF]" />
                 <div className="flex-1">
                   <p className="text-[17px] text-[#1D1D1F]">{device.name}</p>
-                  <p className="text-[13px] text-[#6E6E73]">{device.lastActive}</p>
+                  <p className="text-[13px] text-[#6E6E73]">
+                    {device.lastActive}
+                  </p>
                 </div>
                 {device.syncing ? (
                   <Loader2 className="w-5 h-5 text-[#007AFF] animate-spin" />
                 ) : device.lastActive === "Aktiv" ? (
                   <div className="flex items-center gap-1">
                     <Check className="w-4 h-4 text-[#30D158]" />
-                    <span className="text-[13px] text-[#30D158] font-medium">Dieses Gerät</span>
+                    <span className="text-[13px] text-[#30D158] font-medium">
+                      Dieses Gerät
+                    </span>
                   </div>
                 ) : null}
               </div>
@@ -416,9 +473,11 @@ function DevicesView({
           className="w-full flex items-center justify-center gap-2 mt-6 p-4 bg-white rounded-xl ios-tap-target"
         >
           <Plus className="w-5 h-5 text-[#007AFF]" />
-          <span className="text-[17px] text-[#007AFF]">Neues Gerät verbinden</span>
+          <span className="text-[17px] text-[#007AFF]">
+            Neues Gerät verbinden
+          </span>
         </button>
-        
+
         <p className="text-[13px] text-[#6E6E73] text-center mt-3">
           Scanne den QR-Code oder gib deine Backup-Phrase ein
         </p>
@@ -458,7 +517,7 @@ function SourceSelectorModal({
         <p className="text-[15px] text-[#6E6E73] text-center mb-6">
           Wo sind deine Fotos gespeichert?
         </p>
-        
+
         <div className="space-y-3 mb-6">
           {sources.map((source) => (
             <button
@@ -470,8 +529,12 @@ function SourceSelectorModal({
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-[17px] font-medium text-[#1D1D1F]">{source.label}</p>
-                  <p className="text-[13px] text-[#6E6E73] mt-0.5">{source.description}</p>
+                  <p className="text-[17px] font-medium text-[#1D1D1F]">
+                    {source.label}
+                  </p>
+                  <p className="text-[13px] text-[#6E6E73] mt-0.5">
+                    {source.description}
+                  </p>
                 </div>
                 <div
                   className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
@@ -488,7 +551,7 @@ function SourceSelectorModal({
             </button>
           ))}
         </div>
-        
+
         <button
           onClick={onClose}
           className="w-full h-[44px] text-[#007AFF] text-[17px] ios-tap-target"
@@ -515,14 +578,22 @@ function PlanSelectorModal({
       label: "FREE",
       subtitle: "Auf deinen Geräten",
       price: "0€/Monat",
-      features: ["Unbegrenzte Fotos", "Zero-Knowledge Verschlüsselung", "Multi-Device Sync"],
+      features: [
+        "Unbegrenzte Fotos",
+        "Zero-Knowledge Verschlüsselung",
+        "Multi-Device Sync",
+      ],
     },
     {
       id: "backup-plus" as const,
       label: "BACKUP+",
       subtitle: "Dauerhaft im Netz",
       price: "2,99€/Monat",
-      features: ["Alles von Free", "200 GB Cloud-Backup", "Schnellere Synchronisierung"],
+      features: [
+        "Alles von Free",
+        "200 GB Cloud-Backup",
+        "Schnellere Synchronisierung",
+      ],
     },
   ];
 
@@ -535,7 +606,7 @@ function PlanSelectorModal({
         <p className="text-[15px] text-[#6E6E73] text-center mb-6">
           Du kannst jederzeit wechseln
         </p>
-        
+
         <div className="space-y-3 mb-6">
           {plans.map((plan) => (
             <button
@@ -555,7 +626,10 @@ function PlanSelectorModal({
                   </p>
                   <ul className="mt-2 space-y-1">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="text-[13px] text-[#6E6E73] flex items-center gap-2">
+                      <li
+                        key={feature}
+                        className="text-[13px] text-[#6E6E73] flex items-center gap-2"
+                      >
                         <span className="text-[#30D158]">✓</span> {feature}
                       </li>
                     ))}
@@ -579,7 +653,7 @@ function PlanSelectorModal({
             </button>
           ))}
         </div>
-        
+
         <button
           onClick={onClose}
           className="w-full h-[44px] text-[#007AFF] text-[17px] ios-tap-target"
@@ -610,8 +684,12 @@ function Modal({
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-8">
       <div className="bg-white w-full max-w-[270px] rounded-2xl overflow-hidden">
         <div className="p-4 text-center">
-          <h3 className="sf-pro-display text-[17px] text-[#1D1D1F] mb-1">{title}</h3>
-          <p className="text-[13px] text-[#6E6E73] leading-relaxed">{message}</p>
+          <h3 className="sf-pro-display text-[17px] text-[#1D1D1F] mb-1">
+            {title}
+          </h3>
+          <p className="text-[13px] text-[#6E6E73] leading-relaxed">
+            {message}
+          </p>
         </div>
         <div className="border-t border-[#E5E5EA]">
           <button

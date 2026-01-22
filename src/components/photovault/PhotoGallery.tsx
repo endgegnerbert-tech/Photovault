@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Search, SlidersHorizontal, X, Check, Lock, Upload } from "lucide-react";
+import { Search, SlidersHorizontal, X, Check, Upload } from "lucide-react";
+
+// Import custom SVG icons
+import LockIcon from "@/components/icons/lock.svg";
 import { useEncryption } from "@/hooks/use-encryption";
 import { useGalleryData } from "@/hooks/use-gallery-data";
 
@@ -12,22 +15,30 @@ interface PhotoGalleryProps {
 // Generate placeholder photo URLs with dates
 const generatePhotos = (count: number) => {
   const categories = [
-    "nature", "architecture", "travel", "food", "animals",
-    "city", "landscape", "portrait", "ocean", "forest"
+    "nature",
+    "architecture",
+    "travel",
+    "food",
+    "animals",
+    "city",
+    "landscape",
+    "portrait",
+    "ocean",
+    "forest",
   ];
-  
+
   // Create photos with dates going backwards from today
   const today = new Date();
   return Array.from({ length: count }, (_, i) => {
     const date = new Date(today);
     date.setDate(date.getDate() - Math.floor(i / 3)); // 3 photos per day
-    
+
     return {
       id: `photo-${i}`,
       cid: `Qm${Math.random().toString(36).substring(2, 15)}${Math.random().toString(36).substring(2, 15)}`,
       placeholderUrl: `https://picsum.photos/seed/${i + 100}/400/400`,
       category: categories[i % categories.length],
-      date: date.toISOString().split('T')[0],
+      date: date.toISOString().split("T")[0],
       metadata: undefined as any, // Placeholder photos don't have metadata
     };
   });
@@ -36,7 +47,7 @@ const generatePhotos = (count: number) => {
 // Group photos by date
 const groupPhotosByDate = (photos: ReturnType<typeof generatePhotos>) => {
   const groups: { [key: string]: typeof photos } = {};
-  photos.forEach(photo => {
+  photos.forEach((photo) => {
     if (!groups[photo.date]) {
       groups[photo.date] = [];
     }
@@ -54,13 +65,17 @@ const formatDateLabel = (dateStr: string) => {
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(yesterday.getDate() - 1);
-  
-  if (dateStr === today.toISOString().split('T')[0]) {
+
+  if (dateStr === today.toISOString().split("T")[0]) {
     return "Heute";
-  } else if (dateStr === yesterday.toISOString().split('T')[0]) {
+  } else if (dateStr === yesterday.toISOString().split("T")[0]) {
     return "Gestern";
   } else {
-    return date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' });
+    return date.toLocaleDateString("de-DE", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    });
   }
 };
 
@@ -72,36 +87,38 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
   const [selectMode, setSelectMode] = useState(false);
   const [selectedPhotos, setSelectedPhotos] = useState<Set<string>>(new Set());
   const [fullscreenPhoto, setFullscreenPhoto] = useState<string | null>(null);
-  
+
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
 
   // Encryption & Real Photo Storage
   const { secretKey, hasKey } = useEncryption();
-  const { 
-    photos: realPhotos, 
-    uploadPhoto, 
+  const {
+    photos: realPhotos,
+    uploadPhoto,
     deletePhoto: deleteRealPhoto,
     decryptPhoto,
-    isUploading 
+    isUploading,
   } = useGalleryData(secretKey);
 
   // Use real photos if available, otherwise use placeholders
-  const photos = realPhotos.length > 0 
-    ? realPhotos.map(p => ({
-        id: p.id?.toString() || p.cid,
-        cid: p.cid,
-        placeholderUrl: '', // Will be decrypted on-demand
-        category: 'photo',
-        date: p.uploadedAt.toISOString().split('T')[0],
-        metadata: p, // Add metadata to identify real photos
-      }))
-    : generatePhotos(Math.min(photosCount, 50));
-  
+  const photos =
+    realPhotos.length > 0
+      ? realPhotos.map((p) => ({
+          id: p.id?.toString() || p.cid,
+          cid: p.cid,
+          placeholderUrl: "", // Will be decrypted on-demand
+          category: "photo",
+          date: p.uploadedAt.toISOString().split("T")[0],
+          metadata: p, // Add metadata to identify real photos
+        }))
+      : generatePhotos(Math.min(photosCount, 50));
+
   const photoGroups = groupPhotosByDate(photos);
 
-  const filteredPhotos = photos.filter(photo => {
+  const filteredPhotos = photos.filter((photo) => {
     if (selectedFilter && photo.category !== selectedFilter) return false;
-    if (searchQuery && !photo.category.includes(searchQuery.toLowerCase())) return false;
+    if (searchQuery && !photo.category.includes(searchQuery.toLowerCase()))
+      return false;
     return true;
   });
 
@@ -109,7 +126,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
 
   const handlePhotoTap = (photoId: string, cid: string) => {
     if (selectMode) {
-      setSelectedPhotos(prev => {
+      setSelectedPhotos((prev) => {
         const newSet = new Set(prev);
         if (newSet.has(photoId)) {
           newSet.delete(photoId);
@@ -151,7 +168,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
   // Handle file upload
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    files.forEach(file => uploadPhoto(file));
+    files.forEach((file) => uploadPhoto(file));
   };
 
   return (
@@ -197,7 +214,10 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
             </span>
             <button
               onClick={() => {
-                console.log("TODO: Delete selected photos", Array.from(selectedPhotos));
+                console.log(
+                  "TODO: Delete selected photos",
+                  Array.from(selectedPhotos),
+                );
               }}
               className="text-[17px] text-[#FF3B30] ios-tap-target"
             >
@@ -207,13 +227,17 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
         ) : (
           <>
             <div className="flex items-center gap-2">
-              <Lock className="w-5 h-5 text-[#30D158]" />
-              <h1 className="sf-pro-display text-[20px] text-[#1D1D1F]">Galerie</h1>
+              <LockIcon className="w-5 h-5 text-[#30D158]" />
+              <h1 className="sf-pro-display text-[20px] text-[#1D1D1F]">
+                Galerie
+              </h1>
             </div>
             <div className="flex items-center gap-4">
               {/* Upload Button */}
               <label className="ios-tap-target cursor-pointer">
-                <Upload className={`w-6 h-6 ${isUploading ? 'text-[#8E8E93] animate-pulse' : 'text-[#007AFF]'}`} />
+                <Upload
+                  className={`w-6 h-6 ${isUploading ? "text-[#8E8E93] animate-pulse" : "text-[#007AFF]"}`}
+                />
                 <input
                   type="file"
                   multiple
@@ -233,7 +257,9 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
                 onClick={() => setShowFilter(!showFilter)}
                 className="ios-tap-target"
               >
-                <SlidersHorizontal className={`w-6 h-6 ${selectedFilter ? "text-[#30D158]" : "text-[#007AFF]"}`} />
+                <SlidersHorizontal
+                  className={`w-6 h-6 ${selectedFilter ? "text-[#30D158]" : "text-[#007AFF]"}`}
+                />
               </button>
             </div>
           </>
@@ -277,15 +303,17 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
           <div key={group.date} className="mb-2">
             {/* Date Header */}
             <div className="sticky top-0 bg-[#F2F2F7]/95 backdrop-blur-sm px-3 py-2 z-10">
-              <p className="text-[13px] font-semibold text-[#6E6E73]">{group.label}</p>
+              <p className="text-[13px] font-semibold text-[#6E6E73]">
+                {group.label}
+              </p>
             </div>
-            
+
             {/* Photos Grid */}
             <div className="grid grid-cols-3 gap-[2px] px-[2px]">
               {group.photos.map((photo) => {
                 // For real encrypted photos, we need to decrypt them
                 const isRealPhoto = photo.metadata !== undefined;
-                
+
                 return (
                   <button
                     key={photo.id}
@@ -303,7 +331,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
                     {isRealPhoto ? (
                       // Real encrypted photo - show placeholder until decryption
                       <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#E5E5EA] to-[#C7C7CC]">
-                        <Lock className="w-8 h-8 text-[#8E8E93]" />
+                        <LockIcon className="w-8 h-8 text-[#8E8E93]" />
                       </div>
                     ) : photo.placeholderUrl ? (
                       // Placeholder photo (demo data)
@@ -314,7 +342,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
                         loading="lazy"
                       />
                     ) : null}
-                    
+
                     {selectMode && (
                       <div className="absolute inset-0 bg-black/20">
                         <div
@@ -336,7 +364,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
             </div>
           </div>
         ))}
-        
+
         {/* Help text */}
         <div className="text-center py-6 px-4">
           <p className="text-[13px] text-[#8E8E93]">
@@ -359,27 +387,28 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
               <X className="w-6 h-6 text-white" />
             </button>
             <span className="text-[17px] text-white">
-              Foto {photos.findIndex(p => p.id === fullscreenPhoto) + 1} von {photos.length}
+              Foto {photos.findIndex((p) => p.id === fullscreenPhoto) + 1} von{" "}
+              {photos.length}
             </span>
             <div className="w-10" />
           </header>
           <div className="flex-1 flex items-center justify-center p-4">
             {(() => {
-              const photo = photos.find(p => p.id === fullscreenPhoto);
+              const photo = photos.find((p) => p.id === fullscreenPhoto);
               if (!photo) return null;
-              
+
               // Real encrypted photo
               if (photo.metadata) {
                 return (
                   <div className="flex flex-col items-center gap-4">
-                    <Lock className="w-16 h-16 text-white/60" />
+                    <LockIcon className="w-16 h-16 text-white/60" />
                     <p className="text-white/80 text-center">
                       Entschlüsselung wird implementiert...
                     </p>
                   </div>
                 );
               }
-              
+
               // Placeholder photo
               if (photo.placeholderUrl) {
                 return (
@@ -390,13 +419,13 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
                   />
                 );
               }
-              
+
               return null;
             })()}
           </div>
           <footer className="h-[80px] flex items-center justify-center bg-black/80">
             <div className="flex items-center gap-2 text-[13px] text-white/60">
-              <Lock className="w-4 h-4" />
+              <LockIcon className="w-4 h-4" />
               <span>Ende-zu-Ende verschlüsselt</span>
             </div>
           </footer>
