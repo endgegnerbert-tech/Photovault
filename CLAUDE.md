@@ -34,9 +34,11 @@ User Photo → Encrypt (tweetnacl) → Store Local (IndexedDB) → Sync CID to C
 
 2. **Local Storage** (`src/lib/storage/local-db.ts`): Dexie.js wrapper for IndexedDB. Stores encrypted photo blobs + metadata offline-first.
 
-3. **Cloud Sync** (`src/lib/supabase.ts`): Only CID metadata syncs to Supabase, not the encrypted content. Enables multi-device photo list sync.
+3. **Remote Storage** (`src/lib/storage/remote-storage.ts`): Abstraction layer for cloud blob storage. Currently uses Supabase Storage, designed to swap to IPFS/Web3.Storage.
 
-4. **Realtime** (`src/hooks/useRealtimeSync.ts`): Supabase Realtime subscription for live updates when photos are added from other devices.
+4. **Cloud Sync** (`src/lib/supabase.ts`): CID metadata + encrypted blobs sync to Supabase. Enables multi-device photo list sync.
+
+5. **Realtime** (`src/hooks/useRealtimeSync.ts`): Supabase Realtime subscription for live updates when photos are added from other devices.
 
 ### Key Hooks
 
@@ -58,7 +60,7 @@ Global app state is lifted to `PhotoVaultApp.tsx` and passed down. TanStack Quer
 
 ## Supabase Schema
 
-Two tables with RLS enabled:
+Two tables + Storage bucket with RLS enabled:
 
 ```sql
 -- Photo metadata (not the encrypted content)
@@ -67,10 +69,10 @@ photos_metadata (
   cid TEXT UNIQUE,        -- Content identifier
   device_id TEXT,         -- Which device uploaded
   file_size_bytes BIGINT,
-  faces_count INT,        -- AI-detected face count
-  pinned_locally BOOLEAN,
-  pinned_remote BOOLEAN,
-  user_key_hash TEXT,     -- Hash of user's encryption key
+  storage_path TEXT,      -- Path in Supabase Storage (e.g., "{device_id}/{cid}")
+  nonce TEXT,             -- Encryption nonce (Base64)
+  mime_type TEXT,         -- Original MIME type
+  user_key_hash TEXT,     -- Hash of user's encryption key (for multi-device grouping)
   uploaded_at TIMESTAMPTZ
 )
 
@@ -79,10 +81,12 @@ devices (
   id UUID PRIMARY KEY,
   device_name TEXT,
   device_type TEXT,
-  public_key TEXT,        -- Device's public key
+  user_key_hash TEXT,     -- Links device to user's encryption key
   created_at TIMESTAMPTZ
 )
 ```
+
+**Storage Bucket:** `vault` - Stores encrypted photo blobs at path `{device_id}/{cid}`
 
 ## Environment Variables
 
@@ -94,14 +98,16 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
 
 ## Tech Stack
 
-- Next.js 16 (App Router, Turbopack)
+- Next.js 16 (App Router)
 - React 19
 - TypeScript
 - Tailwind CSS (iOS-style design system)
-- Supabase (Postgres + Realtime)
-- TanStack React Query
-- Dexie.js (IndexedDB)
+- Supabase (Postgres + Realtime + Storage)
+- TanStack React Query (async data)
+- Zustand (persisted settings state)
+- Dexie.js (IndexedDB for local photos)
 - tweetnacl (Encryption)
+- Framer Motion (animations)
 - Lucide React (Icons - do NOT use custom SVG imports)
 
 ## Important Patterns
@@ -128,6 +134,25 @@ await uploadCIDMetadata(cid, file.size, deviceId); // Cloud sync
 
 ### Device Identity
 Each browser/device gets a unique ID via `getDeviceId()` from `src/lib/deviceId.ts`. This is used to distinguish which device uploaded which photo.
+
+### Multi-Device Sync via user_key_hash
+Photos and devices are grouped by `user_key_hash` - a SHA-256 hash of the user's secret key. This enables:
+- Devices with the same recovery phrase see each other's photos
+- RLS can filter by user_key_hash without exposing the actual key
+- No account system required - the encryption key IS the identity
+
+```tsx
+// When uploading or syncing, always include user_key_hash
+const hash = await getUserKeyHash(secretKey);
+await uploadCIDMetadata(cid, fileSize, deviceId, nonce, mimeType, hash);
+```
+
+### State Management: Zustand for Settings
+App settings persist via Zustand with localStorage:
+```tsx
+import { useSettingsStore } from '@/lib/storage/settings-store';
+const { backupActive, setBackupActive } = useSettingsStore();
+```
 
 ## UI Style
 

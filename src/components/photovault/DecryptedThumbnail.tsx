@@ -20,6 +20,8 @@ export function DecryptedThumbnail({ photo, secretKey }: DecryptedThumbnailProps
     if (!secretKey || !photo.encryptedBlob || imageUrl) return;
 
     const decrypt = async () => {
+      if (!photo.encryptedBlob) return;
+
       setIsDecrypting(true);
       try {
         const decrypted = await decryptFile(
