@@ -10,7 +10,15 @@ npm run build    # Production build
 npm run start    # Start production server
 ```
 
-No test command is currently configured.
+### Testing (Playwright)
+
+```bash
+npx playwright test              # Run all tests
+npx playwright test --ui         # Interactive UI mode
+npx playwright test user-flow    # Run specific test file
+```
+
+Tests expect the dev server at port 3001. Start with `npm run dev -- -p 3001` before running tests.
 
 ## Architecture Overview
 
@@ -59,7 +67,10 @@ photos_metadata (
   cid TEXT UNIQUE,        -- Content identifier
   device_id TEXT,         -- Which device uploaded
   file_size_bytes BIGINT,
+  faces_count INT,        -- AI-detected face count
   pinned_locally BOOLEAN,
+  pinned_remote BOOLEAN,
+  user_key_hash TEXT,     -- Hash of user's encryption key
   uploaded_at TIMESTAMPTZ
 )
 
@@ -68,6 +79,7 @@ devices (
   id UUID PRIMARY KEY,
   device_name TEXT,
   device_type TEXT,
+  public_key TEXT,        -- Device's public key
   created_at TIMESTAMPTZ
 )
 ```

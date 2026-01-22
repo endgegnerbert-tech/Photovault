@@ -1436,14 +1436,22 @@ module.exports = mod;
 __turbopack_context__.s([
     "cidExistsInSupabase",
     ()=>cidExistsInSupabase,
+    "downloadPhotoBlob",
+    ()=>downloadPhotoBlob,
+    "getPhotoMetadataByCID",
+    ()=>getPhotoMetadataByCID,
     "loadCIDsFromSupabase",
     ()=>loadCIDsFromSupabase,
     "registerDevice",
     ()=>registerDevice,
     "supabase",
     ()=>supabase,
+    "updatePhotoStoragePath",
+    ()=>updatePhotoStoragePath,
     "uploadCIDMetadata",
-    ()=>uploadCIDMetadata
+    ()=>uploadCIDMetadata,
+    "uploadPhotoBlob",
+    ()=>uploadPhotoBlob
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$module$2f$index$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@supabase/supabase-js/dist/module/index.js [app-ssr] (ecmascript) <locals>");
 ;
@@ -1465,8 +1473,8 @@ async function uploadCIDMetadata(cid, fileSize, deviceId) {
     }
     return data;
 }
-async function loadCIDsFromSupabase(currentDeviceId) {
-    const { data, error } = await supabase.from('photos_metadata').select('cid, device_id, uploaded_at, file_size_bytes').order('uploaded_at', {
+async function loadCIDsFromSupabase(_currentDeviceId) {
+    const { data, error } = await supabase.from('photos_metadata').select('cid, device_id, uploaded_at, file_size_bytes, storage_path').order('uploaded_at', {
         ascending: false
     });
     if (error) {
@@ -1495,6 +1503,44 @@ async function registerDevice(deviceName, deviceType) {
         throw error;
     }
     return data?.[0];
+}
+// Storage Bucket Name
+const STORAGE_BUCKET = 'vault';
+async function uploadPhotoBlob(path, blob) {
+    const { data, error } = await supabase.storage.from(STORAGE_BUCKET).upload(path, blob, {
+        contentType: 'application/octet-stream',
+        upsert: false
+    });
+    if (error) {
+        console.error('Supabase Storage Upload Error:', error);
+        throw error;
+    }
+    return data.path;
+}
+async function downloadPhotoBlob(path) {
+    const { data, error } = await supabase.storage.from(STORAGE_BUCKET).download(path);
+    if (error) {
+        console.error('Supabase Storage Download Error:', error);
+        throw error;
+    }
+    return data;
+}
+async function updatePhotoStoragePath(cid, storagePath) {
+    const { error } = await supabase.from('photos_metadata').update({
+        storage_path: storagePath
+    }).eq('cid', cid);
+    if (error) {
+        console.error('Supabase Update Storage Path Error:', error);
+        throw error;
+    }
+}
+async function getPhotoMetadataByCID(cid) {
+    const { data, error } = await supabase.from('photos_metadata').select('*').eq('cid', cid).single();
+    if (error && error.code !== 'PGRST116') {
+        console.error('Supabase Get Photo Error:', error);
+        throw error;
+    }
+    return data;
 }
 }),
 "[project]/src/lib/deviceId.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
@@ -1687,10 +1733,18 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$help$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HelpCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-help.js [app-ssr] (ecmascript) <export default as HelpCircle>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$link$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Link2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/link-2.js [app-ssr] (ecmascript) <export default as Link2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/loader-circle.js [app-ssr] (ecmascript) <export default as Loader2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$custom$2d$icon$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/custom-icon.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$encryption$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-encryption.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$gallery$2d$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-gallery-data.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/supabase.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$storage$2f$local$2d$db$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/storage/local-db.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$deviceId$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/deviceId.ts [app-ssr] (ecmascript)");
 "use client";
+;
+;
+;
 ;
 ;
 ;
@@ -1700,6 +1754,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$galle
 function Dashboard({ state, setState }) {
     const [showTooltip, setShowTooltip] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [showConfirmDialog, setShowConfirmDialog] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [showPairing, setShowPairing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isUploading, setIsUploading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [uploadProgress, setUploadProgress] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
+        current: 0,
+        total: 0
+    });
     // Get real photo count from encryption layer
     const { secretKey } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$encryption$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEncryption"])();
     const { photoCount } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$gallery$2d$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useGalleryData"])(secretKey);
@@ -1718,15 +1778,57 @@ function Dashboard({ state, setState }) {
             }));
         setShowConfirmDialog(false);
     };
-    const triggerManualBackup = ()=>{
-        console.log("TODO: Start backup with progress bar");
-        console.log("Trigger Backup Process");
-        console.log("Update Backup Metadata");
-        setState((prev)=>({
-                ...prev,
-                lastBackup: "Gerade eben",
-                photosCount: prev.photosCount + Math.floor(Math.random() * 10)
-            }));
+    const triggerManualBackup = async ()=>{
+        if (isUploading) return;
+        setIsUploading(true);
+        console.log("Starting backup to Supabase Storage...");
+        try {
+            const photos = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$storage$2f$local$2d$db$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getAllPhotos"])();
+            const photosWithBlobs = photos.filter((p)=>p.encryptedBlob);
+            setUploadProgress({
+                current: 0,
+                total: photosWithBlobs.length
+            });
+            let uploaded = 0;
+            const deviceId = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$deviceId$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getDeviceId"])();
+            for (const photo of photosWithBlobs){
+                if (!photo.encryptedBlob) continue;
+                // Check if already uploaded
+                const exists = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["cidExistsInSupabase"])(photo.cid);
+                if (!exists) {
+                    console.log(`Skipping ${photo.cid} - not in metadata table`);
+                    continue;
+                }
+                try {
+                    // Upload to Storage
+                    const storagePath = `${deviceId}/${photo.cid}`;
+                    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["uploadPhotoBlob"])(storagePath, photo.encryptedBlob);
+                    // Update metadata with storage path
+                    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["updatePhotoStoragePath"])(photo.cid, storagePath);
+                    uploaded++;
+                    setUploadProgress({
+                        current: uploaded,
+                        total: photosWithBlobs.length
+                    });
+                    console.log(`Uploaded ${uploaded}/${photosWithBlobs.length}: ${photo.cid}`);
+                } catch (err) {
+                    console.error(`Failed to upload ${photo.cid}:`, err);
+                }
+            }
+            setState((prev)=>({
+                    ...prev,
+                    lastBackup: "Gerade eben"
+                }));
+            console.log(`Backup complete: ${uploaded} photos uploaded`);
+        } catch (err) {
+            console.error("Backup failed:", err);
+        } finally{
+            setIsUploading(false);
+            setUploadProgress({
+                current: 0,
+                total: 0
+            });
+        }
     };
     const tooltips = {
         photos: "Lokal auf deinen Geräten gespeichert",
@@ -1744,7 +1846,7 @@ function Dashboard({ state, setState }) {
                         children: "Backup"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 59,
+                        lineNumber: 110,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1752,13 +1854,13 @@ function Dashboard({ state, setState }) {
                         children: "Verschlüsseltes Photo-Backup"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 60,
+                        lineNumber: 111,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 58,
+                lineNumber: 109,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1777,12 +1879,12 @@ function Dashboard({ state, setState }) {
                                         size: 28
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                        lineNumber: 77,
+                                        lineNumber: 128,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 72,
+                                    lineNumber: 123,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1796,7 +1898,7 @@ function Dashboard({ state, setState }) {
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                            lineNumber: 80,
+                                            lineNumber: 131,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1804,19 +1906,19 @@ function Dashboard({ state, setState }) {
                                             children: state.backupActive ? "Deine Fotos werden geschützt" : "Tippe zum Aktivieren"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                            lineNumber: 83,
+                                            lineNumber: 134,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 79,
+                                    lineNumber: 130,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 71,
+                            lineNumber: 122,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1825,23 +1927,23 @@ function Dashboard({ state, setState }) {
                                 className: `w-[27px] h-[27px] rounded-full bg-white shadow-sm ${state.backupActive ? "ml-auto" : ""}`
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                lineNumber: 95,
+                                lineNumber: 146,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 90,
+                            lineNumber: 141,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                    lineNumber: 70,
+                    lineNumber: 121,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 66,
+                lineNumber: 117,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1849,7 +1951,7 @@ function Dashboard({ state, setState }) {
                 children: "Automatisch neue Fotos sichern"
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 105,
+                lineNumber: 156,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1861,7 +1963,7 @@ function Dashboard({ state, setState }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 112,
+                            lineNumber: 163,
                             columnNumber: 17
                         }, void 0),
                         value: displayPhotoCount.toLocaleString(),
@@ -1871,7 +1973,7 @@ function Dashboard({ state, setState }) {
                         onTap: ()=>setShowTooltip(showTooltip === "photos" ? null : "photos")
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 111,
+                        lineNumber: 162,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MetricCard, {
@@ -1880,7 +1982,7 @@ function Dashboard({ state, setState }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 122,
+                            lineNumber: 173,
                             columnNumber: 17
                         }, void 0),
                         value: state.lastBackup,
@@ -1890,7 +1992,7 @@ function Dashboard({ state, setState }) {
                         onTap: ()=>setShowTooltip(showTooltip === "lastBackup" ? null : "lastBackup")
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 121,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(MetricCard, {
@@ -1899,7 +2001,7 @@ function Dashboard({ state, setState }) {
                             size: 20
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 132,
+                            lineNumber: 183,
                             columnNumber: 17
                         }, void 0),
                         value: `${state.permanence}%`,
@@ -1909,22 +2011,57 @@ function Dashboard({ state, setState }) {
                         onTap: ()=>setShowTooltip(showTooltip === "permanence" ? null : "permanence")
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 131,
+                        lineNumber: 182,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 110,
+                lineNumber: 161,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: triggerManualBackup,
-                className: `w-full h-[50px] text-[17px] font-semibold rounded-xl mb-4 ios-tap-target ${state.backupActive ? "bg-[#007AFF] text-white" : "bg-[#30D158] text-white"}`,
-                children: state.backupActive ? "Jetzt sichern" : "Backup aktivieren"
+                disabled: isUploading,
+                className: `w-full h-[50px] text-[17px] font-semibold rounded-xl mb-3 ios-tap-target ${state.backupActive ? "bg-[#007AFF] text-white" : "bg-[#30D158] text-white"} disabled:opacity-70`,
+                children: isUploading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "flex items-center justify-center gap-2",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
+                            className: "w-5 h-5 animate-spin"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/photovault/Dashboard.tsx",
+                            lineNumber: 206,
+                            columnNumber: 13
+                        }, this),
+                        uploadProgress.total > 0 ? `${uploadProgress.current}/${uploadProgress.total} hochladen...` : "Vorbereiten..."
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/src/components/photovault/Dashboard.tsx",
+                    lineNumber: 205,
+                    columnNumber: 11
+                }, this) : state.backupActive ? "Jetzt sichern" : "Backup aktivieren"
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 144,
+                lineNumber: 195,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                onClick: ()=>setShowPairing(true),
+                className: "w-full h-[50px] text-[17px] font-semibold rounded-xl mb-4 ios-tap-target bg-[#F2F2F7] text-[#007AFF] flex items-center justify-center gap-2",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$link$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Link2$3e$__["Link2"], {
+                        className: "w-5 h-5"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/photovault/Dashboard.tsx",
+                        lineNumber: 223,
+                        columnNumber: 9
+                    }, this),
+                    "Gerät verbinden"
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/photovault/Dashboard.tsx",
+                lineNumber: 219,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1935,19 +2072,19 @@ function Dashboard({ state, setState }) {
                         "Deine Fotos sind verschlüsselt.",
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 159,
+                            lineNumber: 231,
                             columnNumber: 11
                         }, this),
                         "Niemand kann sie sehen."
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                    lineNumber: 157,
+                    lineNumber: 229,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 156,
+                lineNumber: 228,
                 columnNumber: 7
             }, this),
             showConfirmDialog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1963,7 +2100,7 @@ function Dashboard({ state, setState }) {
                                     children: state.backupActive ? "Backup deaktivieren?" : "Backup aktivieren?"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 169,
+                                    lineNumber: 241,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1971,13 +2108,13 @@ function Dashboard({ state, setState }) {
                                     children: state.backupActive ? "Neue Fotos werden nicht mehr automatisch gesichert." : "Neue Fotos werden automatisch verschlüsselt und gesichert."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 174,
+                                    lineNumber: 246,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 168,
+                            lineNumber: 240,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1989,7 +2126,7 @@ function Dashboard({ state, setState }) {
                                     children: "Abbrechen"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 181,
+                                    lineNumber: 253,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1998,30 +2135,30 @@ function Dashboard({ state, setState }) {
                                     children: state.backupActive ? "Deaktivieren" : "Aktivieren"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                    lineNumber: 187,
+                                    lineNumber: 259,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                            lineNumber: 180,
+                            lineNumber: 252,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                    lineNumber: 167,
+                    lineNumber: 239,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 166,
+                lineNumber: 238,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-        lineNumber: 56,
+        lineNumber: 107,
         columnNumber: 5
     }, this);
 }
@@ -2041,13 +2178,13 @@ function MetricCard({ icon, value, label, tooltip, showTooltip, onTap }) {
                                 className: "w-3 h-3 text-[#C7C7CC] absolute -right-1 -top-1"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                                lineNumber: 226,
+                                lineNumber: 298,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 224,
+                        lineNumber: 296,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2055,7 +2192,7 @@ function MetricCard({ icon, value, label, tooltip, showTooltip, onTap }) {
                         children: value
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 228,
+                        lineNumber: 300,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2063,13 +2200,13 @@ function MetricCard({ icon, value, label, tooltip, showTooltip, onTap }) {
                         children: label
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 231,
+                        lineNumber: 303,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 220,
+                lineNumber: 292,
                 columnNumber: 7
             }, this),
             showTooltip && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2080,19 +2217,19 @@ function MetricCard({ icon, value, label, tooltip, showTooltip, onTap }) {
                         className: "absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-[#1D1D1F]"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                        lineNumber: 238,
+                        lineNumber: 310,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/Dashboard.tsx",
-                lineNumber: 236,
+                lineNumber: 308,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/Dashboard.tsx",
-        lineNumber: 219,
+        lineNumber: 291,
         columnNumber: 5
     }, this);
 }
@@ -3472,18 +3609,58 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/supabase.ts [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$deviceId$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/deviceId.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$storage$2f$local$2d$db$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/storage/local-db.ts [app-ssr] (ecmascript)");
 /**
  * useRealtimeSync Hook - Real-time sync across devices via Supabase
  */ 'use client';
 ;
 ;
 ;
+;
 function useRealtimeSync(options = {}) {
-    const { onNewPhoto, onPhotoDeleted, enabled = true } = options;
+    const { onNewPhoto, onPhotoDeleted, onPhotoDownloaded, enabled = true, secretKey } = options;
     const [remoteCIDs, setRemoteCIDs] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isConnected, setIsConnected] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [lastSyncError, setLastSyncError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [isSyncing, setIsSyncing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const deviceId = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : 'server';
+    // Fetch missing photo content from Supabase Storage
+    const fetchMissingContent = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async (photo)=>{
+        if (!secretKey || !photo.storage_path) return false;
+        try {
+            // Check if we already have this photo locally
+            const localPhoto = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$storage$2f$local$2d$db$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getPhotoByCID"])(photo.cid);
+            if (localPhoto?.encryptedBlob) {
+                console.log('Photo already exists locally:', photo.cid);
+                return false;
+            }
+            console.log('Fetching missing photo from storage:', photo.cid);
+            setIsSyncing(true);
+            // Download encrypted blob from Supabase Storage
+            const encryptedBlob = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["downloadPhotoBlob"])(photo.storage_path);
+            // Save to local IndexedDB (still encrypted)
+            await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$storage$2f$local$2d$db$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["savePhoto"])({
+                cid: photo.cid,
+                nonce: '',
+                fileName: `synced_${photo.cid}`,
+                mimeType: 'image/jpeg',
+                fileSize: photo.file_size_bytes || 0,
+                uploadedAt: new Date(photo.uploaded_at),
+                encryptedBlob: encryptedBlob
+            });
+            console.log('Photo downloaded and saved locally:', photo.cid);
+            onPhotoDownloaded?.(photo.cid);
+            return true;
+        } catch (error) {
+            console.error('Failed to fetch missing content:', error);
+            return false;
+        } finally{
+            setIsSyncing(false);
+        }
+    }, [
+        secretKey,
+        onPhotoDownloaded
+    ]);
     // Load initial CIDs from Supabase
     const loadRemoteCIDs = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async ()=>{
         try {
@@ -3493,6 +3670,7 @@ function useRealtimeSync(options = {}) {
                     device_id: row.device_id,
                     uploaded_at: row.uploaded_at,
                     file_size_bytes: row.file_size_bytes,
+                    storage_path: row.storage_path || null,
                     isFromOtherDevice: row.device_id !== deviceId
                 }));
             setRemoteCIDs(photos);
@@ -3518,7 +3696,8 @@ function useRealtimeSync(options = {}) {
         deviceId,
         onNewPhoto,
         onPhotoDeleted,
-        loadRemoteCIDs
+        loadRemoteCIDs,
+        fetchMissingContent
     ]);
     // Force refresh
     const refresh = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async ()=>{
@@ -3532,8 +3711,10 @@ function useRealtimeSync(options = {}) {
         remoteCIDs,
         remoteCIDsFromOtherDevices,
         isConnected,
+        isSyncing,
         lastSyncError,
         refresh,
+        fetchMissingContent,
         deviceId
     };
 }

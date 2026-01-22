@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, Link2, Loader2 } from "lucide-react";
 import { CustomIcon } from "@/components/ui/custom-icon";
 import type { AppState } from "./PhotoVaultApp";
 import { useEncryption } from "@/hooks/use-encryption";
 import { useGalleryData } from "@/hooks/use-gallery-data";
+import { DevicePairing } from "@/components/features/settings/DevicePairing";
+import { uploadPhotoBlob, updatePhotoStoragePath, cidExistsInSupabase } from "@/lib/supabase";
+import { getAllPhotos } from "@/lib/storage/local-db";
+import { getDeviceId } from "@/lib/deviceId";
 
 interface DashboardProps {
   state: AppState;
@@ -15,6 +19,9 @@ interface DashboardProps {
 export function Dashboard({ state, setState }: DashboardProps) {
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [showPairing, setShowPairing] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
 
   // Get real photo count from encryption layer
   const { secretKey } = useEncryption();
@@ -35,15 +42,59 @@ export function Dashboard({ state, setState }: DashboardProps) {
     setShowConfirmDialog(false);
   };
 
-  const triggerManualBackup = () => {
-    console.log("TODO: Start backup with progress bar");
-    console.log("Trigger Backup Process");
-    console.log("Update Backup Metadata");
-    setState((prev) => ({
-      ...prev,
-      lastBackup: "Gerade eben",
-      photosCount: prev.photosCount + Math.floor(Math.random() * 10),
-    }));
+  const triggerManualBackup = async () => {
+    if (isUploading) return;
+
+    setIsUploading(true);
+    console.log("Starting backup to Supabase Storage...");
+
+    try {
+      const photos = await getAllPhotos();
+      const photosWithBlobs = photos.filter((p) => p.encryptedBlob);
+
+      setUploadProgress({ current: 0, total: photosWithBlobs.length });
+
+      let uploaded = 0;
+      const deviceId = getDeviceId();
+
+      for (const photo of photosWithBlobs) {
+        if (!photo.encryptedBlob) continue;
+
+        // Check if already uploaded
+        const exists = await cidExistsInSupabase(photo.cid);
+        if (!exists) {
+          console.log(`Skipping ${photo.cid} - not in metadata table`);
+          continue;
+        }
+
+        try {
+          // Upload to Storage
+          const storagePath = `${deviceId}/${photo.cid}`;
+          await uploadPhotoBlob(storagePath, photo.encryptedBlob);
+
+          // Update metadata with storage path
+          await updatePhotoStoragePath(photo.cid, storagePath);
+
+          uploaded++;
+          setUploadProgress({ current: uploaded, total: photosWithBlobs.length });
+          console.log(`Uploaded ${uploaded}/${photosWithBlobs.length}: ${photo.cid}`);
+        } catch (err) {
+          console.error(`Failed to upload ${photo.cid}:`, err);
+        }
+      }
+
+      setState((prev) => ({
+        ...prev,
+        lastBackup: "Gerade eben",
+      }));
+
+      console.log(`Backup complete: ${uploaded} photos uploaded`);
+    } catch (err) {
+      console.error("Backup failed:", err);
+    } finally {
+      setIsUploading(false);
+      setUploadProgress({ current: 0, total: 0 });
+    }
   };
 
   const tooltips = {
@@ -143,13 +194,34 @@ export function Dashboard({ state, setState }: DashboardProps) {
       {/* Primary Action Button */}
       <button
         onClick={triggerManualBackup}
-        className={`w-full h-[50px] text-[17px] font-semibold rounded-xl mb-4 ios-tap-target ${
+        disabled={isUploading}
+        className={`w-full h-[50px] text-[17px] font-semibold rounded-xl mb-3 ios-tap-target ${
           state.backupActive
             ? "bg-[#007AFF] text-white"
             : "bg-[#30D158] text-white"
-        }`}
+        } disabled:opacity-70`}
       >
-        {state.backupActive ? "Jetzt sichern" : "Backup aktivieren"}
+        {isUploading ? (
+          <span className="flex items-center justify-center gap-2">
+            <Loader2 className="w-5 h-5 animate-spin" />
+            {uploadProgress.total > 0
+              ? `${uploadProgress.current}/${uploadProgress.total} hochladen...`
+              : "Vorbereiten..."}
+          </span>
+        ) : state.backupActive ? (
+          "Jetzt sichern"
+        ) : (
+          "Backup aktivieren"
+        )}
+      </button>
+
+      {/* Link Device Button */}
+      <button
+        onClick={() => setShowPairing(true)}
+        className="w-full h-[50px] text-[17px] font-semibold rounded-xl mb-4 ios-tap-target bg-[#F2F2F7] text-[#007AFF] flex items-center justify-center gap-2"
+      >
+        <Link2 className="w-5 h-5" />
+        Gerät verbinden
       </button>
 
       {/* Trust Footer */}
@@ -196,6 +268,9 @@ export function Dashboard({ state, setState }: DashboardProps) {
           </div>
         </div>
       )}
+
+      {/* Device Pairing Modal */}
+      <DevicePairing isOpen={showPairing} onClose={() => setShowPairing(false)} />
     </div>
   );
 }

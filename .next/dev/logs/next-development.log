@@ -72850,3 +72850,159 @@ Check the render method of `PhotoGallery`.
 [03:57:59.223] Browser LOG     Realtime subscription status: SUBSCRIBED
 [03:58:09.043] Browser LOG     Realtime subscription status: CLOSED
 [03:58:09.372] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:12:38.689] Server  LOG     ✓ Compiled in 2.8s
+[06:13:18.935] Server  LOG     ✓ Compiled in 531ms
+[06:13:19.447] Browser WARN    Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.
+[06:13:19.447] Browser LOG     Realtime subscription status: CLOSED
+[06:13:21.415] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:13:26.912] Server  LOG     ✓ Compiled in 134ms
+[06:13:27.450] Browser WARN    Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.
+[06:13:27.450] Browser LOG     Realtime subscription status: CLOSED
+[06:13:27.450] Browser ERROR   Supabase Load Error: {"code":"42703","details":null,"hint":null,"message":"column photos_metadata.storage_path does not exist"}
+[06:13:27.450] Browser ERROR   Failed to load remote CIDs: {"code":"42703","details":null,"hint":null,"message":"column photos_metadata.storage_path does not exist"}
+[06:13:28.415] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:14:56.854] Server  LOG     ✓ Compiled in 393ms
+[06:14:57.427] Browser LOG     Realtime subscription status: CLOSED
+[06:14:58.418] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:15:13.566] Server  LOG     ✓ Compiled in 750ms
+[06:15:14.416] Browser LOG     Realtime subscription status: CLOSED
+[06:15:14.416] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:15:23.543] Server  LOG     ✓ Compiled in 247ms
+[06:15:24.419] Browser LOG     Realtime subscription status: CLOSED
+[06:15:24.419] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:15:31.182] Server  LOG     ✓ Compiled in 139ms
+[06:15:31.416] Browser LOG     Realtime subscription status: CLOSED
+[06:15:32.415] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:15:44.866] Server  LOG     ✓ Compiled in 227ms
+[06:15:45.417] Browser LOG     Realtime subscription status: CLOSED
+[06:15:45.417] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:15:55.673] Server  LOG     ✓ Compiled in 275ms
+[06:15:56.456] Browser ERROR   The final argument passed to %s changed size between renders. The order and size of this array must remain constant.
+
+Previous: %s
+Incoming: %s useEffect [true, 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56, (photo)=>{
+            console.log('New photo from device:', photo.device_id);
+            setSyncNotification(`Neues Foto von anderem Gerät empfangen`);
+            setTimeout({
+                "PhotoGallery.useCallback[handleNewPhoto]": ()=>setSyncNotification(null)
+            }["PhotoGallery.useCallback[handleNewPhoto]"], 3000);
+        }, , async ()=>{
+            try {
+                const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loadCIDsFromSupabase"])(deviceId);
+                const photos = data.map({
+                    "useRealtimeSync.useCallback[loadRemoteCIDs].photos": (row)=>({
+                            cid: row.cid,
+                            device_id: row.device_id,
+                            uploaded_at: row.uploaded_at,
+                            file_size_bytes: row.file_size_bytes,
+                            storage_path: row.storage_path || null,
+                            isFromOtherDevice: row.device_id !== deviceId
+                        })
+                }["useRealtimeSync.useCallback[loadRemoteCIDs].photos"]);
+                setRemoteCIDs(photos);
+                setLastSyncError(null);
+                return photos;
+            } catch (error) {
+                console.error('Failed to load remote CIDs:', error);
+                setLastSyncError(error);
+                return [];
+            }
+        }] [true, 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56, (photo)=>{
+            console.log('New photo from device:', photo.device_id);
+            setSyncNotification(`Neues Foto von anderem Gerät empfangen`);
+            setTimeout({
+                "PhotoGallery.useCallback[handleNewPhoto]": ()=>setSyncNotification(null)
+            }["PhotoGallery.useCallback[handleNewPhoto]"], 3000);
+        }, , async ()=>{
+            try {
+                const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["loadCIDsFromSupabase"])(deviceId);
+                const photos = data.map({
+                    "useRealtimeSync.useCallback[loadRemoteCIDs].photos": (row)=>({
+                            cid: row.cid,
+                            device_id: row.device_id,
+                            uploaded_at: row.uploaded_at,
+                            file_size_bytes: row.file_size_bytes,
+                            storage_path: row.storage_path || null,
+                            isFromOtherDevice: row.device_id !== deviceId
+                        })
+                }["useRealtimeSync.useCallback[loadRemoteCIDs].photos"]);
+                setRemoteCIDs(photos);
+                setLastSyncError(null);
+                return photos;
+            } catch (error) {
+                console.error('Failed to load remote CIDs:', error);
+                setLastSyncError(error);
+                return [];
+            }
+        }, async (photo)=>{
+            if (!secretKey || !photo.storage_path) return false;
+            try {
+                // Check if we already have this photo locally
+                const localPhoto = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$storage$2f$local$2d$db$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getPhotoByCID"])(photo.cid);
+                if (localPhoto?.encryptedBlob) {
+                    console.log('Photo already exists locally:', photo.cid);
+                    return false;
+                }
+                console.log('Fetching missing photo from storage:', photo.cid);
+                setIsSyncing(true);
+                // Download encrypted blob from Supabase Storage
+                const encryptedBlob = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$supabase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["downloadPhotoBlob"])(photo.storage_path);
+                // Save to local IndexedDB (still encrypted)
+                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$storage$2f$local$2d$db$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["savePhoto"])({
+                    cid: photo.cid,
+                    nonce: '',
+                    fileName: `synced_${photo.cid}`,
+                    mimeType: 'image/jpeg',
+                    fileSize: photo.file_size_bytes || 0,
+                    uploadedAt: new Date(photo.uploaded_at),
+                    encryptedBlob: encryptedBlob
+                });
+                console.log('Photo downloaded and saved locally:', photo.cid);
+                onPhotoDownloaded?.(photo.cid);
+                return true;
+            } catch (error) {
+                console.error('Failed to fetch missing content:', error);
+                return false;
+            } finally{
+                setIsSyncing(false);
+            }
+        }]
+[06:15:56.456] Browser LOG     Realtime subscription status: CLOSED
+[06:15:56.456] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:16:01.610] Server  LOG     ✓ Compiled in 73ms
+[06:16:02.415] Browser LOG     Realtime subscription status: CLOSED
+[06:16:02.415] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:16:14.905] Server  LOG     ✓ Finished filesystem cache database compaction in 11.1s
+[06:16:39.152] Server  LOG     ✓ Compiled in 231ms
+[06:16:53.448] Server  LOG     ✓ Compiled in 172ms
+[06:17:02.246] Server  LOG     ✓ Compiled in 190ms
+[06:17:15.502] Server  LOG     ✓ Compiled in 545ms
+[06:17:26.386] Server  LOG     ✓ Compiled in 702ms
+[06:17:40.888] Server  LOG     ✓ Compiled in 850ms
+[06:18:06.446] Server  LOG     ✓ Compiled in 230ms
+[06:18:07.418] Browser LOG     Realtime subscription status: CLOSED
+[06:18:07.418] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:18:32.067] Server  LOG     ✓ Compiled in 210ms
+[06:18:32.417] Browser WARN    Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.
+[06:18:32.417] Browser LOG     Realtime subscription status: CLOSED
+[06:18:33.415] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:18:38.135] Server  LOG     ✓ Compiled in 88ms
+[06:18:38.415] Browser WARN    Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.
+[06:18:38.415] Browser LOG     Realtime subscription status: CLOSED
+[06:18:39.417] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:18:44.297] Server  LOG     ✓ Compiled in 111ms
+[06:18:44.416] Browser LOG     Realtime subscription status: CLOSED
+[06:18:45.415] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:19:06.014] Server  LOG     ✓ Compiled in 65ms
+[06:19:06.415] Browser LOG     Realtime subscription status: CLOSED
+[06:19:07.416] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:19:13.305] Server  LOG     ✓ Compiled in 73ms
+[06:19:13.424] Browser LOG     Realtime subscription status: CLOSED
+[06:19:14.415] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:19:20.279] Server  LOG     ✓ Compiled in 129ms
+[06:19:20.418] Browser LOG     Realtime subscription status: CLOSED
+[06:19:21.414] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:20:06.831] Browser LOG     Realtime subscription status: CLOSED
+[06:20:07.012] Browser LOG     Realtime subscription status: SUBSCRIBED
+[06:20:09.467] Browser LOG     Realtime subscription status: CLOSED
+[06:20:15.956] Browser LOG     TODO: Toggle backup with confirmation dialog

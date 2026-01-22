@@ -14,7 +14,7 @@ import {
     type PhotoMetadata,
 } from '@/lib/storage/local-db';
 import { encryptFile, decryptFile } from '@/lib/crypto';
-import { uploadCIDMetadata, cidExistsInSupabase } from '@/lib/supabase';
+import { uploadCIDMetadata, uploadPhotoBlob, updatePhotoStoragePath } from '@/lib/supabase';
 import { getDeviceId } from '@/lib/deviceId';
 
 export function useGalleryData(secretKey: Uint8Array | null) {
@@ -62,13 +62,24 @@ export function useGalleryData(secretKey: Uint8Array | null) {
             await savePhoto(metadata);
 
             // Sync to Supabase Cloud
+            const deviceId = getDeviceId();
             try {
-                const deviceId = getDeviceId();
-                await uploadCIDMetadata(cid, file.size, deviceId);
-                console.log('Photo synced to cloud:', cid);
+                await uploadCIDMetadata(cid, file.size, deviceId, nonce, file.type);
+                console.log('Photo metadata synced to cloud:', cid);
             } catch (error) {
-                console.error('Cloud sync failed (photo saved locally):', error);
+                console.error('Cloud metadata sync failed (photo saved locally):', error);
                 // Don't throw - local save succeeded
+            }
+
+            // Upload encrypted blob to Supabase Storage (background)
+            try {
+                const storagePath = `${deviceId}/${cid}`;
+                await uploadPhotoBlob(storagePath, encrypted);
+                await updatePhotoStoragePath(cid, storagePath);
+                console.log('Photo blob uploaded to storage:', storagePath);
+            } catch (error) {
+                console.error('Storage upload failed (photo saved locally):', error);
+                // Don't throw - local save succeeded, can retry later
             }
 
             return metadata;

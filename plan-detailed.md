@@ -1,188 +1,95 @@
-# Gesamtplan: PhotoVault (2026 Edition)
+# PhotoVault: PRD & Master Plan (MVP Edition)
 
-Dieser Plan erweitert das bestehende Projekt um die gewünschten Features, basierend auf `Plan.md` und der aktuellen Codebasis. Phase 3 (AI/Face Detection) wurde zugunsten der Core-Features und Stabilität nach hinten priorisiert.
-
----
-
-## Bestehende Struktur (Status Quo)
-
-Das Projekt ist ein initialisiertes **Next.js** Projekt mit **TailwindCSS** und **shadcn/ui**.
-
-### Core Dependencies (aus `package.json`)
-- **Framework**: `next` (v14.2.23) -> **Upgrade auf Next.js 15 erforderlich**
-- **Styling**: `tailwindcss` (v3), `class-variance-authority`, `lucide-react`
-- **UI**: Umfangreiche shadcn/ui Komponenten bereits installiert (`@radix-ui/*`, `cmdk`, `embla-carousel-react`, etc.)
-- **Backend/Data**: `@supabase/supabase-js`, `stripe` (bereits in dependencies!)
-- **Forms**: `react-hook-form`, `zod` (indirekt via shadcn templates oft dabei, muss explizit geprüft werden)
-
-### Verzeichnisstruktur
-- `/src/app`: Minimales Setup (`page.tsx`, `layout.tsx`).
-- `/src/components/ui`: Viele shadcn Komponenten bereits vorhanden (Button, Dialog, ScrollArea, etc.).
-- `/src/lib/utils.ts`: Standard `cn` utility.
-
-**Erkenntnis**: Das Fundament für UI ist da. Die Geschäftslogik (Encryption, IPFS, DB) fehlt komplett.
+> [!IMPORTANT]
+> **Strict Context**: This document defines the MVP scope.
+> **MVP Goal**: A fully functional, decentralized, encrypted photo storage with multi-device sync.
+> **Excluded from MVP**: AI Face Recognition, Semantic Search (Phase 3+).
 
 ---
 
-## Neue Features & Implementierungsphasen
+## 1. Product Requirements Document (PRD)
 
-### Phase 1: Core Foundation & Security (Woche 1-2)
-*Ziel: Sichere lokale PWA ohne Server-Abhängigkeit.*
-1.  **Upgrade**: Migration auf Next.js 15 (App Router Stability).
-2.  **Encryption Layer**: Integration von `tweetnacl.js` für Client-Side Encryption.
-3.  **Local Storage Logic**:
-    -   Key-Management System (Generierung & encrypted Speicherung im LocalStorage).
-    -   Lokale Datenbank (Dexie.js oder erweitertes LocalStorage Handling für CIDs).
-4.  **UI Implementation**:
-    -   `UploadZone` (Drag & Drop mit Encryption-Worker).
-    -   `PhotoGrid` (Entschlüsselung on-the-fly).
+### Product Promise
+**"Photos dezentral verschlüsselt, nur Metadaten zentral."**
 
-### Phase 2: Cloud Sync & Device Management (Woche 3)
-*Ziel: Multi-Device Sync.*
-1.  **Supabase Auth**: Anonyme Logins (für Geräte) + Email/Passwort (für Backup+).
-2.  **Database**: Deployment des Schemas mit strikten RLS Policies.
-3.  **Sync Engine**:
-    -   Hooks (`useSync`), die lokale CIDs mit Supabase abgleichen.
-    -   Realtime Subscriptions für sofortige Updates auf anderen Geräten.
-4.  **Remote Pinning**: Integration von Web3.storage (oder Supabase Storage als Fallback/Hot-Storage).
+### Data Architecture
+1.  **Encrypted Photos (Content)**:
+    -   Client-side encryption (`tweetnacl`) 🔒.
+    -   Storage: **IPFS** / **Web3.storage** (Decentralized) 🌐.
+    -   Result: Only CID (Hash) + Encrypted Blob leaves the device.
+    -   *Note*: Local IPFS node (Tauri) for redundancy in later desktop versions.
+2.  **Metadata (Supabase)**:
+    -   Minimal structure: CID, Date, Size, DeviceID.
+    -   Flags: `pinned_locally`, `pinned_remote`.
+    -   **Zero Knowledge**: No keys, no plain image data.
 
-### Phase 3: Desktop Experience (Woche 4-5)
-*Ziel: Native Performance & OS Integration.*
-1.  **Tauri Integration**: `npm run tauri init`.
-2.  **File System Bridge**: Rust-Commands zum direkten Lesen/Schreiben von Dateien (umgeht Browser-Sandboxing für Performance).
-3.  **System Tray**: Status-Anzeige (Syncing...).
-
-### Phase 4: Monetization (Woche 6)
-*Ziel: Business Logic.*
-1.  **Stripe Checkout**: Integration in UI.
-2.  **Supabase Edge Functions**: Webhooks zur Verarbeitung von Zahlungen und setzen der `subscription_tier`.
-
-### Phase 5: AI Extensions (Nach Launch / Hinten angestellt)
-*Ziel: Intelligente Suche (Client-Side).*
--   Nach erfolgreichem Launch von Core & Sync.
--   Integration von `tensorflow.js` und Vector-Search.
+### Core Value Props (MVP)
+1.  **Zero-Knowledge Encryption**: User owns the transmission key.
+2.  **Decentralized Storage**: Resilient storage via IPFS/Filecoin protocols.
+3.  **Multi-Device Sync**: Real-time sync of library state between devices without a central cloud "account" holding the data.
 
 ---
 
-## Dateistruktur (Final)
+## 2. Implementation Status & Roadmap
 
-Wir behalten die flache Struktur bei und erweitern logisch.
+### ✅ Phase 1: Foundation (Completed)
+-   **Core**: Next.js 15 Environment.
+-   **Crypto**: `src/lib/crypto.ts` (tweetnacl wrapper).
+-   **Local DB**: `src/lib/storage/local-db.ts` (Dexie.js).
+-   **UI**: Dashboard, Basic Upload UI.
 
-```
-/src
-├── app
-│   ├── (auth)
-│   │   ├── login/page.tsx
-│   │   └── signup/page.tsx
-│   ├── (dashboard)
-│   │   ├── layout.tsx       # Auth Guard & Shell
-│   │   ├── page.tsx         # Main Gallery
-│   │   └── settings/page.tsx
-│   ├── api                  # Next.js API Routes (nur für Edge Cases)
-│   ├── layout.tsx           # Global Providers (Theme, QueryClient)
-│   └── globals.css
-├── components
-│   ├── ui/                  # Bestehende shadcn Komponenten (Button, etc.)
-│   ├── features
-│   │   ├── upload/
-│   │   │   ├── UploadZone.tsx
-│   │   │   └── EncryptionWorker.ts
-│   │   ├── gallery/
-│   │   │   ├── PhotoGrid.tsx
-│   │   │   └── PhotoCard.tsx
-│   │   └── sync/
-│   │       └── SyncStatusIndicator.tsx
-│   └── layout/
-│       ├── Header.tsx
-│       └── Sidebar.tsx
-├── lib
-│   ├── utils.ts             # Bestehend
-│   ├── crypto.ts            # tweetnacl Wrapper (encrypt/decrypt/keys)
-│   ├── ipfs.ts              # IPFS/Web3.storage Logik
-│   ├── supabase/
-│   │   ├── client.ts        # Browser Client
-│   │   ├── server.ts        # Server Component Client
-│   │   └── types.ts         # DB Typen
-│   ├── storage/
-│   │   └── local-db.ts      # Browser-Storage Abstraktion
-│   └── constants.ts
-└── hooks
-    ├── use-encryption.ts
-    ├── use-gallery-data.ts
-    └── use-sync-status.ts
-```
+### 🚧 Phase 2: The "Real" Sync (Current Focus)
+*Missing link to make the app usable across devices.*
+
+#### 2.1 Metadata Sync (Supabase)
+-   **Status**: ✅ Implemented (`useRealtimeSync.ts`).
+-   **Function**: Devices know *about* files on other devices.
+
+#### 2.2 Content Sync (Remote Pinning)
+-   **Status**: ❌ Pending.
+-   **Requirement**:
+    -   Upload encrypted blobs to Decentralized Storage (Web3.storage) or Supabase Storage (Blob Store) as a bridge.
+    -   Store mapping: `CID` -> `Storage URL` (or retrieve via IPFS Gateway).
+    -   **Action**: Create `src/lib/storage/remote-storage.ts`.
+
+#### 2.3 Key Exchange (Device Pairing)
+-   **Status**: ❌ Pending.
+-   **Requirement**: Device B cannot decrypt pics from Device A without the Secret Key.
+-   **Feature**:
+    -   **Export**: Show Private Key as QR Code (`qrcode.react`).
+    -   **Import**: Scan/Enter Key on new device.
+    -   **Action**: Create Key Management UI.
+
+### 🔮 Phase 3: Future / Post-MVP
+*Explicitly excluded from current sprint.*
+-   **AI Intelligence**: Face Detection (`face-api.js`), Vector Search.
+-   **Tauri Desktop App**: Native filesystem integration, Background Sync.
 
 ---
 
-## DB Schema + RLS Policies
+## 3. Technical Implementation Plan (Immediate Next Steps)
 
-Das Schema wird in Supabase angelegt. **Wichtig:** RLS ist NICHT optional.
+### Step 1: Fix Content Sync (Remote Pinning)
+We need a place to put the encrypted blobs so Device B can download them.
+1.  **Storage Provider**: Use Supabase Storage (Bucket: `vault`) as the primary "Remote Pin" for MVP stability, or pure Web3.storage if API keys are provided. *Decision: Start with Supabase Storage for speed, interface it as a "Remote Pin".*
+2.  **Upload Logic**:
+    -   On `savePhoto`: Encrypt -> Local DB -> **Background Upload**.
+    -   Update `photos_metadata` table: Set `pinned_remote = true`.
+3.  **Download Logic**:
+    -   `useRealtimeSync` detects new CID.
+    -   Check Local DB (Missing?).
+    -   Fetch Encrypted Blob from Storage.
+    -   Decrypt with Local Key -> Store in Local DB.
 
-### Tables
-
-1.  **`profiles`** (extends `auth.users`)
-    -   `id` (uuid, PK)
-    -   `tier` (text: 'free' | 'backup_plus')
-    -   *RLS: Users can view/edit own profile.*
-
-2.  **`devices`**
-    -   `id` (uuid, PK)
-    -   `user_id` (fk -> profiles.id)
-    -   `name` (text)
-    -   `public_key` (text, device specific encryption key)
-    -   *RLS: Users can all CRUD own devices.*
-
-3.  **`photos`**
-    -   `id` (uuid, PK)
-    -   `user_id` (fk -> profiles.id)
-    -   `cid` (text, IPFS Content ID)
-    -   `iv` (text, Encryption IV)
-    -   `meta` (jsonb, width, height, size - encrypted?)
-    -   *RLS: Users can all CRUD own photos.*
-
-### RLS Policies (Beispiel für `photos`)
-
-```sql
-ALTER TABLE photos ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Users can view own photos" 
-ON photos FOR SELECT 
-USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can insert own photos" 
-ON photos FOR INSERT 
-WITH CHECK (auth.uid() = user_id);
-```
+### Step 2: Implement Key Exchange
+1.  **Install**: `npm install qrcode.react`.
+2.  **UI**: Add "Link Device" button in Dashboard.
+3.  **Flow**:
+    -   User A: "Reveal Key" -> Auth Check -> Show QR.
+    -   User B: Onboarding -> "I have a key" -> Input/Scan.
 
 ---
-
-## Security Checklist (Project Rules)
-
-1.  **Input Validation**: Jede Server Action und API Route MUSS Inputs mit **Zod** validieren.
-2.  **CSP Headers**: In `next.config.js` strikte Content Security Policy setzen (Kein `unsafe-inline` für Scripts).
-3.  **Dependencies**: Keine unnötigen npm packages. Audit vor Install.
-4.  **Supabase**:
-    -   Service Role Key NIEMALS im Client nutzen.
-    -   RLS auf ALLEN Tabellen aktivieren.
-5.  **Client Encryption**:
-    -   Private Keys verlassen NIEMALS den LocalStorage/Browser Memory.
-    -   Daten werden VOR dem Upload zu IPFS/Supabase verschlüsselt.
-
----
-
-## Test Cases (Acceptance Criteria)
-
-### E2E Tests (Playwright)
-1.  **First Run / Onboarding**
-    -   User öffnet App -> Generiert Key -> Landet im leeren Dashboard.
-2.  **Local Backup Flow**
-    -   Upload Bild -> Bild erscheint in Grid -> Bild ist nach Reload noch da.
-3.  **Upgrade Flow** (Mocked Payment)
-    -   User klickt Upgrade -> Bezahl-Flow durch -> UI zeigt "Backup+".
-
-### Unit Tests (Jest/Vitest)
-1.  **Crypto/Security**
-    -   `encrypt(data, key)` output ist nicht gleich input.
-    -   `decrypt(encrypt(data))` == `data`.
-2.  **Components**
-    -   `UploadZone` akzeptiert nur korrekte MIME-Types.
+**Codebase Verification Notes**:
+-   `src/lib/ipfs.ts` does not exist yet. Needs creation or folding into `remote-storage.ts`.
+-   `crypto.ts` is ready.
+-   `useRealtimeSync.ts` handles metadata but needs triggers for content download.
