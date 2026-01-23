@@ -73,8 +73,8 @@ export function Dashboard({ state, setState }: DashboardProps) {
         if (!photo.encryptedBlob) continue;
 
         try {
-          // Check if already in Supabase metadata
-          const existsInSupabase = await cidExistsInSupabase(photo.cid);
+          // Check if already in Supabase metadata for this user
+          const existsInSupabase = await cidExistsInSupabase(photo.cid, keyHash);
 
           if (!existsInSupabase) {
             // Upload encrypted blob to IPFS

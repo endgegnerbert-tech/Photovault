@@ -66,16 +66,17 @@ export async function uploadCIDMetadata(
  * Load all photo CIDs from Supabase for a user
  * Photos are identified by CID and can be fetched from IPFS
  */
-export async function loadCIDsFromSupabase(_currentDeviceId: string, userKeyHash?: string) {
-  let query = supabase
-    .from('photos_metadata')
-    .select('cid, device_id, uploaded_at, file_size_bytes, nonce, mime_type')
-
-  if (userKeyHash) {
-    query = query.eq('user_key_hash', userKeyHash)
+export async function loadCIDsFromSupabase(_currentDeviceId: string, userKeyHash: string) {
+  if (!userKeyHash) {
+    console.error('loadCIDsFromSupabase: userKeyHash is required');
+    return [];
   }
 
-  const { data, error } = await query.order('uploaded_at', { ascending: false })
+  const { data, error } = await supabase
+    .from('photos_metadata')
+    .select('cid, device_id, uploaded_at, file_size_bytes, nonce, mime_type')
+    .eq('user_key_hash', userKeyHash)
+    .order('uploaded_at', { ascending: false })
 
   if (error) {
     console.error('Supabase Load Error:', error)
@@ -85,13 +86,16 @@ export async function loadCIDsFromSupabase(_currentDeviceId: string, userKeyHash
 }
 
 /**
- * Check if CID already exists in Supabase
+ * Check if CID already exists in Supabase for THIS user
  */
-export async function cidExistsInSupabase(cid: string): Promise<boolean> {
+export async function cidExistsInSupabase(cid: string, userKeyHash: string): Promise<boolean> {
+  if (!userKeyHash) return false;
+
   const { data, error } = await supabase
     .from('photos_metadata')
     .select('id')
     .eq('cid', cid)
+    .eq('user_key_hash', userKeyHash)
     .single()
 
   if (error && error.code !== 'PGRST116') {

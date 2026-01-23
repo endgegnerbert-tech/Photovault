@@ -31,116 +31,108 @@ function getGatewayBase(): string {
  * Generate a real IPFS CID by uploading to Pinata
  * Returns the CID (Content Identifier) that uniquely identifies this blob
  */
-export async function uploadToIPFS(blob: Blob, fileName?: string): Promise<string> {
+export async function uploadToIPFS(
+    blob: Blob,
+    fileName?: string,
+    onProgress?: (progress: number) => void
+): Promise<string> {
     if (!PINATA_JWT) {
         console.warn('PINATA_JWT not configured - using local mock CID');
-        // Generate a mock CID for development without Pinata
         const mockCid = `Qm${generateMockHash()}`;
         return mockCid;
     }
 
-    const formData = new FormData();
-    formData.append('file', blob, fileName || 'encrypted-photo.bin');
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', PINATA_PIN_URL);
+        xhr.setRequestHeader('Authorization', `Bearer ${PINATA_JWT}`);
 
-    // Optional: Add metadata for better organization
-    const metadata = JSON.stringify({
-        name: fileName || 'photovault-encrypted',
-        keyvalues: {
-            app: 'photovault',
-            type: 'encrypted-photo',
-        }
+        xhr.upload.onprogress = (event) => {
+            if (event.lengthComputable && onProgress) {
+                const percentComplete = Math.round((event.loaded / event.total) * 100);
+                onProgress(percentComplete);
+            }
+        };
+
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                try {
+                    const result = JSON.parse(xhr.responseText);
+                    resolve(result.IpfsHash);
+                } catch (e) {
+                    reject(new Error('Failed to parse Pinata response'));
+                }
+            } else {
+                reject(new Error(`IPFS upload failed: ${xhr.status}`));
+            }
+        };
+
+        xhr.onerror = () => reject(new Error('Network error during IPFS upload'));
+
+        const formData = new FormData();
+        formData.append('file', blob, fileName || 'encrypted-photo.bin');
+
+        const metadata = JSON.stringify({
+            name: fileName || 'photovault-encrypted',
+            keyvalues: { app: 'photovault', type: 'encrypted-photo' }
+        });
+        formData.append('pinataMetadata', metadata);
+
+        const options = JSON.stringify({ cidVersion: 1 });
+        formData.append('pinataOptions', options);
+
+        xhr.send(formData);
     });
-    formData.append('pinataMetadata', metadata);
-
-    // Pin options for better performance
-    const options = JSON.stringify({
-        cidVersion: 1,
-    });
-    formData.append('pinataOptions', options);
-
-    const response = await fetch(PINATA_PIN_URL, {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${PINATA_JWT}`,
-        },
-        body: formData,
-    });
-
-    if (!response.ok) {
-        const error = await response.text();
-        console.error('Pinata upload failed:', error);
-        throw new Error(`IPFS upload failed: ${response.status}`);
-    }
-
-    const result = await response.json();
-    console.log('IPFS upload successful:', result.IpfsHash);
-
-    return result.IpfsHash; // This is the CID
 }
 
 /**
- * Download content from IPFS via Pinata Gateway
- * Uses dedicated gateway with CORS-friendly fetch options
+ * Download content from IPFS via Multiple Gateways in parallel
+ * Races gateways for the fastest response
  */
 export async function downloadFromIPFS(cid: string): Promise<Blob> {
-    // Try multiple gateways for redundancy and CORS compatibility
-    const gateways = [
-        // Primary: Dedicated Pinata gateway (best performance)
+    const gatewayBase = getGatewayBase();
+
+    const gatewayGetters = [
+        // Primary: Dedicated Pinata gateway
         () => {
-            const gatewayBase = getGatewayBase();
             const url = new URL(`${gatewayBase}/ipfs/${cid}`);
-            if (PINATA_GATEWAY_TOKEN) {
-                url.searchParams.set('pinataGatewayToken', PINATA_GATEWAY_TOKEN);
-            }
-            return {
-                url: url.toString(),
-                headers: {},
-            };
+            if (PINATA_GATEWAY_TOKEN) url.searchParams.set('pinataGatewayToken', PINATA_GATEWAY_TOKEN);
+            return url.toString();
         },
-        // Fallback 1: Cloudflare IPFS gateway (CORS-friendly)
-        () => ({
-            url: `https://cloudflare-ipfs.com/ipfs/${cid}`,
-            headers: {},
-        }),
-        // Fallback 2: dweb.link (Protocol Labs, CORS-friendly)
-        () => ({
-            url: `https://dweb.link/ipfs/${cid}`,
-            headers: {},
-        }),
-        // Fallback 3: w3s.link (Web3.Storage gateway)
-        () => ({
-            url: `https://w3s.link/ipfs/${cid}`,
-            headers: {},
-        }),
+        // Fast Fallbacks
+        () => `https://cloudflare-ipfs.com/ipfs/${cid}`,
+        () => `https://dweb.link/ipfs/${cid}`,
+        () => `https://gateway.ipfs.io/ipfs/${cid}`
     ];
 
-    let lastError: Error | null = null;
+    // Create a controller to abort all other requests once one succeeds
+    const controller = new AbortController();
 
-    for (const getGateway of gateways) {
-        try {
-            const { url, headers } = getGateway();
-            console.log('Fetching from gateway:', url.split('?')[0]);
-
+    try {
+        const fetchPromises = gatewayGetters.map(async (getUrl) => {
+            const url = getUrl();
             const response = await fetch(url, {
-                method: 'GET',
-                headers,
-                // CORS-friendly options
+                signal: controller.signal,
                 mode: 'cors',
-                credentials: 'omit',
+                credentials: 'omit'
             });
 
-            if (response.ok) {
-                return await response.blob();
-            }
+            if (!response.ok) throw new Error(`Gateway ${url} failed`);
+            return response.blob();
+        });
 
-            console.warn(`Gateway returned ${response.status}: ${url.split('?')[0]}`);
-        } catch (error) {
-            console.warn('Gateway fetch error:', error);
-            lastError = error instanceof Error ? error : new Error(String(error));
-        }
+        // Race the fetches - the first successful one wins
+        const winingBlob = await Promise.any(fetchPromises);
+
+        // Abort all other pending requests
+        controller.abort();
+
+        return winingBlob;
+    } catch (error) {
+        controller.abort();
+        console.error('All IPFS gateways failed during download:', error);
+        throw new Error(`IPFS download failed for CID: ${cid}`);
     }
-
-    throw lastError || new Error(`IPFS download failed for CID: ${cid}`);
 }
 
 /**

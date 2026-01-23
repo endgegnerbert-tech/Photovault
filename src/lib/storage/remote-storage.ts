@@ -10,9 +10,10 @@ export interface RemoteStorageProvider {
      * Upload encrypted blob to IPFS
      * @param blob - The encrypted blob to upload
      * @param fileName - Optional filename for metadata
+     * @param onProgress - Optional callback for upload progress (0-100)
      * @returns The IPFS CID (Content Identifier)
      */
-    upload: (blob: Blob, fileName?: string) => Promise<string>;
+    upload: (blob: Blob, fileName?: string, onProgress?: (progress: number) => void) => Promise<string>;
 
     /**
      * Download encrypted blob from IPFS by CID
@@ -32,10 +33,10 @@ export interface RemoteStorageProvider {
  * Uses Pinata for pinning and dedicated gateway for downloads
  */
 export const remoteStorage: RemoteStorageProvider = {
-    upload: async (blob: Blob, fileName?: string) => {
+    upload: async (blob: Blob, fileName?: string, onProgress?: (progress: number) => void) => {
         try {
             console.log('Uploading to IPFS...', { size: blob.size, fileName });
-            const cid = await uploadToIPFS(blob, fileName);
+            const cid = await uploadToIPFS(blob, fileName, onProgress);
             console.log('IPFS upload successful:', cid);
             return cid;
         } catch (error) {

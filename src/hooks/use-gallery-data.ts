@@ -50,10 +50,14 @@ export function useGalleryData(secretKey: Uint8Array | null) {
         queryFn: getPhotoCount,
     });
 
+    const [uploadProgress, setUploadProgress] = useState<number>(0);
+
     // Mutation: Upload photo (encrypt -> IPFS -> Supabase metadata)
     const uploadMutation = useMutation({
         mutationFn: async (file: File) => {
             if (!secretKey) throw new Error('No encryption key');
+
+            setUploadProgress(0);
 
             // Step 1: Encrypt file client-side
             const { encrypted, nonce } = await encryptFile(file, secretKey);
@@ -62,7 +66,9 @@ export function useGalleryData(secretKey: Uint8Array | null) {
             // Step 2: Upload encrypted blob to IPFS -> returns real CID
             let cid: string;
             try {
-                cid = await remoteStorage.upload(encrypted, file.name);
+                cid = await remoteStorage.upload(encrypted, file.name, (progress) => {
+                    setUploadProgress(progress);
+                });
                 console.log('Uploaded to IPFS with CID:', cid);
             } catch (error) {
                 console.error('IPFS upload failed:', error);
@@ -150,6 +156,7 @@ export function useGalleryData(secretKey: Uint8Array | null) {
         deletePhoto: deleteMutation.mutate,
         decryptPhoto,
         isUploading: uploadMutation.isPending,
+        uploadProgress,
         userKeyHash
     };
 }

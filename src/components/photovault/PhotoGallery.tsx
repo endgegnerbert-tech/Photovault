@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import { SlidersHorizontal, X, Check, CloudOff, Download, Loader2, Cloud } from "lucide-react";
 import { CustomIcon } from "@/components/ui/custom-icon";
 import { useEncryption } from "@/hooks/use-encryption";
@@ -105,6 +105,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
         photos: realPhotos,
         uploadPhoto,
         isUploading,
+        uploadProgress,
     } = useGalleryData(secretKey);
 
     // Realtime Sync - receive photos from other devices
@@ -164,16 +165,22 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
     })();
 
     // Use real photos if available, otherwise use placeholders
-    const photos = allPhotos.length > 0 ? allPhotos : generatePhotos(Math.min(photosCount, 50));
+    const photos = useMemo(() => 
+        allPhotos.length > 0 ? allPhotos : generatePhotos(Math.min(photosCount, 50)),
+    [allPhotos, photosCount]);
 
-    const filteredPhotos = photos.filter((photo) => {
-        if (selectedFilter && photo.category !== selectedFilter) return false;
-        if (searchQuery && !photo.category.includes(searchQuery.toLowerCase()))
-            return false;
-        return true;
-    });
+    const filteredPhotos = useMemo(() => 
+        photos.filter((photo) => {
+            if (selectedFilter && photo.category !== selectedFilter) return false;
+            if (searchQuery && !photo.category.includes(searchQuery.toLowerCase()))
+                return false;
+            return true;
+        }),
+    [photos, selectedFilter, searchQuery]);
 
-    const filteredGroups = groupPhotosByDate(filteredPhotos);
+    const filteredGroups = useMemo(() => 
+        groupPhotosByDate(filteredPhotos),
+    [filteredPhotos]);
 
     // Load fullscreen photo (on-demand from IPFS if needed)
     const loadFullscreenPhoto = async (photo: typeof photos[0]) => {
@@ -605,6 +612,28 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
                             <span className="text-[11px] text-white/60">Verschlüsselt</span>
                         </div>
                     </footer>
+                </div>
+            )}
+            {/* Upload Progress Overlay */}
+            {isUploading && (
+                <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-6">
+                    <div className="bg-white w-full max-w-[280px] rounded-2xl p-6 shadow-2xl flex flex-col items-center">
+                        <div className="w-16 h-16 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-4">
+                            <Loader2 className="w-8 h-8 text-[#007AFF] animate-spin" />
+                        </div>
+                        <h3 className="sf-pro-display text-[17px] font-semibold text-[#1D1D1F] mb-1">
+                            Foto wird gesichert ({uploadProgress}%)
+                        </h3>
+                        <p className="text-[13px] text-[#6E6E73] text-center">
+                            Verschlüsselung & IPFS-Upload wird durchgeführt...
+                        </p>
+                        <div className="w-full bg-[#E5E5EA] h-1.5 rounded-full mt-4 overflow-hidden">
+                            <div 
+                                className="bg-[#007AFF] h-full transition-all duration-300"
+                                style={{ width: `${uploadProgress}%` }}
+                            />
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
