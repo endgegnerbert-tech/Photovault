@@ -9,12 +9,20 @@ import { toNextJsHandler } from "better-auth/next-js";
 
 const handler = toNextJsHandler(auth);
 
-export const GET = handler;
+export const GET = (req: Request) => handler.GET(req);
+
 export const POST = async (req: Request) => {
     try {
         const res = await handler.POST(req);
         if (res.status >= 400) {
-            console.error(`Better Auth Error [${res.status}]:`, await res.clone().json());
+            // Clone the response to avoid consuming the body stream
+            const resClone = res.clone();
+            try {
+                const errorData = await resClone.json();
+                console.error(`Better Auth Error [${res.status}]:`, JSON.stringify(errorData, null, 2));
+            } catch {
+                console.error(`Better Auth Error [${res.status}]: (could not parse body)`);
+            }
         }
         return res;
     } catch (error) {
