@@ -230,7 +230,7 @@ export function PhotoVaultApp() {
     if (appPhase === "auth") {
         return (
             <div className="min-h-screen ios-bg-gray">
-                <div className="max-w-[428px] mx-auto min-h-screen bg-[#F2F2F7]">
+                <div className="max-w-[1200px] mx-auto min-h-screen bg-[#F2F2F7]">
                     <AuthScreen onSuccess={handleAuthSuccess} />
                 </div>
             </div>
@@ -241,7 +241,7 @@ export function PhotoVaultApp() {
     if (appPhase === "unlock" && authUser) {
         return (
             <div className="min-h-screen ios-bg-gray">
-                <div className="max-w-[428px] mx-auto min-h-screen bg-[#F2F2F7]">
+                <div className="max-w-[1200px] mx-auto min-h-screen bg-[#F2F2F7]">
                     <UnlockVaultScreen
                         userEmail={authUser.email}
                         expectedKeyHash={authUser.vaultKeyHash}
@@ -258,7 +258,7 @@ export function PhotoVaultApp() {
     if (appPhase === "setup" && authUser) {
         return (
             <div className="min-h-screen ios-bg-gray">
-                <div className="max-w-[428px] mx-auto min-h-screen bg-[#F2F2F7]">
+                <div className="max-w-[1200px] mx-auto min-h-screen bg-[#F2F2F7]">
                     <VaultSetupScreen
                         userId={authUser.id}
                         onComplete={handleVaultCreated}
@@ -272,7 +272,7 @@ export function PhotoVaultApp() {
     // Main app
     return (
         <div className="min-h-screen ios-bg-gray">
-            <div className="max-w-[428px] mx-auto min-h-screen bg-[#F2F2F7] flex flex-col">
+            <div className="max-w-[1200px] mx-auto min-h-screen bg-[#F2F2F7] flex flex-col relative">
                 {/* Main Content Area */}
                 <div className="flex-1 overflow-hidden pb-[80px]">
                     {currentScreen === "gallery" && (
@@ -326,7 +326,7 @@ function BottomNavigation({
     onNavigate: (screen: Screen) => void;
 }) {
     return (
-        <nav className="fixed bottom-0 left-0 right-0 h-[80px] bg-white/80 backdrop-blur-xl border-t border-[#E5E5EA]/50 flex items-start justify-around pt-2 pb-6 max-w-[428px] mx-auto safe-area-bottom">
+        <nav className="fixed bottom-0 left-0 right-0 h-[80px] bg-white/80 backdrop-blur-xl border-t border-[#E5E5EA]/50 flex items-start justify-around pt-2 pb-6 max-w-[1200px] mx-auto safe-area-bottom z-40">
             {/* Gallery Tab */}
             <button
                 onClick={() => onNavigate("gallery")}

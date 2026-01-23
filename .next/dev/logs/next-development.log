@@ -1,1 +1,6 @@
 [00:00:02.439] Server  LOG     ✓ Ready in 1689ms
+[01:37:13.218] Server  LOG       Reload env: .env.local
+[01:39:04.292] Server  LOG       Reload env: .env.local
+[01:39:04.653] Server  ERROR   Error: write EPIPE
+[01:39:04.682] Server  ERROR   ⨯ "uncaughtException:" Error: write EPIPE
+[01:39:04.698] Server  ERROR   ⨯ "uncaughtException: " Error: write EPIPE

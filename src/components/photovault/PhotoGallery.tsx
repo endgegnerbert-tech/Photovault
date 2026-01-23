@@ -461,7 +461,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
                         </div>
 
                         {/* Photos Grid */}
-                        <div className="grid grid-cols-3 gap-[2px] px-[2px]">
+                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-[2px] md:gap-1 px-[2px] md:px-1">
                             {group.photos.map((photo) => {
                                 const isRealPhoto = photo.metadata !== undefined;
 
