@@ -34,18 +34,13 @@ export const auth = betterAuth({
         minPasswordLength: 8,
     },
 
-    // Session configuration
-    session: {
-        expiresIn: 60 * 60 * 24 * 30, // 30 days
-        updateAge: 60 * 60 * 24, // Update session every 24 hours
-        cookieCache: {
-            enabled: true,
-            maxAge: 60 * 5, // 5 minutes cache
-        },
-    },
-
     // User configuration with vault_key_hash for key anchoring
     user: {
+        fields: {
+            emailVerified: "email_verified",
+            createdAt: "created_at",
+            updatedAt: "updated_at",
+        },
         additionalFields: {
             vault_key_hash: {
                 type: "string",
@@ -53,6 +48,49 @@ export const auth = betterAuth({
                 defaultValue: null,
                 input: false, // Cannot be set by client directly
             },
+        },
+    },
+
+    // Session configuration
+    session: {
+        expiresIn: 60 * 60 * 24 * 30, // 30 days
+        updateAge: 60 * 60 * 24, // Update session every 24 hours
+        fields: {
+            userId: "user_id",
+            expiresAt: "expires_at",
+            ipAddress: "ip_address",
+            userAgent: "user_agent",
+            createdAt: "created_at",
+            updatedAt: "updated_at",
+        },
+        cookieCache: {
+            enabled: true,
+            maxAge: 60 * 5, // 5 minutes cache
+        },
+    },
+
+    // Account configuration
+    account: {
+        fields: {
+            userId: "user_id",
+            accountId: "account_id",
+            providerId: "provider_id",
+            accessToken: "access_token",
+            refreshToken: "refresh_token",
+            accessTokenExpiresAt: "access_token_expires_at",
+            refreshTokenExpiresAt: "refresh_token_expires_at",
+            idToken: "id_token",
+            createdAt: "created_at",
+            updatedAt: "updated_at",
+        },
+    },
+
+    // Verification configuration
+    verification: {
+        fields: {
+            expiresAt: "expires_at",
+            createdAt: "created_at",
+            updatedAt: "updated_at",
         },
     },
 
