@@ -133,13 +133,6 @@ export async function registerDevice(
     throw new Error('userKeyHash is required for device registration');
   }
 
-  // First try to check if device exists
-  const { data: existingDevice } = await supabase
-    .from('devices')
-    .select('id')
-    .eq('id', id)
-    .single();
-
   const devicePayload = {
     device_name: deviceName,
     device_type: deviceType,
@@ -147,39 +140,26 @@ export async function registerDevice(
     user_id: userId
   };
 
-  if (existingDevice) {
-    // UPDATE existing device
-    const { data, error } = await supabase
-      .from('devices')
-      .update(devicePayload)
-      .eq('id', id)
-      .select();
-
-    if (error) {
-      console.error('Supabase Device Update Error:', error);
-      throw error;
-    }
-    return data?.[0];
-  } else {
-    // INSERT new device
-    const { data, error } = await supabase
-      .from('devices')
-      .insert([{
+  // Perform an atomic UPSERT using the 'id' as the conflict target
+  const { error } = await supabase
+    .from('devices')
+    .upsert(
+      {
         id,
         ...devicePayload
-      }])
-      .select();
+      },
+      { onConflict: 'id' }
+    );
 
-    if (error) {
-      // Check for device limit error
-      if (error.message?.includes('Device limit exceeded')) {
-        throw new Error('DEVICE_LIMIT_EXCEEDED');
-      }
-      console.error('Supabase Device Insert Error:', error);
-      throw error;
+  if (error) {
+    // Check for device limit error (likely from a database trigger)
+    if (error.message?.includes('Device limit exceeded')) {
+      throw new Error('DEVICE_LIMIT_EXCEEDED');
     }
-    return data?.[0];
+    console.error('Supabase Device Upsert Error:', error);
+    throw error;
   }
+  return true;
 }
 
 /**

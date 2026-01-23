@@ -90,10 +90,19 @@ export function DecryptedThumbnail({
 
         loadAndDecrypt();
 
-        // Cleanup: Revoke object URL when component unmounts
+        // Cleanup: Revoke object URL when component unmounts or photo changes
         return () => {
             if (currentUrlRef.current) {
-                URL.revokeObjectURL(currentUrlRef.current);
+                // Delay revocation slightly to avoid WebKitBlobResource-Fehler on some browsers
+                // while the image might still be painting or being accessed
+                const urlToRevoke = currentUrlRef.current;
+                setTimeout(() => {
+                    try {
+                        URL.revokeObjectURL(urlToRevoke);
+                    } catch (e) {
+                        // Ignore errors during revocation
+                    }
+                }, 1000);
                 currentUrlRef.current = null;
             }
         };

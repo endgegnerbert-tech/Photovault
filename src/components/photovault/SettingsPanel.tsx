@@ -128,6 +128,23 @@ export function SettingsPanel({
   };
 
   const [showPairingFromSettings, setShowPairingFromSettings] = useState(false);
+  const [showClearCacheWarning, setShowClearCacheWarning] = useState(false);
+
+  const handleClearCache = async () => {
+    try {
+      // Clear IndexedDB (Dexie)
+      const { db } = await import("@/lib/storage/local-db");
+      await db.delete();
+      
+      // Clear local storage
+      localStorage.clear();
+      
+      // Force reload to clean state
+      window.location.reload();
+    } catch (err) {
+      console.error("Failed to clear cache:", err);
+    }
+  };
 
   const changeSource = (source: "photos-app" | "files-app") => {
     console.log("Update backup source preference:", source);
@@ -326,30 +343,29 @@ export function SettingsPanel({
           </p>
         </div>
 
-        {/* Onboarding Section */}
+        {/* Maintenance Section */}
         <div className="mb-6">
           <h2 className="text-[13px] font-semibold text-[#6E6E73] uppercase tracking-wide px-4 mb-2">
-            Setup
+            Wartung
           </h2>
           <div className="bg-white rounded-xl overflow-hidden">
             <button
-              onClick={() => {
-                console.log("TODO: Navigate to onboarding screen 1");
-                onRestartOnboarding();
-              }}
+              onClick={() => setShowClearCacheWarning(true)}
               className="w-full flex items-center justify-between p-4 ios-tap-target"
             >
               <div className="flex items-center gap-3">
-                <CustomIcon name="refresh" size={24} />
-                <span className="text-[17px] text-[#1D1D1F]">
-                  Onboarding wiederholen
+                <div className="w-6 h-6 flex items-center justify-center text-[#FF9500]">
+                  <CustomIcon name="refresh" size={24} />
+                </div>
+                <span className="text-[17px] text-[#FF9500]">
+                  Lokalen Cache leeren
                 </span>
               </div>
               <CustomIcon name="chevronRight" size={16} />
             </button>
           </div>
           <p className="text-[13px] text-[#6E6E73] px-4 mt-2">
-            Schlüssel, Quelle und Plan neu einrichten
+            Löscht lokale Vorschaubilder und Gerätedaten. Deine Fotos in der Cloud bleiben sicher.
           </p>
         </div>
       </div>
@@ -456,6 +472,18 @@ export function SettingsPanel({
           currentPlan={selectedPlan}
           onSelect={changePlan}
           onClose={() => setShowPlanSelector(false)}
+        />
+      )}
+
+      {/* Clear Cache Warning Modal */}
+      {showClearCacheWarning && (
+        <Modal
+          title="Cache leeren?"
+          message="Dies wird lokale Vorschaubilder und Gerätedaten löschen. Deine verschlüsselten Fotos in der Cloud bleiben sicher. Die App wird neu geladen."
+          confirmLabel="Cache leeren"
+          confirmDestructive={true}
+          onConfirm={handleClearCache}
+          onCancel={() => setShowClearCacheWarning(false)}
         />
       )}
 

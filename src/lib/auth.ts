@@ -104,7 +104,7 @@ export const auth = betterAuth({
     rateLimit: {
         enabled: true,
         window: 60, // 1 minute window
-        max: 10, // 10 requests per window
+        max: 100, // Increased to 100 to handle startup bursts
     },
 
     // Trusted origins for CORS
