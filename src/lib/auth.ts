@@ -9,6 +9,14 @@ import { betterAuth } from "better-auth";
 import { Pool } from "pg";
 
 // Supabase Postgres connection with SSL
+if (process.env.NODE_ENV === "production" && !process.env.DATABASE_URL) {
+    console.error("CRITICAL: DATABASE_URL is missing in production!");
+}
+
+if (process.env.DATABASE_URL && process.env.DATABASE_URL.includes("db.jextayidnmtsoofug") && !process.env.DATABASE_URL.includes("nig")) {
+    console.warn("WARNING: DATABASE_URL appears to be TRUNCATED (missing 'nig')");
+}
+
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
