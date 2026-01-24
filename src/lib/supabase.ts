@@ -43,6 +43,14 @@ export async function uploadCIDMetadata(
   mimeType?: string,
   userKeyHash?: string
 ) {
+  console.log('[Supabase] Uploading metadata:', {
+    cid,
+    deviceId,
+    mimeType,
+    fileSize,
+    hasUserKeyHash: !!userKeyHash,
+  });
+
   const { data, error } = await supabase
     .from('photos_metadata')
     .insert([{
@@ -56,9 +64,16 @@ export async function uploadCIDMetadata(
     .select()
 
   if (error) {
-    console.error('Supabase Metadata Upload Error:', error)
+    console.error('[Supabase] Metadata Upload Error:', {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    });
     throw error
   }
+
+  console.log('[Supabase] Metadata uploaded successfully:', data?.[0]?.id);
   return data
 }
 

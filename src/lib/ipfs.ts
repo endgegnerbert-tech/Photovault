@@ -86,52 +86,64 @@ export async function uploadToIPFS(
 }
 
 /**
- * Download content from IPFS via Multiple Gateways in parallel
- * Races gateways for the fastest response
+ * Download content from IPFS via dedicated gateway (mobile-safe)
+ * Uses only CORS-safe gateways to avoid redirect issues on iOS Safari
  */
 export async function downloadFromIPFS(cid: string): Promise<Blob> {
     const gatewayBase = getGatewayBase();
 
-    const gatewayGetters = [
-        // Primary: Dedicated Pinata gateway
+    // Mobile-safe gateways only - no redirecting public gateways
+    // gateway.ipfs.io and dweb.link cause CORS issues on iOS Safari due to redirects
+    const gateways = [
+        // Primary: Dedicated Pinata gateway (fastest, no redirects)
         () => {
             const url = new URL(`${gatewayBase}/ipfs/${cid}`);
             if (PINATA_GATEWAY_TOKEN) url.searchParams.set('pinataGatewayToken', PINATA_GATEWAY_TOKEN);
             return url.toString();
         },
-        // Fast Fallbacks
+        // Fallback: Cloudflare IPFS (reliable, no CORS redirects)
         () => `https://cloudflare-ipfs.com/ipfs/${cid}`,
-        () => `https://dweb.link/ipfs/${cid}`,
-        () => `https://gateway.ipfs.io/ipfs/${cid}`
     ];
 
     // Create a controller to abort all other requests once one succeeds
     const controller = new AbortController();
 
     try {
-        const fetchPromises = gatewayGetters.map(async (getUrl) => {
+        console.log(`[IPFS] Downloading CID: ${cid}`);
+
+        const fetchPromises = gateways.map(async (getUrl, index) => {
             const url = getUrl();
+            console.log(`[IPFS] Trying gateway ${index + 1}: ${url.substring(0, 60)}...`);
+
             const response = await fetch(url, {
                 signal: controller.signal,
                 mode: 'cors',
-                credentials: 'omit'
+                credentials: 'omit',
+                // Prevent following redirects to avoid CORS issues on mobile
+                redirect: 'error'
             });
 
-            if (!response.ok) throw new Error(`Gateway ${url} failed`);
+            if (!response.ok) {
+                console.warn(`[IPFS] Gateway ${index + 1} failed with status: ${response.status}`);
+                throw new Error(`Gateway failed: ${response.status}`);
+            }
+
+            console.log(`[IPFS] Gateway ${index + 1} succeeded`);
             return response.blob();
         });
 
         // Race the fetches - the first successful one wins
-        const winingBlob = await Promise.any(fetchPromises);
+        const winningBlob = await Promise.any(fetchPromises);
 
         // Abort all other pending requests
         controller.abort();
 
-        return winingBlob;
+        console.log(`[IPFS] Download complete, size: ${winningBlob.size} bytes`);
+        return winningBlob;
     } catch (error) {
         controller.abort();
-        console.error('All IPFS gateways failed during download:', error);
-        throw new Error(`IPFS download failed for CID: ${cid}`);
+        console.error('[IPFS] All gateways failed:', error);
+        throw new Error(`IPFS download failed for CID: ${cid}. Check network/CORS.`);
     }
 }
 

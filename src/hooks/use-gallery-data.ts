@@ -20,6 +20,55 @@ import { uploadCIDMetadata } from '@/lib/supabase';
 import { remoteStorage } from '@/lib/storage/remote-storage';
 import { getDeviceId } from '@/lib/deviceId';
 
+/**
+ * Convert HEIC/HEIF images to JPEG for cross-platform compatibility
+ * iPhones capture in HEIC by default which isn't supported in all browsers
+ */
+async function convertHeicToJpeg(file: File): Promise<File> {
+    const heicTypes = ['image/heic', 'image/heif', 'image/heic-sequence', 'image/heif-sequence'];
+    const isHeic = heicTypes.includes(file.type.toLowerCase()) ||
+                   file.name.toLowerCase().endsWith('.heic') ||
+                   file.name.toLowerCase().endsWith('.heif');
+
+    if (!isHeic) {
+        return file; // Not HEIC, return as-is
+    }
+
+    console.log('[HEIC] Converting HEIC to JPEG:', file.name);
+
+    try {
+        // Dynamic import to avoid loading heic2any on non-iOS devices
+        const heic2any = (await import('heic2any')).default;
+
+        const convertedBlob = await heic2any({
+            blob: file,
+            toType: 'image/jpeg',
+            quality: 0.92, // High quality JPEG
+        });
+
+        // heic2any can return array for multi-frame HEIC, take first
+        const resultBlob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+
+        // Create new File with .jpg extension
+        const newFileName = file.name.replace(/\.(heic|heif)$/i, '.jpg');
+        const convertedFile = new File([resultBlob], newFileName, {
+            type: 'image/jpeg',
+            lastModified: file.lastModified,
+        });
+
+        console.log('[HEIC] Conversion complete:', {
+            original: { name: file.name, size: file.size, type: file.type },
+            converted: { name: convertedFile.name, size: convertedFile.size, type: convertedFile.type }
+        });
+
+        return convertedFile;
+    } catch (error) {
+        console.error('[HEIC] Conversion failed, using original:', error);
+        // Return original file if conversion fails (better than nothing)
+        return file;
+    }
+}
+
 export function useGalleryData(secretKey: Uint8Array | null) {
     const queryClient = useQueryClient();
     const [userKeyHash, setUserKeyHash] = useState<string | null>(null);
@@ -52,21 +101,24 @@ export function useGalleryData(secretKey: Uint8Array | null) {
 
     const [uploadProgress, setUploadProgress] = useState<number>(0);
 
-    // Mutation: Upload photo (encrypt -> IPFS -> Supabase metadata)
+    // Mutation: Upload photo (convert HEIC -> encrypt -> IPFS -> Supabase metadata)
     const uploadMutation = useMutation({
         mutationFn: async (file: File) => {
             if (!secretKey) throw new Error('No encryption key');
 
             setUploadProgress(0);
 
+            // Step 0: Convert HEIC to JPEG if needed (iOS compatibility)
+            const processedFile = await convertHeicToJpeg(file);
+
             // Step 1: Encrypt file client-side
-            const { encrypted, nonce } = await encryptFile(file, secretKey);
+            const { encrypted, nonce } = await encryptFile(processedFile, secretKey);
             console.log('File encrypted:', { size: encrypted.size, nonce: nonce.slice(0, 8) + '...' });
 
             // Step 2: Upload encrypted blob to IPFS -> returns real CID
             let cid: string;
             try {
-                cid = await remoteStorage.upload(encrypted, file.name, (progress) => {
+                cid = await remoteStorage.upload(encrypted, processedFile.name, (progress) => {
                     setUploadProgress(progress);
                 });
                 console.log('Uploaded to IPFS with CID:', cid);
@@ -81,9 +133,9 @@ export function useGalleryData(secretKey: Uint8Array | null) {
             const metadata: Omit<PhotoMetadata, 'id'> = {
                 cid,
                 nonce,
-                fileName: file.name,
-                mimeType: file.type,
-                fileSize: file.size,
+                fileName: processedFile.name,
+                mimeType: processedFile.type,
+                fileSize: processedFile.size,
                 uploadedAt: new Date(),
                 encryptedBlob: encrypted, // Keep locally for fast access
             };
@@ -95,10 +147,10 @@ export function useGalleryData(secretKey: Uint8Array | null) {
             try {
                 await uploadCIDMetadata(
                     cid,
-                    file.size,
+                    processedFile.size,
                     deviceId,
                     nonce,
-                    file.type,
+                    processedFile.type,
                     userKeyHash || undefined
                 );
                 console.log('Metadata synced to Supabase:', cid);

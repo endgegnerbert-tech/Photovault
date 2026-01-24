@@ -1,11 +1,12 @@
 /**
- * Providers - React Query Provider + Service Worker Registration
+ * Providers - React Query Provider + Service Worker Registration + iOS PWA Fixes
  */
 
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
+import { ensureDeviceIdPersistence } from '@/lib/deviceId';
 
 export function Providers({ children }: { children: React.ReactNode }) {
     const [queryClient] = useState(
@@ -19,6 +20,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
                 },
             })
     );
+
+    // Ensure device ID persistence on startup (iOS PWA localStorage recovery)
+    useEffect(() => {
+        ensureDeviceIdPersistence().then((deviceId) => {
+            console.log('[App] Device ID ensured:', deviceId);
+        });
+    }, []);
 
     // Register Service Worker for PWA
     useEffect(() => {
