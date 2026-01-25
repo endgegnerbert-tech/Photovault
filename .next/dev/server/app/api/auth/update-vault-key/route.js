@@ -1,0 +1,13 @@
+var R=require("../../../../chunks/[turbopack]_runtime.js")("server/app/api/auth/update-vault-key/route.js")
+R.c("server/chunks/node_modules_better-auth_dist_adapters_d3041b48._.js")
+R.c("server/chunks/node_modules_next_6bd4c5d5._.js")
+R.c("server/chunks/node_modules_@better-auth_core_dist_e51f9f0e._.js")
+R.c("server/chunks/node_modules_better-auth_dist_129338b9._.js")
+R.c("server/chunks/node_modules_jose_dist_webapi_1e40532a._.js")
+R.c("server/chunks/node_modules_zod_4055c551._.js")
+R.c("server/chunks/node_modules_kysely_dist_esm_8956dd0c._.js")
+R.c("server/chunks/[root-of-the-server]__7ce499a4._.js")
+R.c("server/chunks/[root-of-the-server]__2e7a4994._.js")
+R.c("server/chunks/_next-internal_server_app_api_auth_update-vault-key_route_actions_18ffa9f0.js")
+R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/src/app/api/auth/update-vault-key/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)")
+module.exports=R.m("[project]/node_modules/next/dist/esm/build/templates/app-route.js { INNER_APP_ROUTE => \"[project]/src/app/api/auth/update-vault-key/route.ts [app-route] (ecmascript)\" } [app-route] (ecmascript)").exports

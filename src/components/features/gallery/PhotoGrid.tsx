@@ -34,9 +34,21 @@ export function PhotoGrid({
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="flex flex-col items-center justify-center min-h-[400px] text-center px-4"
       >
-        <div className="p-6 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 mb-4 glass-dark">
+        <div className="relative p-8 mb-4">
+          {/* Sketch UI Icon Container */}
           <svg
-            className="w-12 h-12 text-white/40"
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 100 100"
+          >
+            <path
+              d="M 10 10 Q 30 5, 50 10 Q 70 5, 90 10 Q 95 30, 90 50 Q 95 70, 90 90 Q 70 95, 50 90 Q 30 95, 10 90 Q 5 70, 10 50 Q 5 30, 10 10 Z"
+              fill="#FAFBFC"
+              stroke="#2563EB"
+              strokeWidth="2"
+            />
+          </svg>
+          <svg
+            className="w-12 h-12 text-[#2563EB]/60 relative z-10"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -49,10 +61,10 @@ export function PhotoGrid({
             />
           </svg>
         </div>
-        <h3 className="text-xl font-medium text-white mb-2 sf-pro-display">
+        <h3 className="sketch-heading mb-2">
           No photos yet
         </h3>
-        <p className="text-white/60 max-w-xs">
+        <p className="sketch-body text-[#3B82F6]/60 max-w-xs">
           Upload your first encrypted photo to get started
         </p>
       </motion.div>
@@ -66,6 +78,21 @@ export function PhotoGrid({
       transition={{ duration: 0.4 }}
       className="photo-grid-container"
     >
+      {/* Sketch UI Grid Rahmen */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none -z-[1]"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M 2% 2% Q 25% -0.5%, 50% 2% Q 75% -0.5%, 98% 2% Q 100.5% 25%, 98% 50% Q 100.5% 75%, 98% 98% Q 75% 100.5%, 50% 98% Q 25% 100.5%, 2% 98% Q -0.5% 75%, 2% 50% Q -0.5% 25%, 2% 2% Z"
+          fill="transparent"
+          stroke="#2563EB"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+
       <div className="photo-grid">
         {photos.map((photo, index) => (
           <motion.div

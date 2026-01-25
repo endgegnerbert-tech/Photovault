@@ -10,6 +10,13 @@ import { getDeviceId } from "@/lib/deviceId";
 import { remoteStorage } from "@/lib/storage/remote-storage";
 import { getAllPhotos } from "@/lib/storage/local-db";
 import { getUserKeyHash } from "@/lib/crypto";
+import {
+  SketchButton,
+  SketchCard,
+  SketchToggle,
+  SketchIcon,
+  SketchCircularProgress
+} from "@/sketch-ui";
 
 // Helper to format date
 function formatDate(dateStr?: string): string {
@@ -32,6 +39,7 @@ interface SettingsPanelProps {
   state: AppState;
   setState: React.Dispatch<React.SetStateAction<AppState>>;
   onRestartOnboarding: () => void;
+  authUser: { id: string; email: string } | null;
 }
 
 interface Device {
@@ -47,6 +55,7 @@ export function SettingsPanel({
   state,
   setState,
   onRestartOnboarding,
+  authUser,
 }: SettingsPanelProps) {
   const [showDevices, setShowDevices] = useState(false);
   const [showPhraseWarning, setShowPhraseWarning] = useState(false);
@@ -253,208 +262,214 @@ export function SettingsPanel({
 
   return (
     <div className="h-full flex flex-col pb-4 overflow-y-auto">
-      {/* Header */}
-      <header className="px-5 pt-6 pb-4 bg-[#F2F2F7]">
-        <h1 className="sf-pro-display text-[28px] text-[#1D1D1F]">
+      {/* Header with Sketch UI */}
+      <header className="px-5 pt-6 pb-4 bg-[#FAFBFC]">
+        <h1 className="sketch-heading text-[32px]">
           Einstellungen
         </h1>
       </header>
 
       <div className="flex-1 px-5">
-        {/* Backup Settings Section */}
-        <div className="mb-6">
-          <h2 className="text-[13px] font-semibold text-[#6E6E73] uppercase tracking-wide px-4 mb-2">
+        {/* Backup Settings Section with Sketch UI */}
+        <div className="mb-8">
+          <h2 className="sketch-subheading text-[15px] uppercase tracking-wide px-4 mb-3">
             Backup
           </h2>
-          <div className="bg-white rounded-xl overflow-hidden">
-            <SettingsToggleRow
-              label="Automatisches Backup"
-              description="Neue Fotos automatisch sichern"
-              enabled={autoBackupEnabled}
-              onToggle={toggleAutoBackup}
-            />
-            <div className="h-[0.5px] bg-[#E5E5EA] ml-4" />
-            <SettingsToggleRow
-              label="Hintergrund-Backup"
-              description="Weiter sichern wenn App geschlossen"
-              enabled={backgroundBackupEnabled}
-              onToggle={toggleBackgroundBackup}
-            />
-            <div className="h-[0.5px] bg-[#E5E5EA] ml-4" />
+          <SketchCard className="overflow-hidden p-0">
+            <div className="p-4 flex items-center justify-between">
+              <div>
+                <p className="sketch-subheading text-[17px]">Automatisches Backup</p>
+                <p className="sketch-body text-[13px] text-[#6E6E73]">Neue Fotos automatisch sichern</p>
+              </div>
+              <SketchToggle 
+                checked={autoBackupEnabled} 
+                onChange={toggleAutoBackup} 
+              />
+            </div>
+            
+            <div className="h-[2px] bg-[#2563EB]/10 mx-4" />
+            
+            <div className="p-4 flex items-center justify-between">
+              <div>
+                <p className="sketch-subheading text-[17px]">Hintergrund-Backup</p>
+                <p className="sketch-body text-[13px] text-[#6E6E73]">Weiter sichern wenn App geschlossen</p>
+              </div>
+              <SketchToggle 
+                checked={backgroundBackupEnabled} 
+                onChange={toggleBackgroundBackup} 
+              />
+            </div>
+
+            <div className="h-[2px] bg-[#2563EB]/10 mx-4" />
+
             <button
               onClick={() => setShowSourceSelector(true)}
-              className="w-full flex items-center justify-between p-4 ios-tap-target"
+              className="w-full flex items-center justify-between p-4 hover:bg-[#2563EB]/5 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <CustomIcon name="folder" size={24} />
+              <div className="flex items-center gap-4">
+                <SketchIcon icon="folder" size={28} />
                 <div className="text-left">
-                  <span className="text-[17px] text-[#1D1D1F] block">
+                  <span className="sketch-subheading text-[17px] block">
                     Backup-Quelle
                   </span>
-                  <span className="text-[13px] text-[#6E6E73]">
+                  <span className="sketch-body text-[14px] text-[#6E6E73]">
                     {state.photoSource === "photos-app"
                       ? "Fotos-App"
                       : "Dateien-App"}
                   </span>
                 </div>
               </div>
-              <CustomIcon name="chevronRight" size={16} />
+              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
             </button>
-          </div>
+          </SketchCard>
 
-          {/* Manual Backup Button */}
-          <button
-            onClick={triggerManualBackup}
-            disabled={isUploading || !secretKey}
-            className="w-full h-[50px] bg-[#007AFF] text-white text-[17px] font-semibold rounded-xl mt-3 ios-tap-target disabled:opacity-70 flex items-center justify-center gap-2"
-          >
-            {isUploading ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                {uploadProgress.total > 0
-                  ? `${uploadProgress.current}/${uploadProgress.total} hochladen...`
-                  : "Vorbereiten..."}
-              </>
-            ) : (
-              <>
-                <Cloud className="w-5 h-5" />
-                Jetzt sichern
-              </>
-            )}
-          </button>
-          <p className="text-[13px] text-[#6E6E73] px-4 mt-2 text-center">
+          <div className="px-4 mt-4">
+            <SketchButton
+              onClick={triggerManualBackup}
+              disabled={isUploading || !secretKey}
+              className="w-full"
+              size="lg"
+            >
+              {isUploading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                  {uploadProgress.total > 0
+                    ? `${uploadProgress.current}/${uploadProgress.total}`
+                    : "Wait..."}
+                </>
+              ) : (
+                "Jetzt sichern"
+              )}
+            </SketchButton>
+          </div>
+          <p className="sketch-body text-[13px] text-[#6E6E73] px-4 mt-3 text-center">
             Alle lokalen Fotos in die Cloud hochladen
           </p>
         </div>
 
-        {/* Storage Section */}
-        <div className="mb-6">
-          <h2 className="text-[13px] font-semibold text-[#6E6E73] uppercase tracking-wide px-4 mb-2">
+        {/* Storage Section with Sketch UI */}
+        <div className="mb-8">
+          <h2 className="sketch-subheading text-[15px] uppercase tracking-wide px-4 mb-3">
             Speicher
           </h2>
-          <div className="bg-white rounded-xl overflow-hidden">
+          <SketchCard className="overflow-hidden p-0">
             <div className="p-4">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[17px] text-[#1D1D1F]">
+                <span className="sketch-subheading text-[17px]">
                   Aktueller Plan
                 </span>
-                <span className="text-[15px] font-semibold text-[#007AFF]">
+                <span className="sketch-subheading text-[16px] text-[#2563EB]">
                   {selectedPlan === "free" ? "Free" : "Backup+"}
                 </span>
               </div>
-              <p className="text-[13px] text-[#6E6E73]">
+              <p className="sketch-body text-[14px] text-[#6E6E73]">
                 {selectedPlan === "free"
-                  ? "Fotos auf deinen Geräten"
-                  : "200 GB Cloud-Backup"}
+                  ? "Fotos nur auf deinen Geräten"
+                  : "200 GB Cloud-Backup aktiv"}
               </p>
             </div>
-            <div className="h-[0.5px] bg-[#E5E5EA] ml-4" />
+            <div className="h-[2px] bg-[#2563EB]/10 mx-4" />
             <div className="p-4">
               <div className="flex items-center justify-between">
-                <span className="text-[15px] text-[#6E6E73]">Verwendet</span>
-                <span className="text-[15px] text-[#1D1D1F]">
-                  {state.photosCount.toLocaleString()} Fotos (nur lokal)
+                <span className="sketch-body text-[15px] text-[#6E6E73]">Verwendet</span>
+                <span className="sketch-subheading text-[15px]">
+                  {state.photosCount.toLocaleString()} Fotos (lokal)
                 </span>
               </div>
             </div>
-            <div className="h-[0.5px] bg-[#E5E5EA] ml-4" />
+            <div className="h-[2px] bg-[#2563EB]/10 mx-4" />
             <button
               onClick={() => setShowPlanSelector(true)}
-              className="w-full flex items-center justify-between p-4 ios-tap-target"
+              className="w-full flex items-center justify-between p-4 hover:bg-[#2563EB]/5 transition-colors"
             >
-              <span className="text-[17px] text-[#007AFF]">
+              <span className="sketch-subheading text-[17px] text-[#2563EB]">
                 {selectedPlan === "free"
                   ? "Upgrade zu Backup+"
                   : "Plan verwalten"}
               </span>
-              <CustomIcon name="chevronRight" size={16} />
+              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
             </button>
-          </div>
+          </SketchCard>
         </div>
 
-        {/* Devices Section */}
-        <div className="mb-6">
-          <h2 className="text-[13px] font-semibold text-[#6E6E73] uppercase tracking-wide px-4 mb-2">
+        {/* Devices Section with Sketch UI */}
+        <div className="mb-8">
+          <h2 className="sketch-subheading text-[15px] uppercase tracking-wide px-4 mb-3">
             Geräte
           </h2>
-          <div className="bg-white rounded-xl overflow-hidden">
+          <SketchCard className="overflow-hidden p-0">
             <button
-              onClick={() => {
-                console.log("Fetch Device List");
-                setShowDevices(true);
-              }}
-              className="w-full flex items-center justify-between p-4 ios-tap-target"
+              onClick={() => setShowDevices(true)}
+              className="w-full flex items-center justify-between p-4 hover:bg-[#2563EB]/5 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <CustomIcon name="smartphone" size={24} />
-                <span className="text-[17px] text-[#1D1D1F]">
+              <div className="flex items-center gap-4">
+                <SketchIcon icon="photo" size={28} />
+                <span className="sketch-subheading text-[17px]">
                   Verbundene Geräte
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[15px] text-[#6E6E73]">
+              <div className="flex items-center gap-3">
+                <span className="sketch-body text-[15px] text-[#6E6E73]">
                   {realDevices.length || 1}
                 </span>
-                <CustomIcon name="chevronRight" size={16} />
+                <CustomIcon name="chevronRight" size={16} className="opacity-40" />
               </div>
             </button>
-          </div>
+          </SketchCard>
         </div>
 
-        {/* Security Section */}
-        <div className="mb-6">
-          <h2 className="text-[13px] font-semibold text-[#6E6E73] uppercase tracking-wide px-4 mb-2">
+        {/* Security Section with Sketch UI */}
+        <div className="mb-8">
+          <h2 className="sketch-subheading text-[15px] uppercase tracking-wide px-4 mb-3">
             Sicherheit
           </h2>
-          <div className="bg-white rounded-xl overflow-hidden">
+          <SketchCard className="overflow-hidden p-0">
             <button
               onClick={() => setShowPhraseWarning(true)}
-              className="w-full flex items-center justify-between p-4 ios-tap-target"
+              className="w-full flex items-center justify-between p-4 hover:bg-[#2563EB]/5 transition-colors"
             >
-              <span className="text-[17px] text-[#1D1D1F]">
+              <span className="sketch-subheading text-[17px]">
                 Backup-Phrase anzeigen
               </span>
-              <CustomIcon name="chevronRight" size={16} />
+              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
             </button>
-            <div className="h-[0.5px] bg-[#E5E5EA] ml-4" />
+            <div className="h-[2px] bg-[#2563EB]/10 mx-4" />
             <button
               onClick={() => setShowNewKeyWarning(true)}
-              className="w-full flex items-center justify-between p-4 ios-tap-target"
+              className="w-full flex items-center justify-between p-4 hover:bg-[#FF3B30]/5 transition-colors"
             >
-              <span className="text-[17px] text-[#FF3B30]">
+              <span className="sketch-subheading text-[17px] text-[#FF3B30]">
                 Neuen Schlüssel erstellen
               </span>
-              <CustomIcon name="chevronRight" size={16} />
+              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
             </button>
-          </div>
-          <p className="text-[13px] text-[#6E6E73] px-4 mt-2">
+          </SketchCard>
+          <p className="sketch-body text-[13px] text-[#6E6E73] px-4 mt-3">
             Teile diese Wörter niemals mit anderen.
           </p>
         </div>
 
-        {/* Maintenance Section */}
-        <div className="mb-6">
-          <h2 className="text-[13px] font-semibold text-[#6E6E73] uppercase tracking-wide px-4 mb-2">
+        {/* Maintenance Section with Sketch UI */}
+        <div className="mb-8">
+          <h2 className="sketch-subheading text-[15px] uppercase tracking-wide px-4 mb-3">
             Wartung
           </h2>
-          <div className="bg-white rounded-xl overflow-hidden">
+          <SketchCard className="overflow-hidden p-0">
             <button
               onClick={() => setShowClearCacheWarning(true)}
-              className="w-full flex items-center justify-between p-4 ios-tap-target"
+              className="w-full flex items-center justify-between p-4 hover:bg-[#FF9500]/5 transition-colors"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-6 h-6 flex items-center justify-center text-[#FF9500]">
-                  <CustomIcon name="refresh" size={24} />
-                </div>
-                <span className="text-[17px] text-[#FF9500]">
+              <div className="flex items-center gap-4">
+                <SketchIcon icon="warning" size={28} color="#FF9500" />
+                <span className="sketch-subheading text-[17px] text-[#FF9500]">
                   Lokalen Cache leeren
                 </span>
               </div>
-              <CustomIcon name="chevronRight" size={16} />
+              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
             </button>
-          </div>
-          <p className="text-[13px] text-[#6E6E73] px-4 mt-2">
-            Löscht lokale Vorschaubilder und Gerätedaten. Deine Fotos in der Cloud bleiben sicher.
+          </SketchCard>
+          <p className="sketch-body text-[13px] text-[#6E6E73] px-4 mt-3">
+            Löscht lokale Vorschaubilder. Deine Cloud-Fotos bleiben sicher.
           </p>
         </div>
       </div>
@@ -471,66 +486,41 @@ export function SettingsPanel({
         />
       )}
 
-      {/* Show Backup Phrase Modal */}
+      {/* Show Backup Phrase Modal with Sketch UI */}
       {showBackupPhrase && (
-        <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50">
-          <div className="bg-white w-full max-w-[428px] rounded-t-2xl p-6 pb-10">
-            <h3 className="sf-pro-display text-[20px] text-[#1D1D1F] text-center mb-2">
-              Deine Backup-Phrase
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-6 backdrop-blur-sm">
+          <SketchCard className="bg-white w-full max-w-[400px] p-6 shadow-2xl">
+            <h3 className="sketch-heading text-[24px] text-center mb-2">
+              Back-up Phrase
             </h3>
-            <p className="text-[15px] text-[#6E6E73] text-center mb-4">
-              Notiere diese Wörter und bewahre sie sicher auf.
+            <p className="sketch-body text-[14px] text-[#6E6E73] text-center mb-6">
+              Notiere diese Wörter sicher.
             </p>
 
             {realBackupPhraseWords.length > 0 ? (
-              <>
-                {/* Real phrase in grid */}
-                <div className="grid grid-cols-3 gap-2 mb-4">
-                  {realBackupPhraseWords.map((word, index) => (
-                    <div
-                      key={index}
-                      className="bg-[#F2F2F7] rounded-lg p-2 text-center"
-                    >
-                      <span className="text-[11px] text-[#8E8E93] block">
-                        {index + 1}
-                      </span>
-                      <span className="text-[14px] text-[#1D1D1F] font-mono">
-                        {word}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Full key for copy */}
-                <div className="bg-[#F2F2F7] rounded-xl p-3 mb-4">
-                  <p className="text-[11px] text-[#6E6E73] mb-1">Vollständiger Schlüssel:</p>
-                  <p className="text-[12px] font-mono text-[#1D1D1F] break-all">
-                    {recoveryPhrase}
-                  </p>
-                </div>
-              </>
+              <div className="grid grid-cols-2 gap-3 mb-6">
+                {realBackupPhraseWords.map((word, index) => (
+                  <SketchCard key={index} className="p-2 text-center bg-[#2563EB]/5">
+                    <span className="sketch-body text-[10px] text-[#6E6E73] block">{index + 1}</span>
+                    <span className="sketch-subheading text-[14px]">{word}</span>
+                  </SketchCard>
+                ))}
+              </div>
             ) : (
-              <div className="bg-[#FF9500]/10 rounded-xl p-4 mb-4">
-                <p className="text-[13px] text-[#FF9500] text-center">
-                  Kein Schlüssel gefunden. Bitte erstelle einen neuen Schlüssel.
-                </p>
+              <div className="mb-6">
+                <SketchCard className="bg-[#FF9500]/5 border-[#FF9500] p-4">
+                  <p className="sketch-body text-[13px] text-[#FF9500] text-center">Kein Schlüssel gefunden.</p>
+                </SketchCard>
               </div>
             )}
 
-            {/* Warning */}
-            <div className="bg-[#FF3B30]/10 rounded-xl p-3 mb-4">
-              <p className="text-[13px] text-[#FF3B30] text-center">
-                ⚠️ Teile diese Wörter niemals mit anderen
-              </p>
-            </div>
-
-            <button
+            <SketchButton
               onClick={() => setShowBackupPhrase(false)}
-              className="w-full h-[50px] bg-[#007AFF] text-white text-[17px] font-semibold rounded-xl ios-tap-target"
+              className="w-full"
             >
               Fertig
-            </button>
-          </div>
+            </SketchButton>
+          </SketchCard>
         </div>
       )}
 
@@ -637,58 +627,56 @@ function DevicesView({
   onAddDevice: () => void;
 }) {
   return (
-    <div className="h-full flex flex-col pb-4 overflow-y-auto">
-      {/* Header */}
-      <header className="px-5 pt-6 pb-4 bg-[#F2F2F7]">
+    <div className="h-full flex flex-col pb-4 overflow-y-auto bg-[#FAFBFC]">
+      {/* Header with Sketch UI */}
+      <header className="px-5 pt-6 pb-4 bg-[#FAFBFC]">
         <button
           onClick={onBack}
-          className="text-[#007AFF] text-[17px] ios-tap-target mb-2"
+          className="sketch-body text-[#2563EB] mb-2 flex items-center gap-2 hover:underline"
         >
           ← Zurück
         </button>
-        <h1 className="sf-pro-display text-[28px] text-[#1D1D1F]">Geräte</h1>
+        <h1 className="sketch-heading text-[32px]">Geräte</h1>
       </header>
 
       <div className="flex-1 px-5">
-        <div className="bg-white rounded-xl overflow-hidden">
+        <SketchCard className="overflow-hidden p-0">
           {devices.map((device, index) => (
             <div key={device.id}>
-              {index > 0 && <div className="h-[0.5px] bg-[#E5E5EA] ml-4" />}
-              <div className="flex items-center gap-3 p-4">
-                <CustomIcon name="smartphone" size={32} />
+              {index > 0 && <div className="h-[2px] bg-[#2563EB]/10 mx-4" />}
+              <div className="flex items-center gap-4 p-4">
+                <SketchIcon icon="photo" size={32} />
                 <div className="flex-1">
-                  <p className="text-[17px] text-[#1D1D1F]">{device.name}</p>
-                  <p className="text-[13px] text-[#6E6E73]">
+                  <p className="sketch-subheading text-[17px] text-[#1D1D1F]">{device.name}</p>
+                  <p className="sketch-body text-[13px] text-[#6E6E73]">
                     {device.lastActive}
                   </p>
                 </div>
                 {device.syncing ? (
-                  <Loader2 className="w-5 h-5 text-[#007AFF] animate-spin" />
+                  <Loader2 className="w-5 h-5 text-[#2563EB] animate-spin" />
                 ) : device.lastActive === "Aktiv" ? (
                   <div className="flex items-center gap-1">
                     <Check className="w-4 h-4 text-[#30D158]" />
-                    <span className="text-[13px] text-[#30D158] font-medium">
-                      Dieses Gerät
+                    <span className="sketch-subheading text-[13px] text-[#30D158]">
+                      Aktiv
                     </span>
                   </div>
                 ) : null}
               </div>
             </div>
           ))}
-        </div>
+        </SketchCard>
 
-        <button
+        <SketchButton
           onClick={onAddDevice}
-          className="w-full flex items-center justify-center gap-2 mt-6 p-4 bg-white rounded-xl ios-tap-target"
+          className="w-full mt-8"
+          size="lg"
         >
-          <Plus className="w-5 h-5 text-[#007AFF]" />
-          <span className="text-[17px] text-[#007AFF]">
-            Neues Gerät verbinden
-          </span>
-        </button>
+          Neu verbinden
+        </SketchButton>
 
-        <p className="text-[13px] text-[#6E6E73] text-center mt-3">
-          Scanne den QR-Code oder gib deine Backup-Phrase ein
+        <p className="sketch-body text-[13px] text-[#6E6E73] text-center mt-4 px-4">
+          Schlüssel scannen oder Recovery-Phrase eingeben
         </p>
       </div>
     </div>
@@ -720,7 +708,7 @@ function SourceSelectorModal({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50">
       <div className="bg-white w-full max-w-[428px] rounded-t-2xl p-6 pb-10">
-        <h3 className="sf-pro-display text-[20px] text-[#1D1D1F] text-center mb-2">
+        <h3 className="sketch-heading text-[24px] text-[#1D1D1F] text-center mb-2">
           Backup-Quelle
         </h3>
         <p className="text-[15px] text-[#6E6E73] text-center mb-6">
@@ -809,7 +797,7 @@ function PlanSelectorModal({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50">
       <div className="bg-white w-full max-w-[428px] rounded-t-2xl p-6 pb-10 max-h-[80vh] overflow-y-auto">
-        <h3 className="sf-pro-display text-[20px] text-[#1D1D1F] text-center mb-2">
+        <h3 className="sketch-heading text-[24px] text-[#1D1D1F] text-center mb-2">
           Speicherplan
         </h3>
         <p className="text-[15px] text-[#6E6E73] text-center mb-6">
@@ -893,7 +881,7 @@ function Modal({
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-8">
       <div className="bg-white w-full max-w-[270px] rounded-2xl overflow-hidden">
         <div className="p-4 text-center">
-          <h3 className="sf-pro-display text-[17px] text-[#1D1D1F] mb-1">
+          <h3 className="sketch-subheading text-[17px] text-[#1D1D1F] mb-1">
             {title}
           </h3>
           <p className="text-[13px] text-[#6E6E73] leading-relaxed">

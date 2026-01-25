@@ -128,12 +128,19 @@ export function FullscreenViewer({
       onClick={() => setShowControls((prev) => !prev)}
       onMouseMove={() => setShowControls(true)}
     >
-      {/* Close button - always visible */}
+      {/* Close button - always visible with Sketch UI */}
       <button
         onClick={onClose}
-        className="fixed top-4 right-4 z-10 p-2 rounded-full bg-black/30 backdrop-blur-md hover:bg-black/50 transition-all"
+        className="fixed top-4 right-4 z-10 p-2 rounded-full bg-[#FAFBFC] border-2 border-[#2563EB] hover:bg-[#EFF6FF] transition-all"
       >
-        <X className="w-6 h-6 text-white" />
+        {/* Sketch UI Close Icon */}
+        <svg width="24" height="24" viewBox="0 0 24 24">
+          <path
+            d="M 6 6 L 18 18 M 18 6 L 6 18"
+            stroke="#2563EB"
+            strokeWidth="2"
+          />
+        </svg>
       </button>
 
       {/* Image container with pan/zoom */}
@@ -173,43 +180,53 @@ export function FullscreenViewer({
             transition={{ duration: 0.3 }}
             className="fixed bottom-4 left-4 right-4 z-10"
           >
-            {/* Image info */}
-            <div className="glass-dark rounded-xl p-4 mb-4 max-w-md">
-              <h3 className="text-white font-medium truncate mb-1">
-                {photo.fileName}
-              </h3>
-              <div className="flex items-center gap-4 text-sm text-white/80">
+            {/* Image info with Sketch UI */}
+            <div className="bg-[#FAFBFC] rounded-xl p-4 mb-4 max-w-md border-2 border-[#2563EB] relative">
+              {/* Handgezeichneter Rahmen */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none -z-1" preserveAspectRatio="none">
+                <path
+                  d="M 2% 2% Q 25% -0.5%, 50% 2% Q 75% -0.5%, 98% 2% Q 100.5% 25%, 98% 50% Q 100.5% 75%, 98% 98% Q 75% 100.5%, 50% 98% Q 25% 100.5%, 2% 98% Q -0.5% 75%, 2% 50% Q -0.5% 25%, 2% 2% Z"
+                  fill="transparent"
+                  stroke="#2563EB"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              
+              <h3 className="text-[#1E40AF] font-medium truncate mb-1 font-['Caveat',_cursive]">{photo.fileName}</h3>
+              <div className="flex items-center gap-4 text-sm text-[#3B82F6] font-['Caveat',_cursive]">
                 <span>{formatFileSize(photo.fileSize)}</span>
                 <span>{formatDate(new Date())}</span>
                 <span className="font-mono">#{photo.id}</span>
               </div>
             </div>
 
-            {/* Action buttons */}
-            <div className="glass rounded-xl p-3 flex items-center justify-center gap-3">
+            {/* Action buttons with Sketch UI */}
+            <div className="flex items-center justify-center gap-4 mt-2">
               <button
                 onClick={zoomOut}
-                className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="relative p-3 bg-[#FAFBFC] border-2 border-[#2563EB] rounded-full hover:bg-[#EFF6FF] transition-all group"
               >
-                <ZoomOut className="w-5 h-5 text-white" />
+                <ZoomOut className="w-5 h-5 text-[#2563EB] group-hover:scale-110 transition-transform" />
               </button>
               <button
                 onClick={resetZoom}
-                className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="relative p-3 bg-[#FAFBFC] border-2 border-[#2563EB] rounded-full hover:bg-[#EFF6FF] transition-all group"
               >
-                <RotateCcw className="w-5 h-5 text-white" />
+                <RotateCcw className="w-5 h-5 text-[#2563EB] group-hover:rotate-[-45deg] transition-transform" />
               </button>
               <button
                 onClick={zoomIn}
-                className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="relative p-3 bg-[#FAFBFC] border-2 border-[#2563EB] rounded-full hover:bg-[#EFF6FF] transition-all group"
               >
-                <ZoomIn className="w-5 h-5 text-white" />
+                <ZoomIn className="w-5 h-5 text-[#2563EB] group-hover:scale-110 transition-transform" />
               </button>
               <button
                 onClick={onDownload}
-                className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                className="relative p-3 bg-[#2563EB] border-2 border-[#1E40AF] rounded-full hover:bg-[#1E40AF] transition-all group"
               >
-                <Download className="w-5 h-5 text-white" />
+                <Download className="w-5 h-5 text-white group-hover:translate-y-0.5 transition-transform" />
               </button>
             </div>
           </motion.div>

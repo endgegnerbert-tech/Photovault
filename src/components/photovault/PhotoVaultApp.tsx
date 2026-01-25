@@ -14,6 +14,7 @@ import { PhotoGallery } from "./PhotoGallery";
 
 // Auth
 import { useSession, signOut } from "@/lib/auth-client";
+import { SketchIcon, SketchCard } from "@/sketch-ui";
 
 // Crypto
 import { loadKeyFromStorage, getUserKeyHash, clearKeyFromStorage } from "@/lib/crypto";
@@ -310,13 +311,17 @@ export function PhotoVaultApp() {
                 {/* Main Content Area */}
                 <div className="flex-1 overflow-hidden pb-[80px]">
                     {currentScreen === "gallery" && (
-                        <PhotoGallery photosCount={state.photosCount} />
+                        <PhotoGallery 
+                            photosCount={state.photosCount} 
+                            authUser={authUser}
+                        />
                     )}
                     {currentScreen === "settings" && (
                         <SettingsPanel
                             state={state}
                             setState={setState}
                             onRestartOnboarding={handleLogout}
+                            authUser={authUser}
                         />
                     )}
                 </div>
@@ -357,19 +362,19 @@ function BottomNavigation({
     onNavigate: (screen: Screen) => void;
 }) {
     return (
-        <nav className="fixed bottom-0 left-0 right-0 h-[80px] bg-white/80 backdrop-blur-xl border-t border-[#E5E5EA]/50 flex items-start justify-around pt-2 pb-6 max-w-[1200px] mx-auto safe-area-bottom z-40">
+        <nav className="fixed bottom-0 left-0 right-0 h-[85px] bg-[#FAFBFC]/90 backdrop-blur-xl border-t-2 border-[#2563EB]/10 flex items-start justify-around pt-3 pb-7 max-w-[1200px] mx-auto z-40">
             {/* Gallery Tab */}
             <button
                 onClick={() => onNavigate("gallery")}
-                className="flex flex-col items-center gap-1 ios-tap-target px-8"
+                className="flex flex-col items-center gap-1 px-8 transition-transform active:scale-95"
             >
-                <CustomIcon
-                    name="image"
-                    size={24}
-                    className={currentScreen === "gallery" ? "text-[#007AFF]" : "text-[#6E6E73]"}
+                <SketchIcon
+                    icon="photo"
+                    size={28}
+                    color={currentScreen === "gallery" ? "#2563EB" : "#9CA3AF"}
                 />
                 <span
-                    className={`text-[10px] ${currentScreen === "gallery" ? "text-[#007AFF]" : "text-[#6E6E73]"}`}
+                    className={`sketch-subheading text-[12px] ${currentScreen === "gallery" ? "text-[#2563EB]" : "text-[#9CA3AF]"}`}
                 >
                     Galerie
                 </span>
@@ -378,15 +383,17 @@ function BottomNavigation({
             {/* Settings Tab */}
             <button
                 onClick={() => onNavigate("settings")}
-                className="flex flex-col items-center gap-1 ios-tap-target px-8"
+                className="flex flex-col items-center gap-1 px-8 transition-transform active:scale-95"
             >
-                <Settings
-                    className={`w-6 h-6 ${currentScreen === "settings" ? "text-[#007AFF]" : "text-[#6E6E73]"}`}
+                <SketchIcon
+                    icon="folder"
+                    size={28}
+                    color={currentScreen === "settings" ? "#2563EB" : "#9CA3AF"}
                 />
                 <span
-                    className={`text-[10px] ${currentScreen === "settings" ? "text-[#007AFF]" : "text-[#6E6E73]"}`}
+                    className={`sketch-subheading text-[12px] ${currentScreen === "settings" ? "text-[#2563EB]" : "text-[#9CA3AF]"}`}
                 >
-                    Einstellungen
+                    Optionen
                 </span>
             </button>
         </nav>

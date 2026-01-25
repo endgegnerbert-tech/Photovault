@@ -5,6 +5,7 @@ import { Check, Copy, CheckCircle } from "lucide-react";
 import { CustomIcon } from "@/components/ui/custom-icon";
 import ShieldLoader from "@/components/ui/shield-loader";
 import { useEncryption } from "@/hooks/use-encryption";
+import { SketchButton, SketchCard, SketchIcon, SketchToggle } from "@/sketch-ui";
 
 interface VaultSetupScreenProps {
     userId: string;
@@ -57,72 +58,73 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
     // Intro step
     if (step === "intro") {
         return (
-            <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#F2F2F7]">
-                <button
-                    onClick={onBack}
-                    className="self-start text-[#007AFF] text-[17px] mb-8 ios-tap-target"
-                >
-                    Zurueck
-                </button>
+            <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]">
+            <button
+                onClick={onBack}
+                className="self-start sketch-body text-[#2563EB] text-[17px] mb-8 hover:text-[#1E40AF]"
+            >
+                ← Zurueck
+            </button>
 
                 <div className="flex-1 flex flex-col items-center justify-center text-center">
-                    <div className="w-20 h-20 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-6">
-                        <CustomIcon name="key" size={40} />
+                    <div className="mb-6">
+                        <SketchIcon icon="key" size={80} />
                     </div>
 
-                    <h1 className="sf-pro-display text-[28px] font-bold text-[#1D1D1F] mb-3">
+                    <h1 className="sketch-heading text-[32px] mb-3 text-[#1D1D1F]">
                         Erstelle deinen Vault
                     </h1>
-                    <p className="text-[17px] text-[#6E6E73] max-w-[300px] mb-8">
+                    <p className="sketch-body text-[17px] text-[#3B82F6] max-w-[300px] mb-8">
                         Dein persoenlicher Verschluesselungsschluessel schuetzt alle deine Fotos
                     </p>
 
-                    {/* Features */}
-                    <div className="w-full max-w-[320px] space-y-3 mb-8">
-                        <div className="bg-white rounded-xl p-4 flex items-start gap-3">
-                            <div className="w-8 h-8 rounded-full bg-[#30D158]/10 flex items-center justify-center flex-shrink-0">
-                                <CheckCircle className="w-5 h-5 text-[#30D158]" />
+                    {/* Features with Sketch Cards */}
+                    <div className="w-full max-w-[320px] space-y-4 mb-8">
+                        <SketchCard className="p-4">
+                            <div className="flex items-start gap-4">
+                                <SketchIcon icon="shield" size={32} color="#30D158" />
+                                <div className="text-left">
+                                    <p className="sketch-subheading text-[16px]">Zero-Knowledge</p>
+                                    <p className="sketch-body text-[13px] text-[#6E6E73]">
+                                        Nur du kannst deine Fotos entschluesseln
+                                    </p>
+                                </div>
                             </div>
-                            <div className="text-left">
-                                <p className="text-[15px] text-[#1D1D1F] font-medium">Zero-Knowledge</p>
-                                <p className="text-[13px] text-[#6E6E73]">
-                                    Nur du kannst deine Fotos entschluesseln
-                                </p>
-                            </div>
-                        </div>
+                        </SketchCard>
 
-                        <div className="bg-white rounded-xl p-4 flex items-start gap-3">
-                            <div className="w-8 h-8 rounded-full bg-[#30D158]/10 flex items-center justify-center flex-shrink-0">
-                                <CheckCircle className="w-5 h-5 text-[#30D158]" />
+                        <SketchCard className="p-4">
+                            <div className="flex items-start gap-4">
+                                <SketchIcon icon="clock" size={32} color="#2563EB" />
+                                <div className="text-left">
+                                    <p className="sketch-subheading text-[16px]">Recovery-Phrase</p>
+                                    <p className="sketch-body text-[13px] text-[#6E6E73]">
+                                        12 Woerter zum Wiederherstellen
+                                    </p>
+                                </div>
                             </div>
-                            <div className="text-left">
-                                <p className="text-[15px] text-[#1D1D1F] font-medium">Recovery-Phrase</p>
-                                <p className="text-[13px] text-[#6E6E73]">
-                                    12 Woerter zum Wiederherstellen auf neuen Geraeten
-                                </p>
-                            </div>
-                        </div>
+                        </SketchCard>
 
-                        <div className="bg-white rounded-xl p-4 flex items-start gap-3">
-                            <div className="w-8 h-8 rounded-full bg-[#30D158]/10 flex items-center justify-center flex-shrink-0">
-                                <CheckCircle className="w-5 h-5 text-[#30D158]" />
+                        <SketchCard className="p-4">
+                            <div className="flex items-start gap-4">
+                                <SketchIcon icon="photo" size={32} color="#FF9500" />
+                                <div className="text-left">
+                                    <p className="sketch-subheading text-[16px]">Multi-Device</p>
+                                    <p className="sketch-body text-[13px] text-[#6E6E73]">
+                                        Synchronisiere all deine Geraete
+                                    </p>
+                                </div>
                             </div>
-                            <div className="text-left">
-                                <p className="text-[15px] text-[#1D1D1F] font-medium">Multi-Device</p>
-                                <p className="text-[13px] text-[#6E6E73]">
-                                    Synchronisiere bis zu 3 Geraete
-                                </p>
-                            </div>
-                        </div>
+                        </SketchCard>
                     </div>
                 </div>
 
-                <button
+                <SketchButton
                     onClick={handleCreateVault}
-                    className="w-full h-[54px] bg-[#007AFF] text-white text-[17px] font-semibold rounded-2xl ios-tap-target shadow-lg shadow-[#007AFF]/25"
+                    className="w-full"
+                    size="lg"
                 >
                     Vault erstellen
-                </button>
+                </SketchButton>
             </div>
         );
     }
@@ -130,90 +132,75 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
     // Show recovery phrase
     if (step === "phrase") {
         return (
-            <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#F2F2F7]">
-                <div className="flex-1">
-                    <div className="text-center mb-6">
-                        <h1 className="sf-pro-display text-[28px] font-bold text-[#1D1D1F] mb-2">
-                            Deine Recovery-Phrase
-                        </h1>
-                        <p className="text-[15px] text-[#6E6E73]">
-                            Notiere diese Woerter sicher. Du brauchst sie zur Wiederherstellung.
-                        </p>
-                    </div>
+        <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]">
+            <div className="flex-1">
+                <div className="text-center mb-6">
+                    <h1 className="sketch-heading text-[32px] mb-2 text-[#1D1D1F]">
+                        Deine Phrase
+                    </h1>
+                    <p className="sketch-body text-[15px] text-[#6E6E73]">
+                        Notiere diese Woerter sicher. Du brauchst sie zur Wiederherstellung.
+                    </p>
+                </div>
 
-                    {/* 12 words in 3x4 grid */}
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                        {phraseWords.map((word, index) => (
-                            <div
-                                key={index}
-                                className="bg-white rounded-lg p-3 text-center border border-[#E5E5EA]"
-                            >
-                                <span className="text-[11px] text-[#8E8E93] block mb-0.5">
-                                    {index + 1}
-                                </span>
-                                <span className="text-[14px] text-[#1D1D1F] font-mono break-all">
-                                    {word}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
+                {/* 12 words in Grid with Sketch Cards */}
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                    {phraseWords.map((word, index) => (
+                        <SketchCard
+                            key={index}
+                            className="p-3 text-center"
+                        >
+                            <span className="sketch-body text-[11px] text-[#6E6E73] block mb-0.5">
+                                {index + 1}
+                            </span>
+                            <span className="sketch-subheading text-[16px] break-all">
+                                {word}
+                            </span>
+                        </SketchCard>
+                    ))}
+                </div>
 
-                    {/* Copy button */}
-                    <button
-                        onClick={handleCopyPhrase}
-                        className="w-full flex items-center justify-center gap-2 py-3 text-[#007AFF] text-[15px] ios-tap-target mb-4"
-                    >
-                        {copied ? (
-                            <>
-                                <Check className="w-5 h-5" />
-                                Kopiert!
-                            </>
-                        ) : (
-                            <>
-                                <Copy className="w-5 h-5" />
-                                Phrase kopieren
-                            </>
-                        )}
-                    </button>
+                {/* Copy button */}
+                <button
+                    onClick={handleCopyPhrase}
+                    className="w-full py-3 sketch-body text-[#2563EB] text-[16px] hover:underline mb-4"
+                >
+                    {copied ? "✓ Kopiert!" : "Phrase kopieren"}
+                </button>
 
-                    {/* Warning */}
-                    <div className="bg-[#FF3B30]/10 rounded-xl p-4 mb-6">
-                        <p className="text-[13px] text-[#FF3B30] text-center">
+                {/* Warning Card */}
+                <div className="mb-6">
+                    <SketchCard className="bg-[#FF3B30]/5 border-[#FF3B30]">
+                        <p className="sketch-body text-[13px] text-[#FF3B30] text-center">
                             Teile diese Woerter niemals mit anderen. Wer sie hat, kann auf deine
                             Fotos zugreifen.
                         </p>
-                    </div>
-
-                    {/* Checkbox */}
-                    <button
-                        onClick={() => setPhraseConfirmed(!phraseConfirmed)}
-                        className="w-full flex items-center gap-3 p-4 bg-white rounded-xl ios-tap-target"
-                    >
-                        <div
-                            className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-colors ${
-                                phraseConfirmed ? "bg-[#007AFF] border-[#007AFF]" : "border-[#C7C7CC]"
-                            }`}
-                        >
-                            {phraseConfirmed && <Check className="w-4 h-4 text-white" />}
-                        </div>
-                        <span className="text-[17px] text-[#1D1D1F]">
-                            Ich habe die Woerter sicher gespeichert
-                        </span>
-                    </button>
+                    </SketchCard>
                 </div>
 
-                <button
-                    onClick={handleConfirmPhrase}
-                    disabled={!phraseConfirmed}
-                    className={`w-full h-[54px] text-[17px] font-semibold rounded-2xl ios-tap-target transition-colors ${
-                        phraseConfirmed
-                            ? "bg-[#007AFF] text-white shadow-lg shadow-[#007AFF]/25"
-                            : "bg-[#E5E5EA] text-[#8E8E93]"
-                    }`}
-                >
-                    Weiter
-                </button>
+                {/* Confirmation Toggle */}
+                <div className="mb-8">
+                    <SketchCard className="p-4 flex items-center justify-between">
+                         <span className="sketch-subheading text-[17px] text-[#1D1D1F]">
+                            Sicher gespeichert?
+                        </span>
+                        <SketchToggle
+                            checked={phraseConfirmed}
+                            onChange={setPhraseConfirmed}
+                        />
+                    </SketchCard>
+                </div>
             </div>
+
+            <SketchButton
+                onClick={handleConfirmPhrase}
+                disabled={!phraseConfirmed}
+                className="w-full"
+                size="lg"
+            >
+                Weiter
+            </SketchButton>
+        </div>
         );
     }
 

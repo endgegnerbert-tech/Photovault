@@ -1,18 +1,27 @@
 "use client";
 
 import { useState, useRef, useCallback, useMemo } from "react";
-import { SlidersHorizontal, X, Check, CloudOff, Download, Loader2, Cloud } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { CustomIcon } from "@/components/ui/custom-icon";
 import { useEncryption } from "@/hooks/use-encryption";
 import { useGalleryData } from "@/hooks/use-gallery-data";
 import { useRealtimeSync, type SyncedPhoto } from "@/hooks/useRealtimeSync";
 import { DecryptedThumbnail } from "./DecryptedThumbnail";
+import { Plus, Search, Filter, Camera, Image as ImageIcon, LayoutGrid, Calendar, MoreVertical, X, Share2, Trash2, Heart, ExternalLink, RefreshCw, Loader2, SlidersHorizontal, Check, CloudOff, Download, Cloud } from "lucide-react";
+import {
+  SketchButton,
+  SketchCard,
+  SketchIcon,
+  SketchInput,
+  SketchCircularProgress
+} from "@/sketch-ui";
 import { remoteStorage, isRealIPFSCID } from "@/lib/storage/remote-storage";
 import { decryptFile } from "@/lib/crypto";
 import type { PhotoMetadata } from "@/lib/storage/local-db";
 
 interface PhotoGalleryProps {
-    photosCount: number;
+  photosCount?: number;
+  authUser: { id: string; email: string } | null;
 }
 
 // Generate placeholder photo URLs with dates
@@ -82,7 +91,8 @@ const formatDateLabel = (dateStr: string) => {
     }
 };
 
-export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
+export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
+    const queryClient = useQueryClient();
     const [searchQuery, setSearchQuery] = useState("");
     const [showSearch, setShowSearch] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
@@ -98,6 +108,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
     const [isDownloading, setIsDownloading] = useState(false);
 
     const longPressTimer = useRef<NodeJS.Timeout | null>(null);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     // Encryption & Real Photo Storage
     const { secretKey } = useEncryption();
@@ -109,11 +120,27 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
     } = useGalleryData(secretKey);
 
     // Realtime Sync - receive photos from other devices
+    // When a new photo arrives, invalidate the gallery query to refresh
     const handleNewPhoto = useCallback((photo: SyncedPhoto) => {
-        console.log('New photo from device:', photo.device_id);
+        console.log('[Realtime] New photo from device:', photo.device_id, photo.cid);
         setSyncNotification(`Neues Foto von anderem Gerät empfangen`);
         setTimeout(() => setSyncNotification(null), 3000);
-    }, []);
+
+        // Invalidate gallery queries to refresh the photo list
+        queryClient.invalidateQueries({ queryKey: ['photos'] });
+        queryClient.invalidateQueries({ queryKey: ['photoCount'] });
+    }, [queryClient]);
+
+    // Handle photo deletion from another device
+    const handlePhotoDeleted = useCallback((cid: string) => {
+        console.log('[Realtime] Photo deleted from another device:', cid);
+        setSyncNotification(`Foto von anderem Gerät gelöscht`);
+        setTimeout(() => setSyncNotification(null), 3000);
+
+        // Invalidate gallery queries to refresh the photo list
+        queryClient.invalidateQueries({ queryKey: ['photos'] });
+        queryClient.invalidateQueries({ queryKey: ['photoCount'] });
+    }, [queryClient]);
 
     const {
         remoteCIDs,
@@ -121,6 +148,7 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
         isConnected,
     } = useRealtimeSync({
         onNewPhoto: handleNewPhoto,
+        onPhotoDeleted: handlePhotoDeleted,
         enabled: true,
         secretKey,
     });
@@ -324,316 +352,251 @@ export function PhotoGallery({ photosCount }: PhotoGalleryProps) {
         files.forEach((file) => uploadPhoto(file));
     };
 
-    return (
-        <div className="flex flex-col h-full bg-[#F2F2F7]">
-            {/* Header */}
-            <header className="h-[60px] bg-white border-b border-[#E5E5EA] px-4 flex items-center justify-between shrink-0">
-                {showSearch ? (
-                    <div className="flex-1 flex items-center gap-3">
-                        <div className="flex-1 bg-[#E5E5EA] rounded-lg px-3 py-2 flex items-center gap-2">
-                            <CustomIcon name="search" size={16} />
-                            <input
-                                type="text"
-                                placeholder="Suchen..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="flex-1 bg-transparent text-[15px] text-[#1D1D1F] outline-none"
-                                autoFocus
-                            />
-                        </div>
-                        <button
-                            onClick={() => {
-                                setShowSearch(false);
-                                setSearchQuery("");
-                            }}
-                            className="text-[17px] text-[#007AFF] ios-tap-target"
-                        >
-                            Abbrechen
-                        </button>
-                    </div>
-                ) : selectMode ? (
-                    <>
-                        <button
-                            onClick={() => {
-                                setSelectMode(false);
-                                setSelectedPhotos(new Set());
-                            }}
-                            className="text-[17px] text-[#007AFF] ios-tap-target"
-                        >
-                            Abbrechen
-                        </button>
-                        <span className="sf-pro-display text-[17px] text-[#1D1D1F]">
-                            {selectedPhotos.size} ausgewählt
-                        </span>
-                        <button
-                            onClick={() => {
-                                console.log(
-                                    "TODO: Delete selected photos",
-                                    Array.from(selectedPhotos),
-                                );
-                            }}
-                            className="text-[17px] text-[#FF3B30] ios-tap-target"
-                        >
-                            Löschen
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <div className="flex items-center gap-2">
-                            <CustomIcon name="lock" size={20} />
-                            <h1 className="sf-pro-display text-[20px] text-[#1D1D1F]">
-                                Galerie
-                            </h1>
-                            {/* Sync Status Indicator */}
-                            {isConnected ? (
-                                <Cloud className="w-4 h-4 text-[#007AFF]" />
-                            ) : (
-                                <CloudOff className="w-4 h-4 text-[#8E8E93]" />
-                            )}
-                        </div>
-                        <div className="flex items-center gap-4">
-                            {/* Upload Button */}
-                            <label className="ios-tap-target cursor-pointer">
-                                <div className={isUploading ? "animate-pulse opacity-50" : ""}>
-                                    <CustomIcon name="upload" size={24} />
-                                </div>
-                                <input
-                                    type="file"
-                                    multiple
-                                    accept="image/*"
-                                    onChange={handleFileUpload}
-                                    className="hidden"
-                                    disabled={isUploading}
-                                />
-                            </label>
-                            <button
-                                onClick={() => setShowSearch(true)}
-                                className="ios-tap-target"
-                            >
-                                <CustomIcon name="search" size={24} />
-                            </button>
-                            <button
-                                onClick={() => setShowFilter(!showFilter)}
-                                className="ios-tap-target"
-                            >
-                                <SlidersHorizontal
-                                    className={`w-6 h-6 ${selectedFilter ? "text-[#30D158]" : "text-[#007AFF]"}`}
-                                />
-                            </button>
-                        </div>
-                    </>
-                )}
-            </header>
+    const handleUploadClick = () => {
+        fileInputRef.current?.click();
+    };
 
-            {/* Filter Bar */}
-            {showFilter && (
-                <div className="bg-white border-b border-[#E5E5EA] px-4 py-3 shrink-0">
-                    <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+    const allPhotosCount = photos.length;
+
+    return (
+        <div className="flex flex-col h-full bg-[#FAFBFC]">
+            {/* Header with Sketch UI */}
+            <header className="px-5 pt-10 pb-4 bg-[#FAFBFC] sticky top-0 z-30 border-b-2 border-[#2563EB]/10">
+                <div className="flex items-center justify-between mb-2">
+                    <h1 className="sketch-heading text-[32px]">Galerie</h1>
+                    <div className="flex items-center gap-3">
                         <button
-                            onClick={() => setSelectedFilter(null)}
-                            className={`px-4 py-1.5 rounded-full text-[15px] whitespace-nowrap shrink-0 ${
-                                selectedFilter === null
-                                    ? "bg-[#007AFF] text-white"
-                                    : "bg-[#E5E5EA] text-[#1D1D1F]"
-                            }`}
+                            onClick={() => setShowSearch(!showSearch)}
+                            className={`p-2 rounded-full transition-colors ${showSearch ? "bg-[#2563EB]/10 text-[#2563EB]" : "text-[#6E6E73]"}`}
                         >
-                            Alle
+                            <Search className="w-6 h-6" />
                         </button>
-                        {categories.map((cat) => (
-                            <button
-                                key={cat.id}
-                                onClick={() => setSelectedFilter(cat.id)}
-                                className={`px-4 py-1.5 rounded-full text-[15px] whitespace-nowrap shrink-0 ${
-                                    selectedFilter === cat.id
-                                        ? "bg-[#007AFF] text-white"
-                                        : "bg-[#E5E5EA] text-[#1D1D1F]"
-                                }`}
-                            >
-                                {cat.label}
-                            </button>
-                        ))}
+                        <SketchButton
+                            onClick={handleUploadClick}
+                            size="sm"
+                            className="scale-90"
+                        >
+                            Hinzufügen
+                        </SketchButton>
                     </div>
                 </div>
-            )}
 
-            {/* Photo Grid with Date Groups */}
-            <div className="flex-1 overflow-y-auto">
-                {filteredGroups.map((group) => (
-                    <div key={group.date} className="mb-2">
-                        {/* Date Header */}
-                        <div className="sticky top-0 bg-[#F2F2F7]/95 backdrop-blur-sm px-3 py-2 z-10">
-                            <p className="text-[13px] font-semibold text-[#6E6E73]">
+                {/* Subtitle / Status */}
+                <div className="flex items-center justify-between px-1 mb-4">
+                    <p className="sketch-body text-[15px] text-[#3B82F6]">
+                        {allPhotosCount} Fotos gesichert
+                    </p>
+                    <div className="flex items-center gap-2">
+                        {isConnected ? (
+                            <SketchIcon icon="cloud" size={20} color="#30D158" />
+                        ) : (
+                            <SketchIcon icon="warning" size={20} color="#8E8E93" />
+                        )}
+                    </div>
+                </div>
+
+                {/* Search Bar with Sketch UI */}
+                {showSearch && (
+                    <div className="mb-4">
+                        <SketchInput
+                            value={searchQuery}
+                            onChange={(val) => setSearchQuery(val)}
+                            placeholder="Suchen..."
+                            icon={<Search className="w-5 h-5" />}
+                            className="w-full"
+                        />
+                    </div>
+                )}
+
+                {/* Filter Bar with Sketch UI */}
+                <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
+                    <button
+                        onClick={() => setSelectedFilter(null)}
+                        className={`sketch-subheading text-[15px] px-4 py-1.5 rounded-full transition-colors ${
+                            selectedFilter === null
+                                ? "bg-[#2563EB] text-white"
+                                : "bg-[#2563EB]/5 text-[#2563EB]"
+                        }`}
+                    >
+                        Alle
+                    </button>
+                    {categories.map((cat) => (
+                        <button
+                            key={cat.id}
+                            onClick={() => setSelectedFilter(cat.id)}
+                            className={`sketch-subheading text-[15px] px-4 py-1.5 rounded-full transition-colors whitespace-nowrap ${
+                                selectedFilter === cat.id
+                                    ? "bg-[#2563EB] text-white"
+                                    : "bg-[#2563EB]/5 text-[#2563EB]"
+                            }`}
+                        >
+                            {cat.label}
+                        </button>
+                    ))}
+                </div>
+            </header>
+
+            {/* Gallery Grid */}
+            <main className="flex-1 overflow-y-auto px-1 pb-[100px]">
+                {filteredGroups.length === 0 ? (
+                    <div className="pt-20 text-center px-10">
+                        <SketchIcon icon="photo" size={64} className="mx-auto mb-4 opacity-20" />
+                        <p className="sketch-subheading text-lg text-[#6E6E73]">Keine Fotos gefunden</p>
+                        <p className="sketch-body text-sm text-[#8E8E93] mt-2">Versuche es mit einem anderen Suchbegriff oder Filter</p>
+                    </div>
+                ) : (
+                    filteredGroups.map((group) => (
+                        <div key={group.date} className="mb-8">
+                            <h2 className="sketch-subheading text-[19px] px-4 mb-3 sticky top-[160px] bg-[#FAFBFC]/80 backdrop-blur-sm z-10 py-1">
                                 {group.label}
-                            </p>
-                        </div>
-
-                        {/* Photos Grid */}
-                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-[2px] md:gap-1 px-[2px] md:px-1">
-                            {group.photos.map((photo) => {
-                                const isRealPhoto = photo.metadata !== undefined;
-
-                                return (
-                                    <button
+                            </h2>
+                            <div className="grid grid-cols-3 gap-1">
+                                {group.photos.map((photo) => (
+                                    <div
                                         key={photo.id}
+                                        className={`relative aspect-square overflow-hidden cursor-pointer active:opacity-70 transition-opacity ${
+                                            selectedPhotos.has(photo.id) ? "ring-4 ring-[#2563EB] ring-inset" : ""
+                                        }`}
                                         onClick={() => handlePhotoTap(photo.id, photo)}
                                         onTouchStart={() => handleTouchStart(photo.id)}
                                         onTouchEnd={handleTouchEnd}
-                                        onTouchCancel={handleTouchEnd}
                                         onContextMenu={(e) => {
                                             e.preventDefault();
                                             setSelectMode(true);
                                             setSelectedPhotos(new Set([photo.id]));
                                         }}
-                                        className="relative aspect-square overflow-hidden bg-[#E5E5EA]"
                                     >
-                                        {isRealPhoto ? (
-                                            <DecryptedThumbnail
-                                                photo={photo.metadata!}
-                                                secretKey={secretKey}
-                                                showCloudBadge={true}
-                                            />
-                                        ) : photo.placeholderUrl ? (
-                                            // Placeholder photo (demo data)
-                                            <img
-                                                src={photo.placeholderUrl}
-                                                alt=""
-                                                className="w-full h-full object-cover"
-                                                loading="lazy"
-                                            />
-                                        ) : null}
-
+                                        <DecryptedThumbnail 
+                                            photo={photo.metadata!} 
+                                            secretKey={secretKey} 
+                                            showCloudBadge={true}
+                                        />
+                                        
+                                        {/* Select Indicator */}
                                         {selectMode && (
-                                            <div className="absolute inset-0 bg-black/20">
-                                                <div
-                                                    className={`absolute top-2 right-2 w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                                                        selectedPhotos.has(photo.id)
-                                                            ? "bg-[#007AFF] border-[#007AFF]"
-                                                            : "border-white bg-black/30"
-                                                    }`}
-                                                >
-                                                    {selectedPhotos.has(photo.id) && (
-                                                        <Check className="w-4 h-4 text-white" />
-                                                    )}
-                                                </div>
+                                            <div className="absolute top-2 right-2 z-10 w-6 h-6">
+                                                <SketchCard className={`w-6 h-6 rounded-full p-0 flex items-center justify-center ${selectedPhotos.has(photo.id) ? "bg-[#2563EB] border-[#2563EB]" : "bg-white/80 border-[#2563EB]"}`}>
+                                                    {selectedPhotos.has(photo.id) && <Check className="w-4 h-4 text-white" />}
+                                                </SketchCard>
                                             </div>
                                         )}
-                                    </button>
-                                );
-                            })}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))
+                )}
+            </main>
 
-                {/* Help text */}
-                <div className="text-center py-6 px-4">
-                    <p className="text-[13px] text-[#8E8E93]">
-                        Lange drücken zum Auswählen • Tippen zum Öffnen
-                    </p>
-                    <p className="text-[11px] text-[#C7C7CC] mt-1">
-                        {realPhotos.length} Fotos lokal • {remoteCIDs.length} in der Cloud
-                    </p>
-                    {remoteCIDsFromOtherDevices.length > 0 && (
-                        <div className="text-[11px] text-[#007AFF] mt-1 flex items-center justify-center gap-1">
-                            <CustomIcon name="smartphone" size={12} />
-                            {remoteCIDsFromOtherDevices.length} von anderen Geräten
-                        </div>
-                    )}
-                </div>
-            </div>
-
-            {/* Sync Notification Toast */}
+            {/* Sync Notifications with Sketch UI */}
             {syncNotification && (
-                <div className="fixed top-[70px] left-1/2 -translate-x-1/2 bg-[#1D1D1F] text-white px-4 py-2 rounded-full text-[13px] flex items-center gap-2 z-50 animate-pulse">
-                    <Cloud className="w-4 h-4" />
-                    {syncNotification}
+                <div className="fixed bottom-[100px] left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[400px]">
+                    <SketchCard className="bg-[#2563EB] border-[#1E40AF] py-3 px-5 shadow-xl">
+                        <p className="sketch-body text-white text-center flex items-center justify-center gap-3">
+                            <Loader2 className="w-4 h-4 animate-spin text-white/80" />
+                            {syncNotification}
+                        </p>
+                    </SketchCard>
                 </div>
             )}
 
-            {/* Fullscreen Photo View */}
+            {/* Fullscreen Viewer */}
             {fullscreenPhoto && (
-                <div className="fixed inset-0 bg-black z-50 flex flex-col">
-                    <header className="h-[60px] flex items-center justify-between px-4 bg-black/80">
+                <div className="fixed inset-0 bg-black z-[100] flex flex-col">
+                    {/* Header */}
+                    <div className="p-4 flex items-center justify-between">
                         <button
                             onClick={closeFullscreen}
-                            className="ios-tap-target"
+                            className="p-2 text-white/80 hover:text-white"
                         >
-                            <X className="w-6 h-6 text-white" />
+                            <X className="w-6 h-6" />
                         </button>
-                        <span className="text-[17px] text-white">
-                            Foto {photos.findIndex((p) => p.id === fullscreenPhoto) + 1} von{" "}
-                            {photos.length}
-                        </span>
-                        <div className="w-10" />
-                    </header>
-                    <div className="flex-1 flex items-center justify-center p-4">
+                        <div className="flex items-center gap-4">
+                            <button className="p-2 text-white/80 hover:text-white">
+                                <Share2 className="w-6 h-6" />
+                            </button>
+                            <button className="p-2 text-white/80 hover:text-white">
+                                <Heart className="w-6 h-6" />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Image Container */}
+                    <div className="flex-1 relative flex items-center justify-center overflow-hidden">
                         {isLoadingFullscreen ? (
                             <div className="flex flex-col items-center gap-4">
-                                <Loader2 className="w-12 h-12 animate-spin text-white/60" />
-                                <p className="text-white/60 text-center">
-                                    Lade von IPFS...
-                                </p>
+                                <Loader2 className="w-12 h-12 text-[#2563EB] animate-spin" />
+                                <p className="sketch-body text-white/60">Entschlüsseln...</p>
                             </div>
                         ) : fullscreenImageUrl ? (
                             <img
                                 src={fullscreenImageUrl}
-                                alt=""
-                                className="max-w-full max-h-full object-contain rounded-lg"
+                                alt="Vollbild"
+                                className="max-w-full max-h-full object-contain"
                             />
                         ) : (
-                            <div className="flex flex-col items-center gap-4">
-                                <CustomIcon name="lock" size={64} />
-                                <p className="text-white/80 text-center">
-                                    Verschlüsseltes Foto
-                                </p>
+                            <div className="text-center p-10">
+                                <SketchIcon icon="warning" size={48} color="#FF3B30" className="mx-auto mb-4" />
+                                <p className="sketch-body text-white">Laden fehlgeschlagen</p>
                             </div>
                         )}
                     </div>
-                    <footer className="h-[80px] flex items-center justify-center gap-6 bg-black/80 px-4">
-                        {/* Download Button */}
-                        <button
+
+                    {/* Footer Actions */}
+                    <div className="p-6 flex items-center justify-around bg-black/40 backdrop-blur-md">
+                        <button 
+                            className="flex flex-col items-center gap-1 text-white/70"
                             onClick={() => {
-                                const photo = photos.find((p) => p.id === fullscreenPhoto);
+                                const photo = photos.find(p => p.id === fullscreenPhoto);
                                 if (photo) downloadPhoto(photo);
                             }}
                             disabled={isDownloading}
-                            className="flex flex-col items-center gap-1 ios-tap-target"
                         >
-                            {isDownloading ? (
-                                <Loader2 className="w-6 h-6 animate-spin text-white" />
-                            ) : (
-                                <Download className="w-6 h-6 text-white" />
-                            )}
-                            <span className="text-[11px] text-white/80">Herunterladen</span>
+                            {isDownloading ? <Loader2 className="w-6 h-6 animate-spin" /> : <Download className="w-6 h-6" />}
+                            <span className="sketch-body text-[10px]">Speichern</span>
                         </button>
-
-                        {/* Lock indicator */}
-                        <div className="flex flex-col items-center gap-1">
-                            <CustomIcon name="lock" size={20} />
-                            <span className="text-[11px] text-white/60">Verschlüsselt</span>
-                        </div>
-                    </footer>
+                        <button className="flex flex-col items-center gap-1 text-white/70">
+                            <ExternalLink className="w-6 h-6" />
+                            <span className="sketch-body text-[10px]">Exportieren</span>
+                        </button>
+                        <button className="flex flex-col items-center gap-1 text-[#FF3B30]">
+                            <Trash2 className="w-6 h-6" />
+                            <span className="sketch-body text-[10px]">Löschen</span>
+                        </button>
+                    </div>
                 </div>
             )}
+            
+            {/* Hidden upload input */}
+            <input
+                ref={fileInputRef}
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={handleFileUpload}
+                className="hidden"
+            />
+
             {/* Upload Progress Overlay */}
             {isUploading && (
                 <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-6">
-                    <div className="bg-white w-full max-w-[280px] rounded-2xl p-6 shadow-2xl flex flex-col items-center">
-                        <div className="w-16 h-16 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-4">
-                            <Loader2 className="w-8 h-8 text-[#007AFF] animate-spin" />
+                    <SketchCard className="bg-white w-full max-w-[280px] p-6 flex flex-col items-center">
+                        <div className="w-16 h-16 rounded-full bg-[#2563EB]/10 flex items-center justify-center mb-4">
+                            <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
                         </div>
-                        <h3 className="sf-pro-display text-[17px] font-semibold text-[#1D1D1F] mb-1">
-                            Foto wird gesichert ({uploadProgress}%)
+                        <h3 className="sketch-subheading text-lg text-center mb-2">
+                             Sicherung läuft...
                         </h3>
-                        <p className="text-[13px] text-[#6E6E73] text-center">
-                            Verschlüsselung & IPFS-Upload wird durchgeführt...
+                        <p className="sketch-body text-sm text-[#6E6E73] text-center mb-4">
+                             {uploadProgress > 0 ? `${uploadProgress}% hochgeladen` : 'Vorbereiten...'}
                         </p>
-                        <div className="w-full bg-[#E5E5EA] h-1.5 rounded-full mt-4 overflow-hidden">
-                            <div 
-                                className="bg-[#007AFF] h-full transition-all duration-300"
+                        <div className="w-full bg-[#E5E7EB] h-2 rounded-full overflow-hidden">
+                            <div
+                                className="bg-[#2563EB] h-full transition-all duration-300"
                                 style={{ width: `${uploadProgress}%` }}
                             />
                         </div>
-                    </div>
+                    </SketchCard>
                 </div>
             )}
         </div>

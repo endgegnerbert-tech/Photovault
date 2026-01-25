@@ -12,15 +12,23 @@ import { remoteStorage } from "@/lib/storage/remote-storage";
 import { getAllPhotos } from "@/lib/storage/local-db";
 import { getDeviceId } from "@/lib/deviceId";
 import { getUserKeyHash } from "@/lib/crypto";
+import {
+  SketchButton,
+  SketchCard,
+  SketchToggle,
+  SketchIcon,
+  SketchCircularProgress
+} from "@/sketch-ui";
 
 interface DashboardProps {
   state: AppState;
   setState: React.Dispatch<React.SetStateAction<AppState>>;
+  authUser: { id: string; email: string } | null;
 }
 
 import { useSettingsStore } from "@/lib/storage/settings-store";
 
-export function Dashboard({ state, setState }: DashboardProps) {
+export function Dashboard({ state, setState, authUser }: DashboardProps) {
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showPairing, setShowPairing] = useState(false);
@@ -119,62 +127,56 @@ export function Dashboard({ state, setState }: DashboardProps) {
     <div className="h-full flex flex-col px-5 pt-6 pb-4 overflow-y-auto">
       {/* Header */}
       <header className="mb-6">
-        <h1 className="sf-pro-display text-[28px] text-[#1D1D1F]">Backup</h1>
-        <p className="text-[15px] text-[#6E6E73] mt-1">
+        <h1 className="sketch-heading text-[28px]">Backup</h1>
+        <p className="sketch-body text-[15px] text-[#6E6E73] mt-1">
           Verschlüsseltes Photo-Backup
         </p>
       </header>
 
-      {/* Status Toggle */}
-      <button
-        onClick={toggleBackup}
-        className="w-full bg-white rounded-xl p-5 mb-3 ios-tap-target"
-      >
-        <div className="flex items-center justify-between">
+      {/* Status Toggle with Sketch UI */}
+      <SketchCard className="p-0 overflow-hidden mb-6">
+        <div className="p-5 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div
               className={`w-14 h-14 rounded-full flex items-center justify-center ${
-                backupActive ? "bg-[#30D158]/10" : "bg-[#E5E5EA]"
+                backupActive ? "bg-[#30D158]/10" : "bg-[#2563EB]/10"
               }`}
             >
-              <CustomIcon name="shield" size={28} />
+              <SketchIcon 
+                icon="shield" 
+                size={34} 
+                color={backupActive ? "#30D158" : "#2563EB"} 
+              />
             </div>
             <div className="text-left">
-              <p className="text-[17px] font-semibold text-[#1D1D1F]">
+              <p className="sketch-subheading text-[18px]">
                 Backup {backupActive ? "Aktiv" : "Aus"}
               </p>
-              <p className="text-[15px] text-[#6E6E73]">
+              <p className="sketch-body text-[14px] text-[#6E6E73]">
                 {backupActive
                    ? "Deine Fotos werden geschützt"
                    : "Tippe zum Aktivieren"}
               </p>
             </div>
           </div>
-          <div
-            className={`w-[51px] h-[31px] rounded-full p-[2px] ${
-              backupActive ? "bg-[#30D158]" : "bg-[#E5E5EA]"
-            }`}
-          >
-            <div
-              className={`w-[27px] h-[27px] rounded-full bg-white shadow-sm transition-transform duration-200 transform ${
-                backupActive ? "translate-x-5" : ""
-              }`}
-            />
-          </div>
+          <SketchToggle 
+            checked={backupActive} 
+            onChange={confirmToggle} 
+          />
         </div>
-      </button>
+      </SketchCard>
 
       {/* Help text below toggle */}
       <p className="text-[13px] text-[#6E6E73] px-2 mb-6">
         Automatisch neue Fotos sichern
       </p>
 
-      {/* Metrics Grid */}
-      <div className="grid grid-cols-3 gap-3 mb-6">
+      {/* Metrics Grid with Sketch UI */}
+      <div className="grid grid-cols-3 gap-3 mb-8">
         <MetricCard
-          icon={<CustomIcon name="image" size={20} />}
+          icon="photo"
           value={displayPhotoCount.toLocaleString()}
-          label="Fotos gesichert"
+          label="Fotos"
           tooltip={tooltips.photos}
           showTooltip={showTooltip === "photos"}
           onTap={() =>
@@ -182,9 +184,9 @@ export function Dashboard({ state, setState }: DashboardProps) {
           }
         />
         <MetricCard
-          icon={<CustomIcon name="clock" size={20} />}
+          icon="clock"
           value={lastBackup}
-          label="Letztes Backup"
+          label="Letztes"
           tooltip={tooltips.lastBackup}
           showTooltip={showTooltip === "lastBackup"}
           onTap={() =>
@@ -192,7 +194,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
           }
         />
         <MetricCard
-          icon={<CustomIcon name="shield" size={20} />}
+          icon="shield"
           value={`${permanence}%`}
           label="Dauerhaft"
           tooltip={tooltips.permanence}
@@ -203,45 +205,45 @@ export function Dashboard({ state, setState }: DashboardProps) {
         />
       </div>
 
-      {/* Primary Action Button */}
-      <button
-        onClick={triggerManualBackup}
-        disabled={isUploading}
-        className={`w-full h-[50px] text-[17px] font-semibold rounded-xl mb-3 ios-tap-target ${
-          backupActive
-            ? "bg-[#007AFF] text-white"
-            : "bg-[#30D158] text-white"
-        } disabled:opacity-70 flex items-center justify-center`}
-      >
-        {isUploading ? (
-          <span className="flex items-center justify-center gap-2">
-            <Loader2 className="w-5 h-5 animate-spin" />
-            {uploadProgress.total > 0
-              ? `${uploadProgress.current}/${uploadProgress.total} hochladen...`
-              : "Vorbereiten..."}
-          </span>
-        ) : backupActive ? (
-          "Jetzt sichern"
-        ) : (
-          "Backup aktivieren"
-        )}
-      </button>
-
-      {/* Link Device Button */}
-      <button
-        onClick={() => setShowPairing(true)}
-        className="w-full h-[50px] text-[17px] font-semibold rounded-xl mb-4 ios-tap-target bg-[#F2F2F7] text-[#007AFF] flex items-center justify-center gap-2"
-      >
-        <Link2 className="w-5 h-5" />
-        Gerät verbinden
-      </button>
+      {/* Primary Action Button with Sketch UI */}
+      <div className="px-1">
+        <SketchButton
+            onClick={triggerManualBackup}
+            disabled={isUploading}
+            className="w-full"
+            size="lg"
+        >
+            {isUploading ? (
+            <span className="flex items-center justify-center gap-2">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                {uploadProgress.total > 0
+                ? `${uploadProgress.current}/${uploadProgress.total}`
+                : "..."}
+            </span>
+            ) : "Jetzt sichern"}
+        </SketchButton>
+      </div>
 
       {/* Trust Footer */}
-      <div className="mt-auto pt-4">
-        <p className="text-[15px] text-[#8E8E93] text-center leading-relaxed">
+      <div className="mt-auto pt-6 pb-2">
+         {authUser?.id === "guest" && (
+            <div className="bg-[#2563EB]/5 border border-[#2563EB]/20 rounded-xl p-4 mb-6">
+                <p className="sketch-body text-sm text-[#1E40AF] text-center">
+                    Du nutzt PhotoVault gerade lokal. 
+                    Erstelle ein Konto, um deine Fotos sicher in der Cloud zu backuppen.
+                </p>
+                <button 
+                  onClick={() => setState(prev => ({ ...prev, isOnboarded: false }))}
+                  className="w-full mt-3 py-2 sketch-subheading text-[#2563EB] text-sm hover:underline"
+                >
+                  Konto jetzt erstellen
+                </button>
+            </div>
+         )}
+        <p className="sketch-body text-[15px] text-[#8E8E93] text-center leading-relaxed">
           Deine Fotos sind verschlüsselt.
           <br />
-          Niemand kann sie sehen.
+          Niemand außer dir kann sie sehen.
         </p>
       </div>
 
@@ -250,7 +252,7 @@ export function Dashboard({ state, setState }: DashboardProps) {
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-8">
           <div className="bg-white w-full max-w-[270px] rounded-2xl overflow-hidden">
             <div className="p-4 text-center">
-              <h3 className="sf-pro-display text-[17px] text-[#1D1D1F] mb-1">
+              <h3 className="sketch-subheading text-[17px] text-[#1D1D1F] mb-1">
                 {backupActive
                   ? "Backup deaktivieren?"
                   : "Backup aktivieren?"}
@@ -295,7 +297,7 @@ function MetricCard({
   showTooltip,
   onTap,
 }: {
-  icon: React.ReactNode;
+  icon: "photo" | "shield" | "clock";
   value: string;
   label: string;
   tooltip: string;
@@ -304,25 +306,26 @@ function MetricCard({
 }) {
   return (
     <div className="relative">
-      <button
-        onClick={onTap}
-        className="w-full bg-white rounded-xl p-4 text-center ios-tap-target"
-      >
+      <SketchCard onClick={onTap} className="p-3 text-center cursor-pointer hover:bg-[#2563EB]/5 transition-colors">
         <div className="flex justify-center mb-2 relative">
-          {icon}
-          <HelpCircle className="w-3 h-3 text-[#C7C7CC] absolute -right-1 -top-1" />
+          <SketchIcon icon={icon} size={28} />
+          <HelpCircle className="w-3 h-3 text-[#C7C7CC] absolute -right-0.5 -top-0.5" />
         </div>
-        <p className="text-[17px] font-semibold text-[#1D1D1F] truncate">
+        <p className="sketch-subheading text-[16px] truncate">
           {value}
         </p>
-        <p className="text-[11px] text-[#6E6E73]">{label}</p>
-      </button>
+        <p className="sketch-body text-[10px] text-[#6E6E73]">{label}</p>
+      </SketchCard>
 
       {/* Tooltip */}
       {showTooltip && (
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-[180px] bg-[#1D1D1F] text-white text-[13px] p-3 rounded-lg z-10 text-center">
-          {tooltip}
-          <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-[#1D1D1F]" />
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-[160px] z-20">
+            <SketchCard className="bg-[#1D1D1F] p-2">
+                <p className="sketch-body text-white text-[12px] text-center leading-tight">
+                    {tooltip}
+                </p>
+            </SketchCard>
+            <div className="absolute left-1/2 -translate-x-1/2 top-[100%] w-0 h-0 border-l-[6px] border-r-[6px] border-t-[6px] border-transparent border-t-[#1D1D1F]" />
         </div>
       )}
     </div>

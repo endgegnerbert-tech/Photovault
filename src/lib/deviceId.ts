@@ -1,3 +1,5 @@
+import { isTauri, getDeviceIdNative } from './storage/native-keychain'
+
 const DEVICE_ID_KEY = 'photovault_device_id'
 const DEVICE_NAME_KEY = 'photovault_device_name'
 const IDB_STORE_NAME = 'photovault_device_store'
@@ -108,6 +110,8 @@ export function getDeviceId(): string {
 
 /**
  * Async version that also checks IndexedDB (for iOS PWA recovery)
+ * and uses native storage on Tauri desktop
+ *
  * Call this on app startup to restore device ID if localStorage was cleared
  */
 export async function ensureDeviceIdPersistence(): Promise<string> {
@@ -115,6 +119,28 @@ export async function ensureDeviceIdPersistence(): Promise<string> {
     return 'server'
   }
 
+  // For Tauri desktop: use native persistent storage
+  if (isTauri()) {
+    try {
+      const deviceId = await getDeviceIdNative()
+      console.log('[DeviceID] Using native device ID:', deviceId)
+
+      // Also save to localStorage for consistency
+      try {
+        localStorage.setItem(DEVICE_ID_KEY, deviceId)
+        sessionStorage.setItem(DEVICE_ID_KEY, deviceId)
+      } catch (e) {
+        console.warn('[DeviceID] Failed to sync to localStorage:', e)
+      }
+
+      return deviceId
+    } catch (error) {
+      console.error('[DeviceID] Native device ID failed, falling back to localStorage:', error)
+      // Fall through to localStorage logic
+    }
+  }
+
+  // PWA/Browser logic (original implementation)
   let deviceId = localStorage.getItem(DEVICE_ID_KEY)
 
   // If localStorage is empty, try to recover from IndexedDB

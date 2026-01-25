@@ -96,52 +96,89 @@ export function UploadProgress({
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
-        className="glass rounded-lg p-3 mb-2 shadow-sm"
+        className="bg-[#FAFBFC] rounded-lg p-3 mb-2 shadow-sm border border-[#2563EB] relative"
       >
-        <div className="flex items-center gap-3">
+        {/* Sketch UI Rahmen */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none -z-1"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M 2% 2% Q 25% -0.5%, 50% 2% Q 75% -0.5%, 98% 2% Q 100.5% 25%, 98% 50% Q 100.5% 75%, 98% 98% Q 75% 100.5%, 50% 98% Q 25% 100.5%, 2% 98% Q -0.5% 75%, 2% 50% Q -0.5% 25%, 2% 2% Z"
+            fill="transparent"
+            stroke="#2563EB"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+
+        <div className="flex items-center gap-3 relative z-10">
           <div className="flex-shrink-0">{getStatusIcon()}</div>
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-foreground truncate max-w-[180px] sm:max-w-[250px]">
+              <span className="text-sm font-medium text-[#1E40AF] truncate max-w-[180px] sm:max-w-[250px] font-['Caveat',_cursive]">
                 {fileName}
               </span>
-              <span className="text-xs text-muted-foreground whitespace-nowrap">
+              <span className="text-xs text-[#3B82F6] whitespace-nowrap font-['Caveat',_cursive]">
                 {formatFileSize(fileSize)}
               </span>
             </div>
 
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-xs text-muted-foreground">
+              <span className="text-xs text-[#3B82F6] font-['Caveat',_cursive]">
                 {getStatusText()}
               </span>
-              <span className="text-xs font-mono text-muted-foreground">
+              <span className="text-xs font-mono text-[#1E40AF] font-['Caveat',_cursive]">
                 {progress}%
               </span>
             </div>
 
-            <div className="w-full h-1 bg-gray-200 rounded-full mt-2 overflow-hidden">
+            {/* Sketch UI Progress Bar */}
+            <div className="w-full h-2 bg-[#EFF6FF] rounded-full mt-2 overflow-hidden border border-[#2563EB]">
               <motion.div
                 className={`h-full rounded-full ${
                   status === "success"
-                    ? "bg-success"
+                    ? "bg-[#10B981]"
                     : status === "error"
-                      ? "bg-destructive"
-                      : "bg-primary"
+                      ? "bg-[#EF4444]"
+                      : "bg-[#2563EB]"
                 }`}
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 0.3, ease: "easeOut" }}
               />
+              {/* Handgezeichneter Progress Bar Rahmen */}
+              <svg
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M 0 0 L 100% 0 L 100% 100% L 0 100% Z"
+                  fill="transparent"
+                  stroke="#2563EB"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </div>
           </div>
 
           {onCancel && status !== "success" && (
             <button
               onClick={onCancel}
-              className="flex-shrink-0 p-1 rounded-full hover:bg-gray-100 transition-colors"
+              className="flex-shrink-0 p-1 rounded-full hover:bg-[#EFF6FF] transition-colors"
             >
-              <X className="w-4 h-4 text-muted-foreground" />
+              {/* Sketch UI Close Icon */}
+              <svg width="16" height="16" viewBox="0 0 16 16">
+                <path
+                  d="M 2 2 L 14 14 M 14 2 L 2 14"
+                  stroke="#2563EB"
+                  strokeWidth="2"
+                />
+              </svg>
             </button>
           )}
         </div>

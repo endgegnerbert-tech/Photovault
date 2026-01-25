@@ -13,6 +13,14 @@ import {
 import ProgressIndicator from "@/components/ui/progress-indicator";
 import ShieldLoader from "@/components/ui/shield-loader";
 import { useEncryption } from "@/hooks/use-encryption";
+import {
+  SketchButton,
+  SketchCard,
+  SketchIcon,
+  SketchToggle,
+  SketchTextarea
+} from "@/sketch-ui";
+import { Loader2 } from "lucide-react";
 
 import { useSettingsStore } from "@/lib/storage/settings-store";
 
@@ -95,8 +103,8 @@ export function OnboardingFlow({
   }
 
   return (
-    <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset">
-      {/* Progress Indicator */}
+    <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]">
+      {/* Progress Indicator with Sketch styling can be added via globals or by updating the component */}
       <ProgressIndicator currentStep={visualStep} />
 
       {step === 1 && !showPhraseStep && (
@@ -134,8 +142,6 @@ export function OnboardingFlow({
         <ImportKeyDialog
           onClose={() => setShowImportDialog(false)}
           onSuccess={(phrase, phraseWords) => {
-            // Key is already saved by ImportKeyDialog -> saveKeyToStorage
-            // Just update UI state
             setShowImportDialog(false);
             onComplete();
           }}
@@ -155,39 +161,40 @@ function KeyCreationStep({
   return (
     <div className="flex-1 flex flex-col">
       <div className="flex-1 flex flex-col items-center justify-center text-center">
-        <div className="w-20 h-20 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-6">
-          <CustomIcon name="key" size={40} />
+        <div className="mb-6">
+          <SketchIcon icon="key" size={80} />
         </div>
-        <h1 className="sf-pro-display text-[28px] leading-tight text-[#1D1D1F] mb-3">
+        <h1 className="sketch-heading text-[32px] leading-tight text-[#1D1D1F] mb-3">
           Erstelle deinen Schlüssel
         </h1>
-        <p className="text-[17px] leading-relaxed text-[#6E6E73] max-w-[300px] mb-6">
-          Dieser Schlüssel verschlüsselt alle Fotos. Speichere ihn gut:
+        <p className="sketch-body text-[17px] leading-relaxed text-[#3B82F6] max-w-[300px] mb-8">
+          Dieser Schlüssel verschlüsselt alle Fotos. Bewahre ihn gut auf!
         </p>
 
-        <div className="bg-[#F2F2F7] rounded-xl p-4 w-full max-w-[300px]">
+        <SketchCard className="p-4 w-full max-w-[320px]">
           <div className="flex items-center gap-3 mb-2">
-            <CustomIcon name="key" size={20} />
-            <span className="text-[15px] text-[#1D1D1F] font-medium">
+            <SketchIcon icon="shield" size={24} color="#2563EB" />
+            <span className="sketch-subheading text-[16px]">
               12-Wort Backup-Phrase
             </span>
           </div>
-          <p className="text-[13px] text-[#6E6E73]">
-            Wird im nächsten Schritt erstellt und angezeigt
+          <p className="sketch-body text-[13px] text-[#6E6E73]">
+            Wird im nächsten Schritt erstellt und sicher angezeigt
           </p>
-        </div>
+        </SketchCard>
       </div>
 
-      <div className="space-y-3">
-        <button
+      <div className="space-y-4">
+        <SketchButton
           onClick={onContinue}
-          className="w-full h-[50px] bg-[#007AFF] text-white text-[17px] font-semibold rounded-xl ios-tap-target"
+          className="w-full"
+          size="lg"
         >
           Schlüssel erstellen
-        </button>
+        </SketchButton>
         <button
           onClick={onImport}
-          className="w-full h-[44px] text-[#007AFF] text-[17px] ios-tap-target"
+          className="w-full py-2 sketch-body text-[#2563EB] text-[17px] hover:underline"
         >
           Ich habe bereits einen Schlüssel
         </button>
@@ -210,67 +217,63 @@ function BackupPhraseStep({
   return (
     <div className="flex-1 flex flex-col">
       <div className="flex-1">
-        <div className="text-center mb-6">
-          <h1 className="sf-pro-display text-[28px] leading-tight text-[#1D1D1F] mb-2">
-            Notiere diese Wörter
+        <div className="text-center mb-8">
+          <h1 className="sketch-heading text-[32px] leading-tight text-[#1D1D1F] mb-2">
+            Backup-Wörter
           </h1>
-          <p className="text-[15px] text-[#6E6E73]">
-            Speichere sie sicher ab. Du brauchst sie zur Wiederherstellung.
+          <p className="sketch-body text-[15px] text-[#6E6E73]">
+            Notiere diese Wörter sicher. Du brauchst sie zur Wiederherstellung.
           </p>
         </div>
 
-        {/* 12 words in 3x4 grid */}
-        <div className="grid grid-cols-3 gap-2 mb-6">
+        {/* 12 words Grid with Sketch Cards */}
+        <div className="grid grid-cols-2 gap-3 mb-8">
           {phrase.map((word, index) => (
-            <div
+            <SketchCard
               key={index}
-              className="bg-white rounded-lg p-3 text-center border border-[#E5E5EA]"
+              className="p-3 text-center"
             >
-              <span className="text-[11px] text-[#8E8E93] block mb-0.5">
+              <span className="sketch-body text-[11px] text-[#6E6E73] block mb-0.5">
                 {index + 1}
               </span>
-              <span className="text-[15px] text-[#1D1D1F] font-mono">
+              <span className="sketch-subheading text-[16px] break-all">
                 {word}
               </span>
-            </div>
+            </SketchCard>
           ))}
         </div>
 
-        {/* Warning */}
-        <div className="bg-[#FF3B30]/10 rounded-xl p-4 mb-6">
-          <p className="text-[13px] text-[#FF3B30] text-center">
-            ⚠️ Teile diese Wörter niemals mit anderen. Wer sie hat, kann auf
-            deine Fotos zugreifen.
-          </p>
+        {/* Warning Card */}
+        <div className="mb-6">
+          <SketchCard className="bg-[#FF3B30]/5 border-[#FF3B30]">
+            <p className="sketch-body text-[13px] text-[#FF3B30] text-center">
+              Teile diese Wörter niemals. Wer sie hat, kann auf deine Fotos zugreifen.
+            </p>
+          </SketchCard>
         </div>
 
-        {/* Checkbox */}
-        <button
-          onClick={() => onConfirmChange(!confirmed)}
-          className="w-full flex items-center gap-3 p-4 bg-white rounded-xl ios-tap-target"
-        >
-          <div
-            className={`w-6 h-6 rounded-md border-2 flex items-center justify-center ${
-              confirmed ? "bg-[#007AFF] border-[#007AFF]" : "border-[#C7C7CC]"
-            }`}
-          >
-            {confirmed && <Check className="w-4 h-4 text-white" />}
-          </div>
-          <span className="text-[17px] text-[#1D1D1F]">
-            Ich habe die Wörter notiert
-          </span>
-        </button>
+        {/* Confirmation Toggle */}
+        <div className="mb-8">
+            <SketchCard className="p-4 flex items-center justify-between">
+                 <span className="sketch-subheading text-[17px] text-[#1D1D1F]">
+                    Sicher notiert?
+                </span>
+                <SketchToggle
+                    checked={confirmed}
+                    onChange={onConfirmChange}
+                />
+            </SketchCard>
+        </div>
       </div>
 
-      <button
+      <SketchButton
         onClick={onContinue}
         disabled={!confirmed}
-        className={`w-full h-[50px] text-[17px] font-semibold rounded-xl ios-tap-target ${
-          confirmed ? "bg-[#007AFF] text-white" : "bg-[#E5E5EA] text-[#8E8E93]"
-        }`}
+        className="w-full"
+        size="lg"
       >
         Weiter
-      </button>
+      </SketchButton>
     </div>
   );
 }
@@ -286,14 +289,14 @@ function SourceSelectionStep({
     {
       id: "photos-app" as const,
       label: "Fotos-App",
-      description: "Alle Fotos aus der iOS Foto-Bibliothek",
-      details: "Empfohlen für die meisten Nutzer",
+      description: "Alle Fotos aus der Bibliothek",
+      details: "Empfohlen",
     },
     {
       id: "files-app" as const,
       label: "Dateien-App",
-      description: "Fotos aus einem bestimmten Ordner",
-      details: "Für fortgeschrittene Nutzer",
+      description: "Bestimmter Ordner",
+      details: "Erweitert",
     },
   ];
 
@@ -301,61 +304,46 @@ function SourceSelectionStep({
     <div className="flex-1 flex flex-col">
       <div className="flex-1">
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="w-20 h-20 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-6">
-            <CustomIcon name="folder" size={40} />
+          <div className="mb-6">
+            <SketchIcon icon="folder" size={80} />
           </div>
-          <h1 className="sf-pro-display text-[28px] leading-tight text-[#1D1D1F] mb-2">
-            Wähle Backup-Quelle
+          <h1 className="sketch-heading text-[32px] mb-2 text-[#1D1D1F]">
+            Wähle Quelle
           </h1>
-          <p className="text-[17px] leading-relaxed text-[#6E6E73] max-w-[300px]">
-            Wo sind deine Fotos gespeichert?
+          <p className="sketch-body text-[17px] text-[#3B82F6] max-w-[300px]">
+            Wo liegen deine Fotos?
           </p>
         </div>
 
-        {/* Help Text */}
-        <div className="bg-[#F2F2F7] rounded-xl p-4 mb-6">
-          <p className="text-[15px] text-[#6E6E73] text-center">
-            💡 <strong>Tipp:</strong> Die meisten Nutzer wählen "Fotos-App". Du
-            kannst dies später in den Einstellungen ändern.
-          </p>
-        </div>
-
-        <div className="space-y-3">
+        <div className="space-y-4">
           {sources.map((source) => (
-            <button
+            <SketchCard
               key={source.id}
               onClick={() => onSelect(source.id)}
-              className={`w-full p-4 rounded-xl bg-white text-left ios-tap-target transition-all ${
-                selectedSource === source.id
-                  ? "ring-2 ring-[#007AFF] shadow-lg"
-                  : ""
+              className={`p-4 cursor-pointer transition-all ${
+                selectedSource === source.id ? "bg-[#2563EB]/5 border-[#2563EB]" : ""
               }`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <p className="text-[17px] font-medium text-[#1D1D1F]">
+                  <p className="sketch-subheading text-[18px] text-[#1D1D1F]">
                     {source.label}
                   </p>
-                  <p className="text-[15px] text-[#6E6E73] mt-0.5">
+                  <p className="sketch-body text-[15px] text-[#6E6E73] mt-0.5">
                     {source.description}
-                  </p>
-                  <p className="text-[13px] text-[#8E8E93] mt-1">
-                    {source.details}
                   </p>
                 </div>
                 <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                     selectedSource === source.id
-                      ? "border-[#007AFF] bg-[#007AFF]"
+                      ? "bg-[#2563EB] border-[#2563EB]"
                       : "border-[#C7C7CC]"
                   }`}
                 >
-                  {selectedSource === source.id && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-white" />
-                  )}
+                  {selectedSource === source.id && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
                 </div>
               </div>
-            </button>
+            </SketchCard>
           ))}
         </div>
       </div>
@@ -378,27 +366,17 @@ function PlanSelectionStep({
     {
       id: "free" as const,
       label: "FREE",
-      subtitle: "Auf deinen Geräten",
-      price: "0€/Monat",
-      features: [
-        "Unbegrenzte Fotos",
-        "Zero-Knowledge Verschlüsselung",
-        "Multi-Device Sync",
-      ],
-      description: "Perfekt für den Start",
+      subtitle: "Lokales Backup",
+      price: "Kostenlos",
+      features: ["Verschlüsselung", "Sync inkl.", "Lokal only"],
     },
     {
       id: "backup-plus" as const,
       label: "BACKUP+",
-      subtitle: "Dauerhaft im Netz",
-      price: "2,99€/Monat",
-      features: [
-        "Alles von Free",
-        "200 GB Cloud-Backup",
-        "Schnellere Synchronisierung",
-      ],
+      subtitle: "IPFS Cloud",
+      price: "2,99€",
+      features: ["Alles aus Free", "IPFS Node", "Ewig sicher"],
       recommended: true,
-      description: "Maximale Sicherheit",
     },
   ];
 
@@ -406,89 +384,66 @@ function PlanSelectionStep({
     <div className="flex-1 flex flex-col">
       <div className="flex-1">
         <div className="flex flex-col items-center text-center mb-6">
-          <div className="w-20 h-20 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-6">
-            <CustomIcon name="cloud" size={40} />
+          <div className="mb-6">
+            <SketchIcon icon="cloud" size={80} />
           </div>
-          <h1 className="sf-pro-display text-[28px] leading-tight text-[#1D1D1F] mb-2">
-            Wähle Speicherplan
+          <h1 className="sketch-heading text-[32px] mb-2 text-[#1D1D1F]">
+            Speicherplan
           </h1>
-          <p className="text-[17px] leading-relaxed text-[#6E6E73] max-w-[300px]">
-            Du kannst das später jederzeit ändern
+          <p className="sketch-body text-[17px] text-[#3B82F6] max-w-[300px]">
+            Ewig sicher in der Cloud?
           </p>
         </div>
 
-        {/* Help Text */}
-        <div className="bg-[#F2F2F7] rounded-xl p-4 mb-4">
-          <p className="text-[13px] text-[#6E6E73] text-center">
-            🎯 <strong>Empfehlung:</strong> Starte mit FREE und upgrade später,
-            wenn du mehr Speicher brauchst.
-          </p>
-        </div>
-
-        <div className="space-y-3">
+        <div className="space-y-4">
           {plans.map((plan) => (
-            <button
+            <SketchCard
               key={plan.id}
               onClick={() => setTempSelected(plan.id)}
-              className={`w-full p-4 rounded-xl bg-white text-left ios-tap-target relative transition-all ${
-                tempSelected === plan.id
-                  ? "ring-2 ring-[#007AFF] shadow-lg"
-                  : ""
+              className={`p-5 cursor-pointer relative transition-all ${
+                tempSelected === plan.id ? "bg-[#2563EB]/5 border-[#2563EB]" : ""
               }`}
             >
               {plan.recommended && (
-                <span className="absolute -top-2 left-4 px-2 py-0.5 bg-[#30D158] text-white text-[11px] font-semibold rounded-full">
-                  EMPFOHLEN
+                <span className="absolute -top-3 left-4 px-3 py-1 bg-[#30D158] text-white sketch-subheading text-[12px] rounded-full">
+                  TOP
                 </span>
               )}
               <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <p className="text-[15px] font-bold text-[#007AFF] tracking-wide">
-                    {plan.label}
-                  </p>
-                  <p className="text-[17px] font-semibold text-[#1D1D1F] mt-0.5">
-                    {plan.subtitle}
-                  </p>
-                  <p className="text-[13px] text-[#8E8E93] mt-1">
-                    {plan.description}
-                  </p>
-                  <ul className="mt-3 space-y-1.5">
-                    {plan.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="text-[15px] text-[#6E6E73] flex items-center gap-2"
-                      >
-                        <span className="text-[#30D158]">✓</span> {feature}
+                <div>
+                  <p className="sketch-subheading text-[20px] text-[#2563EB]">{plan.label}</p>
+                  <p className="sketch-body text-[15px] text-[#1D1D1F] mt-1">{plan.subtitle}</p>
+                  <ul className="mt-3 space-y-1">
+                    {plan.features.map((f) => (
+                      <li key={f} className="sketch-body text-[13px] text-[#6E6E73] flex items-center gap-2">
+                         <span className="text-[#30D158]">✓</span> {f}
                       </li>
                     ))}
                   </ul>
-                  <p className="text-[17px] font-semibold text-[#1D1D1F] mt-4">
-                    {plan.price}
-                  </p>
+                  <p className="sketch-subheading text-[18px] mt-4">{plan.price}</p>
                 </div>
                 <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
+                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center mt-1 ${
                     tempSelected === plan.id
-                      ? "border-[#007AFF] bg-[#007AFF]"
+                      ? "bg-[#2563EB] border-[#2563EB]"
                       : "border-[#C7C7CC]"
                   }`}
                 >
-                  {tempSelected === plan.id && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-white" />
-                  )}
+                  {tempSelected === plan.id && <div className="w-2.5 h-2.5 rounded-full bg-white" />}
                 </div>
               </div>
-            </button>
+            </SketchCard>
           ))}
         </div>
       </div>
 
-      <button
+      <SketchButton
         onClick={() => onSelect(tempSelected)}
-        className="w-full h-[50px] bg-[#007AFF] text-white text-[17px] font-semibold rounded-xl ios-tap-target mt-4"
+        className="w-full mt-4"
+        size="lg"
       >
-        PhotoVault starten
-      </button>
+        Loslegen
+      </SketchButton>
     </div>
   );
 }
@@ -509,7 +464,6 @@ function ImportKeyDialog({
     setIsImporting(true);
 
     try {
-      // Normalize input: replace spaces/newlines with dashes, trim
       const normalizedPhrase = importedPhrase
         .trim()
         .replace(/[\s\n]+/g, "-")
@@ -521,69 +475,65 @@ function ImportKeyDialog({
         return;
       }
 
-      // Try to decode the key
       const secretKey = recoveryPhraseToKey(normalizedPhrase);
 
       if (!secretKey || secretKey.length !== 32) {
-        setError("Ungültiger Schlüssel. Bitte überprüfe die Eingabe.");
+        setError("Ungültiger Schlüssel");
         setIsImporting(false);
         return;
       }
 
-      // Save to localStorage
       saveKeyToStorage(secretKey);
-
-      // Generate phrase words for display
       const phraseWords = normalizedPhrase.split("-").slice(0, 12);
-
-      console.log("Key imported successfully");
       onSuccess(normalizedPhrase, phraseWords);
     } catch (err) {
-      console.error("Key import error:", err);
-      setError("Ungültiger Schlüssel. Bitte überprüfe die Eingabe.");
+      setError("Fehler beim Import");
       setIsImporting(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50">
-      <div className="bg-white w-full max-w-[428px] rounded-t-2xl p-6 pb-10">
-        <h3 className="sf-pro-display text-[20px] text-[#1D1D1F] text-center mb-2">
-          Schlüssel importieren
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-6 backdrop-blur-sm">
+      <SketchCard className="bg-white w-full max-w-[360px] p-6 shadow-2xl">
+        <h3 className="sketch-heading text-[24px] text-[#1D1D1F] text-center mb-2">
+          Importieren
         </h3>
-        <p className="text-[15px] text-[#6E6E73] text-center mb-6">
-          Gib deine Backup-Phrase ein (mit Bindestrichen oder Leerzeichen)
+        <p className="sketch-body text-[14px] text-[#6E6E73] text-center mb-6">
+          Gib deine Backup-Phrase ein
         </p>
-        <textarea
+
+        <SketchTextarea
           value={importedPhrase}
-          onChange={(e) => {
-            setImportedPhrase(e.target.value);
+          onChange={(val) => {
+            setImportedPhrase(val);
             setError(null);
           }}
-          placeholder="abc123XY-def456AB-ghi789CD-..."
-          className="w-full h-[100px] bg-[#F2F2F7] rounded-xl p-4 text-[15px] text-[#1D1D1F] font-mono resize-none mb-2"
+          placeholder="abc123XY-def456AB..."
+          rows={3}
+          className="mb-4"
         />
 
         {error && (
-          <p className="text-[13px] text-[#FF3B30] text-center mb-4">{error}</p>
+          <p className="sketch-body text-[13px] text-[#FF3B30] text-center mb-4">{error}</p>
         )}
 
-        <div className="space-y-3">
-          <button
+        <div className="space-y-4">
+          <SketchButton
             onClick={handleImport}
             disabled={isImporting || !importedPhrase.trim()}
-            className="w-full h-[50px] bg-[#007AFF] text-white text-[17px] font-semibold rounded-xl ios-tap-target disabled:opacity-50"
+            className="w-full"
+            size="md"
           >
-            {isImporting ? "Importiere..." : "Importieren"}
-          </button>
+            {isImporting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Importieren"}
+          </SketchButton>
           <button
             onClick={onClose}
-            className="w-full h-[44px] text-[#007AFF] text-[17px] ios-tap-target"
+            className="w-full py-2 sketch-body text-[#8E8E93] hover:text-[#1D1D1F]"
           >
             Abbrechen
           </button>
         </div>
-      </div>
+      </SketchCard>
     </div>
   );
 }

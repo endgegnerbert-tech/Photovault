@@ -3,7 +3,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",
@@ -20,6 +23,7 @@
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "@tanstack/react-query": "^5.90.19",
+    "@tauri-apps/api": "^2.9.1",
     "autoprefixer": "10.4.20",
     "better-auth": "^1.4.17",
     "class-variance-authority": "^0.7.0",
@@ -50,6 +54,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
+    "@tauri-apps/cli": "^2.9.6",
     "@types/node": "^20",
     "@types/pg": "^8.16.0",
     "@types/react": "^18",

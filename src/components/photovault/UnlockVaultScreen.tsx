@@ -8,6 +8,13 @@ import {
     saveKeyToStorage,
     getUserKeyHash,
 } from "@/lib/crypto";
+import {
+  SketchButton,
+  SketchCard,
+  SketchIcon,
+  SketchTextarea,
+} from "@/sketch-ui";
+import { Loader2 } from "lucide-react";
 
 interface UnlockVaultScreenProps {
     userEmail: string;
@@ -79,98 +86,101 @@ export function UnlockVaultScreen({
     };
 
     return (
-        <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#F2F2F7]">
+        <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]">
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
-                <div className="text-[13px] text-[#6E6E73]">
+                <div className="sketch-body text-[14px] text-[#6E6E73]">
                     Angemeldet als
                     <br />
-                    <span className="text-[#1D1D1F] font-medium">{userEmail}</span>
+                    <span className="text-[#2563EB] font-bold">{userEmail}</span>
                 </div>
                 <button
                     onClick={onLogout}
-                    className="text-[#FF3B30] text-[15px] ios-tap-target"
+                    className="sketch-body text-[#FF3B30] text-[15px] hover:text-[#D73A49]"
                 >
                     Abmelden
                 </button>
             </div>
 
             <div className="flex-1 flex flex-col">
-                {/* Icon & Title */}
+                {/* Icon & Title with Sketch UI */}
                 <div className="flex flex-col items-center text-center mb-8">
-                    <div className="w-20 h-20 rounded-full bg-[#007AFF]/10 flex items-center justify-center mb-6">
-                        <CustomIcon name="lock" size={40} />
+                    <div className="mb-6">
+                        <SketchIcon icon="shield" size={80} />
                     </div>
-                    <h1 className="sf-pro-display text-[28px] font-bold text-[#1D1D1F] mb-2">
+                    <h1 className="sketch-heading text-[32px] mb-2 text-[#1D1D1F]">
                         Vault entsperren
                     </h1>
-                    <p className="text-[15px] text-[#6E6E73] max-w-[300px]">
+                    <p className="sketch-body text-[15px] text-[#6E6E73] max-w-[300px]">
                         {expectedKeyHash
                             ? "Gib deine Recovery-Phrase ein, um auf deine verschluesselten Fotos zuzugreifen"
                             : "Du hast noch keinen Vault. Erstelle einen neuen oder stelle einen bestehenden wieder her."}
                     </p>
                 </div>
 
-                {/* Recovery Phrase Input */}
+                {/* Recovery Phrase Input with Sketch UI */}
                 <div className="mb-6">
-                    <label className="text-[13px] text-[#6E6E73] mb-2 block">
-                        Recovery-Phrase (12 Woerter)
-                    </label>
-                    <textarea
+                    <SketchTextarea
                         value={phrase}
-                        onChange={(e) => {
-                            setPhrase(e.target.value);
+                        onChange={(val) => {
+                            setPhrase(val);
                             setError(null);
                         }}
-                        placeholder="abc123XY-def456AB-ghi789CD-..."
-                        className="w-full h-[120px] bg-white rounded-xl p-4 text-[15px] text-[#1D1D1F] font-mono resize-none border border-[#E5E5EA] focus:border-[#007AFF] focus:outline-none transition-colors"
+                        label="Recovery-Phrase (12 Woerter)"
+                        placeholder="abc123XY-def456AB-..."
+                        rows={4}
                     />
-                    <p className="text-[12px] text-[#8E8E93] mt-2">
+                    <p className="sketch-body text-[12px] text-[#8E8E93] mt-2 px-1">
                         Mit Bindestrichen oder Leerzeichen getrennt
                     </p>
                 </div>
 
                 {error && (
-                    <div className="bg-[#FF3B30]/10 rounded-xl p-3 mb-6">
-                        <p className="text-[14px] text-[#FF3B30] text-center">{error}</p>
+                    <div className="relative py-3 px-4 mb-6">
+                         <SketchCard className="bg-[#FF3B30]/5 border-[#FF3B30]">
+                             <p className="sketch-body text-[14px] text-[#FF3B30] text-center">{error}</p>
+                         </SketchCard>
                     </div>
                 )}
 
-                {/* Info Box */}
-                <div className="bg-[#007AFF]/5 rounded-xl p-4 mb-6">
-                    <div className="flex items-start gap-3">
-                        <Info className="w-5 h-5 text-[#007AFF] mt-0.5 flex-shrink-0" />
-                        <div>
-                            <p className="text-[13px] text-[#1D1D1F] font-medium mb-1">
-                                Warum brauche ich die Phrase?
-                            </p>
-                            <p className="text-[12px] text-[#6E6E73]">
-                                Deine Fotos sind lokal verschluesselt. Nur mit der Recovery-Phrase
-                                kannst du sie entschluesseln. Wir speichern sie niemals.
-                            </p>
+                {/* Info Box with Sketch UI */}
+                <div className="mb-6">
+                    <SketchCard className="bg-[#2563EB]/5">
+                        <div className="flex items-start gap-3">
+                            <Info className="w-5 h-5 text-[#2563EB] mt-0.5 flex-shrink-0" />
+                            <div>
+                                <p className="sketch-subheading text-[15px] mb-1">
+                                    Warum brauche ich die Phrase?
+                                </p>
+                                <p className="sketch-body text-[13px] text-[#6E6E73]">
+                                    Deine Fotos sind lokal verschluesselt. Nur mit der Recovery-Phrase
+                                    kannst du sie entschluesseln. Wir speichern sie niemals.
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    </SketchCard>
                 </div>
             </div>
 
-            {/* Buttons */}
-            <div className="space-y-3">
-                <button
+            {/* Buttons with Sketch UI */}
+            <div className="space-y-4">
+                <SketchButton
                     onClick={handleUnlock}
                     disabled={isUnlocking || !phrase.trim()}
-                    className="w-full h-[54px] bg-[#007AFF] text-white text-[17px] font-semibold rounded-2xl ios-tap-target disabled:opacity-50 flex items-center justify-center"
+                    className="w-full"
+                    size="lg"
                 >
                     {isUnlocking ? (
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <Loader2 className="w-6 h-6 animate-spin" />
                     ) : (
                         "Vault entsperren"
                     )}
-                </button>
+                </SketchButton>
 
                 {!expectedKeyHash && (
                     <button
                         onClick={onCreateNewVault}
-                        className="w-full h-[50px] text-[#007AFF] text-[17px] ios-tap-target"
+                        className="w-full py-2 sketch-body text-[#2563EB] text-[17px] hover:underline"
                     >
                         Neuen Vault erstellen
                     </button>

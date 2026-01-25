@@ -1,0 +1,38 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "PhotoVault",
+  "version": "0.1.0",
+  "identifier": "com.photovault.app",
+  "build": {
+    "frontendDist": "../out",
+    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "PhotoVault - Encrypted Photo Backup",
+        "width": 1200,
+        "height": 800,
+        "resizable": true,
+        "fullscreen": false,
+        "center": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://photovault-mu.vercel.app https://jextayidnmtsoofugnig.supabase.co https://*.supabase.co wss://*.supabase.co https://api.pinata.cloud https://red-able-bug-554.mypinata.cloud https://*.mypinata.cloud https://cloudflare-ipfs.com https://dweb.link https://ipfs.io https://gateway.pinata.cloud; img-src 'self' data: blob: https:; font-src 'self' data:; object-src 'none'; frame-ancestors 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
+}

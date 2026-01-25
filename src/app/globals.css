@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,8 +7,8 @@
 @layer base {
   :root {
     /* iOS-style Light Theme */
-    --background: 242 242 247;
-    /* #F2F2F7 */
+    --background: 250 251 252;
+    /* #FAFBFC */
     --foreground: 29 29 31;
     /* #1D1D1F */
 
@@ -84,17 +86,9 @@
 }
 
 @layer utilities {
+
   /* SF Pro Display for headlines */
-  .sf-pro-display {
-    font-family:
-      "SF Pro Display",
-      -apple-system,
-      BlinkMacSystemFont,
-      "Helvetica Neue",
-      sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
+  /* Removed legacy sf-pro-display */
 
   /* iOS Background Gray */
   .ios-bg-gray {
@@ -230,10 +224,12 @@
 
   /* Pulse animation for loading states */
   @keyframes pulse-soft {
+
     0%,
     100% {
       opacity: 1;
     }
+
     50% {
       opacity: 0.5;
     }
@@ -249,6 +245,7 @@
       opacity: 0;
       transform: translateY(10px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -265,6 +262,7 @@
       opacity: 0;
       transform: scale(0.95);
     }
+
     to {
       opacity: 1;
       transform: scale(1);
@@ -273,6 +271,22 @@
 
   .animate-scale-in {
     animation: scale-in 0.2s ease-out forwards;
+  }
+
+  /* Sketch-UI Specific Helpers */
+  .sketch-heading {
+    font-family: 'Architects Daughter', cursive;
+    @apply text-[#1E40AF] text-3xl font-bold;
+  }
+
+  .sketch-subheading {
+    font-family: 'Architects Daughter', cursive;
+    @apply text-[#3B82F6] text-xl;
+  }
+
+  .sketch-body {
+    font-family: 'Architects Daughter', cursive;
+    @apply text-[#1E40AF] text-lg;
   }
 }
 

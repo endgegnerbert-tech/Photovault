@@ -87,18 +87,48 @@ export function A2HSPrompt() {
         transition={{ duration: 0.3 }}
         className="fixed bottom-4 left-4 right-4 z-40 max-w-md mx-auto"
       >
-        <div className="glass-dark rounded-xl shadow-lg overflow-hidden border border-white/10">
-          <div className="p-4">
+        {/* Sketch UI Prompt */}
+        <div className="bg-[#FAFBFC] rounded-xl shadow-lg overflow-hidden border-2 border-[#2563EB] relative">
+          {/* Handgezeichneter Rahmen */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M 2% 2% Q 25% -0.5%, 50% 2% Q 75% -0.5%, 98% 2% Q 100.5% 25%, 98% 50% Q 100.5% 75%, 98% 98% Q 75% 100.5%, 50% 98% Q 25% 100.5%, 2% 98% Q -0.5% 75%, 2% 50% Q -0.5% 25%, 2% 2% Z"
+              fill="transparent"
+              stroke="#2563EB"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+
+          <div className="p-4 relative z-10">
             <div className="flex items-start gap-3">
               <div className="flex-shrink-0 pt-1">
-                <Smartphone className="w-6 h-6 text-primary" />
+                {/* Sketch UI Smartphone Icon */}
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                  <rect
+                    x="6"
+                    y="2"
+                    width="12"
+                    height="20"
+                    rx="2"
+                    fill="none"
+                    stroke="#2563EB"
+                    strokeWidth="2"
+                  />
+                  <path d="M 8 20 L 16 20" stroke="#2563EB" strokeWidth="1" />
+                  <circle cx="12" cy="22" r="1" fill="#2563EB" />
+                </svg>
               </div>
 
               <div className="flex-1">
-                <h4 className="font-semibold text-white mb-1">
+                <h4 className="font-semibold text-[#1E40AF] mb-1 font-['Caveat',_cursive]">
                   Install PhotoVault
                 </h4>
-                <p className="text-sm text-white/80">
+                <p className="text-sm text-[#3B82F6] font-['Architects_Daughter',_cursive]">
                   Get the full app experience with offline access and faster
                   performance.
                 </p>
@@ -106,24 +136,38 @@ export function A2HSPrompt() {
 
               <button
                 onClick={handleDismiss}
-                className="flex-shrink-0 p-1 rounded-full hover:bg-black/20 transition-colors"
+                className="flex-shrink-0 p-1 rounded-full hover:bg-[#EFF6FF] transition-colors"
               >
-                <X className="w-5 h-5 text-white/60" />
+                {/* Sketch UI Close Icon */}
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                  <path
+                    d="M 2 2 L 14 14 M 14 2 L 2 14"
+                    stroke="#2563EB"
+                    strokeWidth="2"
+                  />
+                </svg>
               </button>
             </div>
 
             <div className="flex gap-2 mt-3">
               <button
                 onClick={handleInstall}
-                className="flex-1 ios-button-primary flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-sm font-medium"
+                className="flex-1 bg-[#2563EB] text-white flex items-center justify-center gap-2 py-2 px-4 rounded-lg text-sm font-medium font-['Architects_Daughter',_cursive] hover:bg-[#1E40AF] transition-colors"
               >
-                <Plus className="w-4 h-4" />
+                {/* Sketch UI Plus Icon */}
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                  <path
+                    d="M 8 2 L 8 14 M 2 8 L 14 8"
+                    stroke="white"
+                    strokeWidth="2"
+                  />
+                </svg>
                 Add to Home Screen
               </button>
 
               <button
                 onClick={handleDismiss}
-                className="flex-shrink-0 ios-button-secondary py-2 px-4 rounded-lg text-sm font-medium"
+                className="flex-shrink-0 bg-[#EFF6FF] text-[#2563EB] py-2 px-4 rounded-lg text-sm font-medium font-['Caveat',_cursive] hover:bg-[#DFEFFF] transition-colors"
               >
                 Not Now
               </button>
