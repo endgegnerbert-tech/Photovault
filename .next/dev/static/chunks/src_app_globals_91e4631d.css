@@ -1,4 +1,4 @@
-@import "https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Google+Sans&display=swap";
 /* [project]/src/app/globals.css [app-client] (css) */
 *, :before, :after, ::backdrop {
   --tw-border-spacing-x: 0;
@@ -301,10 +301,10 @@ html {
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings: "lig" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: -apple-system, BlinkMacSystemFont, SF Pro Display, SF Pro Text, Helvetica Neue, Arial, sans-serif;
+  font-family: Google Sans, -apple-system, BlinkMacSystemFont, SF Pro Display, SF Pro Text, Helvetica Neue, Arial, sans-serif;
 }
 
 ::selection {
@@ -2733,7 +2733,7 @@ body {
 .sketch-heading {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity, 1));
-  font-family: Architects Daughter, cursive;
+  font-family: Google Sans, sans-serif;
   font-size: 1.875rem;
   font-weight: 700;
   line-height: 2.25rem;
@@ -2742,7 +2742,7 @@ body {
 .sketch-subheading {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity, 1));
-  font-family: Architects Daughter, cursive;
+  font-family: Google Sans, sans-serif;
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
@@ -2750,7 +2750,7 @@ body {
 .sketch-body {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity, 1));
-  font-family: Architects Daughter, cursive;
+  font-family: Google Sans, sans-serif;
   font-size: 1.125rem;
   line-height: 1.75rem;
 }

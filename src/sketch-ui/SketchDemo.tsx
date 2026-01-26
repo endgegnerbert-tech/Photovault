@@ -22,16 +22,16 @@ export function SketchDemo() {
 
       {/* Header */}
       <div className="max-w-4xl mx-auto">
-        <h1 className="font-['Architects Daughter',_cursive] text-5xl text-[#1E40AF] text-center mb-2">
+        <h1 className="font-['Google Sans',_sans-serif] text-5xl text-[#1E40AF] text-center mb-2">
           Sketch UI Komponenten
         </h1>
-        <p className="font-['Architects Daughter',_cursive] text-2xl text-[#3B82F6] text-center mb-12">
+        <p className="font-['Google Sans',_sans-serif] text-2xl text-[#3B82F6] text-center mb-12">
           Handgezeichneter Stil mit blauen Linien
         </p>
 
         {/* Icons Section */}
         <section className="mb-12">
-          <h2 className="font-['Architects Daughter',_cursive] text-3xl text-[#1E40AF] mb-6">
+          <h2 className="font-['Google Sans',_sans-serif] text-3xl text-[#1E40AF] mb-6">
             Icons
           </h2>
           <SketchCard>
@@ -50,7 +50,7 @@ export function SketchDemo() {
 
         {/* Buttons Section */}
         <section className="mb-12">
-          <h2 className="font-['Architects Daughter',_cursive] text-3xl text-[#1E40AF] mb-6">
+          <h2 className="font-['Google Sans',_sans-serif] text-3xl text-[#1E40AF] mb-6">
             Buttons
           </h2>
           <SketchCard>
@@ -78,17 +78,17 @@ export function SketchDemo() {
 
         {/* Cards Section */}
         <section className="mb-12">
-          <h2 className="font-['Architects Daughter',_cursive] text-3xl text-[#1E40AF] mb-6">
+          <h2 className="font-['Google Sans',_sans-serif] text-3xl text-[#1E40AF] mb-6">
             Cards
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <SketchCard variant="default">
               <div className="text-center">
                 <SketchIcon icon="shield" size={40} className="mx-auto mb-3" />
-                <h3 className="font-['Architects Daughter',_cursive] text-2xl text-[#1E40AF] mb-2">
+                <h3 className="font-['Google Sans',_sans-serif] text-2xl text-[#1E40AF] mb-2">
                   Default Card
                 </h3>
-                <p className="font-['Architects Daughter',_cursive] text-lg text-[#6B7280]">
+                <p className="font-['Google Sans',_sans-serif] text-lg text-[#6B7280]">
                   Standard Rahmen
                 </p>
               </div>
@@ -97,10 +97,10 @@ export function SketchDemo() {
             <SketchCard variant="elevated">
               <div className="text-center">
                 <SketchIcon icon="cloud" size={40} className="mx-auto mb-3" />
-                <h3 className="font-['Architects Daughter',_cursive] text-2xl text-[#1E40AF] mb-2">
+                <h3 className="font-['Google Sans',_sans-serif] text-2xl text-[#1E40AF] mb-2">
                   Elevated Card
                 </h3>
-                <p className="font-['Architects Daughter',_cursive] text-lg text-[#6B7280]">
+                <p className="font-['Google Sans',_sans-serif] text-lg text-[#6B7280]">
                   Mit Schatten-Effekt
                 </p>
               </div>
@@ -109,10 +109,10 @@ export function SketchDemo() {
             <SketchCard variant="outline">
               <div className="text-center">
                 <SketchIcon icon="key" size={40} className="mx-auto mb-3" />
-                <h3 className="font-['Architects Daughter',_cursive] text-2xl text-[#1E40AF] mb-2">
+                <h3 className="font-['Google Sans',_sans-serif] text-2xl text-[#1E40AF] mb-2">
                   Outline Card
                 </h3>
-                <p className="font-['Architects Daughter',_cursive] text-lg text-[#6B7280]">
+                <p className="font-['Google Sans',_sans-serif] text-lg text-[#6B7280]">
                   Transparenter Hintergrund
                 </p>
               </div>
@@ -122,7 +122,7 @@ export function SketchDemo() {
 
         {/* Toggle Section */}
         <section className="mb-12">
-          <h2 className="font-['Architects Daughter',_cursive] text-3xl text-[#1E40AF] mb-6">
+          <h2 className="font-['Google Sans',_sans-serif] text-3xl text-[#1E40AF] mb-6">
             Toggle Switch
           </h2>
           <SketchCard>
@@ -132,7 +132,7 @@ export function SketchDemo() {
                 onChange={setToggleState}
                 label="Backup aktivieren"
               />
-              <p className="font-['Architects Daughter',_cursive] text-lg text-[#6B7280]">
+              <p className="font-['Google Sans',_sans-serif] text-lg text-[#6B7280]">
                 Status: {toggleState ? "An" : "Aus"}
               </p>
             </div>
@@ -141,14 +141,14 @@ export function SketchDemo() {
 
         {/* Progress Section */}
         <section className="mb-12">
-          <h2 className="font-['Architects Daughter',_cursive] text-3xl text-[#1E40AF] mb-6">
+          <h2 className="font-['Google Sans',_sans-serif] text-3xl text-[#1E40AF] mb-6">
             Progress Bars
           </h2>
           <SketchCard>
             <div className="space-y-8">
               {/* Linear Progress */}
               <div>
-                <p className="font-['Architects Daughter',_cursive] text-xl text-[#1E40AF] mb-3">
+                <p className="font-['Google Sans',_sans-serif] text-xl text-[#1E40AF] mb-3">
                   Linear Progress
                 </p>
                 <div className="space-y-4">
@@ -160,7 +160,7 @@ export function SketchDemo() {
 
               {/* Circular Progress */}
               <div>
-                <p className="font-['Architects Daughter',_cursive] text-xl text-[#1E40AF] mb-3">
+                <p className="font-['Google Sans',_sans-serif] text-xl text-[#1E40AF] mb-3">
                   Circular Progress
                 </p>
                 <div className="flex gap-6 justify-center">
@@ -172,7 +172,7 @@ export function SketchDemo() {
 
               {/* Slider */}
               <div>
-                <p className="font-['Architects Daughter',_cursive] text-xl text-[#1E40AF] mb-3">
+                <p className="font-['Google Sans',_sans-serif] text-xl text-[#1E40AF] mb-3">
                   Wert anpassen: {progress}%
                 </p>
                 <input
@@ -190,7 +190,7 @@ export function SketchDemo() {
 
         {/* Input Section */}
         <section className="mb-12">
-          <h2 className="font-['Architects Daughter',_cursive] text-3xl text-[#1E40AF] mb-6">
+          <h2 className="font-['Google Sans',_sans-serif] text-3xl text-[#1E40AF] mb-6">
             Input Felder
           </h2>
           <SketchCard>
@@ -215,7 +215,7 @@ export function SketchDemo() {
 
         {/* Kombiniertes Beispiel */}
         <section className="mb-12">
-          <h2 className="font-['Architects Daughter',_cursive] text-3xl text-[#1E40AF] mb-6">
+          <h2 className="font-['Google Sans',_sans-serif] text-3xl text-[#1E40AF] mb-6">
             Kombiniertes Beispiel: Backup Status
           </h2>
           <SketchCard variant="elevated">
@@ -228,11 +228,11 @@ export function SketchDemo() {
                 />
               </div>
               
-              <h3 className="font-['Architects Daughter',_cursive] text-3xl text-[#1E40AF] mb-2">
+              <h3 className="font-['Google Sans',_sans-serif] text-3xl text-[#1E40AF] mb-2">
                 {toggleState ? "Backup Aktiv" : "Backup Inaktiv"}
               </h3>
               
-              <p className="font-['Architects Daughter',_cursive] text-xl text-[#6B7280] mb-6">
+              <p className="font-['Google Sans',_sans-serif] text-xl text-[#6B7280] mb-6">
                 {toggleState
                   ? "Deine Fotos werden geschützt"
                   : "Aktiviere Backup für Schutz"}
@@ -241,7 +241,7 @@ export function SketchDemo() {
               {toggleState && (
                 <div className="w-full max-w-xs mb-6">
                   <SketchProgress value={78} size="md" color="#22C55E" />
-                  <p className="font-['Architects Daughter',_cursive] text-lg text-[#6B7280] mt-2">
+                  <p className="font-['Google Sans',_sans-serif] text-lg text-[#6B7280] mt-2">
                     2.847 Fotos gesichert
                   </p>
                 </div>
@@ -252,7 +252,7 @@ export function SketchDemo() {
                   checked={toggleState}
                   onChange={setToggleState}
                 />
-                <span className="font-['Architects Daughter',_cursive] text-xl text-[#1E40AF]">
+                <span className="font-['Google Sans',_sans-serif] text-xl text-[#1E40AF]">
                   {toggleState ? "Deaktivieren" : "Aktivieren"}
                 </span>
               </div>
@@ -270,7 +270,7 @@ export function SketchDemo() {
 
         {/* Footer */}
         <footer className="text-center py-8">
-          <p className="font-['Architects Daughter',_cursive] text-xl text-[#9CA3AF]">
+          <p className="font-['Google Sans',_sans-serif] text-xl text-[#9CA3AF]">
             Handgezeichnet mit 💙
           </p>
         </footer>

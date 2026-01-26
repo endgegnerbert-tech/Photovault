@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -70,10 +70,16 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family:
-      -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
-      "Helvetica Neue", Arial, sans-serif;
+      "Google Sans",
+      -apple-system,
+      BlinkMacSystemFont,
+      "SF Pro Display",
+      "SF Pro Text",
+      "Helvetica Neue",
+      Arial,
+      sans-serif;
     font-feature-settings:
-      "rlig" 1,
+      "lig" 1,
       "calt" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -86,7 +92,6 @@
 }
 
 @layer utilities {
-
   /* SF Pro Display for headlines */
   /* Removed legacy sf-pro-display */
 
@@ -224,7 +229,6 @@
 
   /* Pulse animation for loading states */
   @keyframes pulse-soft {
-
     0%,
     100% {
       opacity: 1;
@@ -275,17 +279,27 @@
 
   /* Sketch-UI Specific Helpers */
   .sketch-heading {
-    font-family: 'Architects Daughter', cursive;
+    font-family: "Google Sans", sans-serif;
     @apply text-[#1E40AF] text-3xl font-bold;
   }
 
   .sketch-subheading {
-    font-family: 'Architects Daughter', cursive;
+    font-family: "Google Sans", sans-serif;
     @apply text-[#3B82F6] text-xl;
   }
 
   .sketch-body {
-    font-family: 'Architects Daughter', cursive;
+    font-family: "Google Sans", sans-serif;
+    @apply text-[#1E40AF] text-lg;
+  }
+
+  .sketch-subheading {
+    font-family: "Google Sans", sans-serif;
+    @apply text-[#3B82F6] text-xl;
+  }
+
+  .sketch-body {
+    font-family: "Google Sans", sans-serif;
     @apply text-[#1E40AF] text-lg;
   }
 }

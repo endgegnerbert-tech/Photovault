@@ -41,18 +41,20 @@ export function SketchProgress({
         className="w-full"
       >
         <defs>
-          <filter id="progress-rough" x="-5%" y="-10%" width="110%" height="120%">
+          <filter
+            id="progress-rough"
+            x="-5%"
+            y="-10%"
+            width="110%"
+            height="120%"
+          >
             <feTurbulence
               type="turbulence"
               baseFrequency="0.04"
               numOctaves="2"
               result="noise"
             />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="1"
-            />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
           </filter>
         </defs>
 
@@ -114,7 +116,7 @@ export function SketchProgress({
       {/* Label */}
       {showLabel && (
         <span
-          className="absolute right-0 top-1/2 -translate-y-1/2 font-['Architects Daughter',_cursive] text-lg font-bold"
+          className="absolute right-0 top-1/2 -translate-y-1/2 font-['Google Sans',_sans-serif] text-lg font-bold"
           style={{ color }}
         >
           {Math.round(clampedValue)}%
@@ -158,7 +160,7 @@ export function SketchCircularProgress({
     for (let i = 0; i <= segments * (progress / 100); i++) {
       const angle = (i / segments) * Math.PI * 2 - Math.PI / 2;
       if (angle > endAngle - Math.PI / 2) break;
-      
+
       const wobble = radius * 0.02 * (jitter[i % jitter.length] || 0);
       const x = cx + (radius + wobble) * Math.cos(angle);
       const y = cy + (radius + wobble) * Math.sin(angle);
@@ -183,21 +185,26 @@ export function SketchCircularProgress({
   })();
 
   return (
-    <div className="relative inline-block" style={{ width: size, height: size }}>
+    <div
+      className="relative inline-block"
+      style={{ width: size, height: size }}
+    >
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
         <defs>
-          <filter id="circular-rough" x="-5%" y="-5%" width="110%" height="110%">
+          <filter
+            id="circular-rough"
+            x="-5%"
+            y="-5%"
+            width="110%"
+            height="110%"
+          >
             <feTurbulence
               type="turbulence"
               baseFrequency="0.03"
               numOctaves="2"
               result="noise"
             />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="0.5"
-            />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.5" />
           </filter>
         </defs>
 
@@ -227,7 +234,7 @@ export function SketchCircularProgress({
       {/* Label in der Mitte */}
       {showLabel && (
         <div
-          className="absolute inset-0 flex items-center justify-center font-['Architects Daughter',_cursive] font-bold"
+          className="absolute inset-0 flex items-center justify-center font-['Google Sans',_sans-serif] font-bold"
           style={{ color, fontSize: size * 0.25 }}
         >
           {Math.round(clampedValue)}%

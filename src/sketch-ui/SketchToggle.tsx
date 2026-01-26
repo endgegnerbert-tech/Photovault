@@ -69,18 +69,20 @@ export function SketchToggle({
       >
         <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}>
           <defs>
-            <filter id="toggle-rough" x="-5%" y="-5%" width="110%" height="110%">
+            <filter
+              id="toggle-rough"
+              x="-5%"
+              y="-5%"
+              width="110%"
+              height="110%"
+            >
               <feTurbulence
                 type="turbulence"
                 baseFrequency="0.05"
                 numOctaves="2"
                 result="noise"
               />
-              <feDisplacementMap
-                in="SourceGraphic"
-                in2="noise"
-                scale="1"
-              />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
             </filter>
           </defs>
 
@@ -117,7 +119,7 @@ export function SketchToggle({
               opacity="0.15"
               transform="translate(2, 2)"
             />
-            
+
             {/* Knob Hauptform */}
             <path
               d={knobPath(knobX)}
@@ -142,7 +144,7 @@ export function SketchToggle({
       </button>
 
       {label && (
-        <span className="font-['Architects Daughter',_cursive] text-xl text-[#1E40AF]">
+        <span className="font-['Google Sans',_sans-serif] text-xl text-[#1E40AF]">
           {label}
         </span>
       )}

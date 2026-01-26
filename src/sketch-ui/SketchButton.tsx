@@ -101,11 +101,7 @@ export function SketchButton({
         className="absolute inset-0"
       >
         {/* Hintergrund-Füllung */}
-        <path
-          d={sketchPath}
-          fill={fill}
-          stroke="none"
-        />
+        <path d={sketchPath} fill={fill} stroke="none" />
         {/* Erste Linie (dicker) */}
         <path
           d={sketchPath}
@@ -127,10 +123,10 @@ export function SketchButton({
           opacity="0.6"
         />
       </svg>
-      
+
       {/* Text */}
       <span
-        className="relative z-10 font-['Architects Daughter',_cursive] font-bold"
+        className="relative z-10 font-['Google Sans',_sans-serif] font-bold"
         style={{
           fontSize,
           color: text,

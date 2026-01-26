@@ -310,9 +310,9 @@ const sketchClasses = {
     // Container mit handgezeichnetem Rand
     container: "relative bg-[#FAFBFC]",
     // Text-Stile
-    heading: "font-['Architects Daughter',_cursive] text-[#1E40AF] text-3xl font-bold",
-    subheading: "font-['Architects Daughter',_cursive] text-[#3B82F6] text-xl",
-    body: "font-['Architects Daughter',_cursive] text-[#1E40AF] text-lg",
+    heading: "font-['Google Sans',_sans-serif] text-[#1E40AF] text-3xl font-bold",
+    subheading: "font-['Google Sans',_sans-serif] text-[#3B82F6] text-xl",
+    body: "font-['Google Sans',_sans-serif] text-[#1E40AF] text-lg",
     // Interaktive Elemente
     button: "relative cursor-pointer transition-transform hover:scale-105 active:scale-95",
     // Linien
@@ -472,7 +472,7 @@ function SketchButton({ children, onClick, variant = "primary", size = "md", dis
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchButton.tsx",
-                        lineNumber: 110,
+                        lineNumber: 106,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -485,7 +485,7 @@ function SketchButton({ children, onClick, variant = "primary", size = "md", dis
                         opacity: "0.6"
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchButton.tsx",
-                        lineNumber: 120,
+                        lineNumber: 116,
                         columnNumber: 9
                     }, this)
                 ]
@@ -495,7 +495,7 @@ function SketchButton({ children, onClick, variant = "primary", size = "md", dis
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "relative z-10 font-['Architects Daughter',_cursive] font-bold",
+                className: "relative z-10 font-['Google Sans',_sans-serif] font-bold",
                 style: {
                     fontSize,
                     color: text,
@@ -508,7 +508,7 @@ function SketchButton({ children, onClick, variant = "primary", size = "md", dis
                 children: children
             }, void 0, false, {
                 fileName: "[project]/src/sketch-ui/SketchButton.tsx",
-                lineNumber: 132,
+                lineNumber: 128,
                 columnNumber: 7
             }, this)
         ]
@@ -784,7 +784,7 @@ function SketchToggle({ checked, onChange, label, disabled = false }) {
                                         result: "noise"
                                     }, void 0, false, {
                                         fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                                        lineNumber: 73,
+                                        lineNumber: 79,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("feDisplacementMap", {
@@ -793,7 +793,7 @@ function SketchToggle({ checked, onChange, label, disabled = false }) {
                                         scale: "1"
                                     }, void 0, false, {
                                         fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 85,
                                         columnNumber: 15
                                     }, this)
                                 ]
@@ -818,7 +818,7 @@ function SketchToggle({ checked, onChange, label, disabled = false }) {
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                            lineNumber: 88,
+                            lineNumber: 90,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -830,7 +830,7 @@ function SketchToggle({ checked, onChange, label, disabled = false }) {
                             transform: "translate(1, 1)"
                         }, void 0, false, {
                             fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                            lineNumber: 98,
+                            lineNumber: 100,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("g", {
@@ -845,7 +845,7 @@ function SketchToggle({ checked, onChange, label, disabled = false }) {
                                     transform: "translate(2, 2)"
                                 }, void 0, false, {
                                     fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 116,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -856,7 +856,7 @@ function SketchToggle({ checked, onChange, label, disabled = false }) {
                                     strokeLinecap: "round"
                                 }, void 0, false, {
                                     fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                                    lineNumber: 122,
+                                    lineNumber: 124,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -871,13 +871,13 @@ function SketchToggle({ checked, onChange, label, disabled = false }) {
                                     }
                                 }, void 0, false, {
                                     fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                                    lineNumber: 131,
+                                    lineNumber: 133,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                            lineNumber: 108,
+                            lineNumber: 110,
                             columnNumber: 11
                         }, this)
                     ]
@@ -892,11 +892,11 @@ function SketchToggle({ checked, onChange, label, disabled = false }) {
                 columnNumber: 7
             }, this),
             label && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "font-['Architects Daughter',_cursive] text-xl text-[#1E40AF]",
+                className: "font-['Google Sans',_sans-serif] text-xl text-[#1E40AF]",
                 children: label
             }, void 0, false, {
                 fileName: "[project]/src/sketch-ui/SketchToggle.tsx",
-                lineNumber: 145,
+                lineNumber: 147,
                 columnNumber: 9
             }, this)
         ]
@@ -1415,7 +1415,7 @@ function SketchProgress({ value, size = "md", showLabel = true, color = "#2563EB
                                     result: "noise"
                                 }, void 0, false, {
                                     fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                                    lineNumber: 45,
+                                    lineNumber: 51,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("feDisplacementMap", {
@@ -1424,7 +1424,7 @@ function SketchProgress({ value, size = "md", showLabel = true, color = "#2563EB
                                     scale: "1"
                                 }, void 0, false, {
                                     fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                                    lineNumber: 51,
+                                    lineNumber: 57,
                                     columnNumber: 13
                                 }, this)
                             ]
@@ -1458,7 +1458,7 @@ function SketchProgress({ value, size = "md", showLabel = true, color = "#2563EB
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                        lineNumber: 60,
+                        lineNumber: 62,
                         columnNumber: 9
                     }, this),
                     clampedValue > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1481,7 +1481,7 @@ function SketchProgress({ value, size = "md", showLabel = true, color = "#2563EB
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                        lineNumber: 80,
+                        lineNumber: 82,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1497,7 +1497,7 @@ function SketchProgress({ value, size = "md", showLabel = true, color = "#2563EB
                         strokeLinecap: "round"
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                        lineNumber: 100,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1507,7 +1507,7 @@ function SketchProgress({ value, size = "md", showLabel = true, color = "#2563EB
                 columnNumber: 7
             }, this),
             showLabel && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                className: "absolute right-0 top-1/2 -translate-y-1/2 font-['Architects Daughter',_cursive] text-lg font-bold",
+                className: "absolute right-0 top-1/2 -translate-y-1/2 font-['Google Sans',_sans-serif] text-lg font-bold",
                 style: {
                     color
                 },
@@ -1517,7 +1517,7 @@ function SketchProgress({ value, size = "md", showLabel = true, color = "#2563EB
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                lineNumber: 116,
+                lineNumber: 118,
                 columnNumber: 9
             }, this)
         ]
@@ -1592,7 +1592,7 @@ function SketchCircularProgress({ value, size = 80, strokeWidth = 6, color = "#2
                                     result: "noise"
                                 }, void 0, false, {
                                     fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                                    lineNumber: 190,
+                                    lineNumber: 201,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("feDisplacementMap", {
@@ -1601,18 +1601,18 @@ function SketchCircularProgress({ value, size = 80, strokeWidth = 6, color = "#2
                                     scale: "0.5"
                                 }, void 0, false, {
                                     fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                                    lineNumber: 196,
+                                    lineNumber: 207,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                            lineNumber: 189,
+                            lineNumber: 194,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                        lineNumber: 188,
+                        lineNumber: 193,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1626,7 +1626,7 @@ function SketchCircularProgress({ value, size = 80, strokeWidth = 6, color = "#2
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                        lineNumber: 205,
+                        lineNumber: 212,
                         columnNumber: 9
                     }, this),
                     clampedValue > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1640,17 +1640,17 @@ function SketchCircularProgress({ value, size = 80, strokeWidth = 6, color = "#2
                         }
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                        lineNumber: 216,
+                        lineNumber: 223,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                lineNumber: 187,
+                lineNumber: 192,
                 columnNumber: 7
             }, this),
             showLabel && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute inset-0 flex items-center justify-center font-['Architects Daughter',_cursive] font-bold",
+                className: "absolute inset-0 flex items-center justify-center font-['Google Sans',_sans-serif] font-bold",
                 style: {
                     color,
                     fontSize: size * 0.25
@@ -1661,13 +1661,13 @@ function SketchCircularProgress({ value, size = 80, strokeWidth = 6, color = "#2
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-                lineNumber: 229,
+                lineNumber: 236,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/sketch-ui/SketchProgress.tsx",
-        lineNumber: 186,
+        lineNumber: 188,
         columnNumber: 5
     }, this);
 }
@@ -1697,7 +1697,7 @@ function SketchInput({ value, onChange, placeholder = "", type = "text", label, 
         className: `relative ${className}`,
         children: [
             label && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                className: "block font-['Architects Daughter',_cursive] text-xl text-[#1E40AF] mb-2",
+                className: "block font-['Google Sans',_sans-serif] text-xl text-[#1E40AF] mb-2",
                 children: label
             }, void 0, false, {
                 fileName: "[project]/src/sketch-ui/SketchInput.tsx",
@@ -1732,7 +1732,9 @@ function SketchInput({ value, onChange, placeholder = "", type = "text", label, 
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("feDisplacementMap", {
                                             in: "SourceGraphic",
                                             in2: "noise",
-                                            scale: "1"
+                                            scale: "1",
+                                            xChannelSelector: "R",
+                                            yChannelSelector: "G"
                                         }, void 0, false, {
                                             fileName: "[project]/src/sketch-ui/SketchInput.tsx",
                                             lineNumber: 52,
@@ -1750,44 +1752,12 @@ function SketchInput({ value, onChange, placeholder = "", type = "text", label, 
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                d: `
-              M ${3 + jitter[0]}% ${10 + jitter[1]}%
-              Q ${25}% ${-2}%, ${50}% ${8 + jitter[2]}%
-              Q ${75}% ${-2}%, ${97 + jitter[3]}% ${10}%
-              Q ${102}% ${30}%, ${98}% ${50}%
-              Q ${102}% ${70}%, ${97 + jitter[4]}% ${90}%
-              Q ${75}% ${102}%, ${50}% ${92 + jitter[5]}%
-              Q ${25}% ${102}%, ${3 + jitter[6]}% ${90}%
-              Q ${-2}% ${70}%, ${2}% ${50}%
-              Q ${-2}% ${30}%, ${3 + jitter[7]}% ${10}%
-              Z
-            `,
-                                fill: "#FFFFFF",
-                                stroke: "#2563EB",
-                                strokeWidth: "2.5",
-                                strokeLinecap: "round",
-                                style: {
-                                    filter: "url(#input-rough)"
-                                }
+                                d: "M0,0 L${width},0 L${width},${height} L0,${height} Z",
+                                className: "stroke-[#2563EB] stroke-[3] fill-none",
+                                filter: "url(#input-rough)"
                             }, void 0, false, {
                                 fileName: "[project]/src/sketch-ui/SketchInput.tsx",
                                 lineNumber: 61,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                d: `
-              M ${5}% ${15}%
-              Q ${25}% ${5}%, ${50}% ${12}%
-              Q ${75}% ${5}%, ${95}% ${15}%
-            `,
-                                fill: "none",
-                                stroke: "#3B82F6",
-                                strokeWidth: "1",
-                                opacity: "0.3",
-                                strokeLinecap: "round"
-                            }, void 0, false, {
-                                fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                                lineNumber: 82,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -1803,18 +1773,18 @@ function SketchInput({ value, onChange, placeholder = "", type = "text", label, 
                         placeholder: placeholder,
                         disabled: disabled,
                         className: `
-            relative z-10
-            w-full
-            ${icon ? "pl-12" : "px-5"} py-4
-            bg-transparent
-            font-['Architects Daughter',_cursive] text-xl text-[#1E40AF]
-            placeholder:text-[#9CA3AF]
-            focus:outline-none
-            ${disabled ? "opacity-50 cursor-not-allowed" : ""}
-          `
+             relative z-10
+             w-full
+             ${icon ? "pl-12" : "px-5"} py-4
+             bg-transparent
+             font-['Google Sans',_sans-serif] text-xl text-[#1E40AF]
+             placeholder:text-[#9CA3AF]
+             focus:outline-none
+             ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+           `
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                        lineNumber: 96,
+                        lineNumber: 67,
                         columnNumber: 9
                     }, this),
                     icon && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1822,7 +1792,7 @@ function SketchInput({ value, onChange, placeholder = "", type = "text", label, 
                         children: icon
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                        lineNumber: 114,
+                        lineNumber: 85,
                         columnNumber: 11
                     }, this)
                 ]
@@ -1848,11 +1818,11 @@ function SketchTextarea({ value, onChange, placeholder = "", label, rows = 4, di
         className: `relative ${className}`,
         children: [
             label && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                className: "block font-['Architects Daughter',_cursive] text-xl text-[#1E40AF] mb-2",
+                className: "block font-['Google Sans',_sans-serif] text-xl text-[#1E40AF] mb-2",
                 children: label
             }, void 0, false, {
                 fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                lineNumber: 150,
+                lineNumber: 121,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1877,74 +1847,44 @@ function SketchTextarea({ value, onChange, placeholder = "", label, rows = 4, di
                                             result: "noise"
                                         }, void 0, false, {
                                             fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                                            lineNumber: 162,
+                                            lineNumber: 139,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("feDisplacementMap", {
                                             in: "SourceGraphic",
                                             in2: "noise",
-                                            scale: "1"
+                                            scale: "1",
+                                            xChannelSelector: "R",
+                                            yChannelSelector: "G"
                                         }, void 0, false, {
                                             fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                                            lineNumber: 168,
+                                            lineNumber: 145,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                                    lineNumber: 161,
+                                    lineNumber: 132,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                                lineNumber: 160,
+                                lineNumber: 131,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                d: `
-              M ${3 + jitter[0]}% ${3 + jitter[1]}%
-              Q ${25}% ${-1}%, ${50}% ${2 + jitter[2]}%
-              Q ${75}% ${-1}%, ${97 + jitter[3]}% ${3}%
-              Q ${101}% ${25}%, ${98}% ${50}%
-              Q ${101}% ${75}%, ${97 + jitter[4]}% ${97}%
-              Q ${75}% ${101}%, ${50}% ${98 + jitter[5]}%
-              Q ${25}% ${101}%, ${3 + jitter[6]}% ${97}%
-              Q ${-1}% ${75}%, ${2}% ${50}%
-              Q ${-1}% ${25}%, ${3 + jitter[7]}% ${3}%
-              Z
-            `,
-                                fill: "#FFFFFF",
-                                stroke: "#2563EB",
-                                strokeWidth: "2.5",
-                                strokeLinecap: "round",
-                                style: {
-                                    filter: "url(#textarea-rough)"
-                                }
+                                d: "M0,0 L${width},0 L${width},${height} L0,${height} Z",
+                                className: "stroke-[#2563EB] stroke-[3] fill-none",
+                                filter: "url(#textarea-rough)"
                             }, void 0, false, {
                                 fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                                lineNumber: 177,
+                                lineNumber: 154,
                                 columnNumber: 11
-                            }, this),
-                            Array.from({
-                                length: rows
-                            }).map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
-                                    d: `
-                M ${8}% ${20 + i * 70 / rows}%
-                Q ${50}% ${18 + i * 70 / rows + (Math.random() - 0.5) * 2}%, ${92}% ${20 + i * 70 / rows}%
-              `,
-                                    fill: "none",
-                                    stroke: "#E5E7EB",
-                                    strokeWidth: "1",
-                                    strokeLinecap: "round"
-                                }, i, false, {
-                                    fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                                    lineNumber: 199,
-                                    columnNumber: 13
-                                }, this))
+                            }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                        lineNumber: 156,
+                        lineNumber: 127,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1954,31 +1894,31 @@ function SketchTextarea({ value, onChange, placeholder = "", label, rows = 4, di
                         rows: rows,
                         disabled: disabled,
                         className: `
-            relative z-10
-            w-full
-            px-5 py-4
-            bg-transparent
-            font-['Architects Daughter',_cursive] text-xl text-[#1E40AF]
-            placeholder:text-[#9CA3AF]
-            focus:outline-none
-            resize-none
-            ${disabled ? "opacity-50 cursor-not-allowed" : ""}
-          `
+             relative z-10
+             w-full
+             px-5 py-4
+             bg-transparent
+             font-['Google Sans',_sans-serif] text-xl text-[#1E40AF]
+             placeholder:text-[#9CA3AF]
+             focus:outline-none
+             resize-none
+             ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+           `
                     }, void 0, false, {
                         fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                        lineNumber: 213,
+                        lineNumber: 160,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-                lineNumber: 155,
+                lineNumber: 126,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/sketch-ui/SketchInput.tsx",
-        lineNumber: 148,
+        lineNumber: 119,
         columnNumber: 5
     }, this);
 }
@@ -1990,18 +1930,18 @@ __turbopack_context__.s([]);
 /**
  * Sketch UI Component Library
  * ===========================
- * 
+ *
  * Handgezeichnete UI-Komponenten im blauen Sketch-Stil
- * 
+ *
  * STYLE-EIGENSCHAFTEN:
  * - Blaue raue Linien (#2563EB, #3B82F6)
  * - Variable Strichstärke (2-4px)
  * - Jitter/Wobble-Effekte durch SVG
  * - Organische, handgezeichnete Formen
- * 
+ *
  * FONT:
- * - Architects Daughter (Google Fonts) für handgeschriebenen Text-Look
- * 
+ * - Google Sans (Google Fonts) für modernen Text-Look
+ *
  * VERWENDUNG:
  * import { SketchButton, SketchCard, SketchToggle } from '@/components/sketch-ui';
  */ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$sketch$2d$ui$2f$SketchStyles$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/sketch-ui/SketchStyles.tsx [app-ssr] (ecmascript)");
@@ -2142,13 +2082,13 @@ function AuthScreen({ onSuccess }) {
                                         strokeWidth: "3"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                        lineNumber: 108,
-                                        columnNumber: 30
+                                        lineNumber: 117,
+                                        columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                    lineNumber: 107,
-                                    columnNumber: 25
+                                    lineNumber: 113,
+                                    columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "relative z-10 w-full h-full flex items-center justify-center",
@@ -2158,35 +2098,35 @@ function AuthScreen({ onSuccess }) {
                                         className: "text-[#2563EB]"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                        lineNumber: 116,
-                                        columnNumber: 29
+                                        lineNumber: 125,
+                                        columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                    lineNumber: 115,
-                                    columnNumber: 25
+                                    lineNumber: 124,
+                                    columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                            lineNumber: 106,
-                            columnNumber: 21
+                            lineNumber: 112,
+                            columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                             className: "sketch-heading text-[42px] mb-3",
                             children: "PhotoVault"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                            lineNumber: 120,
-                            columnNumber: 21
+                            lineNumber: 129,
+                            columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "sketch-body text-[#3B82F6] max-w-[280px] mb-12",
                             children: "Sichere deine Fotos mit Zero-Knowledge Verschluesselung"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                            lineNumber: 123,
-                            columnNumber: 21
+                            lineNumber: 130,
+                            columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "w-full max-w-[320px] space-y-4 mb-12",
@@ -2196,36 +2136,36 @@ function AuthScreen({ onSuccess }) {
                                     text: "Ende-zu-Ende verschluesselt"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                    lineNumber: 129,
-                                    columnNumber: 25
+                                    lineNumber: 136,
+                                    columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FeatureItem, {
                                     icon: "smartphone",
                                     text: "Multi-Device Sync"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                    lineNumber: 130,
-                                    columnNumber: 25
+                                    lineNumber: 137,
+                                    columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(FeatureItem, {
                                     icon: "cloud",
                                     text: "Dezentrales IPFS Backup"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                    lineNumber: 131,
-                                    columnNumber: 25
+                                    lineNumber: 138,
+                                    columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                            lineNumber: 128,
-                            columnNumber: 21
+                            lineNumber: 135,
+                            columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                    lineNumber: 104,
-                    columnNumber: 17
+                    lineNumber: 110,
+                    columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "space-y-4",
@@ -2237,8 +2177,8 @@ function AuthScreen({ onSuccess }) {
                             children: "Konto erstellen"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                            lineNumber: 137,
-                            columnNumber: 21
+                            lineNumber: 144,
+                            columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: ()=>setMode("login"),
@@ -2246,59 +2186,59 @@ function AuthScreen({ onSuccess }) {
                             children: "Ich habe bereits ein Konto"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                            lineNumber: 145,
-                            columnNumber: 21
+                            lineNumber: 152,
+                            columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                    lineNumber: 136,
-                    columnNumber: 17
+                    lineNumber: 143,
+                    columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-            lineNumber: 103,
-            columnNumber: 13
+            lineNumber: 109,
+            columnNumber: 7
         }, this);
     }
     // Login / Signup Form
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "jsx-3d182ede277f5a6d" + " " + "min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]",
+        className: "jsx-d70472d407c31818" + " " + "min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                 onClick: ()=>setMode("welcome"),
-                className: "jsx-3d182ede277f5a6d" + " " + "self-start sketch-body text-[#2563EB] mb-8 ios-tap-target flex items-center gap-2",
+                className: "jsx-d70472d407c31818" + " " + "self-start sketch-body text-[#2563EB] mb-8 ios-tap-target flex items-center gap-2",
                 children: "← Zurueck"
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                lineNumber: 160,
-                columnNumber: 13
+                lineNumber: 167,
+                columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-3d182ede277f5a6d" + " " + "flex-1",
+                className: "jsx-d70472d407c31818" + " " + "flex-1",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                        className: "jsx-3d182ede277f5a6d" + " " + "sketch-heading text-[32px] mb-2",
+                        className: "jsx-d70472d407c31818" + " " + "sketch-heading text-[32px] mb-2",
                         children: mode === "login" ? "Willkommen zurueck" : "Konto erstellen"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                        lineNumber: 168,
-                        columnNumber: 17
+                        lineNumber: 175,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "jsx-3d182ede277f5a6d" + " " + "sketch-body text-[#3B82F6] mb-8",
+                        className: "jsx-d70472d407c31818" + " " + "sketch-body text-[#3B82F6] mb-8",
                         children: mode === "login" ? "Melde dich an, um auf deinen Vault zuzugreifen" : "Erstelle ein Konto, um deinen Vault zu sichern"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                        lineNumber: 171,
-                        columnNumber: 17
+                        lineNumber: 178,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-3d182ede277f5a6d" + " " + "space-y-6",
+                        className: "jsx-d70472d407c31818" + " " + "space-y-6",
                         children: [
                             mode === "signup" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-3d182ede277f5a6d" + " " + "relative",
+                                className: "jsx-d70472d407c31818" + " " + "relative",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$sketch$2d$ui$2f$SketchInput$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SketchInput"], {
                                     type: "text",
                                     value: name,
@@ -2309,21 +2249,21 @@ function AuthScreen({ onSuccess }) {
                                         className: "w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                        lineNumber: 187,
-                                        columnNumber: 39
+                                        lineNumber: 194,
+                                        columnNumber: 23
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                    lineNumber: 181,
-                                    columnNumber: 29
+                                    lineNumber: 188,
+                                    columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                lineNumber: 180,
-                                columnNumber: 25
+                                lineNumber: 187,
+                                columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-3d182ede277f5a6d" + " " + "relative",
+                                className: "jsx-d70472d407c31818" + " " + "relative",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$sketch$2d$ui$2f$SketchInput$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SketchInput"], {
                                     type: "email",
                                     value: email,
@@ -2334,21 +2274,21 @@ function AuthScreen({ onSuccess }) {
                                         className: "w-5 h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                        lineNumber: 199,
-                                        columnNumber: 35
+                                        lineNumber: 206,
+                                        columnNumber: 21
                                     }, void 0)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                    lineNumber: 193,
-                                    columnNumber: 25
+                                    lineNumber: 200,
+                                    columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                lineNumber: 192,
-                                columnNumber: 21
+                                lineNumber: 199,
+                                columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-3d182ede277f5a6d" + " " + "relative flex flex-col gap-1",
+                                className: "jsx-d70472d407c31818" + " " + "relative flex flex-col gap-1",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$sketch$2d$ui$2f$SketchInput$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SketchInput"], {
                                         type: showPassword ? "text" : "password",
@@ -2360,92 +2300,92 @@ function AuthScreen({ onSuccess }) {
                                             className: "w-5 h-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                            lineNumber: 210,
-                                            columnNumber: 35
+                                            lineNumber: 217,
+                                            columnNumber: 21
                                         }, void 0)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                        lineNumber: 204,
-                                        columnNumber: 25
+                                        lineNumber: 211,
+                                        columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         type: "button",
                                         onClick: ()=>setShowPassword(!showPassword),
-                                        className: "jsx-3d182ede277f5a6d" + " " + "absolute right-4 top-[38px] text-[#2563EB]/40 z-20",
+                                        className: "jsx-d70472d407c31818" + " " + "absolute right-4 top-[38px] text-[#2563EB]/40 z-20",
                                         children: showPassword ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2d$off$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__EyeOff$3e$__["EyeOff"], {
                                             className: "w-5 h-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                            lineNumber: 218,
-                                            columnNumber: 33
+                                            lineNumber: 225,
+                                            columnNumber: 17
                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
                                             className: "w-5 h-5"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                            lineNumber: 220,
-                                            columnNumber: 33
+                                            lineNumber: 227,
+                                            columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                        lineNumber: 212,
-                                        columnNumber: 25
+                                        lineNumber: 219,
+                                        columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                lineNumber: 203,
-                                columnNumber: 21
+                                lineNumber: 210,
+                                columnNumber: 11
                             }, this),
                             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-3d182ede277f5a6d" + " " + "relative py-3 px-4",
+                                className: "jsx-d70472d407c31818" + " " + "relative py-3 px-4",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                         preserveAspectRatio: "none",
-                                        className: "jsx-3d182ede277f5a6d" + " " + "absolute inset-0 w-full h-full",
+                                        className: "jsx-d70472d407c31818" + " " + "absolute inset-0 w-full h-full",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                             d: "M 2 5 Q 25 2, 50 5 Q 75 2, 98 5 Q 99 30, 98 60 Q 75 63, 50 60 Q 25 63, 2 60 Q 1 30, 2 5 Z",
                                             fill: "#FF3B3010",
                                             stroke: "#FF3B30",
                                             strokeWidth: "1",
-                                            className: "jsx-3d182ede277f5a6d"
+                                            className: "jsx-d70472d407c31818"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                            lineNumber: 228,
-                                            columnNumber: 33
+                                            lineNumber: 238,
+                                            columnNumber: 17
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                        lineNumber: 227,
-                                        columnNumber: 29
+                                        lineNumber: 234,
+                                        columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-3d182ede277f5a6d" + " " + "relative z-10 sketch-body text-[#FF3B30] text-center text-sm",
+                                        className: "jsx-d70472d407c31818" + " " + "relative z-10 sketch-body text-[#FF3B30] text-center text-sm",
                                         children: error
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                        lineNumber: 235,
-                                        columnNumber: 29
+                                        lineNumber: 245,
+                                        columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                                lineNumber: 226,
-                                columnNumber: 25
+                                lineNumber: 233,
+                                columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                        lineNumber: 178,
-                        columnNumber: 17
+                        lineNumber: 185,
+                        columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                lineNumber: 167,
-                columnNumber: 13
+                lineNumber: 174,
+                columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-3d182ede277f5a6d" + " " + "space-y-4",
+                className: "jsx-d70472d407c31818" + " " + "space-y-4",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$sketch$2d$ui$2f$SketchButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["SketchButton"], {
                         onClick: mode === "login" ? handleLogin : handleSignup,
@@ -2456,38 +2396,38 @@ function AuthScreen({ onSuccess }) {
                             className: "w-6 h-6 animate-spin"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                            lineNumber: 250,
-                            columnNumber: 25
+                            lineNumber: 262,
+                            columnNumber: 13
                         }, this) : mode === "login" ? "Anmelden" : "Registrieren"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                        lineNumber: 243,
-                        columnNumber: 17
+                        lineNumber: 255,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>setMode(mode === "login" ? "signup" : "login"),
-                        className: "jsx-3d182ede277f5a6d" + " " + "w-full py-2 sketch-body text-[#2563EB] hover:text-[#1E40AF] transition-colors",
+                        className: "jsx-d70472d407c31818" + " " + "w-full py-2 sketch-body text-[#2563EB] hover:text-[#1E40AF] transition-colors",
                         children: mode === "login" ? "Noch kein Konto? Registrieren" : "Bereits ein Konto? Anmelden"
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                        lineNumber: 258,
-                        columnNumber: 17
+                        lineNumber: 270,
+                        columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                lineNumber: 242,
-                columnNumber: 13
+                lineNumber: 254,
+                columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                id: "3d182ede277f5a6d",
-                children: ".sketch-input-field.jsx-3d182ede277f5a6d{color:#1d1d1f;background-color:#0000;border:2px solid #2563eb;border-radius:12px;width:100%;height:54px;padding-left:3rem;padding-right:1rem;font-family:Architects Daughter,cursive;font-size:17px;transition:border-color .2s}.sketch-input-field.jsx-3d182ede277f5a6d:focus{border-color:#1e40af;outline:none}.sketch-input-field.jsx-3d182ede277f5a6d::placeholder{color:#8e8e93}"
+                id: "d70472d407c31818",
+                children: ".sketch-input-field.jsx-d70472d407c31818{color:#1d1d1f;background-color:#0000;border:2px solid #2563eb;border-radius:12px;width:100%;height:54px;padding-left:3rem;padding-right:1rem;font-family:Google Sans,sans-serif;font-size:17px;transition:border-color .2s}.sketch-input-field.jsx-d70472d407c31818:focus{border-color:#1e40af;outline:none}.sketch-input-field.jsx-d70472d407c31818::placeholder{color:#8e8e93}"
             }, void 0, false, void 0, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-        lineNumber: 158,
-        columnNumber: 9
+        lineNumber: 165,
+        columnNumber: 5
     }, this);
 }
 function FeatureItem({ icon, text }) {
@@ -2504,13 +2444,13 @@ function FeatureItem({ icon, text }) {
                     strokeWidth: "1.5"
                 }, void 0, false, {
                     fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                    lineNumber: 299,
-                    columnNumber: 17
+                    lineNumber: 320,
+                    columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                lineNumber: 298,
-                columnNumber: 13
+                lineNumber: 316,
+                columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "relative z-10 flex items-center gap-4 p-4",
@@ -2523,33 +2463,33 @@ function FeatureItem({ icon, text }) {
                             className: "text-[#2563EB]"
                         }, void 0, false, {
                             fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                            lineNumber: 308,
-                            columnNumber: 21
+                            lineNumber: 329,
+                            columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                        lineNumber: 307,
-                        columnNumber: 17
+                        lineNumber: 328,
+                        columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         className: "sketch-body text-base text-[#1E40AF]",
                         children: text
                     }, void 0, false, {
                         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                        lineNumber: 310,
-                        columnNumber: 17
+                        lineNumber: 331,
+                        columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-                lineNumber: 306,
-                columnNumber: 13
+                lineNumber: 327,
+                columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/photovault/AuthScreen.tsx",
-        lineNumber: 296,
-        columnNumber: 9
+        lineNumber: 314,
+        columnNumber: 5
     }, this);
 }
 }),
