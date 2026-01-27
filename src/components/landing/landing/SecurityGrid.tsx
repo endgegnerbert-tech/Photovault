@@ -1,4 +1,4 @@
-import { Shield, Lock, FileCheck } from "lucide-react";
+import { Lock, FileCheck } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
@@ -54,17 +54,17 @@ export default function SecurityGrid() {
     {
       icon: <Lock size={28} strokeWidth={2} />,
       title: "Military-Grade Encryption",
-      description: "TweetNaCl with XSalsa20-Poly1305 encryption. AES-256-GCM with PBKDF2 key derivation. The same encryption trusted by governments."
+      description: "TweetNaCl with XSalsa20-Poly1305 encryption. Authenticated encryption that ensures your data cannot be tampered with."
     },
     {
-      icon: <Shield size={28} strokeWidth={2} />,
+      icon: <img src="/logo.svg" alt="Zero-Knowledge" className="w-7 h-7" />,
       title: "Zero-Knowledge Architecture",
       description: "We never see your encryption keys. All encryption happens locally in your browser. Even our engineers can't access your data."
     },
     {
       icon: <FileCheck size={28} strokeWidth={2} />,
       title: "GDPR Compliant (EU)",
-      description: "Built with European privacy standards. Hetzner EU servers. Your data sovereignty is guaranteed with full control over deletion."
+      description: "Built with European privacy standards. EU Data Residency. Your data sovereignty is guaranteed with full control over deletion."
     }
   ];
 

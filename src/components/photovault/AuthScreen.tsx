@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Loader2, Key } from "lucide-react";
 import { CustomIcon } from "@/components/ui/custom-icon";
-import { signIn } from "@/lib/auth-client";
+import { signIn, signUp } from "@/lib/auth-client";
+import { verifyAccessCode, consumeAccessCode } from "@/app/actions/access-code";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,12 +17,13 @@ interface AuthScreenProps {
   }) => void;
 }
 
-type AuthMode = "welcome" | "login";
+type AuthMode = "welcome" | "login" | "register";
 
 export function AuthScreen({ onSuccess }: AuthScreenProps) {
   const [mode, setMode] = useState<AuthMode>("welcome");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [accessCode, setAccessCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -63,14 +65,64 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
     }
   };
 
+  const handleRegister = async () => {
+    if (!email || !password || !accessCode) {
+      setError("Bitte alle Felder ausfüllen");
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // 1. Verify Access Code
+      const verifyRes = await verifyAccessCode(accessCode);
+      if (!verifyRes.success) {
+        setError(verifyRes.message || "Ungültiger Zugangscode");
+        setIsLoading(false);
+        return;
+      }
+
+      // 2. Register
+      const result = await signUp.email({
+        email,
+        password,
+        name: email.split("@")[0], // Default name
+      });
+
+      if (result.error) {
+        setError(result.error.message || "Registrierung fehlgeschlagen");
+        setIsLoading(false);
+        return;
+      }
+
+      // 3. Consume Code
+      await consumeAccessCode(accessCode);
+
+      // 4. Success
+      if (result.data?.user) {
+        onSuccess({
+          id: result.data.user.id,
+          email: result.data.user.email,
+          vaultKeyHash: null,
+        });
+      }
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError("Ein Fehler ist aufgetreten.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   // Welcome Screen
   if (mode === "welcome") {
     return (
       <div className="min-h-screen flex flex-col px-6 pt-16 pb-8 safe-area-inset bg-[#FAFBFC]">
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           {/* Logo */}
-          <div className="relative w-28 h-28 mb-8 flex items-center justify-center bg-blue-100 dark:bg-blue-900/20 rounded-3xl shadow-lg shadow-blue-500/10">
-            <CustomIcon name="shield" size={56} className="text-blue-600" />
+          <div className="relative w-28 h-28 mb-8 flex items-center justify-center bg-blue-50 dark:bg-blue-900/10 rounded-3xl shadow-lg shadow-blue-500/10 p-6">
+            <img src="/logo.svg" alt="SaecretHeaven Logo" className="w-full h-full object-contain" />
           </div>
 
           <h1 className="text-4xl font-bold mb-3 tracking-tight text-gray-900 dark:text-white">SaecretHeaven</h1>
@@ -95,15 +147,22 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
             Anmelden
           </Button>
           
-          <p className="text-center text-gray-400 text-sm">
-            Registrierung ist derzeit deaktiviert
-          </p>
+          <Button
+             onClick={() => setMode("register")}
+             variant="outline"
+             className="w-full border-2 border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl h-14 text-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/10"
+             size="lg"
+          >
+            Account erstellen
+          </Button>
         </div>
       </div>
     );
   }
 
-  // Login Form
+  // Login/Register Form
+  const isRegister = mode === "register";
+
   return (
     <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]">
       {/* Header */}
@@ -116,14 +175,35 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
 
       <div className="flex-1">
         <h1 className="text-3xl font-bold mb-2 tracking-tight text-gray-900 dark:text-white">
-          Willkommen zurueck
+          {isRegister ? "Account erstellen" : "Willkommen zurueck"}
         </h1>
         <p className="text-blue-600 dark:text-blue-400 mb-8 font-medium">
-          Melde dich an, um auf deinen Vault zuzugreifen
+          {isRegister ? "Zugang nur mit Einladungscode" : "Melde dich an, um auf deinen Vault zuzugreifen"}
         </p>
 
         {/* Form */}
         <div className="space-y-6">
+          
+          {isRegister && (
+             <div className="space-y-2">
+               <Label htmlFor="code" className="sr-only">Zugangscode</Label>
+               <div className="relative">
+                 <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center">
+                    <Key className="w-5 h-5 text-gray-400" />
+                 </div>
+                 <Input
+                   id="code"
+                   type="text"
+                   autoCapitalize="characters"
+                   value={accessCode}
+                   onChange={(e) => setAccessCode(e.target.value.toUpperCase())}
+                   placeholder="Zugangscode"
+                   className="pl-12 h-14 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-lg shadow-sm font-mono tracking-wider"
+                 />
+               </div>
+             </div>
+          )}
+
           <div className="space-y-2">
             <Label htmlFor="email" className="sr-only">E-Mail</Label>
             <div className="relative">
@@ -178,7 +258,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       {/* Submit Button */}
       <div className="space-y-4">
         <Button
-          onClick={handleLogin}
+          onClick={isRegister ? handleRegister : handleLogin}
           disabled={isLoading}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-14 text-lg font-semibold shadow-lg shadow-blue-500/20"
           size="lg"
@@ -186,11 +266,10 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
           {isLoading ? (
             <Loader2 className="w-6 h-6 animate-spin" />
           ) : (
-            "Anmelden"
+            isRegister ? "Kostenlos registrieren" : "Anmelden"
           )}
         </Button>
       </div>
-
 
     </div>
   );

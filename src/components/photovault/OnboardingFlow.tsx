@@ -173,7 +173,7 @@ function KeyCreationStep({
 
         <SketchCard className="p-4 w-full max-w-[320px]">
           <div className="flex items-center gap-3 mb-2">
-            <SketchIcon icon="shield" size={24} color="#2563EB" />
+            <img src="/logo.svg" alt="Shield" className="w-6 h-6 object-contain" />
             <span className="sketch-subheading text-[16px]">
               12-Wort Backup-Phrase
             </span>

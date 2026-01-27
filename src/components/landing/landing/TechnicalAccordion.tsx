@@ -15,22 +15,21 @@ export default function TechnicalAccordion() {
         <div className="space-y-4">
           <div>
             <h4 className="font-space-grotesk text-base font-semibold text-charcoal mb-2">
-              AES-256-GCM (Galois/Counter Mode)
+              XSalsa20-Poly1305 (TweetNaCl)
             </h4>
             <p className="font-inter text-sm text-warm-gray leading-relaxed">
-              Primary symmetric encryption algorithm providing both confidentiality and authenticity. 
-              GCM mode offers authenticated encryption with associated data (AEAD), protecting against 
-              tampering and forgery attacks.
+              High-performance authenticated encryption. Used by Signal and other privacy-focused tools. 
+              Poly1305 provides message authentication to prevent tampering.
             </p>
           </div>
           <div>
             <h4 className="font-space-grotesk text-base font-semibold text-charcoal mb-2">
-              PBKDF2-SHA256 (Key Derivation)
+              Secure Key Generation
             </h4>
             <p className="font-inter text-sm text-warm-gray leading-relaxed">
-              <span className="font-jetbrains text-xs bg-gray-100 px-2 py-1 rounded">100,000 iterations</span> 
-              {" "}of PBKDF2 with SHA-256 derive your master encryption key from your passphrase, 
-              making brute-force attacks computationally infeasible.
+              <span className="font-jetbrains text-xs bg-gray-100 px-2 py-1 rounded">Web Crypto API</span> 
+              {" "}keys are generated locally using cryptographically secure random number generators. 
+              Your master key never leaves your device.
             </p>
           </div>
           <div>
@@ -69,11 +68,11 @@ export default function TechnicalAccordion() {
           </div>
           <div>
             <h4 className="font-space-grotesk text-base font-semibold text-charcoal mb-2">
-              Zero-Knowledge Recovery
+              Backup Recovery Phrase
             </h4>
             <p className="font-inter text-sm text-warm-gray leading-relaxed">
-              Optional recovery mechanism using Shamir's Secret Sharing splits your master key into shards. 
-              No single party (including us) can reconstruct your key without your participation.
+              Generate a secure recovery phrase to restore your access on new devices. 
+              Crucial for Zero-Knowledge systems as we cannot reset your password.
             </p>
           </div>
         </div>

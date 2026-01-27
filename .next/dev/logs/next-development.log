@@ -634,3 +634,88 @@ Import traces:
 [04:05:24.773] Server  LOG     ✓ Compiled in 207ms
 [04:06:12.292] Server  LOG     ✓ Compiled in 310ms
 [04:06:51.528] Server  LOG     ✓ Compiled in 174ms
+[06:30:35.995] Server  LOG     ✓ Compiled in 461ms
+[06:30:53.181] Server  LOG     ✓ Compiled in 248ms
+[06:31:03.391] Server  LOG     ✓ Compiled in 758ms
+[06:31:54.238] Server  LOG     ✓ Compiled in 237ms
+[06:31:54.779] Browser ERROR   ./src/components/landing/landing/SecurityGrid.tsx:59:11
+Parsing ecmascript source code failed
+  57 |       description: "TweetNaCl with XSalsa20-Poly1305 encryption. AES-256-GCM with PBKDF2 key derivation. The same encryption trusted by governments."
+  58 |     },
+> 59 |       icon: <img src="/logo.svg" alt="Zero-Knowledge" className="w-7 h-7" />,
+     |           ^
+  60 |       title: "Zero-Knowledge Architecture",
+  61 |       description: "We never see your encryption keys. All encryption happens locally in your browser. Even our engineers can't access your data."
+  62 |     },
+
+Expected ',', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/SecurityGrid.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/SecurityGrid.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[06:31:58.778] Browser ERROR   ./src/components/landing/landing/SecurityGrid.tsx:59:11
+Parsing ecmascript source code failed
+  57 |       description: "TweetNaCl with XSalsa20-Poly1305 encryption. AES-256-GCM with PBKDF2 key derivation. The same encryption trusted by governments."
+  58 |     },
+> 59 |       icon: <img src="/logo.svg" alt="Zero-Knowledge" className="w-7 h-7" />,
+     |           ^
+  60 |       title: "Zero-Knowledge Architecture",
+  61 |       description: "We never see your encryption keys. All encryption happens locally in your browser. Even our engineers can't access your data."
+  62 |     },
+
+Expected ',', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/SecurityGrid.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/SecurityGrid.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[06:32:00.777] Browser ERROR   ./src/components/landing/landing/SecurityGrid.tsx:59:11
+Parsing ecmascript source code failed
+  57 |       description: "TweetNaCl with XSalsa20-Poly1305 encryption. AES-256-GCM with PBKDF2 key derivation. The same encryption trusted by governments."
+  58 |     },
+> 59 |       icon: <img src="/logo.svg" alt="Zero-Knowledge" className="w-7 h-7" />,
+     |           ^
+  60 |       title: "Zero-Knowledge Architecture",
+  61 |       description: "We never see your encryption keys. All encryption happens locally in your browser. Even our engineers can't access your data."
+  62 |     },
+
+Expected ',', got ':'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/SecurityGrid.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/SecurityGrid.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[06:32:14.654] Server  LOG     ✓ Compiled in 569ms
+[06:33:00.446] Server  LOG     ✓ Compiled in 232ms
+[06:33:02.667] Server  LOG     ✓ Compiled in 188ms
+[06:33:04.597] Server  LOG     ✓ Compiled in 166ms
+[06:49:31.065] Server  LOG     ✓ Compiled in 1500ms
+[06:49:42.705] Server  LOG     ✓ Compiled in 11.2s
+[06:49:55.339] Server  LOG     ✓ Finished writing to filesystem cache in 10.1s
+[06:51:39.579] Browser ERROR   uncaughtError: Error: Module [project]/node_modules/lucide-react/dist/esm/icons/shield.js [app-client] (ecmascript) <export default as Shield> was instantiated because it was required from module [project]/src/components/landing/landing/SecurityGrid.tsx [app-client] (ecmascript), but the module factory is not available. It might have been deleted in an HMR update.
+[06:52:31.473] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[06:52:43.805] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[06:55:02.220] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[06:59:13.299] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[06:59:18.221] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[06:59:18.221] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[07:03:09.918] Server  LOG     ✓ Compiled in 969ms

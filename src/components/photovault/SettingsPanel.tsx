@@ -28,7 +28,6 @@ import {
   Key, 
   Smartphone, 
   ChevronRight,
-  Shield,
   RotateCcw
 } from "lucide-react";
 

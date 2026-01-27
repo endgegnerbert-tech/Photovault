@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import { joinWaitlist } from "@/app/actions/waitlist";
 import { Button } from "@/components/ui/button";
 import { SketchButton } from "@/sketch-ui/SketchButton";
 import { Input } from "@/components/ui/input";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Check, Download, Smartphone, Shield } from "lucide-react";
+import { Check, Download, Smartphone } from "lucide-react";
 
 export default function WaitlistSection() {
   const ref = useRef(null);
@@ -17,7 +18,7 @@ export default function WaitlistSection() {
   
   // Scarcity: seats remaining
   const totalSeats = 100;
-  const [seatsRemaining, setSeatsRemaining] = useState(47);
+  const [seatsRemaining, setSeatsRemaining] = useState(30);
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,20 +41,29 @@ export default function WaitlistSection() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isValid) {
-      setIsSubmitted(true);
-      setSeatsRemaining(prev => Math.max(0, prev - 1));
+      try {
+        const result = await joinWaitlist(email);
+        if (result.success) {
+          setIsSubmitted(true);
+          setSeatsRemaining(prev => Math.max(0, prev - 1));
+        } else {
+          setError(result.message || "Something went wrong.");
+        }
+      } catch (err) {
+        setError("Failed to submit. Please try again.");
+      }
     }
   };
 
   return (
     <section id="waitlist" className="py-32 lg:py-40 bg-gradient-to-b from-white via-sky-light/30 to-sky-light relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-20 left-20 w-96 h-96 bg-indigo-soft/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-violet-gentle/5 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/50 rounded-full blur-3xl" />
+      {/* Background decorations - Hidden on mobile for performance */}
+      <div className="hidden lg:block absolute top-20 left-20 w-96 h-96 bg-indigo-soft/5 rounded-full blur-3xl" />
+      <div className="hidden lg:block absolute bottom-20 right-20 w-96 h-96 bg-violet-gentle/5 rounded-full blur-3xl" />
+      <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/50 rounded-full blur-3xl" />
       
       <div className="relative max-w-[1280px] mx-auto px-8 lg:px-20">
         <motion.div
@@ -102,6 +112,7 @@ export default function WaitlistSection() {
                     placeholder="Enter your email"
                     value={email}
                     onChange={handleEmailChange}
+                    aria-label="Email address for waitlist"
                     className={`h-14 lg:h-16 px-6 font-inter text-base lg:text-lg rounded-full border-2 transition-all duration-300 bg-white ${
                       error 
                         ? 'border-red-400 focus:border-red-500' 
@@ -126,7 +137,7 @@ export default function WaitlistSection() {
                 </SketchButton>
               </div>
               <p className="mt-4 text-sm text-warm-gray">
-                <Shield className="inline-block w-4 h-4 mr-1 -mt-0.5" />
+                <img src="/logo.svg" alt="SaecretHeaven" className="inline-block w-4 h-4 mr-1 -mt-0.5" />
                 Manual approval for privacy
               </p>
             </motion.form>

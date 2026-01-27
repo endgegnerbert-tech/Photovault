@@ -102,8 +102,8 @@ export function UnlockVaultScreen({
             <div className="flex-1 flex flex-col">
                 {/* Icon & Title */}
                 <div className="flex flex-col items-center text-center mb-8">
-                    <div className="mb-6 p-4 bg-blue-100 dark:bg-blue-900/20 rounded-full">
-                        <CustomIcon name="shield" size={64} className="text-blue-600" />
+                    <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/10 rounded-full">
+                        <img src="/logo.svg" alt="SaecretHeaven" className="w-16 h-16 object-contain" />
                     </div>
                     <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
                         Vault entsperren

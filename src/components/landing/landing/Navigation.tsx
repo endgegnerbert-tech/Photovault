@@ -47,11 +47,7 @@ export default function Navigation() {
       <div className="max-w-[1280px] mx-auto flex h-16 lg:h-20 items-center justify-between px-6 lg:px-20">
         {/* Logo */}
         <a href="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-indigo-soft to-violet-gentle rounded-lg flex items-center justify-center">
-            <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-            </svg>
-          </div>
+          <img src="/logo.svg" alt="SaecretHeaven Logo" className="w-8 h-8" />
           <div className="font-syne text-xl font-bold tracking-tight">SaecretHeaven</div>
         </a>
 
@@ -90,6 +86,7 @@ export default function Navigation() {
         <button 
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="lg:hidden p-2 text-charcoal"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
