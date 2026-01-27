@@ -29,13 +29,9 @@ import {
   Download,
   Cloud,
 } from "lucide-react";
-import {
-  SketchButton,
-  SketchCard,
-  SketchIcon,
-  SketchInput,
-  SketchCircularProgress,
-} from "@/sketch-ui";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { AlertTriangle } from "lucide-react";
 import { remoteStorage, isRealIPFSCID } from "@/lib/storage/remote-storage";
 import { decryptFile } from "@/lib/crypto";
 import type { PhotoMetadata } from "@/lib/storage/local-db";
@@ -138,6 +134,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
   const {
     photos: realPhotos,
     uploadPhoto,
+    deletePhoto,
     isUploading,
     uploadProgress,
   } = useGalleryData(secretKey);
@@ -403,7 +400,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
       {/* Header with Sketch UI */}
       <header className="px-5 pt-10 pb-4 bg-[#FAFBFC] sticky top-0 z-30 border-b-2 border-[#2563EB]/10">
         <div className="flex items-center justify-between mb-2">
-          <h1 className="sketch-heading text-[32px]">Galerie</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Galerie</h1>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowSearch(!showSearch)}
@@ -411,39 +408,39 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
             >
               <Search className="w-6 h-6" />
             </button>
-            <SketchButton
+            <Button
               onClick={handleUploadClick}
               size="sm"
-              className="scale-90"
+              className="scale-90 bg-blue-600 hover:bg-blue-700 text-white rounded-full"
             >
               Hinzufügen
-            </SketchButton>
+            </Button>
           </div>
         </div>
 
         {/* Subtitle / Status */}
         <div className="flex items-center justify-between px-1 mb-4">
-          <p className="sketch-body text-[15px] text-[#3B82F6]">
+          <p className="text-[15px] font-medium text-[#3B82F6]">
             {allPhotosCount} Fotos gesichert
           </p>
           <div className="flex items-center gap-2">
             {isConnected ? (
-              <SketchIcon icon="cloud" size={20} color="#30D158" />
+              <Cloud className="w-5 h-5 text-[#30D158]" />
             ) : (
-              <SketchIcon icon="warning" size={20} color="#8E8E93" />
+              <AlertTriangle className="w-5 h-5 text-[#8E8E93]" />
             )}
           </div>
         </div>
 
-        {/* Search Bar with Sketch UI */}
+        {/* Search Bar */}
         {showSearch && (
-          <div className="mb-4">
-            <SketchInput
+          <div className="mb-4 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            <Input
               value={searchQuery}
-              onChange={(val) => setSearchQuery(val)}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Suchen..."
-              icon={<Search className="w-5 h-5" />}
-              className="w-full"
+              className="w-full pl-9 bg-gray-100 border-none rounded-xl h-10"
             />
           </div>
         )}
@@ -464,7 +461,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
             <button
               key={cat.id}
               onClick={() => setSelectedFilter(cat.id)}
-              className={`sketch-subheading text-[15px] px-4 py-1.5 rounded-full transition-colors whitespace-nowrap ${
+              className={`text-sm font-medium px-4 py-1.5 rounded-full transition-colors whitespace-nowrap ${
                 selectedFilter === cat.id
                   ? "bg-[#2563EB] text-white"
                   : "bg-[#2563EB]/5 text-[#2563EB]"
@@ -480,22 +477,18 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
       <main className="flex-1 overflow-y-auto px-1 pb-[100px]">
         {filteredGroups.length === 0 ? (
           <div className="pt-20 text-center px-10">
-            <SketchIcon
-              icon="photo"
-              size={64}
-              className="mx-auto mb-4 opacity-20"
-            />
-            <p className="sketch-subheading text-lg text-[#6E6E73]">
+            <ImageIcon className="w-16 h-16 mx-auto mb-4 opacity-20" />
+            <p className="text-lg font-medium text-[#6E6E73]">
               Keine Fotos gefunden
             </p>
-            <p className="sketch-body text-sm text-[#8E8E93] mt-2">
+            <p className="text-sm text-[#8E8E93] mt-2">
               Versuche es mit einem anderen Suchbegriff oder Filter
             </p>
           </div>
         ) : (
           filteredGroups.map((group) => (
             <div key={group.date} className="mb-8">
-              <h2 className="sketch-subheading text-[19px] px-4 mb-3 sticky top-[160px] bg-[#FAFBFC]/80 backdrop-blur-sm z-10 py-1">
+              <h2 className="text-lg font-semibold px-4 mb-3 sticky top-[160px] bg-[#FAFBFC]/90 backdrop-blur-md z-10 py-2">
                 {group.label}
               </h2>
               <div className="grid grid-cols-3 gap-1">
@@ -525,13 +518,13 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
                     {/* Select Indicator */}
                     {selectMode && (
                       <div className="absolute top-2 right-2 z-10 w-6 h-6">
-                        <SketchCard
-                          className={`w-6 h-6 rounded-full p-0 flex items-center justify-center ${selectedPhotos.has(photo.id) ? "bg-[#2563EB] border-[#2563EB]" : "bg-white/80 border-[#2563EB]"}`}
+                        <div
+                          className={`w-6 h-6 rounded-full p-0 flex items-center justify-center transition-all ${selectedPhotos.has(photo.id) ? "bg-[#2563EB] border border-[#2563EB]" : "bg-white/80 border border-[#2563EB] backdrop-blur-sm"}`}
                         >
                           {selectedPhotos.has(photo.id) && (
-                            <Check className="w-4 h-4 text-white" />
+                            <Check className="w-3.5 h-3.5 text-white" />
                           )}
-                        </SketchCard>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -542,15 +535,15 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
         )}
       </main>
 
-      {/* Sync Notifications with Sketch UI */}
+      {/* Sync Notifications */}
       {syncNotification && (
         <div className="fixed bottom-[100px] left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[400px]">
-          <SketchCard className="bg-[#2563EB] border-[#1E40AF] py-3 px-5 shadow-xl">
-            <p className="sketch-body text-white text-center flex items-center justify-center gap-3">
-              <Loader2 className="w-4 h-4 animate-spin text-white/80" />
+          <div className="bg-sky-500/90 dark:bg-sky-600/90 border border-sky-400/50 py-3 px-5 shadow-xl rounded-2xl backdrop-blur-md">
+            <p className="text-white text-sm font-medium text-center flex items-center justify-center gap-3">
+              <Loader2 className="w-4 h-4 animate-spin text-white/90" />
               {syncNotification}
             </p>
-          </SketchCard>
+          </div>
         </div>
       )}
 
@@ -590,13 +583,8 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
               />
             ) : (
               <div className="text-center p-10">
-                <SketchIcon
-                  icon="warning"
-                  size={48}
-                  color="#FF3B30"
-                  className="mx-auto mb-4"
-                />
-                <p className="sketch-body text-white">Laden fehlgeschlagen</p>
+                <AlertTriangle className="w-12 h-12 text-[#FF3B30] mx-auto mb-4" />
+                <p className="text-white font-medium">Laden fehlgeschlagen</p>
               </div>
             )}
           </div>
@@ -622,7 +610,37 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
               <ExternalLink className="w-6 h-6" />
               <span className="sketch-body text-[10px]">Exportieren</span>
             </button>
-            <button className="flex flex-col items-center gap-1 text-[#FF3B30]">
+            <button 
+              className="flex flex-col items-center gap-1 text-[#FF3B30] hover:text-[#FF3B30]/80"
+              onClick={async () => {
+                const photo = photos.find((p) => p.id === fullscreenPhoto);
+                if (!photo) return;
+                
+                if (confirm("Möchtest du dieses Foto wirklich dauerhaft löschen?")) {
+                  try {
+                    // Falls ID ein String ist und mit 'photo-' anfängt (Placeholder), kann man es nicht löschen
+                    const isPlaceholder = photo.id.startsWith('photo-');
+                    if (isPlaceholder) {
+                      alert("Placeholder-Fotos können nicht gelöscht werden.");
+                      return;
+                    }
+
+                    // Für echte Fotos: deletePhoto aufrufen
+                    // photo.metadata hat die echten Daten
+                    if (photo.metadata) {
+                        await deletePhoto({ 
+                            cid: photo.metadata.cid, 
+                            id: photo.metadata.id 
+                        });
+                        closeFullscreen();
+                    }
+                  } catch (e) {
+                    console.error("Delete failed", e);
+                    alert("Fehler beim Löschen des Fotos.");
+                  }
+                }
+              }}
+            >
               <Trash2 className="w-6 h-6" />
               <span className="sketch-body text-[10px]">Löschen</span>
             </button>
@@ -643,16 +661,16 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
       {/* Upload Progress Overlay */}
       {isUploading && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-6">
-          <SketchCard className="bg-white w-full max-w-[280px] p-6 flex flex-col items-center">
+          <div className="bg-white/95 dark:bg-black/90 w-full max-w-[280px] p-6 flex flex-col items-center rounded-3xl shadow-2xl border border-white/20">
             <div className="w-16 h-16 rounded-full bg-[#2563EB]/10 flex items-center justify-center mb-4">
               <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
             </div>
-            <h3 className="sketch-subheading text-lg text-center mb-2">
+            <h3 className="text-lg font-bold text-center mb-2">
               Sicherung läuft...
             </h3>
-            <p className="sketch-body text-sm text-[#6E6E73] text-center mb-4">
+            <p className="text-sm text-[#6E6E73] text-center mb-4">
               {uploadProgress > 0
-                ? `${uploadProgress}% hochgeladen`
+                ? `${Math.round(uploadProgress)}% hochgeladen`
                 : "Vorbereiten..."}
             </p>
             <div className="w-full bg-[#E5E7EB] h-2 rounded-full overflow-hidden">
@@ -661,7 +679,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
-          </SketchCard>
+          </div>
         </div>
       )}
     </div>

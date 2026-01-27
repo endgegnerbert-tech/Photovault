@@ -342,3 +342,42 @@ export async function getPhotoMetadataByCID(cid: string): Promise<PhotoMetadata 
 
   return data
 }
+
+/**
+ * Get total storage usage for a user in bytes
+ */
+export async function getStorageUsage(userKeyHash: string): Promise<number> {
+  if (!userKeyHash) return 0;
+
+  // Try API proxy first
+  try {
+    const response = await fetch('/api/supabase/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'getStorageUsage',
+        userKeyHash,
+      }),
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      return result.data || 0;
+    }
+  } catch (err) {
+    console.warn('[Supabase] Proxy error for storage usage, trying direct client:', err);
+  }
+
+  // Fallback to direct client
+  const { data, error } = await supabase
+    .from('photos_metadata')
+    .select('file_size_bytes')
+    .eq('user_key_hash', userKeyHash);
+
+  if (error) {
+    console.error('Supabase Storage Usage Error:', error);
+    return 0;
+  }
+
+  return data?.reduce((acc, p) => acc + (p.file_size_bytes || 0), 0) || 0;
+}

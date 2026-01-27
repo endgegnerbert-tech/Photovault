@@ -229,7 +229,7 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
          {authUser?.id === "guest" && (
             <div className="bg-[#2563EB]/5 border border-[#2563EB]/20 rounded-xl p-4 mb-6">
                 <p className="sketch-body text-sm text-[#1E40AF] text-center">
-                    Du nutzt PhotoVault gerade lokal. 
+                    Du nutzt SaecretHeaven gerade lokal. 
                     Erstelle ein Konto, um deine Fotos sicher in der Cloud zu backuppen.
                 </p>
                 <button 

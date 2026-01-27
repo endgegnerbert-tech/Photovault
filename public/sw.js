@@ -1,10 +1,10 @@
 /**
- * PhotoVault Service Worker
+ * SaecretHeaven Service Worker
  * Provides offline app shell caching for PWA functionality
  */
 
-const CACHE_NAME = "photovault-v1";
-const STATIC_CACHE_NAME = "photovault-static-v1";
+const CACHE_NAME = "saecretheaven-v1";
+const STATIC_CACHE_NAME = "saecretheaven-static-v1";
 
 // Static assets to cache for offline app shell
 const STATIC_ASSETS = [
@@ -148,7 +148,7 @@ self.addEventListener("push", (event) => {
 
   const data = event.data.json();
   const options = {
-    body: data.body || "PhotoVault Update",
+    body: data.body || "SaecretHeaven Update",
     icon: "/icons/icon-192x192.png",
     badge: "/icons/icon-72x72.png",
     vibrate: [100, 50, 100],
@@ -156,7 +156,7 @@ self.addEventListener("push", (event) => {
   };
 
   event.waitUntil(
-    self.registration.showNotification(data.title || "PhotoVault", options),
+    self.registration.showNotification(data.title || "SaecretHeaven", options),
   );
 });
 

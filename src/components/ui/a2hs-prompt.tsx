@@ -126,7 +126,7 @@ export function A2HSPrompt() {
 
               <div className="flex-1">
                 <h4 className="font-semibold text-[#1E40AF] mb-1 font-['Caveat',_cursive]">
-                  Install PhotoVault
+                  Install SaecretHeaven
                 </h4>
                 <p className="text-sm text-[#3B82F6] font-['Architects_Daughter',_cursive]">
                   Get the full app experience with offline access and faster

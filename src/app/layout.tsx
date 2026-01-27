@@ -3,13 +3,13 @@ import "./globals.css";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
-    title: "PhotoVault",
+    title: "SaecretHeaven",
     description: "Sichere deine Fotos mit Zero-Knowledge Verschluesselung",
     manifest: "/manifest.json",
     appleWebApp: {
         capable: true,
         statusBarStyle: "black-translucent",
-        title: "PhotoVault",
+        title: "SaecretHeaven",
         startupImage: [
             {
                 url: "/splash/apple-splash-2048-2732.png",

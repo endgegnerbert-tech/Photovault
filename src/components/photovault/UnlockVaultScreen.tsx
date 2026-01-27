@@ -8,13 +8,9 @@ import {
     saveKeyToStorage,
     getUserKeyHash,
 } from "@/lib/crypto";
-import {
-  SketchButton,
-  SketchCard,
-  SketchIcon,
-  SketchTextarea,
-} from "@/sketch-ui";
-import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Loader2, Shield, LogOut } from "lucide-react";
 
 interface UnlockVaultScreenProps {
     userEmail: string;
@@ -89,85 +85,81 @@ export function UnlockVaultScreen({
         <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]">
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
-                <div className="sketch-body text-[14px] text-[#6E6E73]">
+                <div className="text-sm text-gray-500">
                     Angemeldet als
                     <br />
-                    <span className="text-[#2563EB] font-bold">{userEmail}</span>
+                    <span className="text-blue-600 font-bold">{userEmail}</span>
                 </div>
                 <button
                     onClick={onLogout}
-                    className="sketch-body text-[#FF3B30] text-[15px] hover:text-[#D73A49]"
+                    className="text-red-500 text-[15px] font-medium hover:text-red-600 flex items-center gap-1"
                 >
+                    <LogOut className="w-4 h-4" />
                     Abmelden
                 </button>
             </div>
 
             <div className="flex-1 flex flex-col">
-                {/* Icon & Title with Sketch UI */}
+                {/* Icon & Title */}
                 <div className="flex flex-col items-center text-center mb-8">
-                    <div className="mb-6">
-                        <SketchIcon icon="shield" size={80} />
+                    <div className="mb-6 p-4 bg-blue-100 dark:bg-blue-900/20 rounded-full">
+                        <CustomIcon name="shield" size={64} className="text-blue-600" />
                     </div>
-                    <h1 className="sketch-heading text-[32px] mb-2 text-[#1D1D1F]">
+                    <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
                         Vault entsperren
                     </h1>
-                    <p className="sketch-body text-[15px] text-[#6E6E73] max-w-[300px]">
+                    <p className="text-[15px] text-gray-500 max-w-[300px]">
                         {expectedKeyHash
                             ? "Gib deine Recovery-Phrase ein, um auf deine verschluesselten Fotos zuzugreifen"
                             : "Du hast noch keinen Vault. Erstelle einen neuen oder stelle einen bestehenden wieder her."}
                     </p>
                 </div>
 
-                {/* Recovery Phrase Input with Sketch UI */}
-                <div className="mb-6">
-                    <SketchTextarea
+                {/* Recovery Phrase Input */}
+                <div className="mb-6 space-y-2">
+                    <Textarea
                         value={phrase}
-                        onChange={(val) => {
-                            setPhrase(val);
+                        onChange={(e) => {
+                            setPhrase(e.target.value);
                             setError(null);
                         }}
-                        label="Recovery-Phrase (12 Woerter)"
                         placeholder="abc123XY-def456AB-..."
-                        rows={4}
+                        className="min-h-[120px] bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-base p-4 resize-none"
                     />
-                    <p className="sketch-body text-[12px] text-[#8E8E93] mt-2 px-1">
-                        Mit Bindestrichen oder Leerzeichen getrennt
+                    <p className="text-[12px] text-gray-400 px-1 text-center">
+                        Mit Bindestrichen oder Leerzeichen getrennt (12 Wörter)
                     </p>
                 </div>
 
                 {error && (
-                    <div className="relative py-3 px-4 mb-6">
-                         <SketchCard className="bg-[#FF3B30]/5 border-[#FF3B30]">
-                             <p className="sketch-body text-[14px] text-[#FF3B30] text-center">{error}</p>
-                         </SketchCard>
+                    <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/30 rounded-xl">
+                         <p className="text-[14px] text-red-600 dark:text-red-400 text-center font-medium">{error}</p>
                     </div>
                 )}
 
-                {/* Info Box with Sketch UI */}
+                {/* Info Box */}
                 <div className="mb-6">
-                    <SketchCard className="bg-[#2563EB]/5">
-                        <div className="flex items-start gap-3">
-                            <Info className="w-5 h-5 text-[#2563EB] mt-0.5 flex-shrink-0" />
-                            <div>
-                                <p className="sketch-subheading text-[15px] mb-1">
-                                    Warum brauche ich die Phrase?
-                                </p>
-                                <p className="sketch-body text-[13px] text-[#6E6E73]">
-                                    Deine Fotos sind lokal verschluesselt. Nur mit der Recovery-Phrase
-                                    kannst du sie entschluesseln. Wir speichern sie niemals.
-                                </p>
-                            </div>
+                    <div className="p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-900/30 rounded-xl flex items-start gap-3">
+                        <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                        <div>
+                            <p className="text-[15px] font-medium text-blue-900 dark:text-blue-100 mb-1">
+                                Warum brauche ich die Phrase?
+                            </p>
+                            <p className="text-[13px] text-blue-700 dark:text-blue-300">
+                                Deine Fotos sind lokal verschluesselt. Nur mit der Recovery-Phrase
+                                kannst du sie entschluesseln. Wir speichern sie niemals.
+                            </p>
                         </div>
-                    </SketchCard>
+                    </div>
                 </div>
             </div>
 
-            {/* Buttons with Sketch UI */}
+            {/* Buttons */}
             <div className="space-y-4">
-                <SketchButton
+                <Button
                     onClick={handleUnlock}
                     disabled={isUnlocking || !phrase.trim()}
-                    className="w-full"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-14 text-lg font-semibold shadow-lg shadow-blue-500/20"
                     size="lg"
                 >
                     {isUnlocking ? (
@@ -175,12 +167,12 @@ export function UnlockVaultScreen({
                     ) : (
                         "Vault entsperren"
                     )}
-                </SketchButton>
+                </Button>
 
                 {!expectedKeyHash && (
                     <button
                         onClick={onCreateNewVault}
-                        className="w-full py-2 sketch-body text-[#2563EB] text-[17px] hover:underline"
+                        className="w-full py-2 text-blue-600 text-[17px] hover:underline font-medium"
                     >
                         Neuen Vault erstellen
                     </button>

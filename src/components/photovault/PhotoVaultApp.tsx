@@ -14,7 +14,7 @@ import { PhotoGallery } from "./PhotoGallery";
 
 // Auth
 import { useSession, signOut } from "@/lib/auth-client";
-import { SketchIcon, SketchCard } from "@/sketch-ui";
+
 
 // Crypto
 import { loadKeyFromStorage, getUserKeyHash, clearKeyFromStorage } from "@/lib/crypto";
@@ -362,19 +362,26 @@ function BottomNavigation({
     onNavigate: (screen: Screen) => void;
 }) {
     return (
-        <nav className="fixed bottom-0 left-0 right-0 h-[85px] bg-[#FAFBFC]/90 backdrop-blur-xl border-t-2 border-[#2563EB]/10 flex items-start justify-around pt-3 pb-7 max-w-[1200px] mx-auto z-40">
+        <nav className="fixed bottom-0 left-0 right-0 h-[85px] bg-white/80 dark:bg-black/80 backdrop-blur-xl border-t border-gray-200 dark:border-white/10 flex items-start justify-around pt-4 pb-8 max-w-[1200px] mx-auto z-40 shadow-lg supports-[backdrop-filter]:bg-opacity-60">
             {/* Gallery Tab */}
             <button
                 onClick={() => onNavigate("gallery")}
-                className="flex flex-col items-center gap-1 px-8 transition-transform active:scale-95"
+                className={`flex flex-col items-center gap-1 transition-all duration-300 ${
+                    currentScreen === "gallery" ? "scale-100" : "scale-90 opacity-60 hover:opacity-100"
+                }`}
             >
-                <SketchIcon
-                    icon="photo"
-                    size={28}
-                    color={currentScreen === "gallery" ? "#2563EB" : "#9CA3AF"}
-                />
+                <div className={`p-1.5 rounded-full transition-colors ${
+                    currentScreen === "gallery" ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400"
+                }`}>
+                    <CustomIcon
+                        name="image"
+                        size={24}
+                    />
+                </div>
                 <span
-                    className={`sketch-subheading text-[12px] ${currentScreen === "gallery" ? "text-[#2563EB]" : "text-[#9CA3AF]"}`}
+                    className={`text-[11px] font-medium tracking-wide ${
+                        currentScreen === "gallery" ? "text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400"
+                    }`}
                 >
                     Galerie
                 </span>
@@ -383,15 +390,19 @@ function BottomNavigation({
             {/* Settings Tab */}
             <button
                 onClick={() => onNavigate("settings")}
-                className="flex flex-col items-center gap-1 px-8 transition-transform active:scale-95"
+                className={`flex flex-col items-center gap-1 transition-all duration-300 ${
+                    currentScreen === "settings" ? "scale-100" : "scale-90 opacity-60 hover:opacity-100"
+                }`}
             >
-                <SketchIcon
-                    icon="folder"
-                    size={28}
-                    color={currentScreen === "settings" ? "#2563EB" : "#9CA3AF"}
-                />
+                <div className={`p-1.5 rounded-full transition-colors ${
+                    currentScreen === "settings" ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400"
+                }`}>
+                    <Settings className="w-6 h-6" />
+                </div>
                 <span
-                    className={`sketch-subheading text-[12px] ${currentScreen === "settings" ? "text-[#2563EB]" : "text-[#9CA3AF]"}`}
+                    className={`text-[11px] font-medium tracking-wide ${
+                        currentScreen === "settings" ? "text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400"
+                    }`}
                 >
                     Optionen
                 </span>

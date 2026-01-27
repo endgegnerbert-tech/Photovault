@@ -52,13 +52,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$providers$2e$t
 ;
 ;
 const metadata = {
-    title: "PhotoVault",
+    title: "SaecretHeaven",
     description: "Sichere deine Fotos mit Zero-Knowledge Verschluesselung",
     manifest: "/manifest.json",
     appleWebApp: {
         capable: true,
         statusBarStyle: "black-translucent",
-        title: "PhotoVault",
+        title: "SaecretHeaven",
         startupImage: [
             {
                 url: "/splash/apple-splash-2048-2732.png",

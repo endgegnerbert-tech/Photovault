@@ -16,7 +16,7 @@ import {
     type PhotoMetadata,
 } from '@/lib/storage/local-db';
 import { encryptFile, decryptFile, getUserKeyHash } from '@/lib/crypto';
-import { uploadCIDMetadata } from '@/lib/supabase';
+import { uploadCIDMetadata, getStorageUsage } from '@/lib/supabase';
 import { remoteStorage } from '@/lib/storage/remote-storage';
 import { getDeviceId } from '@/lib/deviceId';
 import { deletePhotoGlobally, type DeleteResult } from '@/lib/storage/photo-manager';
@@ -66,6 +66,15 @@ export function useGalleryData(secretKey: Uint8Array | null) {
         mutationFn: async (file: File) => {
             if (!secretKey) throw new Error('No encryption key');
             if (!userKeyHash) throw new Error('userKeyHash not ready - bitte kurz warten');
+
+            // Check Storage Limit (2GB)
+            const LIMIT_2GB = 2 * 1024 * 1024 * 1024;
+            const currentUsage = await getStorageUsage(userKeyHash);
+
+            if (currentUsage + file.size > LIMIT_2GB) {
+                alert("Speicherlimit von 2GB erreicht! Upgrade deinen Plan."); // Simple alert for MVP
+                throw new Error("STORAGE_LIMIT_EXCEEDED");
+            }
 
             // Generate temporary ID for optimistic update tracking
             const tempId = `temp_${Date.now()}_${Math.random().toString(36).slice(2)}`;

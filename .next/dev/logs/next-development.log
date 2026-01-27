@@ -505,3 +505,132 @@ Import traces:
 [01:30:10.437] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
 [01:30:10.437] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
 [02:26:30.123] Server  LOG     ✓ Compiled in 771ms
+[03:24:17.767] Server  LOG     ✓ Compiled in 215ms
+[03:56:22.422] Server  LOG     ✓ Compiled in 422ms
+[03:56:55.969] Server  LOG     ✓ Compiled in 761ms
+[03:56:56.597] Browser ERROR   ./src/components/photovault/SettingsPanel.tsx:16:10
+Ecmascript file had an error
+  14 | import { remoteStorage } from "@/lib/storage/remote-storage";
+  15 | import { getAllPhotos } from "@/lib/storage/local-db";
+> 16 | import { getAllPhotos, getPhotoCount } from "@/lib/storage/local-db";
+     |          ^^^^^^^^^^^^
+  17 | import { getUserKeyHash } from "@/lib/crypto";
+  18 | import { useQuery } from "@tanstack/react-query";
+  19 | import { signOut } from "@/lib/auth-client";
+
+the name `getAllPhotos` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/photovault/SettingsPanel.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/photovault/SettingsPanel.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+[03:57:06.531] Server  LOG     ✓ Compiled in 167ms
+[03:58:13.632] Server  LOG     ✓ Compiled in 591ms
+[03:59:52.607] Server  LOG     ✓ Compiled in 238ms
+[04:00:15.268] Server  LOG     ✓ Compiled in 249ms
+[04:00:15.552] Browser ERROR   ./src/components/photovault/SettingsPanel.tsx:371:24
+Parsing ecmascript source code failed
+  369 |               </div>
+  370 |             </button>
+> 371 |           </SketchCard>
+      |                        ^
+> 372 |
+      | ^
+> 373 |           <div className="px-4 mt-4">
+      | ^^^^^^^^^^^
+  374 |             <SketchButton
+  375 |               onClick={triggerManualBackup}
+  376 |               disabled={isUploading || !secretKey}
+
+Expected '</', got 'jsx text (
+
+          )'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/photovault/SettingsPanel.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/photovault/SettingsPanel.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+[04:01:42.262] Server  LOG     ✓ Compiled in 332ms
+[04:01:42.553] Browser ERROR   ./src/components/photovault/SettingsPanel.tsx:371:24
+Parsing ecmascript source code failed
+  369 |               </div>
+  370 |             </button>
+> 371 |           </SketchCard>
+      |                        ^
+> 372 |
+      | ^
+> 373 |           <div className="px-4 mt-4">
+      | ^^^^^^^^^^^
+  374 |             <SketchButton
+  375 |               onClick={triggerManualBackup}
+  376 |               disabled={isUploading || !secretKey}
+
+Expected '</', got 'jsx text (
+
+          )'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/photovault/SettingsPanel.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/photovault/SettingsPanel.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+[04:02:28.456] Server  LOG     ✓ Compiled in 168ms
+[04:02:29.552] Browser ERROR   ./src/components/photovault/SettingsPanel.tsx:371:24
+Parsing ecmascript source code failed
+  369 |               </div>
+  370 |             </button>
+> 371 |           </SketchCard>
+      |                        ^
+> 372 |
+      | ^
+> 373 |           <div className="px-4 mt-4">
+      | ^^^^^^^^^^^
+  374 |             <SketchButton
+  375 |               onClick={triggerManualBackup}
+  376 |               disabled={isUploading || !secretKey}
+
+Expected '</', got 'jsx text (
+
+          )'
+
+Import traces:
+  Client Component Browser:
+    ./src/components/photovault/SettingsPanel.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/photovault/SettingsPanel.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+[04:03:02.010] Server  LOG     ✓ Compiled in 597ms
+[04:03:50.473] Server  LOG     ✓ Compiled in 796ms
+[04:04:21.724] Server  LOG     ✓ Compiled in 402ms
+[04:05:24.773] Server  LOG     ✓ Compiled in 207ms
+[04:06:12.292] Server  LOG     ✓ Compiled in 310ms
+[04:06:51.528] Server  LOG     ✓ Compiled in 174ms
