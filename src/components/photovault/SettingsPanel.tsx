@@ -5,7 +5,11 @@ import { Plus, Loader2, Check, Cloud } from "lucide-react";
 import { CustomIcon } from "@/components/ui/custom-icon";
 import type { AppState } from "./PhotoVaultApp";
 import { useEncryption } from "@/hooks/use-encryption";
-import { getDevicesForUser, uploadCIDMetadata, cidExistsInSupabase } from "@/lib/supabase";
+import {
+  getDevicesForUser,
+  uploadCIDMetadata,
+  cidExistsInSupabase,
+} from "@/lib/supabase";
 import { getDeviceId } from "@/lib/deviceId";
 import { remoteStorage } from "@/lib/storage/remote-storage";
 import { getAllPhotos } from "@/lib/storage/local-db";
@@ -15,7 +19,7 @@ import {
   SketchCard,
   SketchToggle,
   SketchIcon,
-  SketchCircularProgress
+  SketchCircularProgress,
 } from "@/sketch-ui";
 
 // Helper to format date
@@ -67,25 +71,39 @@ export function SettingsPanel({
 
   // Manual Backup State
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
+  const [uploadProgress, setUploadProgress] = useState({
+    current: 0,
+    total: 0,
+  });
 
   // Persistent Settings
-  const autoBackupEnabled = useSettingsStore(state => state.autoBackupEnabled);
-  const setAutoBackupEnabled = useSettingsStore(state => state.setAutoBackupEnabled);
-  const backgroundBackupEnabled = useSettingsStore(state => state.backgroundBackupEnabled);
-  const setBackgroundBackupEnabled = useSettingsStore(state => state.setBackgroundBackupEnabled);
-  const selectedPlan = useSettingsStore(state => state.selectedPlan);
-  const setSelectedPlan = useSettingsStore(state => state.setSelectedPlan);
-  const setLastBackup = useSettingsStore(state => state.setLastBackup);
+  const autoBackupEnabled = useSettingsStore(
+    (state) => state.autoBackupEnabled,
+  );
+  const setAutoBackupEnabled = useSettingsStore(
+    (state) => state.setAutoBackupEnabled,
+  );
+  const backgroundBackupEnabled = useSettingsStore(
+    (state) => state.backgroundBackupEnabled,
+  );
+  const setBackgroundBackupEnabled = useSettingsStore(
+    (state) => state.setBackgroundBackupEnabled,
+  );
+  const selectedPlan = useSettingsStore((state) => state.selectedPlan);
+  const setSelectedPlan = useSettingsStore((state) => state.setSelectedPlan);
+  const setLastBackup = useSettingsStore((state) => state.setLastBackup);
 
-  const { secretKey, recoveryPhrase, generateNewKey, clearKey } = useEncryption();
+  const { secretKey, recoveryPhrase, generateNewKey, clearKey } =
+    useEncryption();
   const currentDeviceId = typeof window !== "undefined" ? getDeviceId() : "";
   const [userKeyHash, setUserKeyHash] = useState<string | null>(null);
 
   // Get userKeyHash
   useEffect(() => {
     if (secretKey) {
-      import("@/lib/crypto").then(m => m.getUserKeyHash(secretKey)).then(setUserKeyHash);
+      import("@/lib/crypto")
+        .then((m) => m.getUserKeyHash(secretKey))
+        .then(setUserKeyHash);
     }
   }, [secretKey]);
 
@@ -131,18 +149,24 @@ export function SettingsPanel({
 
       let uploaded = 0;
       const deviceId = getDeviceId();
-      const keyHash = userKeyHash || await getUserKeyHash(secretKey);
+      const keyHash = userKeyHash || (await getUserKeyHash(secretKey));
 
       for (const photo of photosWithBlobs) {
         if (!photo.encryptedBlob) continue;
 
         try {
           // Check if already in Supabase metadata for this user
-          const existsInSupabase = await cidExistsInSupabase(photo.cid, keyHash);
+          const existsInSupabase = await cidExistsInSupabase(
+            photo.cid,
+            keyHash,
+          );
 
           if (!existsInSupabase) {
             // Upload encrypted blob to IPFS
-            const newCid = await remoteStorage.upload(photo.encryptedBlob, photo.fileName);
+            const newCid = await remoteStorage.upload(
+              photo.encryptedBlob,
+              photo.fileName,
+            );
             console.log(`[Backup] Uploaded to IPFS: ${newCid}`);
 
             // Sync metadata to Supabase
@@ -152,12 +176,15 @@ export function SettingsPanel({
               deviceId,
               photo.nonce,
               photo.mimeType,
-              keyHash
+              keyHash,
             );
           }
 
           uploaded++;
-          setUploadProgress({ current: uploaded, total: photosWithBlobs.length });
+          setUploadProgress({
+            current: uploaded,
+            total: photosWithBlobs.length,
+          });
         } catch (err) {
           console.error(`[Backup] Failed to upload ${photo.cid}:`, err);
         }
@@ -195,7 +222,7 @@ export function SettingsPanel({
   const addDevice = () => {
     // Show the pairing modal
     setShowDevices(false);
-    // Since DevicePairing is normally inside Dashboard, 
+    // Since DevicePairing is normally inside Dashboard,
     // we should probably have it available here too or trigger a global state.
     // In this component, we can just add the DevicePairing modal here as well.
     setShowPairingFromSettings(true);
@@ -209,10 +236,10 @@ export function SettingsPanel({
       // Clear IndexedDB (Dexie)
       const { db } = await import("@/lib/storage/local-db");
       await db.delete();
-      
+
       // Clear local storage
       localStorage.clear();
-      
+
       // Force reload to clean state
       window.location.reload();
     } catch (err) {
@@ -237,7 +264,8 @@ export function SettingsPanel({
     const displayDevices = realDevices.map((device) => ({
       id: device.id,
       name: device.device_name || "Unbekanntes Gerät",
-      lastActive: device.id === currentDeviceId ? "Aktiv" : formatDate(device.created_at),
+      lastActive:
+        device.id === currentDeviceId ? "Aktiv" : formatDate(device.created_at),
       syncing: false,
     }));
 
@@ -264,9 +292,7 @@ export function SettingsPanel({
     <div className="h-full flex flex-col pb-4 overflow-y-auto">
       {/* Header with Sketch UI */}
       <header className="px-5 pt-6 pb-4 bg-[#FAFBFC]">
-        <h1 className="sketch-heading text-[32px]">
-          Einstellungen
-        </h1>
+        <h1 className="sketch-heading text-[32px]">Einstellungen</h1>
       </header>
 
       <div className="flex-1 px-5">
@@ -278,25 +304,33 @@ export function SettingsPanel({
           <SketchCard className="overflow-hidden p-0">
             <div className="p-4 flex items-center justify-between">
               <div>
-                <p className="sketch-subheading text-[17px]">Automatisches Backup</p>
-                <p className="sketch-body text-[13px] text-[#6E6E73]">Neue Fotos automatisch sichern</p>
+                <p className="sketch-subheading text-[17px]">
+                  Automatisches Backup
+                </p>
+                <p className="sketch-body text-[13px] text-[#6E6E73]">
+                  Neue Fotos automatisch sichern
+                </p>
               </div>
-              <SketchToggle 
-                checked={autoBackupEnabled} 
-                onChange={toggleAutoBackup} 
+              <SketchToggle
+                checked={autoBackupEnabled}
+                onChange={toggleAutoBackup}
               />
             </div>
-            
+
             <div className="h-[2px] bg-[#2563EB]/10 mx-4" />
-            
+
             <div className="p-4 flex items-center justify-between">
               <div>
-                <p className="sketch-subheading text-[17px]">Hintergrund-Backup</p>
-                <p className="sketch-body text-[13px] text-[#6E6E73]">Weiter sichern wenn App geschlossen</p>
+                <p className="sketch-subheading text-[17px]">
+                  Hintergrund-Backup
+                </p>
+                <p className="sketch-body text-[13px] text-[#6E6E73]">
+                  Weiter sichern wenn App geschlossen
+                </p>
               </div>
-              <SketchToggle 
-                checked={backgroundBackupEnabled} 
-                onChange={toggleBackgroundBackup} 
+              <SketchToggle
+                checked={backgroundBackupEnabled}
+                onChange={toggleBackgroundBackup}
               />
             </div>
 
@@ -319,7 +353,11 @@ export function SettingsPanel({
                   </span>
                 </div>
               </div>
-              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
+              <CustomIcon
+                name="chevronRight"
+                size={16}
+                className="opacity-40"
+              />
             </button>
           </SketchCard>
 
@@ -371,7 +409,9 @@ export function SettingsPanel({
             <div className="h-[2px] bg-[#2563EB]/10 mx-4" />
             <div className="p-4">
               <div className="flex items-center justify-between">
-                <span className="sketch-body text-[15px] text-[#6E6E73]">Verwendet</span>
+                <span className="sketch-body text-[15px] text-[#6E6E73]">
+                  Verwendet
+                </span>
                 <span className="sketch-subheading text-[15px]">
                   {state.photosCount.toLocaleString()} Fotos (lokal)
                 </span>
@@ -387,7 +427,11 @@ export function SettingsPanel({
                   ? "Upgrade zu Backup+"
                   : "Plan verwalten"}
               </span>
-              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
+              <CustomIcon
+                name="chevronRight"
+                size={16}
+                className="opacity-40"
+              />
             </button>
           </SketchCard>
         </div>
@@ -412,7 +456,11 @@ export function SettingsPanel({
                 <span className="sketch-body text-[15px] text-[#6E6E73]">
                   {realDevices.length || 1}
                 </span>
-                <CustomIcon name="chevronRight" size={16} className="opacity-40" />
+                <CustomIcon
+                  name="chevronRight"
+                  size={16}
+                  className="opacity-40"
+                />
               </div>
             </button>
           </SketchCard>
@@ -431,7 +479,11 @@ export function SettingsPanel({
               <span className="sketch-subheading text-[17px]">
                 Backup-Phrase anzeigen
               </span>
-              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
+              <CustomIcon
+                name="chevronRight"
+                size={16}
+                className="opacity-40"
+              />
             </button>
             <div className="h-[2px] bg-[#2563EB]/10 mx-4" />
             <button
@@ -441,7 +493,11 @@ export function SettingsPanel({
               <span className="sketch-subheading text-[17px] text-[#FF3B30]">
                 Neuen Schlüssel erstellen
               </span>
-              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
+              <CustomIcon
+                name="chevronRight"
+                size={16}
+                className="opacity-40"
+              />
             </button>
           </SketchCard>
           <p className="sketch-body text-[13px] text-[#6E6E73] px-4 mt-3">
@@ -465,7 +521,11 @@ export function SettingsPanel({
                   Lokalen Cache leeren
                 </span>
               </div>
-              <CustomIcon name="chevronRight" size={16} className="opacity-40" />
+              <CustomIcon
+                name="chevronRight"
+                size={16}
+                className="opacity-40"
+              />
             </button>
           </SketchCard>
           <p className="sketch-body text-[13px] text-[#6E6E73] px-4 mt-3">
@@ -500,16 +560,25 @@ export function SettingsPanel({
             {realBackupPhraseWords.length > 0 ? (
               <div className="grid grid-cols-2 gap-3 mb-6">
                 {realBackupPhraseWords.map((word, index) => (
-                  <SketchCard key={index} className="p-2 text-center bg-[#2563EB]/5">
-                    <span className="sketch-body text-[10px] text-[#6E6E73] block">{index + 1}</span>
-                    <span className="sketch-subheading text-[14px]">{word}</span>
+                  <SketchCard
+                    key={index}
+                    className="p-2 text-center bg-[#2563EB]/5"
+                  >
+                    <span className="sketch-body text-[10px] text-[#6E6E73] block">
+                      {index + 1}
+                    </span>
+                    <span className="sketch-subheading text-[14px]">
+                      {word}
+                    </span>
                   </SketchCard>
                 ))}
               </div>
             ) : (
               <div className="mb-6">
                 <SketchCard className="bg-[#FF9500]/5 border-[#FF9500] p-4">
-                  <p className="sketch-body text-[13px] text-[#FF9500] text-center">Kein Schlüssel gefunden.</p>
+                  <p className="sketch-body text-[13px] text-[#FF9500] text-center">
+                    Kein Schlüssel gefunden.
+                  </p>
                 </SketchCard>
               </div>
             )}
@@ -567,9 +636,9 @@ export function SettingsPanel({
       )}
 
       {/* Device Pairing Modal */}
-      <DevicePairing 
-        isOpen={showPairingFromSettings} 
-        onClose={() => setShowPairingFromSettings(false)} 
+      <DevicePairing
+        isOpen={showPairingFromSettings}
+        onClose={() => setShowPairingFromSettings(false)}
       />
     </div>
   );
@@ -647,7 +716,9 @@ function DevicesView({
               <div className="flex items-center gap-4 p-4">
                 <SketchIcon icon="photo" size={32} />
                 <div className="flex-1">
-                  <p className="sketch-subheading text-[17px] text-[#1D1D1F]">{device.name}</p>
+                  <p className="sketch-subheading text-[17px] text-[#1D1D1F]">
+                    {device.name}
+                  </p>
                   <p className="sketch-body text-[13px] text-[#6E6E73]">
                     {device.lastActive}
                   </p>
@@ -667,11 +738,7 @@ function DevicesView({
           ))}
         </SketchCard>
 
-        <SketchButton
-          onClick={onAddDevice}
-          className="w-full mt-8"
-          size="lg"
-        >
+        <SketchButton onClick={onAddDevice} className="w-full mt-8" size="lg">
           Neu verbinden
         </SketchButton>
 
@@ -783,7 +850,7 @@ function PlanSelectorModal({
     },
     {
       id: "backup-plus" as const,
-      label: "BACKUP+",
+      label: "BACKUP+ (Coming Soon)",
       subtitle: "Dauerhaft im Netz",
       price: "2,99€/Monat",
       features: [
@@ -791,6 +858,7 @@ function PlanSelectorModal({
         "200 GB Cloud-Backup",
         "Schnellere Synchronisierung",
       ],
+      disabled: true,
     },
   ];
 
@@ -808,9 +876,14 @@ function PlanSelectorModal({
           {plans.map((plan) => (
             <button
               key={plan.id}
-              onClick={() => onSelect(plan.id)}
-              className={`w-full p-4 rounded-xl bg-[#F2F2F7] text-left ios-tap-target ${
-                currentPlan === plan.id ? "ring-2 ring-[#007AFF]" : ""
+              onClick={() => !plan.disabled && onSelect(plan.id)}
+              disabled={plan.disabled}
+              className={`w-full p-4 rounded-xl text-left ios-tap-target ${
+                plan.disabled
+                  ? "bg-[#F2F2F7]/50 cursor-not-allowed opacity-60"
+                  : currentPlan === plan.id
+                    ? "bg-[#F2F2F7] ring-2 ring-[#007AFF]"
+                    : "bg-[#F2F2F7]"
               }`}
             >
               <div className="flex items-start justify-between">

@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "PhotoVault",
+  "productName": "SaecretHeaven",
   "version": "0.1.0",
-  "identifier": "com.photovault.app",
+  "identifier": "com.saecretheaven.app",
   "build": {
     "frontendDist": "../out",
     "devUrl": "http://localhost:3000",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "PhotoVault - Encrypted Photo Backup",
+        "title": "SaecretHeaven - Encrypted Photo Backup",
         "width": 1200,
         "height": 800,
         "resizable": true,

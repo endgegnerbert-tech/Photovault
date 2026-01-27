@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, User, Loader2 } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 import { CustomIcon } from "@/components/ui/custom-icon";
-import { signIn, signUp } from "@/lib/auth-client";
-import { SketchButton, SketchInput, SketchIcon } from "@/sketch-ui";
+import { signIn } from "@/lib/auth-client";
+import { SketchButton, SketchInput } from "@/sketch-ui";
 
 interface AuthScreenProps {
   onSuccess: (user: {
@@ -14,13 +14,12 @@ interface AuthScreenProps {
   }) => void;
 }
 
-type AuthMode = "welcome" | "login" | "signup";
+type AuthMode = "welcome" | "login";
 
 export function AuthScreen({ onSuccess }: AuthScreenProps) {
   const [mode, setMode] = useState<AuthMode>("welcome");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,47 +55,6 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSignup = async () => {
-    if (!email || !password || !name) {
-      setError("Bitte alle Felder ausfuellen");
-      return;
-    }
-
-    if (password.length < 8) {
-      setError("Passwort muss mindestens 8 Zeichen haben");
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const result = await signUp.email({
-        email,
-        password,
-        name,
-      });
-
-      if (result.error) {
-        setError(result.error.message || "Registrierung fehlgeschlagen");
-        return;
-      }
-
-      if (result.data?.user) {
-        onSuccess({
-          id: result.data.user.id,
-          email: result.data.user.email,
-          vaultKeyHash: null, // New user has no vault yet
-        });
-      }
-    } catch (err) {
-      console.error("Signup error:", err);
       setError("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
     } finally {
       setIsLoading(false);
@@ -142,25 +100,22 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
         {/* Buttons with Sketch UI */}
         <div className="space-y-4">
           <SketchButton
-            onClick={() => setMode("signup")}
+            onClick={() => setMode("login")}
             className="w-full"
             size="lg"
           >
-            Konto erstellen
+            Anmelden
           </SketchButton>
-
-          <button
-            onClick={() => setMode("login")}
-            className="w-full py-2 sketch-body text-[#2563EB] hover:text-[#1E40AF] transition-colors"
-          >
-            Ich habe bereits ein Konto
-          </button>
+          
+          <p className="text-center sketch-body text-gray-400 text-sm">
+            Registrierung ist derzeit deaktiviert
+          </p>
         </div>
       </div>
     );
   }
 
-  // Login / Signup Form
+  // Login Form
   return (
     <div className="min-h-screen flex flex-col px-6 pt-12 pb-8 safe-area-inset bg-[#FAFBFC]">
       {/* Header */}
@@ -173,29 +128,14 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
 
       <div className="flex-1">
         <h1 className="sketch-heading text-[32px] mb-2">
-          {mode === "login" ? "Willkommen zurueck" : "Konto erstellen"}
+          Willkommen zurueck
         </h1>
         <p className="sketch-body text-[#3B82F6] mb-8">
-          {mode === "login"
-            ? "Melde dich an, um auf deinen Vault zuzugreifen"
-            : "Erstelle ein Konto, um deinen Vault zu sichern"}
+          Melde dich an, um auf deinen Vault zuzugreifen
         </p>
 
         {/* Form with Sketch UI */}
         <div className="space-y-6">
-          {mode === "signup" && (
-            <div className="relative">
-              <SketchInput
-                type="text"
-                value={name}
-                onChange={(val) => setName(val)}
-                placeholder="Name"
-                label="Name"
-                icon={<User className="w-5 h-5" />}
-              />
-            </div>
-          )}
-
           <div className="relative">
             <SketchInput
               type="email"
@@ -253,28 +193,17 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       {/* Submit Button with Sketch UI */}
       <div className="space-y-4">
         <SketchButton
-          onClick={mode === "login" ? handleLogin : handleSignup}
+          onClick={handleLogin}
           disabled={isLoading}
           className="w-full"
           size="lg"
         >
           {isLoading ? (
             <Loader2 className="w-6 h-6 animate-spin" />
-          ) : mode === "login" ? (
-            "Anmelden"
           ) : (
-            "Registrieren"
+            "Anmelden"
           )}
         </SketchButton>
-
-        <button
-          onClick={() => setMode(mode === "login" ? "signup" : "login")}
-          className="w-full py-2 sketch-body text-[#2563EB] hover:text-[#1E40AF] transition-colors"
-        >
-          {mode === "login"
-            ? "Noch kein Konto? Registrieren"
-            : "Bereits ein Konto? Anmelden"}
-        </button>
       </div>
 
       <style jsx>{`

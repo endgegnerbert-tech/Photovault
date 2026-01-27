@@ -2,13 +2,10 @@
 
 import React, { useMemo } from "react";
 
-interface SketchButtonProps {
+export interface SketchButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClick?: () => void;
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
-  disabled?: boolean;
-  className?: string;
 }
 
 export function SketchButton({
@@ -18,6 +15,8 @@ export function SketchButton({
   size = "md",
   disabled = false,
   className = "",
+  type = "button",
+  ...props
 }: SketchButtonProps) {
   // Generiere einmalig die "Jitter"-Werte für den handgezeichneten Effekt
   const jitterValues = useMemo(() => {
@@ -25,9 +24,9 @@ export function SketchButton({
   }, []);
 
   const sizes = {
-    sm: { width: 120, height: 40, fontSize: "18px", padding: "8px 16px" },
-    md: { width: 180, height: 50, fontSize: "22px", padding: "10px 24px" },
-    lg: { width: 240, height: 60, fontSize: "26px", padding: "14px 32px" },
+    sm: { width: 120, height: 40, fontSize: "16px", padding: "8px 16px" },
+    md: { width: 160, height: 50, fontSize: "18px", padding: "10px 24px" },
+    lg: { width: 200, height: 60, fontSize: "20px", padding: "14px 32px" },
   };
 
   const colors = {
@@ -86,6 +85,7 @@ export function SketchButton({
     <button
       onClick={onClick}
       disabled={disabled}
+      type={type}
       className={`
         relative inline-block
         transition-transform duration-150
@@ -93,12 +93,13 @@ export function SketchButton({
         ${className}
       `}
       style={{ width, height }}
+      {...props}
     >
       <svg
         width={width}
         height={height}
         viewBox={`0 0 ${width} ${height}`}
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none"
       >
         {/* Hintergrund-Füllung */}
         <path d={sketchPath} fill={fill} stroke="none" />
@@ -126,7 +127,7 @@ export function SketchButton({
 
       {/* Text */}
       <span
-        className="relative z-10 font-['Google Sans',_sans-serif] font-bold"
+        className="relative z-10 font-['Google Sans',_sans-serif] font-bold truncate px-2"
         style={{
           fontSize,
           color: text,
@@ -134,7 +135,7 @@ export function SketchButton({
           alignItems: "center",
           justifyContent: "center",
           height: "100%",
-          padding,
+          width: "100%",
         }}
       >
         {children}

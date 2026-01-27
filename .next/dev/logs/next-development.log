@@ -1,409 +1,507 @@
-[00:00:03.140] Server  LOG     ✓ Ready in 2.2s
-[00:00:16.030] Server  LOG     ○ Compiling / ...
-[00:00:16.637] Server  ERROR   ⨯ ./src/sketch-ui/SketchInput.tsx:89:22
-Parsing ecmascript source code failed
-  87 |                 scale="1"
-  88 |               />
-> 89 |             </filter>
-     |                      ^
-> 90 |           </defs>
-     | ^^^^^^^^^^^
-  91 |
-  92 |           {/* Handgezeichneter Rahmen */}
-  93 |           <path
+[00:00:01.668] Server  LOG     ✓ Ready in 1142ms
+[00:00:07.812] Server  LOG     ○ Compiling / ...
+[00:00:10.641] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:00:55.764] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:00:59.022] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:01:51.895] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:02:34.977] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:02:41.221] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:03:44.895] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:15:04.924] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:27.051] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:15:27.334] Browser LOG     [App] Device ID ensured: fc43a7d7-2442-4482-b0d4-b5055576eac8
+[00:26:50.448] Server  LOG     ✓ Compiled in 387ms
+[00:28:28.775] Server  LOG     ✓ Compiled in 283ms
+[00:29:21.507] Server  LOG     ✓ Compiled in 258ms
+[00:29:21.617] Browser ERROR   uncaughtError: ReferenceError: SketchButton is not defined
+[00:29:23.390] Server  WARN    ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:29:23.407] Server  LOG     ✓ Compiled in 111ms
+[00:29:24.061] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:29:24.772] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:30:59.310] Server  LOG     ✓ Compiled in 392ms
+[00:31:17.108] Server  LOG     ✓ Compiled in 150ms
+[00:37:37.453] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:37:40.624] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[00:41:26.412] Server  LOG     ✓ Compiled in 272ms
+[00:42:08.548] Server  LOG     ✓ Compiled in 198ms
+[00:59:01.251] Server  LOG     ✓ Compiled in 819ms
+[00:59:25.186] Server  LOG     ✓ Compiled in 156ms
+[01:00:09.861] Server  LOG     ✓ Compiled in 294ms
+[01:00:11.660] Server  LOG     ✓ Compiled in 135ms
+[01:00:37.275] Server  LOG     ✓ Compiled in 461ms
+[01:00:43.591] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:03:04.078] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:05:44.916] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:05:44.916] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:05:49.137] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:05:54.217] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:05:56.666] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:05:56.666] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:06:01.086] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:06:01.086] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:06:03.309] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:06:03.309] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:07:46.621] Server  LOG     ✓ Compiled in 297ms
+[01:07:48.488] Server  LOG     ✓ Compiled in 344ms
+[01:07:52.918] Server  LOG     ✓ Compiled in 209ms
+[01:07:54.979] Server  LOG     ✓ Compiled in 93ms
+[01:09:17.326] Server  LOG     ✓ Compiled in 211ms
+[01:09:20.710] Server  LOG     ✓ Compiled in 174ms
+[01:09:22.412] Server  LOG     ✓ Compiled in 186ms
+[01:11:53.658] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:11:53.658] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:13:19.292] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:13:19.292] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:13:24.974] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:13:24.974] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:15:22.657] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:17:48.129] Server  LOG     ✓ Compiled in 295ms
+[01:17:52.782] Server  LOG     ✓ Compiled in 100ms
+[01:17:56.783] Server  LOG     ✓ Compiled in 212ms
+[01:17:59.151] Server  LOG     ✓ Compiled in 130ms
+[01:18:01.429] Server  LOG     ✓ Compiled in 84ms
+[01:20:37.823] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:20:43.675] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:20:43.675] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:21:40.134] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:21:40.134] Browser LOG     [DeviceID] Generated new device ID: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[01:21:40.134] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[01:26:03.593] Server  LOG     ✓ Compiled in 1042ms
+[01:26:33.967] Server  LOG     ✓ Compiled in 1592ms
+[01:26:50.721] Server  LOG     ✓ Compiled in 761ms
+[01:26:50.906] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
 
-Expected '</', got 'jsx text (
-          )'
-
-Import traces:
-  Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
-    ./src/app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
-    ./src/app/page.tsx [Server Component]
-
-
-[00:00:17.679] Server  ERROR   ⨯ ./src/sketch-ui/SketchInput.tsx:89:22
-Parsing ecmascript source code failed
-  87 |                 scale="1"
-  88 |               />
-> 89 |             </filter>
-     |                      ^
-> 90 |           </defs>
-     | ^^^^^^^^^^^
-  91 |
-  92 |           {/* Handgezeichneter Rahmen */}
-  93 |           <path
-
-Expected '</', got 'jsx text (
-          )'
-
-Import traces:
-  Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
-    ./src/app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
-    ./src/app/page.tsx [Server Component]
-
-
-[00:00:18.229] Browser ERROR   uncaughtError: Error: ./src/sketch-ui/SketchInput.tsx:89:22
-Parsing ecmascript source code failed
-  87 |                 scale="1"
-  88 |               />
-> 89 |             </filter>
-     |                      ^
-> 90 |           </defs>
-     | ^^^^^^^^^^^
-  91 |
-  92 |           {/* Handgezeichneter Rahmen */}
-  93 |           <path
-
-Expected '</', got 'jsx text (
-          )'
-
-Import traces:
-  Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
-    ./src/app/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
-    ./src/app/page.tsx [Server Component]
-
-
-[00:00:18.511] Browser ERROR   ./src/sketch-ui/SketchInput.tsx:89:22
-Parsing ecmascript source code failed
-  87 |                 scale="1"
-  88 |               />
-> 89 |             </filter>
-     |                      ^
-> 90 |           </defs>
-     | ^^^^^^^^^^^
-  91 |
-  92 |           {/* Handgezeichneter Rahmen */}
-  93 |           <path
-
-Expected '</', got 'jsx text (
-          )'
+the name `isInView` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
-[00:00:18.511] Browser ERROR   ./src/sketch-ui/SketchInput.tsx:89:22
-Parsing ecmascript source code failed
-  87 |                 scale="1"
-  88 |               />
-> 89 |             </filter>
-     |                      ^
-> 90 |           </defs>
-     | ^^^^^^^^^^^
-  91 |
-  92 |           {/* Handgezeichneter Rahmen */}
-  93 |           <path
+[01:26:50.907] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
 
-Expected '</', got 'jsx text (
-          )'
+the name `ref` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
-[00:00:21.783] Browser ERROR   ./src/sketch-ui/SketchInput.tsx:89:22
-Parsing ecmascript source code failed
-  87 |                 scale="1"
-  88 |               />
-> 89 |             </filter>
-     |                      ^
-> 90 |           </defs>
-     | ^^^^^^^^^^^
-  91 |
-  92 |           {/* Handgezeichneter Rahmen */}
-  93 |           <path
+[01:27:13.955] Server  LOG     ✓ Compiled in 121ms
+[01:27:14.060] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
 
-Expected '</', got 'jsx text (
-          )'
+the name `isInView` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
-[00:02:13.717] Browser ERROR   ./src/sketch-ui/SketchInput.tsx:195:22
-Parsing ecmascript source code failed
-  193 |                 scale="1"
-  194 |               />
-> 195 |             </filter>
-      |                      ^
-> 196 |           </defs>
-      | ^^^^^^^^^^^
-  197 |
-  198 |           {/* Handgezeichneter Rahmen */}
-  199 |           <path
+[01:27:14.060] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
 
-Expected '</', got 'jsx text (
-          )'
+the name `ref` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
-[00:05:10.646] Browser ERROR   ./src/sketch-ui/SketchInput.tsx:190:16
-Parsing ecmascript source code failed
-  188 |            `}
-  189 |           />
-> 190 |          </svg>
-      |                ^
-> 191 |
-      | ^
-> 192 |         <textarea
-      | ^^^^^^^^^
-  193 |           value={value}
-  194 |           onChange={(e) => onChange(e.target.value)}
-  195 |           placeholder={placeholder}
+[01:27:15.965] Server  LOG     ✓ Compiled in 185ms
+[01:27:16.065] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
 
-Expected '</', got 'jsx text (
-
-        )'
+the name `isInView` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
-[00:06:58.729] Server  ERROR   ⨯ ./src/sketch-ui/SketchInput.tsx:190:16
-Parsing ecmascript source code failed
-  188 |            `}
-  189 |           />
-> 190 |          </svg>
-      |                ^
-> 191 |
-      | ^
-> 192 |         <textarea
-      | ^^^^^^^^^
-  193 |           value={value}
-  194 |           onChange={(e) => onChange(e.target.value)}
-  195 |           placeholder={placeholder}
+[01:27:16.065] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
 
-Expected '</', got 'jsx text (
-
-        )'
+the name `ref` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
+[01:28:18.449] Server  ERROR   ⨯ ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
 
-
-[00:06:59.160] Browser ERROR   ./src/sketch-ui/SketchInput.tsx:190:16
-Parsing ecmascript source code failed
-  188 |            `}
-  189 |           />
-> 190 |          </svg>
-      |                ^
-> 191 |
-      | ^
-> 192 |         <textarea
-      | ^^^^^^^^^
-  193 |           value={value}
-  194 |           onChange={(e) => onChange(e.target.value)}
-  195 |           placeholder={placeholder}
-
-Expected '</', got 'jsx text (
-
-        )'
+the name `isInView` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
-[00:07:01.410] Browser ERROR   uncaughtError: Error: ./src/sketch-ui/SketchInput.tsx:190:16
-Parsing ecmascript source code failed
-  188 |            `}
-  189 |           />
-> 190 |          </svg>
-      |                ^
-> 191 |
-      | ^
-> 192 |         <textarea
-      | ^^^^^^^^^
-  193 |           value={value}
-  194 |           onChange={(e) => onChange(e.target.value)}
-  195 |           placeholder={placeholder}
 
-Expected '</', got 'jsx text (
 
-        )'
+
+./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
+
+the name `ref` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
 
 
-[00:07:01.860] Browser ERROR   ./src/sketch-ui/SketchInput.tsx:190:16
-Parsing ecmascript source code failed
-  188 |            `}
-  189 |           />
-> 190 |          </svg>
-      |                ^
-> 191 |
-      | ^
-> 192 |         <textarea
-      | ^^^^^^^^^
-  193 |           value={value}
-  194 |           onChange={(e) => onChange(e.target.value)}
-  195 |           placeholder={placeholder}
+[01:28:18.594] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
 
-Expected '</', got 'jsx text (
-
-        )'
+the name `isInView` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
-[00:07:02.022] Browser ERROR   ./src/sketch-ui/SketchInput.tsx:190:16
-Parsing ecmascript source code failed
-  188 |            `}
-  189 |           />
-> 190 |          </svg>
-      |                ^
-> 191 |
-      | ^
-> 192 |         <textarea
-      | ^^^^^^^^^
-  193 |           value={value}
-  194 |           onChange={(e) => onChange(e.target.value)}
-  195 |           placeholder={placeholder}
+[01:28:18.594] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
 
-Expected '</', got 'jsx text (
-
-        )'
+the name `ref` is defined multiple times
 
 Import traces:
   Client Component Browser:
-    ./src/sketch-ui/SketchInput.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
     ./src/app/page.tsx [Server Component]
 
   Client Component SSR:
-    ./src/sketch-ui/SketchInput.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoGallery.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
-    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
     ./src/app/page.tsx [Server Component]
-[00:07:16.234] Server  LOG     ✓ Compiled in 774ms
-[00:07:23.845] Browser LOG     [App] Device ID ensured: 848f5ef8-7c63-4e6f-9a65-4ca9ec3cad56
+[01:28:20.292] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
+
+the name `isInView` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[01:28:20.292] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
+
+the name `ref` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[01:28:20.612] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
+
+the name `isInView` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[01:28:20.612] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
+
+the name `ref` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[01:28:22.449] Browser ERROR   uncaughtError: Error: ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
+
+the name `isInView` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+
+
+[01:28:22.727] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
+
+the name `isInView` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[01:28:22.727] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
+
+the name `ref` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[01:28:22.837] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:172:9
+Ecmascript file had an error
+  170 |
+  171 |   const ref = useRef<HTMLDivElement>(null);
+> 172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+      |         ^^^^^^^^
+  173 |
+  174 |   // ESC key to exit fullscreen
+  175 |   useEffect(() => {
+
+the name `isInView` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[01:28:22.837] Browser ERROR   ./src/components/landing/landing/PhoneSplitAnimation.tsx:171:9
+Ecmascript file had an error
+  169 |   };
+  170 |
+> 171 |   const ref = useRef<HTMLDivElement>(null);
+      |         ^^^
+  172 |   const isInView = useInView(ref, { once: false, amount: 0.3 });
+  173 |
+  174 |   // ESC key to exit fullscreen
+
+the name `ref` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/PhoneSplitAnimation.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[01:28:57.502] Server  LOG     ✓ Compiled in 239ms
+[01:28:59.072] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[01:29:43.288] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[01:29:46.673] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[01:29:46.673] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[01:29:48.459] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[01:30:10.437] Browser LOG     [App] Device ID ensured: 7666b1c1-0bc1-4aed-a45c-6e93f9355f17
+[01:30:10.437] Browser LOG     [PWA] Service Worker registered: http://localhost:3000/
+[02:26:30.123] Server  LOG     ✓ Compiled in 771ms

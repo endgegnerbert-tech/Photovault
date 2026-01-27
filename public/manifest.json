@@ -1,15 +1,19 @@
 {
-    "name": "PhotoVault",
-    "short_name": "PhotoVault",
-    "description": "Sichere deine Fotos mit Zero-Knowledge Verschluesselung",
-    "start_url": "/",
+    "name": "SaecretHeaven",
+    "short_name": "SaecretHeaven",
+    "description": "Secure your photos with Zero-Knowledge Encryption",
+    "start_url": "/app",
     "display": "standalone",
     "background_color": "#F2F2F7",
     "theme_color": "#007AFF",
     "orientation": "portrait-primary",
     "scope": "/",
     "lang": "de",
-    "categories": ["photography", "security", "utilities"],
+    "categories": [
+        "photography",
+        "security",
+        "utilities"
+    ],
     "icons": [
         {
             "src": "/icons/icon-72x72.png",
@@ -74,13 +78,23 @@
             "name": "Galerie",
             "short_name": "Galerie",
             "url": "/?screen=gallery",
-            "icons": [{ "src": "/icons/shortcut-gallery.png", "sizes": "96x96" }]
+            "icons": [
+                {
+                    "src": "/icons/shortcut-gallery.png",
+                    "sizes": "96x96"
+                }
+            ]
         },
         {
             "name": "Backup Status",
             "short_name": "Backup",
             "url": "/?screen=dashboard",
-            "icons": [{ "src": "/icons/shortcut-backup.png", "sizes": "96x96" }]
+            "icons": [
+                {
+                    "src": "/icons/shortcut-backup.png",
+                    "sizes": "96x96"
+                }
+            ]
         }
     ],
     "related_applications": [],
