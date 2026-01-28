@@ -46,8 +46,31 @@ export const auth = betterAuth({
     // Email/Password authentication
     emailAndPassword: {
         enabled: true,
-        requireEmailVerification: false, // For MVP, can enable later
+        requireEmailVerification: true, // Require email verification before access
         minPasswordLength: 8,
+        sendResetPassword: async ({ user, url }) => {
+            // Dynamic import to avoid circular dependencies
+            const { sendPasswordResetEmail } = await import('@/lib/email');
+            await sendPasswordResetEmail({
+                to: user.email,
+                url,
+                userName: user.name,
+            });
+        },
+    },
+
+    // Email verification configuration
+    emailVerification: {
+        sendVerificationEmail: async ({ user, url }) => {
+            const { sendVerificationEmail } = await import('@/lib/email');
+            await sendVerificationEmail({
+                to: user.email,
+                url,
+                userName: user.name,
+            });
+        },
+        sendOnSignUp: true, // Auto-send on signup
+        autoSignInAfterVerification: true, // Sign in after verify
     },
 
     // User configuration with vault_key_hash for key anchoring

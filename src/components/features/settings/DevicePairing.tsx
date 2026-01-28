@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { QRCodeSVG } from "qrcode.react";
-import { X, Copy, Check, Smartphone, QrCode } from "lucide-react";
+import dynamic from "next/dynamic";
+import { X, Check, QrCode } from "lucide-react";
 import { useEncryption } from "@/hooks/use-encryption";
-import { SketchButton, SketchCard, SketchIcon, SketchTextarea } from "@/sketch-ui";
-import { Loader2 } from "lucide-react";
+import { SketchButton, SketchCard, SketchTextarea } from "@/sketch-ui";
+
+const QRCodeSVG = dynamic(
+  () => import("qrcode.react").then((mod) => mod.QRCodeSVG),
+  { ssr: false }
+);
 
 interface DevicePairingProps {
   isOpen: boolean;
@@ -39,7 +43,7 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
     setError(null);
 
     if (!inputKey.trim()) {
-      setError("Bitte gib einen Schlüssel ein");
+      setError("Please enter a key");
       return;
     }
 
@@ -53,7 +57,7 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
         onClose();
       }, 1500);
     } else {
-      setError("Ungültiger Schlüssel. Bitte überprüfe die Eingabe.");
+      setError("Invalid key. Please check your input.");
     }
   };
 
@@ -65,7 +69,7 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
         {/* Header with Sketch UI */}
         <div className="flex items-center justify-between p-4 border-b-2 border-[#2563EB]/10">
           <h2 className="sketch-heading text-[20px] text-[#1D1D1F]">
-            Gerät verbinden
+            Connect Device
           </h2>
           <button
             onClick={onClose}
@@ -86,7 +90,7 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
             }`}
           >
             <QrCode className="w-4 h-4" />
-            Zeigen
+            Show
           </button>
           <button
             onClick={() => setMode("input")}
@@ -96,7 +100,7 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
                 : "text-[#6E6E73]"
             }`}
           >
-            Eingeben
+            Enter
           </button>
         </div>
 
@@ -105,7 +109,7 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
           {mode === "show" ? (
             <div className="flex flex-col items-center">
               <p className="sketch-body text-[14px] text-[#6E6E73] text-center mb-6">
-                Scanne den QR-Code oder kopiere den Schlüssel.
+                Scan the QR code or copy the key.
               </p>
  
               {/* QR Code with Sketch Card */}
@@ -125,9 +129,9 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
               {/* Key Display with Sketch Card */}
               <div className="w-full mb-6">
                 <SketchCard className="bg-[#2563EB]/5 p-3">
-                  <p className="sketch-body text-[11px] text-[#6E6E73] mb-1">Backup-Phrase:</p>
+                  <p className="sketch-body text-[11px] text-[#6E6E73] mb-1">Backup Phrase:</p>
                   <p className="sketch-subheading text-[13px] break-all leading-relaxed">
-                    {recoveryPhrase || "Kein Schlüssel"}
+                    {recoveryPhrase || "No key"}
                   </p>
                 </SketchCard>
               </div>
@@ -139,13 +143,13 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
                 className="w-full"
                 size="md"
               >
-                {copied ? "✓ Kopiert!" : "Phrase kopieren"}
+                {copied ? "✓ Copied!" : "Copy Phrase"}
               </SketchButton>
             </div>
           ) : (
             <div className="flex flex-col">
               <p className="sketch-body text-[14px] text-[#6E6E73] text-center mb-6">
-                Gib den Schlüssel deines anderen Geräts ein.
+                Enter the key from your other device.
               </p>
  
               {/* Key Input with Sketch UI */}
@@ -155,7 +159,7 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
                   setInputKey(val);
                   setError(null);
                 }}
-                placeholder="Schlüssel hier einfügen..."
+                placeholder="Paste key here..."
                 rows={3}
                 className="mb-4"
               />
@@ -169,7 +173,7 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
  
               {success && (
                 <p className="sketch-body text-[14px] text-[#30D158] text-center mb-4 font-bold">
-                  ✓ Erfolg!
+                  ✓ Success!
                 </p>
               )}
  
@@ -180,12 +184,12 @@ export function DevicePairing({ isOpen, onClose }: DevicePairingProps) {
                 className="w-full"
                 size="md"
               >
-                {success ? "Verbunden" : "Verbinden"}
+                {success ? "Connected" : "Connect"}
               </SketchButton>
  
               {/* Warning */}
               <p className="sketch-body text-[11px] text-[#FF9500] text-center mt-6">
-                Achtung: Dies ersetzt deinen aktuellen Schlüssel!
+                Warning: This replaces your current key!
               </p>
             </div>
           )}

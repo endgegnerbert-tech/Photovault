@@ -64,7 +64,7 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                 onClick={onBack}
                 className="self-start text-blue-600 text-[17px] mb-8 hover:underline font-medium"
             >
-                ← Zurueck
+                ← Back
             </button>
 
                 <div className="flex-1 flex flex-col items-center justify-center text-center">
@@ -73,10 +73,10 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                     </div>
 
                     <h1 className="text-3xl font-bold mb-3 text-gray-900 dark:text-white">
-                        Erstelle deinen Vault
+                        Create your Vault
                     </h1>
                     <p className="text-[17px] text-blue-600 dark:text-blue-400 max-w-[300px] mb-8 font-medium">
-                        Dein persoenlicher Verschluesselungsschluessel schuetzt alle deine Fotos
+                        Your personal encryption key protects all your photos
                     </p>
 
                     {/* Features */}
@@ -88,7 +88,7 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                             <div className="text-left">
                                 <p className="text-[16px] font-semibold text-gray-900 dark:text-white">Zero-Knowledge</p>
                                 <p className="text-[13px] text-gray-500">
-                                    Nur du kannst deine Fotos entschluesseln
+                                    Only you can decrypt your photos
                                 </p>
                             </div>
                         </div>
@@ -98,9 +98,9 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                                 <CheckCircle className="w-6 h-6 text-blue-600" />
                             </div>
                             <div className="text-left">
-                                <p className="text-[16px] font-semibold text-gray-900 dark:text-white">Recovery-Phrase</p>
+                                <p className="text-[16px] font-semibold text-gray-900 dark:text-white">Recovery Phrase</p>
                                 <p className="text-[13px] text-gray-500">
-                                    12 Woerter zum Wiederherstellen
+                                    12 words for recovery
                                 </p>
                             </div>
                         </div>
@@ -112,7 +112,7 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                             <div className="text-left">
                                 <p className="text-[16px] font-semibold text-gray-900 dark:text-white">Multi-Device</p>
                                 <p className="text-[13px] text-gray-500">
-                                    Synchronisiere all deine Geraete
+                                    Synchronize all your devices
                                 </p>
                             </div>
                         </div>
@@ -124,7 +124,7 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-14 text-lg font-semibold shadow-lg shadow-blue-500/20"
                     size="lg"
                 >
-                    Vault erstellen
+                    Create Vault
                 </Button>
             </div>
         );
@@ -137,10 +137,10 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
             <div className="flex-1">
                 <div className="text-center mb-6">
                     <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
-                        Deine Phrase
+                        Your Phrase
                     </h1>
                     <p className="text-[15px] text-gray-500">
-                        Notiere diese Woerter sicher. Du brauchst sie zur Wiederherstellung.
+                        Write down these words securely. You'll need them for recovery.
                     </p>
                 </div>
 
@@ -167,15 +167,15 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                     className="w-full py-3 text-blue-600 text-[16px] hover:underline mb-4 font-medium flex items-center justify-center gap-2"
                 >
                     <Copy className="w-4 h-4" />
-                    {copied ? "Kopiert!" : "Phrase kopieren"}
+                    {copied ? "Copied!" : "Copy Phrase"}
                 </button>
 
                 {/* Warning Card */}
                 <div className="mb-6">
                     <div className="p-4 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-900/30 rounded-xl">
                         <p className="text-[13px] text-red-600 dark:text-red-400 text-center font-medium">
-                            Teile diese Woerter niemals mit anderen. Wer sie hat, kann auf deine
-                            Fotos zugreifen.
+                            Never share these words with others. Anyone with them can access your
+                            photos.
                         </p>
                     </div>
                 </div>
@@ -184,7 +184,7 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                 <div className="mb-8">
                     <div className="p-4 bg-white dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/10 shadow-sm flex items-center justify-between">
                          <span className="text-[17px] font-medium text-gray-900 dark:text-white">
-                            Sicher gespeichert?
+                            Stored securely?
                         </span>
                         <Switch
                             checked={phraseConfirmed}
@@ -200,7 +200,7 @@ export function VaultSetupScreen({ userId, onComplete, onBack }: VaultSetupScree
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-14 text-lg font-semibold shadow-lg shadow-blue-500/20"
                 size="lg"
             >
-                Weiter
+                Continue
             </Button>
         </div>
         );

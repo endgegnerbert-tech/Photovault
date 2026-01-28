@@ -50,7 +50,7 @@ const defaultState: AppState = {
     autoBackupEnabled: true,
     backgroundBackupEnabled: false,
     photosCount: 0,
-    lastBackup: "Noch nie",
+    lastBackup: "Never",
     permanence: 0,
     encryptionKey: "",
     backupPhrase: [],
@@ -383,7 +383,7 @@ function BottomNavigation({
                         currentScreen === "gallery" ? "text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400"
                     }`}
                 >
-                    Galerie
+                    Gallery
                 </span>
             </button>
 
@@ -404,7 +404,7 @@ function BottomNavigation({
                         currentScreen === "settings" ? "text-blue-600 dark:text-blue-400" : "text-gray-500 dark:text-gray-400"
                     }`}
                 >
-                    Optionen
+                    Settings
                 </span>
             </button>
         </nav>

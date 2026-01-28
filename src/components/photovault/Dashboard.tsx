@@ -115,7 +115,7 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
         }
       }
 
-      setLastBackup("Gerade eben");
+      setLastBackup("Just now");
       console.log(`Backup complete: ${uploaded} photos processed`);
     } catch (err) {
       console.error("Backup failed:", err);
@@ -127,46 +127,46 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
 
   return (
     <DashboardUI 
-        state={state}
-        setState={setState}
-        authUser={authUser}
-        backupActive={backupActive}
-        confirmToggle={toggleBackup}
-        displayPhotoCount={displayPhotoCount}
-        lastBackup={lastBackup}
-        permanence={permanence}
-        triggerManualBackup={triggerManualBackup}
-        isUploading={isUploading}
-        uploadProgress={uploadProgress}
-        showPairing={showPairing}
-        setShowPairing={setShowPairing}
+      state={state}
+      setState={setState}
+      authUser={authUser}
+      backupActive={backupActive}
+      confirmToggle={toggleBackup}
+      displayPhotoCount={displayPhotoCount}
+      lastBackup={lastBackup}
+      permanence={permanence}
+      triggerManualBackup={triggerManualBackup}
+      isUploading={isUploading}
+      uploadProgress={uploadProgress}
+      showPairing={showPairing}
+      setShowPairing={setShowPairing}
     />
   );
 }
 
 export function DashboardUI({
-    state, setState, authUser, 
-    backupActive, confirmToggle, 
-    displayPhotoCount, lastBackup, permanence,
-    triggerManualBackup, isUploading, uploadProgress,
-    showPairing, setShowPairing
+  state, setState, authUser, 
+  backupActive, confirmToggle, 
+  displayPhotoCount, lastBackup, permanence,
+  triggerManualBackup, isUploading, uploadProgress,
+  showPairing, setShowPairing
 }: DashboardUIProps) {
   const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   
   const handleToggle = () => {
-      setShowConfirmDialog(true);
+    setShowConfirmDialog(true);
   };
   
   const handleConfirm = () => {
-      confirmToggle();
-      setShowConfirmDialog(false);
+    confirmToggle();
+    setShowConfirmDialog(false);
   };
 
   const tooltips = {
-    photos: "Lokal auf deinen Geräten gespeichert",
-    lastBackup: "Automatisches Backup alle 6 Stunden",
-    permanence: "Fotos sind auf mehreren Geräten gesichert",
+    photos: "Stored locally on your devices",
+    lastBackup: "Automatic backup every 6 hours",
+    permanence: "Photos are backed up on multiple devices",
   };
 
   return (
@@ -175,7 +175,7 @@ export function DashboardUI({
       <header className="mb-6">
         <h1 className="sketch-heading text-[28px]">Backup</h1>
         <p className="sketch-body text-[15px] text-[#6E6E73] mt-1">
-          Verschlüsseltes Photo-Backup
+          Encrypted photo backup
         </p>
       </header>
 
@@ -196,12 +196,12 @@ export function DashboardUI({
             </div>
             <div className="text-left">
               <p className="sketch-subheading text-[18px]">
-                Backup {backupActive ? "Aktiv" : "Aus"}
+                Backup {backupActive ? "Active" : "Off"}
               </p>
               <p className="sketch-body text-[14px] text-[#6E6E73]">
                 {backupActive
-                   ? "Deine Fotos werden geschützt"
-                   : "Tippe zum Aktivieren"}
+                   ? "Your photos are protected"
+                   : "Tap to activate"}
               </p>
             </div>
           </div>
@@ -214,7 +214,7 @@ export function DashboardUI({
 
       {/* Help text below toggle */}
       <p className="text-[13px] text-[#6E6E73] px-2 mb-6">
-        Automatisch neue Fotos sichern
+        Automatically backup new photos
       </p>
 
       {/* Metrics Grid with Sketch UI */}
@@ -222,7 +222,7 @@ export function DashboardUI({
         <MetricCard
           icon="photo"
           value={displayPhotoCount.toLocaleString()}
-          label="Fotos"
+          label="Photos"
           tooltip={tooltips.photos}
           showTooltip={showTooltip === "photos"}
           onTap={() =>
@@ -232,7 +232,7 @@ export function DashboardUI({
         <MetricCard
           icon="clock"
           value={lastBackup}
-          label="Letztes"
+          label="Last"
           tooltip={tooltips.lastBackup}
           showTooltip={showTooltip === "lastBackup"}
           onTap={() =>
@@ -242,7 +242,7 @@ export function DashboardUI({
         <MetricCard
           icon="shield"
           value={`${permanence}%`}
-          label="Dauerhaft"
+          label="Durability"
           tooltip={tooltips.permanence}
           showTooltip={showTooltip === "permanence"}
           onTap={() =>
@@ -254,19 +254,19 @@ export function DashboardUI({
       {/* Primary Action Button with Sketch UI */}
       <div className="px-1">
         <SketchButton
-            onClick={triggerManualBackup}
-            disabled={isUploading}
-            className="w-full"
-            size="lg"
+          onClick={triggerManualBackup}
+          disabled={isUploading}
+          className="w-full"
+          size="lg"
         >
-            {isUploading ? (
+          {isUploading ? (
             <span className="flex items-center justify-center gap-2">
-                <Loader2 className="w-5 h-5 animate-spin" />
-                {uploadProgress.total > 0
+              <Loader2 className="w-5 h-5 animate-spin" />
+              {uploadProgress.total > 0
                 ? `${uploadProgress.current}/${uploadProgress.total}`
                 : "..."}
             </span>
-            ) : "Jetzt sichern"}
+          ) : "Back up now"}
         </SketchButton>
       </div>
 
@@ -275,21 +275,21 @@ export function DashboardUI({
          {authUser?.id === "guest" && (
             <div className="bg-[#2563EB]/5 border border-[#2563EB]/20 rounded-xl p-4 mb-6">
                 <p className="sketch-body text-sm text-[#1E40AF] text-center">
-                    Du nutzt SaecretHeaven gerade lokal. 
-                    Erstelle ein Konto, um deine Fotos sicher in der Cloud zu backuppen.
+                    You're currently using SaecretHeaven locally. 
+                    Create an account to securely back up your photos to the cloud.
                 </p>
                 <button 
                   onClick={() => setState(prev => ({ ...prev, isOnboarded: false }))}
                   className="w-full mt-3 py-2 sketch-subheading text-[#2563EB] text-sm hover:underline"
                 >
-                  Konto jetzt erstellen
+                  Create account now
                 </button>
             </div>
          )}
         <p className="sketch-body text-[15px] text-[#8E8E93] text-center leading-relaxed">
-          Deine Fotos sind verschlüsselt.
+          Your photos are encrypted.
           <br />
-          Niemand außer dir kann sie sehen.
+          Nobody but you can see them.
         </p>
       </div>
 
@@ -300,13 +300,13 @@ export function DashboardUI({
             <div className="p-4 text-center">
               <h3 className="sketch-subheading text-[17px] text-[#1D1D1F] mb-1">
                 {backupActive
-                  ? "Backup deaktivieren?"
-                  : "Backup aktivieren?"}
+                  ? "Deactivate backup?"
+                  : "Activate backup?"}
               </h3>
               <p className="text-[13px] text-[#6E6E73] leading-relaxed">
                 {backupActive
-                  ? "Neue Fotos werden nicht mehr automatisch gesichert."
-                  : "Neue Fotos werden automatisch verschlüsselt und gesichert."}
+                  ? "New photos will no longer be backed up automatically."
+                  : "New photos will be automatically encrypted and backed up."}
               </p>
             </div>
             <div className="border-t border-[#E5E5EA]">
@@ -314,7 +314,7 @@ export function DashboardUI({
                 onClick={() => setShowConfirmDialog(false)}
                 className="w-full py-3 text-[17px] text-[#007AFF] border-b border-[#E5E5EA] ios-tap-target"
               >
-                Abbrechen
+                Cancel
               </button>
               <button
                 onClick={handleConfirm}
@@ -322,7 +322,7 @@ export function DashboardUI({
                   backupActive ? "text-[#FF3B30]" : "text-[#30D158]"
                 }`}
               >
-                {backupActive ? "Deaktivieren" : "Aktivieren"}
+                {backupActive ? "Deactivate" : "Activate"}
               </button>
             </div>
           </div>

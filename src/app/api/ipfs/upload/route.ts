@@ -1,11 +1,32 @@
+/**
+ * API Route: IPFS Upload Proxy
+ * 
+ * Proxies uploads to self-hosted IPFS node with authentication.
+ * 
+ * SECURITY: All operations require authenticated session.
+ */
 
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const IPFS_API_URL = process.env.NEXT_PUBLIC_IPFS_API_URL || 'https://ipfs.saecretheaven.com/api/v0';
 const IPFS_API_USERNAME = process.env.IPFS_API_USERNAME || 'admin';
 const IPFS_API_PASSWORD = process.env.IPFS_API_PASSWORD || '';
 
 export async function POST(request: NextRequest) {
+    // SECURITY: Verify user is authenticated
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    if (!session?.user) {
+        return NextResponse.json(
+            { error: "Unauthorized - authentication required" },
+            { status: 401 }
+        );
+    }
+
     if (!IPFS_API_PASSWORD) {
         return NextResponse.json(
             { error: "Server misconfiguration: IPFS credentials missing" },

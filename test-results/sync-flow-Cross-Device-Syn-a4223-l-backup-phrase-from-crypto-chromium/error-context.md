@@ -1,89 +1,137 @@
 # Page snapshot
 
 ```yaml
-- generic [ref=e1]:
-  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
-    - img [ref=e8]
-  - alert [ref=e11]
-  - generic [ref=e13]:
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - button [ref=e5]:
+        - img [ref=e7]
+      - button "File" [ref=e9]
+      - button "View" [ref=e10]
+      - button "Tools" [ref=e11]
+      - button "Packages" [ref=e12]
+      - button "Help" [ref=e13]
+    - generic "/Users/einarjaeger/Documents/GitHub/privacyheavenMarketing /marketing-video" [ref=e14]: marketing-video
     - generic [ref=e15]:
-      - banner [ref=e16]:
-        - heading "Einstellungen" [level=1] [ref=e17]
-      - generic [ref=e18]:
-        - generic [ref=e19]:
-          - heading "Backup" [level=2] [ref=e20]
-          - generic [ref=e21]:
-            - button "Automatisches Backup Neue Fotos automatisch sichern" [ref=e22] [cursor=pointer]:
-              - generic [ref=e23]:
-                - paragraph [ref=e24]: Automatisches Backup
-                - paragraph [ref=e25]: Neue Fotos automatisch sichern
-            - button "Hintergrund-Backup Weiter sichern wenn App geschlossen" [ref=e29] [cursor=pointer]:
-              - generic [ref=e30]:
-                - paragraph [ref=e31]: Hintergrund-Backup
-                - paragraph [ref=e32]: Weiter sichern wenn App geschlossen
-            - button "folder Backup-Quelle Fotos-App chevronRight" [ref=e36] [cursor=pointer]:
-              - generic [ref=e37]:
-                - img "folder" [ref=e39]
-                - generic [ref=e40]:
-                  - generic [ref=e41]: Backup-Quelle
-                  - text: Fotos-App
-              - img "chevronRight" [ref=e43]
-        - generic [ref=e44]:
-          - heading "Speicher" [level=2] [ref=e45]
-          - generic [ref=e46]:
-            - generic [ref=e47]:
-              - generic [ref=e48]:
-                - generic [ref=e49]: Aktueller Plan
-                - generic [ref=e50]: Free
-              - paragraph [ref=e51]: Fotos auf deinen Geräten
-            - generic [ref=e54]:
-              - generic [ref=e55]: Verwendet
-              - generic [ref=e56]: 0 Fotos (nur lokal)
-            - button "Upgrade zu Backup+ chevronRight" [ref=e58] [cursor=pointer]:
-              - generic [ref=e59]: Upgrade zu Backup+
-              - img "chevronRight" [ref=e61]
-        - generic [ref=e62]:
-          - heading "Geräte" [level=2] [ref=e63]
-          - button "smartphone Verbundene Geräte 1 chevronRight" [ref=e65] [cursor=pointer]:
-            - generic [ref=e66]:
-              - img "smartphone" [ref=e68]
-              - generic [ref=e69]: Verbundene Geräte
-            - generic [ref=e70]:
-              - generic [ref=e71]: "1"
-              - img "chevronRight" [ref=e73]
-        - generic [ref=e74]:
-          - heading "Sicherheit" [level=2] [ref=e75]
-          - generic [ref=e76]:
-            - button "Backup-Phrase anzeigen chevronRight" [active] [ref=e77] [cursor=pointer]:
-              - generic [ref=e78]: Backup-Phrase anzeigen
-              - img "chevronRight" [ref=e80]
-            - button "Neuen Schlüssel erstellen chevronRight" [ref=e82] [cursor=pointer]:
-              - generic [ref=e83]: Neuen Schlüssel erstellen
-              - img "chevronRight" [ref=e85]
-          - paragraph [ref=e86]: Teile diese Wörter niemals mit anderen.
-        - generic [ref=e87]:
-          - heading "Setup" [level=2] [ref=e88]
-          - button "refresh Onboarding wiederholen chevronRight" [ref=e90] [cursor=pointer]:
-            - generic [ref=e91]:
-              - img "refresh" [ref=e93]
-              - generic [ref=e94]: Onboarding wiederholen
-            - img "chevronRight" [ref=e96]
-          - paragraph [ref=e97]: Schlüssel, Quelle und Plan neu einrichten
-      - generic [ref=e99]:
-        - generic [ref=e100]:
-          - heading "Sicherheitshinweis" [level=3] [ref=e101]
-          - paragraph [ref=e102]: Deine Backup-Phrase gibt vollen Zugriff auf deine verschlüsselten Fotos. Nur an einem privaten Ort anzeigen.
-        - generic [ref=e103]:
-          - button "Abbrechen" [ref=e104] [cursor=pointer]
-          - button "Phrase anzeigen" [ref=e105] [cursor=pointer]
-    - navigation [ref=e106]:
-      - button "image Galerie" [ref=e107] [cursor=pointer]:
-        - img "image" [ref=e109]
-        - generic [ref=e110]: Galerie
-      - button "shield Backup" [ref=e111] [cursor=pointer]:
-        - img "shield" [ref=e113]
-        - generic [ref=e114]: Backup
-      - button "Einstellungen" [ref=e115] [cursor=pointer]:
-        - img [ref=e116]
-        - generic [ref=e119]: Einstellungen
+      - button [ref=e16]:
+        - generic "Toggle Left Sidebar (⌘+B)" [ref=e17]
+      - button [ref=e19]:
+        - generic "Toggle Right Sidebar (⌘+J)" [ref=e20]
+  - generic [ref=e22]:
+    - generic [ref=e24]:
+      - generic [ref=e26]:
+        - generic [ref=e28]:
+          - generic [ref=e30]:
+            - button "Compositions" [ref=e31]
+            - button "Assets" [ref=e32]
+          - generic [ref=e33]:
+            - generic [ref=e36]:
+              - generic [ref=e37]: SaecretHeavenMarketing
+              - generic [ref=e38]: 1920x1080, 30 FPS
+              - generic [ref=e39]: Duration 00:35.00
+            - generic [ref=e40]:
+              - generic "SaecretHeavenMarketing" [ref=e43]:
+                - img [ref=e44]
+                - generic [ref=e46]: SaecretHeavenMarketing
+              - generic "Scene1-WakeUp" [ref=e49]:
+                - img [ref=e50]
+                - generic [ref=e52]: Scene1-WakeUp
+              - generic "Scene2-Intelligence" [ref=e55]:
+                - img [ref=e56]
+                - generic [ref=e58]: Scene2-Intelligence
+              - generic "Scene3-Threat" [ref=e61]:
+                - img [ref=e62]
+                - generic [ref=e64]: Scene3-Threat
+              - generic "Scene4-Finale" [ref=e67]:
+                - img [ref=e68]
+                - generic [ref=e70]: Scene4-Finale
+              - generic "RealApp-Dashboard" [ref=e73]:
+                - img [ref=e74]
+                - generic [ref=e76]: RealApp-Dashboard
+              - generic "RealApp-Gallery" [ref=e79]:
+                - img [ref=e80]
+                - generic [ref=e82]: RealApp-Gallery
+              - generic "RealApp-Unlock" [ref=e85]:
+                - img [ref=e86]
+                - generic [ref=e88]: RealApp-Unlock
+        - generic [ref=e101]:
+          - generic [ref=e107]: SaecretHeaven.tsx
+          - generic [ref=e111]: "1"
+      - generic [ref=e113]:
+        - generic [ref=e115]:
+          - button "Zoom out timeline" [disabled] [ref=e116]:
+            - img [ref=e117]
+          - slider "Timeline zoom (1x)" [ref=e119]: "1"
+          - button "Zoom in timeline" [ref=e120]:
+            - img [ref=e121]
+        - generic "Preview Size" [ref=e123]:
+          - button "Fit" [ref=e124]:
+            - generic "Fit" [ref=e125]
+            - img [ref=e126]
+        - generic "Change the playback rate" [ref=e128]:
+          - button "1x" [ref=e129]:
+            - generic "1x" [ref=e130]
+            - img [ref=e131]
+        - button "Jump to beginning" [disabled] [ref=e133]:
+          - img [ref=e134]
+        - button "Step back one frame" [disabled] [ref=e136]:
+          - img [ref=e137]
+        - button "Play" [ref=e139]:
+          - img [ref=e140]
+        - button "Step forward one frame" [ref=e142]:
+          - img [ref=e143]
+        - button "Loop video" [ref=e145]:
+          - img [ref=e146]
+        - button "Mute video" [ref=e148]:
+          - img [ref=e149]
+        - button "Mark In (I) - right click to clear" [disabled] [ref=e151]:
+          - img [ref=e152]
+        - button "Mark Out (O) - right click to clear" [ref=e154]:
+          - img [ref=e155]
+        - button "Show transparency as checkerboard (T)" [ref=e157]:
+          - img [ref=e158]
+        - button "Enter fullscreen preview (F)" [ref=e160]:
+          - img [ref=e161]
+        - generic "Export the current composition (R)" [ref=e164] [cursor=pointer]:
+          - button "Render" [ref=e165]:
+            - generic [ref=e166]:
+              - img [ref=e167]
+              - generic [ref=e169]: Render
+    - generic [ref=e174]:
+      - generic [ref=e176]:
+        - generic [ref=e179]:
+          - generic [ref=e180]:
+            - img
+          - generic "<Sequence>" [ref=e181]
+        - generic [ref=e183]:
+          - generic [ref=e184]:
+            - img
+          - generic "<Sequence>" [ref=e185]
+        - generic [ref=e187]:
+          - generic [ref=e188]:
+            - img
+          - generic "<Sequence>" [ref=e189]
+        - generic [ref=e191]:
+          - generic [ref=e192]:
+            - img
+          - generic "<Sequence>" [ref=e193]
+      - generic [ref=e195]:
+        - generic [ref=e196]: 00:00.00
+        - button "0" [ref=e197]
+      - generic [ref=e201]:
+        - generic [ref=e208]: "0"
+        - generic:
+          - generic:
+            - generic: 00:06.00
+          - generic:
+            - generic: 00:12.00
+          - generic:
+            - generic: 00:18.00
+          - generic:
+            - generic: 00:24.00
+          - generic:
+            - generic: 00:30.00
+        - generic:
+          - generic:
+            - img
 ```

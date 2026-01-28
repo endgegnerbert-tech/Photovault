@@ -96,11 +96,11 @@ const formatDateLabel = (dateStr: string) => {
   yesterday.setDate(yesterday.getDate() - 1);
 
   if (dateStr === today.toISOString().split("T")[0]) {
-    return "Heute";
+    return "Today";
   } else if (dateStr === yesterday.toISOString().split("T")[0]) {
-    return "Gestern";
+    return "Yesterday";
   } else {
-    return date.toLocaleDateString("de-DE", {
+    return date.toLocaleDateString("en-US", {
       weekday: "long",
       day: "numeric",
       month: "long",
@@ -148,7 +148,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
         photo.device_id,
         photo.cid,
       );
-      setSyncNotification(`Neues Foto von anderem Gerät empfangen`);
+      setSyncNotification(`New photo received from another device`);
       setTimeout(() => setSyncNotification(null), 3000);
 
       // Invalidate gallery queries to refresh the photo list
@@ -162,7 +162,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
   const handlePhotoDeleted = useCallback(
     (cid: string) => {
       console.log("[Realtime] Photo deleted from another device:", cid);
-      setSyncNotification(`Foto von anderem Gerät gelöscht`);
+      setSyncNotification(`Photo deleted from another device`);
       setTimeout(() => setSyncNotification(null), 3000);
 
       // Invalidate gallery queries to refresh the photo list
@@ -322,7 +322,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        setSyncNotification("Foto heruntergeladen!");
+        setSyncNotification("Photo downloaded!");
         setTimeout(() => setSyncNotification(null), 2000);
       }
     } catch (error) {
@@ -374,13 +374,13 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
   };
 
   const categories = [
-    { id: "nature", label: "Natur (Coming Soon)" },
-    { id: "architecture", label: "Architektur (Coming Soon)" },
-    { id: "travel", label: "Reisen (Coming Soon)" },
-    { id: "food", label: "Essen (Coming Soon)" },
-    { id: "animals", label: "Tiere (Coming Soon)" },
-    { id: "city", label: "Stadt (Coming Soon)" },
-    { id: "landscape", label: "Landschaft (Coming Soon)" },
+    { id: "nature", label: "Nature (Coming Soon)" },
+    { id: "architecture", label: "Architecture (Coming Soon)" },
+    { id: "travel", label: "Travel (Coming Soon)" },
+    { id: "food", label: "Food (Coming Soon)" },
+    { id: "animals", label: "Animals (Coming Soon)" },
+    { id: "city", label: "City (Coming Soon)" },
+    { id: "landscape", label: "Landscape (Coming Soon)" },
   ];
 
   // Handle file upload
@@ -400,7 +400,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
       {/* Header with Sketch UI */}
       <header className="px-5 pt-10 pb-4 bg-[#FAFBFC] sticky top-0 z-30 border-b-2 border-[#2563EB]/10">
         <div className="flex items-center justify-between mb-2">
-          <h1 className="text-2xl font-bold tracking-tight">Galerie</h1>
+          <h1 className="text-2xl font-bold tracking-tight">Gallery</h1>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowSearch(!showSearch)}
@@ -421,7 +421,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
         {/* Subtitle / Status */}
         <div className="flex items-center justify-between px-1 mb-4">
           <p className="text-[15px] font-medium text-[#3B82F6]">
-            {allPhotosCount} Fotos gesichert
+            {allPhotosCount} photos backed up
           </p>
           <div className="flex items-center gap-2">
             {isConnected ? (
@@ -439,7 +439,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Suchen..."
+              placeholder="Search..."
               className="w-full pl-9 bg-gray-100 border-none rounded-xl h-10"
             />
           </div>
@@ -455,7 +455,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
                 : "bg-[#2563EB]/5 text-[#2563EB]"
             }`}
           >
-            Alle
+            All
           </button>
           {categories.map((cat) => (
             <button
@@ -479,10 +479,10 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
           <div className="pt-20 text-center px-10">
             <ImageIcon className="w-16 h-16 mx-auto mb-4 opacity-20" />
             <p className="text-lg font-medium text-[#6E6E73]">
-              Keine Fotos gefunden
+              No photos found
             </p>
             <p className="text-sm text-[#8E8E93] mt-2">
-              Versuche es mit einem anderen Suchbegriff oder Filter
+              Try a different search term or filter
             </p>
           </div>
         ) : (
@@ -573,18 +573,18 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
             {isLoadingFullscreen ? (
               <div className="flex flex-col items-center gap-4">
                 <Loader2 className="w-12 h-12 text-[#2563EB] animate-spin" />
-                <p className="sketch-body text-white/60">Entschlüsseln...</p>
+                <p className="sketch-body text-white/60">Decrypting...</p>
               </div>
             ) : fullscreenImageUrl ? (
               <img
                 src={fullscreenImageUrl}
-                alt="Vollbild"
+                alt="Fullscreen"
                 className="max-w-full max-h-full object-contain"
               />
             ) : (
               <div className="text-center p-10">
                 <AlertTriangle className="w-12 h-12 text-[#FF3B30] mx-auto mb-4" />
-                <p className="text-white font-medium">Laden fehlgeschlagen</p>
+                <p className="text-white font-medium">Loading failed</p>
               </div>
             )}
           </div>
@@ -604,11 +604,11 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
               ) : (
                 <Download className="w-6 h-6" />
               )}
-              <span className="sketch-body text-[10px]">Speichern</span>
+              <span className="sketch-body text-[10px]">Save</span>
             </button>
             <button className="flex flex-col items-center gap-1 text-white/70">
               <ExternalLink className="w-6 h-6" />
-              <span className="sketch-body text-[10px]">Exportieren</span>
+              <span className="sketch-body text-[10px]">Export</span>
             </button>
             <button 
               className="flex flex-col items-center gap-1 text-[#FF3B30] hover:text-[#FF3B30]/80"
@@ -616,12 +616,12 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
                 const photo = photos.find((p) => p.id === fullscreenPhoto);
                 if (!photo) return;
                 
-                if (confirm("Möchtest du dieses Foto wirklich dauerhaft löschen?")) {
+                if (confirm("Do you really want to permanently delete this photo?")) {
                   try {
                     // Falls ID ein String ist und mit 'photo-' anfängt (Placeholder), kann man es nicht löschen
                     const isPlaceholder = photo.id.startsWith('photo-');
                     if (isPlaceholder) {
-                      alert("Placeholder-Fotos können nicht gelöscht werden.");
+                      alert("Placeholder photos cannot be deleted.");
                       return;
                     }
 
@@ -636,13 +636,13 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
                     }
                   } catch (e) {
                     console.error("Delete failed", e);
-                    alert("Fehler beim Löschen des Fotos.");
+                    alert("Error deleting photo.");
                   }
                 }
               }}
             >
               <Trash2 className="w-6 h-6" />
-              <span className="sketch-body text-[10px]">Löschen</span>
+              <span className="sketch-body text-[10px]">Delete</span>
             </button>
           </div>
         </div>
@@ -666,12 +666,12 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
               <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
             </div>
             <h3 className="text-lg font-bold text-center mb-2">
-              Sicherung läuft...
+              Backup in progress...
             </h3>
             <p className="text-sm text-[#6E6E73] text-center mb-4">
               {uploadProgress > 0
-                ? `${Math.round(uploadProgress)}% hochgeladen`
-                : "Vorbereiten..."}
+                ? `${Math.round(uploadProgress)}% uploaded`
+                : "Preparing..."}
             </p>
             <div className="w-full bg-[#E5E7EB] h-2 rounded-full overflow-hidden">
               <div

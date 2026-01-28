@@ -30,7 +30,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      setError("Bitte E-Mail und Passwort eingeben");
+      setError("Please enter email and password");
       return;
     }
 
@@ -44,7 +44,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       });
 
       if (result.error) {
-        setError(result.error.message || "Anmeldung fehlgeschlagen");
+        setError(result.error.message || "Login failed");
         return;
       }
 
@@ -59,7 +59,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       }
     } catch (err) {
       console.error("Login error:", err);
-      setError("Ein Fehler ist aufgetreten. Bitte versuche es erneut.");
+      setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +67,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
 
   const handleRegister = async () => {
     if (!email || !password || !accessCode) {
-      setError("Bitte alle Felder ausfüllen");
+      setError("Please fill in all fields");
       return;
     }
 
@@ -78,7 +78,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       // 1. Verify Access Code
       const verifyRes = await verifyAccessCode(accessCode);
       if (!verifyRes.success) {
-        setError(verifyRes.message || "Ungültiger Zugangscode");
+        setError(verifyRes.message || "Invalid access code");
         setIsLoading(false);
         return;
       }
@@ -91,7 +91,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       });
 
       if (result.error) {
-        setError(result.error.message || "Registrierung fehlgeschlagen");
+        setError(result.error.message || "Registration failed");
         setIsLoading(false);
         return;
       }
@@ -109,7 +109,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       }
     } catch (err) {
       console.error("Registration error:", err);
-      setError("Ein Fehler ist aufgetreten.");
+      setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -127,14 +127,14 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
 
           <h1 className="text-4xl font-bold mb-3 tracking-tight text-gray-900 dark:text-white">SaecretHeaven</h1>
           <p className="text-blue-600 dark:text-blue-400 max-w-[280px] mb-12 text-lg">
-            Sichere deine Fotos mit Zero-Knowledge Verschluesselung
+            Secure your photos with Zero-Knowledge Encryption
           </p>
 
           {/* Features */}
           <div className="w-full max-w-[320px] space-y-4 mb-12">
-            <FeatureItem icon="lock" text="Ende-zu-Ende verschluesselt" />
+            <FeatureItem icon="lock" text="End-to-End Encrypted" />
             <FeatureItem icon="smartphone" text="Multi-Device Sync" />
-            <FeatureItem icon="cloud" text="Dezentrales IPFS Backup" />
+            <FeatureItem icon="cloud" text="Decentralized IPFS Backup" />
           </div>
         </div>
 
@@ -144,7 +144,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
             className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-14 text-lg font-semibold shadow-lg shadow-blue-500/20"
             size="lg"
           >
-            Anmelden
+            Log in
           </Button>
           
           <Button
@@ -153,7 +153,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
              className="w-full border-2 border-blue-100 dark:border-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl h-14 text-lg font-semibold hover:bg-blue-50 dark:hover:bg-blue-900/10"
              size="lg"
           >
-            Account erstellen
+            Create Account
           </Button>
         </div>
       </div>
@@ -170,15 +170,15 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
         onClick={() => setMode("welcome")}
         className="self-start text-blue-600 mb-8 ios-tap-target flex items-center gap-2 font-medium hover:underline"
       >
-        ← Zurueck
+        ← Back
       </button>
 
       <div className="flex-1">
         <h1 className="text-3xl font-bold mb-2 tracking-tight text-gray-900 dark:text-white">
-          {isRegister ? "Account erstellen" : "Willkommen zurueck"}
+          {isRegister ? "Create Account" : "Welcome back"}
         </h1>
         <p className="text-blue-600 dark:text-blue-400 mb-8 font-medium">
-          {isRegister ? "Zugang nur mit Einladungscode" : "Melde dich an, um auf deinen Vault zuzugreifen"}
+          {isRegister ? "Access invite-only" : "Log in to access your vault"}
         </p>
 
         {/* Form */}
@@ -186,7 +186,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
           
           {isRegister && (
              <div className="space-y-2">
-               <Label htmlFor="code" className="sr-only">Zugangscode</Label>
+               <Label htmlFor="code" className="sr-only">Access Code</Label>
                <div className="relative">
                  <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center">
                     <Key className="w-5 h-5 text-gray-400" />
@@ -197,7 +197,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
                    autoCapitalize="characters"
                    value={accessCode}
                    onChange={(e) => setAccessCode(e.target.value.toUpperCase())}
-                   placeholder="Zugangscode"
+                   placeholder="Access Code"
                    className="pl-12 h-14 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-lg shadow-sm font-mono tracking-wider"
                  />
                </div>
@@ -205,7 +205,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="email" className="sr-only">E-Mail</Label>
+            <Label htmlFor="email" className="sr-only">Email</Label>
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
@@ -213,14 +213,14 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="E-Mail"
+                placeholder="Email"
                 className="pl-12 h-14 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-lg shadow-sm"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password" className="sr-only">Passwort</Label>
+            <Label htmlFor="password" className="sr-only">Password</Label>
             <div className="relative">
               <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <Input
@@ -228,7 +228,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Passwort"
+                placeholder="Password"
                 className="pl-12 pr-12 h-14 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-lg shadow-sm"
               />
               <button
@@ -266,7 +266,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
           {isLoading ? (
             <Loader2 className="w-6 h-6 animate-spin" />
           ) : (
-            isRegister ? "Kostenlos registrieren" : "Anmelden"
+            isRegister ? "Sign up for free" : "Log in"
           )}
         </Button>
       </div>
@@ -274,6 +274,7 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
     </div>
   );
 }
+
 
 function FeatureItem({
   icon,

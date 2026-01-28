@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Info } from "lucide-react";
-import { CustomIcon } from "@/components/ui/custom-icon";
 import {
     recoveryPhraseToKey,
     saveKeyToStorage,
@@ -33,7 +32,7 @@ export function UnlockVaultScreen({
 
     const handleUnlock = async () => {
         if (!phrase.trim()) {
-            setError("Bitte gib deine Recovery-Phrase ein");
+            setError("Please enter your recovery phrase");
             return;
         }
 
@@ -51,7 +50,7 @@ export function UnlockVaultScreen({
             const secretKey = recoveryPhraseToKey(normalizedPhrase);
 
             if (!secretKey || secretKey.length !== 32) {
-                setError("Ungueltige Recovery-Phrase");
+                setError("Invalid recovery phrase");
                 setIsUnlocking(false);
                 return;
             }
@@ -62,7 +61,7 @@ export function UnlockVaultScreen({
             // If user already has a vault, verify the key hash matches
             if (expectedKeyHash && keyHash !== expectedKeyHash) {
                 setError(
-                    "Diese Recovery-Phrase gehoert nicht zu diesem Konto. Bitte ueberpruefe deine Eingabe."
+                    "This recovery phrase does not belong to this account. Please check your input."
                 );
                 setIsUnlocking(false);
                 return;
@@ -75,7 +74,7 @@ export function UnlockVaultScreen({
             onUnlock(secretKey, keyHash);
         } catch (err) {
             console.error("Unlock error:", err);
-            setError("Ungueltige Recovery-Phrase. Bitte ueberpruefe deine Eingabe.");
+            setError("Invalid recovery phrase. Please check your input.");
         } finally {
             setIsUnlocking(false);
         }
@@ -86,7 +85,7 @@ export function UnlockVaultScreen({
             {/* Header */}
             <div className="flex items-center justify-between mb-8">
                 <div className="text-sm text-gray-500">
-                    Angemeldet als
+                    Logged in as
                     <br />
                     <span className="text-blue-600 font-bold">{userEmail}</span>
                 </div>
@@ -95,7 +94,7 @@ export function UnlockVaultScreen({
                     className="text-red-500 text-[15px] font-medium hover:text-red-600 flex items-center gap-1"
                 >
                     <LogOut className="w-4 h-4" />
-                    Abmelden
+                    Logout
                 </button>
             </div>
 
@@ -106,12 +105,12 @@ export function UnlockVaultScreen({
                         <img src="/logo.svg" alt="SaecretHeaven" className="w-16 h-16 object-contain" />
                     </div>
                     <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
-                        Vault entsperren
+                        Unlock Vault
                     </h1>
                     <p className="text-[15px] text-gray-500 max-w-[300px]">
                         {expectedKeyHash
-                            ? "Gib deine Recovery-Phrase ein, um auf deine verschluesselten Fotos zuzugreifen"
-                            : "Du hast noch keinen Vault. Erstelle einen neuen oder stelle einen bestehenden wieder her."}
+                            ? "Enter your recovery phrase to access your encrypted photos"
+                            : "You don't have a vault yet. Create a new one or restore an existing one."}
                     </p>
                 </div>
 
@@ -127,7 +126,7 @@ export function UnlockVaultScreen({
                         className="min-h-[120px] bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 rounded-xl text-base p-4 resize-none"
                     />
                     <p className="text-[12px] text-gray-400 px-1 text-center">
-                        Mit Bindestrichen oder Leerzeichen getrennt (12 Wörter)
+                        Separated by hyphens or spaces (12 words)
                     </p>
                 </div>
 
@@ -143,11 +142,11 @@ export function UnlockVaultScreen({
                         <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                         <div>
                             <p className="text-[15px] font-medium text-blue-900 dark:text-blue-100 mb-1">
-                                Warum brauche ich die Phrase?
+                                Why do I need the phrase?
                             </p>
                             <p className="text-[13px] text-blue-700 dark:text-blue-300">
-                                Deine Fotos sind lokal verschluesselt. Nur mit der Recovery-Phrase
-                                kannst du sie entschluesseln. Wir speichern sie niemals.
+                                Your photos are encrypted locally. Only with the recovery phrase
+                                can you decrypt them. We never store it.
                             </p>
                         </div>
                     </div>
@@ -165,7 +164,7 @@ export function UnlockVaultScreen({
                     {isUnlocking ? (
                         <Loader2 className="w-6 h-6 animate-spin" />
                     ) : (
-                        "Vault entsperren"
+                        "Unlock Vault"
                     )}
                 </Button>
 
@@ -174,7 +173,7 @@ export function UnlockVaultScreen({
                         onClick={onCreateNewVault}
                         className="w-full py-2 text-blue-600 text-[17px] hover:underline font-medium"
                     >
-                        Neuen Vault erstellen
+                        Create new vault
                     </button>
                 )}
             </div>

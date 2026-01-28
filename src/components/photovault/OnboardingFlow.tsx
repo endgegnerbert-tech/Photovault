@@ -151,6 +151,8 @@ export function OnboardingFlow({
   );
 }
 
+// ... imports
+
 function KeyCreationStep({
   onContinue,
   onImport,
@@ -165,21 +167,21 @@ function KeyCreationStep({
           <SketchIcon icon="key" size={80} />
         </div>
         <h1 className="sketch-heading text-[32px] leading-tight text-[#1D1D1F] mb-3">
-          Erstelle deinen Schlüssel
+          Create your key
         </h1>
         <p className="sketch-body text-[17px] leading-relaxed text-[#3B82F6] max-w-[300px] mb-8">
-          Dieser Schlüssel verschlüsselt alle Fotos. Bewahre ihn gut auf!
+          This key encrypts all your photos. Keep it safe!
         </p>
 
         <SketchCard className="p-4 w-full max-w-[320px]">
           <div className="flex items-center gap-3 mb-2">
             <img src="/logo.svg" alt="Shield" className="w-6 h-6 object-contain" />
             <span className="sketch-subheading text-[16px]">
-              12-Wort Backup-Phrase
+              12-word Backup Phrase
             </span>
           </div>
           <p className="sketch-body text-[13px] text-[#6E6E73]">
-            Wird im nächsten Schritt erstellt und sicher angezeigt
+            Will be generated and securely displayed in the next step
           </p>
         </SketchCard>
       </div>
@@ -190,13 +192,13 @@ function KeyCreationStep({
           className="w-full"
           size="lg"
         >
-          Schlüssel erstellen
+          Create Key
         </SketchButton>
         <button
           onClick={onImport}
           className="w-full py-2 sketch-body text-[#2563EB] text-[17px] hover:underline"
         >
-          Ich habe bereits einen Schlüssel
+          I already have a key
         </button>
       </div>
     </div>
@@ -219,10 +221,10 @@ function BackupPhraseStep({
       <div className="flex-1">
         <div className="text-center mb-8">
           <h1 className="sketch-heading text-[32px] leading-tight text-[#1D1D1F] mb-2">
-            Backup-Wörter
+            Backup Words
           </h1>
           <p className="sketch-body text-[15px] text-[#6E6E73]">
-            Notiere diese Wörter sicher. Du brauchst sie zur Wiederherstellung.
+            Write these words down securely. You'll need them for recovery.
           </p>
         </div>
 
@@ -247,7 +249,7 @@ function BackupPhraseStep({
         <div className="mb-6">
           <SketchCard className="bg-[#FF3B30]/5 border-[#FF3B30]">
             <p className="sketch-body text-[13px] text-[#FF3B30] text-center">
-              Teile diese Wörter niemals. Wer sie hat, kann auf deine Fotos zugreifen.
+              Never share these words. Anyone with them can access your photos.
             </p>
           </SketchCard>
         </div>
@@ -256,7 +258,7 @@ function BackupPhraseStep({
         <div className="mb-8">
             <SketchCard className="p-4 flex items-center justify-between">
                  <span className="sketch-subheading text-[17px] text-[#1D1D1F]">
-                    Sicher notiert?
+                    Safely recorded?
                 </span>
                 <SketchToggle
                     checked={confirmed}
@@ -272,7 +274,7 @@ function BackupPhraseStep({
         className="w-full"
         size="lg"
       >
-        Weiter
+        Continue
       </SketchButton>
     </div>
   );
@@ -288,15 +290,15 @@ function SourceSelectionStep({
   const sources = [
     {
       id: "photos-app" as const,
-      label: "Fotos-App",
-      description: "Alle Fotos aus der Bibliothek",
-      details: "Empfohlen",
+      label: "Photos App",
+      description: "All photos from library",
+      details: "Recommended",
     },
     {
       id: "files-app" as const,
-      label: "Dateien-App",
-      description: "Bestimmter Ordner",
-      details: "Erweitert",
+      label: "Files App",
+      description: "Specific folder",
+      details: "Advanced",
     },
   ];
 
@@ -308,10 +310,10 @@ function SourceSelectionStep({
             <SketchIcon icon="folder" size={80} />
           </div>
           <h1 className="sketch-heading text-[32px] mb-2 text-[#1D1D1F]">
-            Wähle Quelle
+            Choose Source
           </h1>
           <p className="sketch-body text-[17px] text-[#3B82F6] max-w-[300px]">
-            Wo liegen deine Fotos?
+            Where are your photos located?
           </p>
         </div>
 
@@ -366,16 +368,16 @@ function PlanSelectionStep({
     {
       id: "free" as const,
       label: "FREE",
-      subtitle: "Lokales Backup",
-      price: "Kostenlos",
-      features: ["Verschlüsselung", "Sync inkl.", "Lokal only"],
+      subtitle: "Local Backup",
+      price: "Free",
+      features: ["Encryption", "Sync included", "Local only"],
     },
     {
       id: "backup-plus" as const,
       label: "BACKUP+",
       subtitle: "IPFS Cloud",
       price: "2,99€",
-      features: ["Alles aus Free", "IPFS Node", "Ewig sicher"],
+      features: ["Everything from Free", "IPFS Node", "Forever Secure"],
       recommended: true,
     },
   ];
@@ -388,10 +390,10 @@ function PlanSelectionStep({
             <SketchIcon icon="cloud" size={80} />
           </div>
           <h1 className="sketch-heading text-[32px] mb-2 text-[#1D1D1F]">
-            Speicherplan
+            Storage Plan
           </h1>
           <p className="sketch-body text-[17px] text-[#3B82F6] max-w-[300px]">
-            Ewig sicher in der Cloud?
+             Forever safe in the cloud?
           </p>
         </div>
 
@@ -442,7 +444,7 @@ function PlanSelectionStep({
         className="w-full mt-4"
         size="lg"
       >
-        Loslegen
+        Get Started
       </SketchButton>
     </div>
   );
@@ -470,7 +472,7 @@ function ImportKeyDialog({
         .replace(/-+/g, "-");
 
       if (!normalizedPhrase) {
-        setError("Bitte gib deinen Schlüssel ein");
+        setError("Please enter your key");
         setIsImporting(false);
         return;
       }
@@ -478,7 +480,7 @@ function ImportKeyDialog({
       const secretKey = recoveryPhraseToKey(normalizedPhrase);
 
       if (!secretKey || secretKey.length !== 32) {
-        setError("Ungültiger Schlüssel");
+        setError("Invalid key");
         setIsImporting(false);
         return;
       }
@@ -487,7 +489,7 @@ function ImportKeyDialog({
       const phraseWords = normalizedPhrase.split("-").slice(0, 12);
       onSuccess(normalizedPhrase, phraseWords);
     } catch (err) {
-      setError("Fehler beim Import");
+      setError("Import error");
       setIsImporting(false);
     }
   };
@@ -496,10 +498,10 @@ function ImportKeyDialog({
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-6 backdrop-blur-sm">
       <SketchCard className="bg-white w-full max-w-[360px] p-6 shadow-2xl">
         <h3 className="sketch-heading text-[24px] text-[#1D1D1F] text-center mb-2">
-          Importieren
+          Import
         </h3>
         <p className="sketch-body text-[14px] text-[#6E6E73] text-center mb-6">
-          Gib deine Backup-Phrase ein
+          Enter your backup phrase
         </p>
 
         <SketchTextarea
@@ -524,16 +526,17 @@ function ImportKeyDialog({
             className="w-full"
             size="md"
           >
-            {isImporting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Importieren"}
+            {isImporting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Import"}
           </SketchButton>
           <button
             onClick={onClose}
             className="w-full py-2 sketch-body text-[#8E8E93] hover:text-[#1D1D1F]"
           >
-            Abbrechen
+            Cancel
           </button>
         </div>
       </SketchCard>
     </div>
   );
 }
+

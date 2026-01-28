@@ -1,104 +1,137 @@
 # Page snapshot
 
 ```yaml
-- generic [ref=e1]:
-  - generic [active]:
+- generic [ref=e2]:
+  - generic [ref=e3]:
     - generic [ref=e4]:
-      - generic [ref=e5]:
-        - generic [ref=e6]:
-          - navigation [ref=e7]:
-            - button "previous" [disabled] [ref=e8]:
-              - img "previous" [ref=e9]
-            - generic [ref=e11]:
-              - generic [ref=e12]: 1/
-              - text: "2"
-            - button "next" [ref=e13] [cursor=pointer]:
-              - img "next" [ref=e14]
-          - img
-        - generic [ref=e16]:
-          - generic [ref=e17]:
-            - img [ref=e18]
-            - generic "Latest available version is detected (16.1.4)." [ref=e20]: Next.js 16.1.4
-            - generic [ref=e21]: Turbopack
-          - img
-      - generic [ref=e22]:
-        - dialog "Console Error" [ref=e23]:
-          - generic [ref=e26]:
-            - generic [ref=e27]:
-              - generic [ref=e28]:
-                - generic [ref=e30]: Console Error
-                - generic [ref=e31]:
-                  - button "Copy Error Info" [ref=e32] [cursor=pointer]:
-                    - img [ref=e33]
-                  - button "No related documentation found" [disabled] [ref=e35]:
-                    - img [ref=e36]
-                  - button "Attach Node.js inspector" [ref=e38] [cursor=pointer]:
-                    - img [ref=e39]
-              - generic [ref=e48]: The result of getSnapshot should be cached to avoid an infinite loop
-            - generic [ref=e49]:
-              - generic [ref=e50]:
-                - paragraph [ref=e52]:
-                  - img [ref=e54]
-                  - generic [ref=e57]: src/components/photovault/Dashboard.tsx (29:73) @ Dashboard
-                  - button "Open in editor" [ref=e58] [cursor=pointer]:
-                    - img [ref=e60]
-                - generic [ref=e63]:
-                  - generic [ref=e64]: 27 |
-                  - generic [ref=e65]: 28 | // Persistent Settings
-                  - generic [ref=e66]: "> 29 | const { backupActive, setBackupActive, permanence } = useSettingsStore((state: SettingsState) => ({"
-                  - generic [ref=e67]: "| ^"
-                  - generic [ref=e68]: "30 | backupActive: state.backupActive,"
-                  - generic [ref=e69]: "31 | setBackupActive: state.setBackupActive,"
-                  - generic [ref=e70]: "32 | permanence: 0 // TODO: Add permanence to store or calc"
-              - generic [ref=e71]:
-                - generic [ref=e72]:
-                  - paragraph [ref=e73]:
-                    - text: Call Stack
-                    - generic [ref=e74]: "24"
-                  - button "Show 21 ignore-listed frame(s)" [ref=e75] [cursor=pointer]:
-                    - text: Show 21 ignore-listed frame(s)
-                    - img [ref=e76]
-                - generic [ref=e78]:
-                  - generic [ref=e79]:
-                    - text: Dashboard
-                    - button "Open Dashboard in editor" [ref=e80] [cursor=pointer]:
-                      - img [ref=e81]
-                  - text: src/components/photovault/Dashboard.tsx (29:73)
-                - generic [ref=e83]:
-                  - generic [ref=e84]:
-                    - text: PhotoVaultApp
-                    - button "Open PhotoVaultApp in editor" [ref=e85] [cursor=pointer]:
-                      - img [ref=e86]
-                  - text: src/components/photovault/PhotoVaultApp.tsx (120:13)
-                - generic [ref=e88]:
-                  - generic [ref=e89]:
-                    - text: HomePage
-                    - button "Open HomePage in editor" [ref=e90] [cursor=pointer]:
-                      - img [ref=e91]
-                  - text: src/app/page.tsx (8:10)
-          - generic [ref=e93]: "1"
-          - generic [ref=e94]: "2"
-        - contentinfo [ref=e95]:
-          - region "Error feedback" [ref=e96]:
-            - paragraph [ref=e97]:
-              - link "Was this helpful?" [ref=e98] [cursor=pointer]:
-                - /url: https://nextjs.org/telemetry#error-feedback
-            - button "Mark as helpful" [ref=e99] [cursor=pointer]:
-              - img [ref=e100]
-            - button "Mark as not helpful" [ref=e103] [cursor=pointer]:
-              - img [ref=e104]
-    - generic [ref=e110] [cursor=pointer]:
-      - button "Open Next.js Dev Tools" [ref=e111]:
-        - img [ref=e112]
-      - generic [ref=e115]:
-        - button "Open issues overlay" [ref=e116]:
-          - generic [ref=e117]:
-            - generic [ref=e118]: "1"
-            - generic [ref=e119]: "2"
-          - generic [ref=e120]:
-            - text: Issue
-            - generic [ref=e121]: s
-        - button "Collapse issues badge" [ref=e122]:
-          - img [ref=e123]
-  - 'heading "Application error: a client-side exception has occurred while loading localhost (see the browser console for more information)." [level=2] [ref=e127]'
+      - button [ref=e5]:
+        - img [ref=e7]
+      - button "File" [ref=e9]
+      - button "View" [ref=e10]
+      - button "Tools" [ref=e11]
+      - button "Packages" [ref=e12]
+      - button "Help" [ref=e13]
+    - generic "/Users/einarjaeger/Documents/GitHub/privacyheavenMarketing /marketing-video" [ref=e14]: marketing-video
+    - generic [ref=e15]:
+      - button [ref=e16]:
+        - generic "Toggle Left Sidebar (⌘+B)" [ref=e17]
+      - button [ref=e19]:
+        - generic "Toggle Right Sidebar (⌘+J)" [ref=e20]
+  - generic [ref=e22]:
+    - generic [ref=e24]:
+      - generic [ref=e26]:
+        - generic [ref=e28]:
+          - generic [ref=e30]:
+            - button "Compositions" [ref=e31]
+            - button "Assets" [ref=e32]
+          - generic [ref=e33]:
+            - generic [ref=e36]:
+              - generic [ref=e37]: SaecretHeavenMarketing
+              - generic [ref=e38]: 1920x1080, 30 FPS
+              - generic [ref=e39]: Duration 00:35.00
+            - generic [ref=e40]:
+              - generic "SaecretHeavenMarketing" [ref=e43]:
+                - img [ref=e44]
+                - generic [ref=e46]: SaecretHeavenMarketing
+              - generic "Scene1-WakeUp" [ref=e49]:
+                - img [ref=e50]
+                - generic [ref=e52]: Scene1-WakeUp
+              - generic "Scene2-Intelligence" [ref=e55]:
+                - img [ref=e56]
+                - generic [ref=e58]: Scene2-Intelligence
+              - generic "Scene3-Threat" [ref=e61]:
+                - img [ref=e62]
+                - generic [ref=e64]: Scene3-Threat
+              - generic "Scene4-Finale" [ref=e67]:
+                - img [ref=e68]
+                - generic [ref=e70]: Scene4-Finale
+              - generic "RealApp-Dashboard" [ref=e73]:
+                - img [ref=e74]
+                - generic [ref=e76]: RealApp-Dashboard
+              - generic "RealApp-Gallery" [ref=e79]:
+                - img [ref=e80]
+                - generic [ref=e82]: RealApp-Gallery
+              - generic "RealApp-Unlock" [ref=e85]:
+                - img [ref=e86]
+                - generic [ref=e88]: RealApp-Unlock
+        - generic [ref=e101]:
+          - generic [ref=e107]: SaecretHeaven.tsx
+          - generic [ref=e111]: "1"
+      - generic [ref=e113]:
+        - generic [ref=e115]:
+          - button "Zoom out timeline" [disabled] [ref=e116]:
+            - img [ref=e117]
+          - slider "Timeline zoom (1x)" [ref=e119]: "1"
+          - button "Zoom in timeline" [ref=e120]:
+            - img [ref=e121]
+        - generic "Preview Size" [ref=e123]:
+          - button "Fit" [ref=e124]:
+            - generic "Fit" [ref=e125]
+            - img [ref=e126]
+        - generic "Change the playback rate" [ref=e128]:
+          - button "1x" [ref=e129]:
+            - generic "1x" [ref=e130]
+            - img [ref=e131]
+        - button "Jump to beginning" [disabled] [ref=e133]:
+          - img [ref=e134]
+        - button "Step back one frame" [disabled] [ref=e136]:
+          - img [ref=e137]
+        - button "Play" [ref=e139]:
+          - img [ref=e140]
+        - button "Step forward one frame" [ref=e142]:
+          - img [ref=e143]
+        - button "Loop video" [ref=e145]:
+          - img [ref=e146]
+        - button "Mute video" [ref=e148]:
+          - img [ref=e149]
+        - button "Mark In (I) - right click to clear" [disabled] [ref=e151]:
+          - img [ref=e152]
+        - button "Mark Out (O) - right click to clear" [ref=e154]:
+          - img [ref=e155]
+        - button "Show transparency as checkerboard (T)" [ref=e157]:
+          - img [ref=e158]
+        - button "Enter fullscreen preview (F)" [ref=e160]:
+          - img [ref=e161]
+        - generic "Export the current composition (R)" [ref=e164] [cursor=pointer]:
+          - button "Render" [ref=e165]:
+            - generic [ref=e166]:
+              - img [ref=e167]
+              - generic [ref=e169]: Render
+    - generic [ref=e174]:
+      - generic [ref=e176]:
+        - generic [ref=e179]:
+          - generic [ref=e180]:
+            - img
+          - generic "<Sequence>" [ref=e181]
+        - generic [ref=e183]:
+          - generic [ref=e184]:
+            - img
+          - generic "<Sequence>" [ref=e185]
+        - generic [ref=e187]:
+          - generic [ref=e188]:
+            - img
+          - generic "<Sequence>" [ref=e189]
+        - generic [ref=e191]:
+          - generic [ref=e192]:
+            - img
+          - generic "<Sequence>" [ref=e193]
+      - generic [ref=e195]:
+        - generic [ref=e196]: 00:00.00
+        - button "0" [ref=e197]
+      - generic [ref=e201]:
+        - generic [ref=e208]: "0"
+        - generic:
+          - generic:
+            - generic: 00:06.00
+          - generic:
+            - generic: 00:12.00
+          - generic:
+            - generic: 00:18.00
+          - generic:
+            - generic: 00:24.00
+          - generic:
+            - generic: 00:30.00
+        - generic:
+          - generic:
+            - img
 ```

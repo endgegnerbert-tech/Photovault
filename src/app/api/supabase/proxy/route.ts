@@ -3,10 +3,14 @@
  *
  * Proxies Supabase requests to avoid CORS issues on Safari/iOS.
  * Supports device registration, photo metadata operations.
+ * 
+ * SECURITY: All operations require authenticated session.
  */
 
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -16,6 +20,18 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export async function POST(request: NextRequest) {
     try {
+        // SECURITY: Verify user is authenticated
+        const session = await auth.api.getSession({
+            headers: await headers(),
+        });
+
+        if (!session?.user) {
+            return NextResponse.json(
+                { error: "Unauthorized - authentication required" },
+                { status: 401 }
+            );
+        }
+
         const body = await request.json();
         const { action, ...params } = body;
 
