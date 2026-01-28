@@ -1,4 +1,35 @@
 {
-  "node": {},
+  "node": {
+    "408bfaff9b2bbc9c52cc32fd654089dfcc726bed18": {
+      "workers": {
+        "app/app/page": {
+          "moduleId": 76288,
+          "async": false,
+          "exportedName": "verifyAccessCode",
+          "filename": "src/app/actions/access-code.ts"
+        }
+      },
+      "layer": {
+        "app/app/page": "action-browser"
+      },
+      "exportedName": "verifyAccessCode",
+      "filename": "src/app/actions/access-code.ts"
+    },
+    "4068f7892c84785c4b17cdeef594607293a5841ce4": {
+      "workers": {
+        "app/app/page": {
+          "moduleId": 76288,
+          "async": false,
+          "exportedName": "consumeAccessCode",
+          "filename": "src/app/actions/access-code.ts"
+        }
+      },
+      "layer": {
+        "app/app/page": "action-browser"
+      },
+      "exportedName": "consumeAccessCode",
+      "filename": "src/app/actions/access-code.ts"
+    }
+  },
   "edge": {}
 }

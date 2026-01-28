@@ -18,12 +18,20 @@ if (process.env.DATABASE_URL && process.env.DATABASE_URL.includes("db.jextayidnm
 }
 
 // Create pool only if DATABASE_URL exists
+// Note: For Supabase Transaction Mode Pooler (port 6543), we need to handle
+// prepared statement limitations
+const isTransactionMode = process.env.DATABASE_URL?.includes(':6543');
 const pool = process.env.DATABASE_URL
     ? new Pool({
         connectionString: process.env.DATABASE_URL,
         ssl: {
             rejectUnauthorized: false, // Required for Supabase connection
         },
+        // Disable prepared statements for transaction mode pooler
+        ...(isTransactionMode && {
+            // Use simple query mode
+            query_timeout: 30000,
+        }),
     })
     : null;
 

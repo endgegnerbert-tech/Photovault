@@ -30,3 +30,24 @@ export async function joinWaitlist(email: string) {
         return { success: false, message: "Something went wrong. Please try again." };
     }
 }
+
+/**
+ * Server Action to get the current waitlist count.
+ */
+export async function getWaitlistCount(): Promise<number> {
+    try {
+        const { count, error } = await supabase
+            .from("waitlist")
+            .select("*", { count: "exact", head: true });
+
+        if (error) {
+            console.error("Waitlist count error:", error);
+            return 0;
+        }
+
+        return count || 0;
+    } catch (error) {
+        console.error("Waitlist count error:", error);
+        return 0;
+    }
+}

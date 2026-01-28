@@ -2,14 +2,29 @@ import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { SketchButton } from "@/sketch-ui/SketchButton";
 import { motion, AnimatePresence } from "framer-motion";
-import { Apple, Download, Smartphone, Laptop, Tablet } from "lucide-react";
+import { Apple, Download, Smartphone, Laptop, Tablet, Users } from "lucide-react";
+import { joinWaitlist, getWaitlistCount } from "@/app/actions/waitlist";
 
 export default function HeroSection() {
   const [email, setEmail] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   
-  // Device Animation State
+  // Dynamic waitlist data
+  const totalSeats = 30;
+  const [waitlistCount, setWaitlistCount] = useState<number | null>(null);
+  const seatsRemaining = waitlistCount !== null ? Math.max(0, totalSeats - waitlistCount) : null;
+
+  // Fetch waitlist count on mount
+  useEffect(() => {
+    const fetchCount = async () => {
+      const count = await getWaitlistCount();
+      setWaitlistCount(count);
+    };
+    fetchCount();
+  }, []);
   const [deviceIndex, setDeviceIndex] = useState(0); // 0: Phone, 1: Tablet, 2: Desktop
 
   // Device switching logic - 2 seconds interval
@@ -52,13 +67,24 @@ export default function HeroSection() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isValid) {
-      console.log('Submitted:', email);
-      // Simulate Success for MVP
-      alert("Thank you! You've been added to the priority queue.");
-      setEmail("");
+    if (isValid && !isSubmitting) {
+      setIsSubmitting(true);
+      try {
+        const result = await joinWaitlist(email);
+        if (result.success) {
+          setIsSubmitted(true);
+          setWaitlistCount(prev => (prev ?? 0) + 1);
+          setEmail("");
+        } else {
+          setError(result.message || "Something went wrong.");
+        }
+      } catch (err) {
+        setError("Failed to submit. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -234,59 +260,92 @@ export default function HeroSection() {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="mb-8"
             >
-              <div className="inline-flex items-baseline gap-2">
-                <span className="font-syne text-4xl lg:text-5xl font-bold text-indigo-soft">
-                  30
-                </span>
-                <span className="font-inter text-warm-gray text-sm lg:text-base">
-                  Beta Spots Available
-                </span>
-                {/* Scarcity Note */}
+              <div className="flex flex-col gap-3">
+                {/* Seats Remaining */}
+                <div className="inline-flex items-baseline gap-2">
+                  <span className="font-syne text-4xl lg:text-5xl font-bold text-indigo-soft">
+                    {seatsRemaining === null ? "..." : seatsRemaining}
+                  </span>
+                  <span className="font-inter text-warm-gray text-sm lg:text-base">
+                    Beta Spots Available
+                  </span>
+                </div>
+                {/* People Joined */}
+                {waitlistCount !== null && waitlistCount > 0 && (
+                  <div className="inline-flex items-center gap-2 text-warm-gray">
+                    <Users className="w-4 h-4 text-success-green" />
+                    <span className="font-inter text-sm">
+                      {waitlistCount} {waitlistCount === 1 ? 'person has' : 'people have'} joined
+                    </span>
+                  </div>
+                )}
               </div>
-              <p className="text-xs text-warm-gray mt-1">
-                 Join now, before they are taken.
+              <p className="text-xs text-warm-gray mt-2">
+                 {seatsRemaining === 0 ? "Waitlist is full, but join for future updates!" : "Join now, before they are taken."}
               </p>
             </motion.div>
 
             {/* Email Capture Form - Above the fold */}
-            <motion.form 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              onSubmit={handleSubmit}
-              className="mb-8"
-            >
-              <div className="flex flex-col sm:flex-row gap-3 max-w-md">
-                <div className="flex-1 relative">
-                  <Input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={handleEmailChange}
-                    className={`h-12 lg:h-[50px] px-5 font-inter text-base rounded-lg border-2 transition-all duration-300 bg-white/80 backdrop-blur-sm ${
-                      error 
-                        ? 'border-red-400 focus:border-red-500' 
-                        : isValid 
-                        ? 'border-success-green focus:border-success-green' 
-                        : 'border-gray-200 focus:border-indigo-soft'
-                    }`}
-                  />
-                  {error && (
-                    <p className="absolute left-5 -bottom-5 text-xs text-red-500 font-inter">
-                      {error}
-                    </p>
-                  )}
+            {!isSubmitted ? (
+              <motion.form 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+                onSubmit={handleSubmit}
+                className="mb-8"
+              >
+                <div className="flex flex-col sm:flex-row gap-3 max-w-md">
+                  <div className="flex-1 relative">
+                    <Input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={handleEmailChange}
+                      disabled={isSubmitting}
+                      className={`h-12 lg:h-[50px] px-5 font-inter text-base rounded-lg border-2 transition-all duration-300 bg-white/80 backdrop-blur-sm ${
+                        error 
+                          ? 'border-red-400 focus:border-red-500' 
+                          : isValid 
+                          ? 'border-success-green focus:border-success-green' 
+                          : 'border-gray-200 focus:border-indigo-soft'
+                      }`}
+                    />
+                    {error && (
+                      <p className="absolute left-5 -bottom-5 text-xs text-red-500 font-inter">
+                        {error}
+                      </p>
+                    )}
+                  </div>
+                  <SketchButton
+                    type="submit"
+                    disabled={!isValid || isSubmitting}
+                    size="md"
+                    variant="primary"
+                  >
+                    {isSubmitting ? "Joining..." : "Join Beta Now"}
+                  </SketchButton>
                 </div>
-                <SketchButton
-                  type="submit"
-                  disabled={!isValid}
-                  size="md"
-                  variant="primary"
-                >
-                  Join Beta Now
-                </SketchButton>
-              </div>
-            </motion.form>
+              </motion.form>
+            ) : (
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="mb-8 p-4 bg-success-green/10 border border-success-green/30 rounded-xl max-w-md"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-success-green rounded-full flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-medium text-charcoal">You're on the list!</p>
+                    <p className="text-sm text-warm-gray">Check your inbox for confirmation.</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
 
             {/* Availability Text (Replaces Download Buttons) */}
             <motion.div 

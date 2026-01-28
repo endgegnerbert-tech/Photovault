@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { joinWaitlist } from "@/app/actions/waitlist";
+import { joinWaitlist, getWaitlistCount } from "@/app/actions/waitlist";
 import { Button } from "@/components/ui/button";
 import { SketchButton } from "@/sketch-ui/SketchButton";
 import { Input } from "@/components/ui/input";
@@ -16,9 +16,19 @@ export default function WaitlistSection() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
   
-  // Scarcity: seats remaining
-  const totalSeats = 100;
-  const [seatsRemaining, setSeatsRemaining] = useState(30);
+  // Scarcity: 30 beta seats total, dynamic remaining based on waitlist signups
+  const totalSeats = 30;
+  const [seatsRemaining, setSeatsRemaining] = useState<number | null>(null);
+
+  // Fetch waitlist count on mount
+  useEffect(() => {
+    const fetchCount = async () => {
+      const count = await getWaitlistCount();
+      // Subtract signups from total, minimum 0
+      setSeatsRemaining(Math.max(0, totalSeats - count));
+    };
+    fetchCount();
+  }, []);
 
   const validateEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -48,7 +58,7 @@ export default function WaitlistSection() {
         const result = await joinWaitlist(email);
         if (result.success) {
           setIsSubmitted(true);
-          setSeatsRemaining(prev => Math.max(0, prev - 1));
+          setSeatsRemaining(prev => Math.max(0, (prev ?? totalSeats) - 1));
         } else {
           setError(result.message || "Something went wrong.");
         }
@@ -82,7 +92,13 @@ export default function WaitlistSection() {
           >
             <span className="w-2 h-2 bg-warning-amber rounded-full animate-pulse" />
             <span className="font-space-grotesk text-lg font-semibold text-warning-amber">
-              {seatsRemaining} / {totalSeats} beta seats left
+              {seatsRemaining === null ? (
+                "Loading..."
+              ) : seatsRemaining === 0 ? (
+                "Waitlist is full!"
+              ) : (
+                `Only ${seatsRemaining} beta seats left!`
+              )}
             </span>
           </motion.div>
 

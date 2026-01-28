@@ -110,12 +110,6 @@
       "namedRegex": "^/privacy(?:/)?$"
     },
     {
-      "page": "/secret-signup",
-      "regex": "^/secret\\-signup(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/secret\\-signup(?:/)?$"
-    },
-    {
       "page": "/terms",
       "regex": "^/terms(?:/)?$",
       "routeKeys": {},

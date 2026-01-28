@@ -13,6 +13,5 @@
   "/impressum/page": "app/impressum/page.js",
   "/page": "app/page.js",
   "/privacy/page": "app/privacy/page.js",
-  "/secret-signup/page": "app/secret-signup/page.js",
   "/terms/page": "app/terms/page.js"
 }

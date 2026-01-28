@@ -104,7 +104,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/einarjaeger/Documents/GitHub/privacyheaven ",
+    "outputFileTracingRoot": "/Users/einarjaeger/Documents/GitHub/privacyheaven",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -297,11 +297,11 @@ self.__SERVER_FILES_MANIFEST={
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.js",
     "turbopack": {
-      "root": "/Users/einarjaeger/Documents/GitHub/privacyheaven "
+      "root": "/Users/einarjaeger/Documents/GitHub/privacyheaven"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/Users/einarjaeger/Documents/GitHub/privacyheaven ",
+  "appDir": "/Users/einarjaeger/Documents/GitHub/privacyheaven",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",
