@@ -20,34 +20,46 @@ import {
   SketchCircularProgress
 } from "@/sketch-ui";
 
+import { useSettingsStore } from "@/lib/storage/settings-store";
+
 interface DashboardProps {
   state: AppState;
   setState: React.Dispatch<React.SetStateAction<AppState>>;
   authUser: { id: string; email: string } | null;
 }
 
-import { useSettingsStore } from "@/lib/storage/settings-store";
+export interface DashboardUIProps {
+  state: AppState;
+  setState: React.Dispatch<React.SetStateAction<AppState>>;
+  authUser: { id: string; email: string } | null;
+  backupActive: boolean;
+  confirmToggle: () => void;
+  displayPhotoCount: number;
+  lastBackup: string;
+  permanence: number;
+  triggerManualBackup: () => void;
+  isUploading: boolean;
+  uploadProgress: { current: number; total: number };
+  showPairing: boolean;
+  setShowPairing: (show: boolean) => void;
+}
 
 export function Dashboard({ state, setState, authUser }: DashboardProps) {
-  const [showTooltip, setShowTooltip] = useState<string | null>(null);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [showPairing, setShowPairing] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState({ current: 0, total: 0 });
 
-  // Persistent Settings - Using individual selectors for stability
+  // Persistent Settings
   const backupActive = useSettingsStore((state) => state.backupActive);
   const setBackupActive = useSettingsStore((state) => state.setBackupActive);
   const lastBackup = useSettingsStore((state) => state.lastBackup);
   const setLastBackup = useSettingsStore((state) => state.setLastBackup);
   const permanence = useSettingsStore((state) => state.permanence);
 
-  // Get real photo count from encryption layer
-  // Note: hasKey is checked to avoid calling useGalleryData without a key
+  // Hooks
   const { secretKey, hasKey } = useEncryption();
   const { photoCount, userKeyHash } = useGalleryData(hasKey ? secretKey : null);
-
-  // Use real photo count if available
   const displayPhotoCount = photoCount > 0 ? photoCount : state.photosCount;
 
   const toggleBackup = () => {
@@ -60,7 +72,6 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
     setShowConfirmDialog(false);
   };
 
-  // Manual backup: Upload local photos to IPFS that aren't already there
   const triggerManualBackup = async () => {
     if (isUploading || !secretKey) return;
 
@@ -81,15 +92,12 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
         if (!photo.encryptedBlob) continue;
 
         try {
-          // Check if already in Supabase metadata for this user
           const existsInSupabase = await cidExistsInSupabase(photo.cid, keyHash);
 
           if (!existsInSupabase) {
-            // Upload encrypted blob to IPFS
             const newCid = await remoteStorage.upload(photo.encryptedBlob, photo.fileName);
             console.log(`Uploaded to IPFS: ${newCid}`);
 
-            // Sync metadata to Supabase
             await uploadCIDMetadata(
               newCid,
               photo.fileSize,
@@ -115,6 +123,44 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
       setIsUploading(false);
       setUploadProgress({ current: 0, total: 0 });
     }
+  };
+
+  return (
+    <DashboardUI 
+        state={state}
+        setState={setState}
+        authUser={authUser}
+        backupActive={backupActive}
+        confirmToggle={toggleBackup}
+        displayPhotoCount={displayPhotoCount}
+        lastBackup={lastBackup}
+        permanence={permanence}
+        triggerManualBackup={triggerManualBackup}
+        isUploading={isUploading}
+        uploadProgress={uploadProgress}
+        showPairing={showPairing}
+        setShowPairing={setShowPairing}
+    />
+  );
+}
+
+export function DashboardUI({
+    state, setState, authUser, 
+    backupActive, confirmToggle, 
+    displayPhotoCount, lastBackup, permanence,
+    triggerManualBackup, isUploading, uploadProgress,
+    showPairing, setShowPairing
+}: DashboardUIProps) {
+  const [showTooltip, setShowTooltip] = useState<string | null>(null);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  
+  const handleToggle = () => {
+      setShowConfirmDialog(true);
+  };
+  
+  const handleConfirm = () => {
+      confirmToggle();
+      setShowConfirmDialog(false);
   };
 
   const tooltips = {
@@ -161,7 +207,7 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
           </div>
           <SketchToggle 
             checked={backupActive} 
-            onChange={confirmToggle} 
+            onChange={handleToggle} 
           />
         </div>
       </SketchCard>
@@ -271,7 +317,7 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
                 Abbrechen
               </button>
               <button
-                onClick={confirmToggle}
+                onClick={handleConfirm}
                 className={`w-full py-3 text-[17px] font-semibold ios-tap-target ${
                   backupActive ? "text-[#FF3B30]" : "text-[#30D158]"
                 }`}
@@ -283,7 +329,6 @@ export function Dashboard({ state, setState, authUser }: DashboardProps) {
         </div>
       )}
 
-      {/* Device Pairing Modal */}
       <DevicePairing isOpen={showPairing} onClose={() => setShowPairing(false)} />
     </div>
   );
@@ -317,7 +362,6 @@ function MetricCard({
         <p className="sketch-body text-[10px] text-[#6E6E73]">{label}</p>
       </SketchCard>
 
-      {/* Tooltip */}
       {showTooltip && (
         <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-3 w-[160px] z-20">
             <SketchCard className="bg-[#1D1D1F] p-2">

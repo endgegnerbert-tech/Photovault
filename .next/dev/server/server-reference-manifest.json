@@ -1,34 +1,34 @@
 {
   "node": {
-    "40003a25422ed5c5aa4fec199d85b49fc094cff873": {
+    "40cd0167154f013820d39b6c517c57d7f8ac7dce50": {
       "workers": {
-        "app/app/page": {
-          "moduleId": "[project]/.next-internal/server/app/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/access-code.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/waitlist.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "verifyAccessCode",
-          "filename": "src/app/actions/access-code.ts"
+          "exportedName": "joinWaitlist",
+          "filename": "src/app/actions/waitlist.ts"
         }
       },
       "layer": {
-        "app/app/page": "action-browser"
+        "app/page": "action-browser"
       },
-      "filename": "src/app/actions/access-code.ts",
-      "exportedName": "verifyAccessCode"
+      "filename": "src/app/actions/waitlist.ts",
+      "exportedName": "joinWaitlist"
     },
-    "403971959a83329f22f495c112a2ae684f1d3f48f5": {
+    "001143de8ed8138c04e976f1205e832c77771e17b4": {
       "workers": {
-        "app/app/page": {
-          "moduleId": "[project]/.next-internal/server/app/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/access-code.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/waitlist.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "consumeAccessCode",
-          "filename": "src/app/actions/access-code.ts"
+          "exportedName": "getWaitlistCount",
+          "filename": "src/app/actions/waitlist.ts"
         }
       },
       "layer": {
-        "app/app/page": "action-browser"
+        "app/page": "action-browser"
       },
-      "filename": "src/app/actions/access-code.ts",
-      "exportedName": "consumeAccessCode"
+      "filename": "src/app/actions/waitlist.ts",
+      "exportedName": "getWaitlistCount"
     }
   },
   "edge": {},

@@ -1,4 +1,35 @@
 {
-  "node": {},
+  "node": {
+    "40cd0167154f013820d39b6c517c57d7f8ac7dce50": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/waitlist.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "joinWaitlist",
+          "filename": "src/app/actions/waitlist.ts"
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "exportedName": "joinWaitlist",
+      "filename": "src/app/actions/waitlist.ts"
+    },
+    "001143de8ed8138c04e976f1205e832c77771e17b4": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/actions/waitlist.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getWaitlistCount",
+          "filename": "src/app/actions/waitlist.ts"
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "exportedName": "getWaitlistCount",
+      "filename": "src/app/actions/waitlist.ts"
+    }
+  },
   "edge": {}
 }
