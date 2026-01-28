@@ -21,7 +21,9 @@ function getAuthHeader(): string {
  * Check if self-hosted IPFS is configured
  */
 export function isSelfHostedConfigured(): boolean {
-    return !!IPFS_API_PASSWORD && IPFS_API_PASSWORD.length > 0;
+    // Client-side can only check for the public gateway URL.
+    // Use the Proxy if the gateway is configured.
+    return !!IPFS_GATEWAY_URL && IPFS_GATEWAY_URL.length > 0;
 }
 
 /**
@@ -33,70 +35,54 @@ export async function uploadToSelfHosted(
     fileName?: string,
     onProgress?: (progress: number) => void
 ): Promise<string> {
-    if (!isSelfHostedConfigured()) {
-        throw new Error('Self-hosted IPFS not configured - missing credentials');
-    }
+    // Note: client-side always checks env vars, but IPFS_API_PASSWORD is only on server.
+    // So we assume if the Public Gateway is set, we might have the proxy available.
+    // Ideally we'd have a public flag, but for now we try the proxy if configured.
 
-    console.log('[IPFS-SelfHosted] Starting upload...', { blobSize: blob.size, fileName });
+    console.log('[IPFS-SelfHosted] Starting upload via Proxy...', { blobSize: blob.size, fileName });
 
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', `${IPFS_API_URL}/add?cid-version=1`);
-        xhr.setRequestHeader('Authorization', getAuthHeader());
+        xhr.open('POST', '/api/ipfs/upload');
 
-        // Timeout: 2 minutes for large files
-        xhr.timeout = 120000;
+        // No Auth header needed here - cookie/session auth handled by browser, 
+        // internal auth handled by the API route.
+
+        xhr.timeout = 120000; // 2 minutes
 
         xhr.upload.onprogress = (event) => {
             if (event.lengthComputable && onProgress) {
                 const percentComplete = Math.round((event.loaded / event.total) * 100);
-                console.log(`[IPFS-SelfHosted] Upload progress: ${percentComplete}%`);
+                console.log(`[IPFS-SelfHosted] Proxy Upload progress: ${percentComplete}%`);
                 onProgress(percentComplete);
             }
         };
 
         xhr.onload = () => {
-            console.log('[IPFS-SelfHosted] XHR onload, status:', xhr.status);
             if (xhr.status >= 200 && xhr.status < 300) {
                 try {
-                    // IPFS API returns newline-delimited JSON, take the last non-empty line
-                    const lines = xhr.responseText.trim().split('\n');
-                    const lastLine = lines[lines.length - 1];
-                    const result = JSON.parse(lastLine);
-
+                    const result = JSON.parse(xhr.responseText);
                     if (result.Hash) {
-                        console.log('[IPFS-SelfHosted] Upload success, CID:', result.Hash);
+                        console.log('[IPFS-SelfHosted] Proxy Upload success, CID:', result.Hash);
                         resolve(result.Hash);
                     } else {
-                        reject(new Error('No Hash in IPFS response'));
+                        reject(new Error('No Hash in Proxy response'));
                     }
                 } catch (e) {
-                    console.error('[IPFS-SelfHosted] Failed to parse response:', xhr.responseText);
-                    reject(new Error('Failed to parse IPFS response'));
+                    reject(new Error('Failed to parse Proxy response'));
                 }
-            } else if (xhr.status === 401) {
-                console.error('[IPFS-SelfHosted] Authentication failed');
-                reject(new Error('IPFS authentication failed - check credentials'));
             } else {
-                console.error('[IPFS-SelfHosted] Upload failed:', { status: xhr.status, response: xhr.responseText });
-                reject(new Error(`IPFS upload failed: ${xhr.status}`));
+                console.error('[IPFS-SelfHosted] Proxy Upload failed:', { status: xhr.status, response: xhr.responseText });
+                reject(new Error(`Proxy upload failed: ${xhr.status}`));
             }
         };
 
-        xhr.onerror = (event) => {
-            console.error('[IPFS-SelfHosted] XHR network error:', event);
-            reject(new Error('Network error during IPFS upload'));
-        };
-
-        xhr.ontimeout = () => {
-            console.error('[IPFS-SelfHosted] Upload timeout');
-            reject(new Error('IPFS upload timeout'));
-        };
+        xhr.onerror = () => reject(new Error('Network error during Proxy upload'));
+        xhr.ontimeout = () => reject(new Error('Proxy upload timeout'));
 
         const formData = new FormData();
         formData.append('file', blob, fileName || 'encrypted-photo.bin');
 
-        console.log('[IPFS-SelfHosted] Sending request...');
         xhr.send(formData);
     });
 }
