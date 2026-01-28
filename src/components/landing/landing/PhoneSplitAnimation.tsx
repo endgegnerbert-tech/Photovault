@@ -147,6 +147,19 @@ export default function PhoneSplitAnimation() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Auto-trigger split animation on scroll for mobile (no hover available)
+  useEffect(() => {
+    if (isMobile && isInView && !isFullscreen) {
+      // Small delay for better visual effect after scrolling in
+      const timer = setTimeout(() => {
+        setIsSplit(true);
+      }, 300);
+      return () => clearTimeout(timer);
+    } else if (isMobile && !isInView) {
+      setIsSplit(false);
+    }
+  }, [isMobile, isInView, isFullscreen]);
+
   const tiles = [
     {
       imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
@@ -220,7 +233,7 @@ export default function PhoneSplitAnimation() {
                 How Your Photos Stay Protected
             </h2>
             <p className="font-inter text-lg lg:text-xl text-warm-gray max-w-2xl mx-auto">
-                Hover to see the encryption process. Click to watch the video.
+              {isMobile ? "Scroll to see the encryption process. Tap to watch the video." : "Hover to see the encryption process. Click to watch the video."}
             </p>
             </motion.div>
         )}
