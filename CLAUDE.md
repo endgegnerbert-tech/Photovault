@@ -8,7 +8,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm run dev      # Start development server (http://localhost:3000)
 npm run build    # Production build
 npm run start    # Start production server
+npm run analyze  # Bundle analyzer (set ANALYZE=true)
 ```
+
+### Tauri Desktop App
+
+```bash
+npm run tauri:dev    # Start Tauri dev mode (web + native window)
+npm run tauri:build  # Build native desktop app (macOS/Windows/Linux)
+```
+
+Tauri builds from `./out` directory. Rust code lives in `src-tauri/`.
 
 ### Testing (Playwright)
 
@@ -42,14 +52,26 @@ User Photo → Encrypt (tweetnacl) → Store Local (IndexedDB) → Upload to IPF
 
 6. **Realtime** (`src/hooks/useRealtimeSync.ts`): Supabase Realtime subscription for live updates when photos are added from other devices.
 
+### Route Structure
+
+- `/` - Marketing landing page
+- `/app` - Main PhotoVault application (requires auth)
+- `/api/auth/[...all]` - Better Auth catch-all handler
+- `/api/auth/update-vault-key` - Update user's vault_key_hash
+- `/api/auth/get-vault-key-hash` - Get user's vault_key_hash
+- `/api/ipfs/upload` - Server-side proxy for Pinata uploads
+- `/api/ipfs/download` - Server-side proxy for IPFS downloads (avoids CORS)
+- `/api/supabase/proxy` - Supabase proxy for metadata operations
+- `/terms`, `/privacy`, `/impressum` - Legal pages
+
 ### App Flow (Phases)
 
-The app has distinct phases managed in `PhotoVaultApp.tsx`:
+The app at `/app` has distinct phases managed in `PhotoVaultApp.tsx`:
 
 1. **auth**: No session → Show login/signup (AuthScreen)
 2. **unlock**: Session exists, no local key → Enter recovery phrase (UnlockVaultScreen)
 3. **setup**: Session exists, no vault_key_hash → Create new vault (VaultSetupScreen)
-4. **main**: Fully authenticated with local key → Main app with gallery/dashboard/settings
+4. **main**: Fully authenticated with local key → Main app with gallery/settings
 
 ### Key Hooks
 
@@ -65,7 +87,6 @@ The app has distinct phases managed in `PhotoVaultApp.tsx`:
 - `UnlockVaultScreen.tsx`: Enter recovery phrase to unlock vault
 - `VaultSetupScreen.tsx`: Create new vault with key generation
 - `PhotoGallery.tsx`: Photo grid with upload, decrypt-on-demand
-- `Dashboard.tsx`: Backup status and metrics
 - `SettingsPanel.tsx`: Device management, security, plan settings
 
 ### State Management
@@ -128,16 +149,18 @@ NEXT_PUBLIC_PINATA_GATEWAY_TOKEN=...
 ## Tech Stack
 
 - Next.js 16 (App Router) + PWA (service worker in `public/sw.js`)
+- **Tauri 2** (native desktop builds for macOS/Windows/Linux)
 - React 19
 - TypeScript
 - Tailwind CSS (iOS-style design system)
-- Better Auth (email/password authentication)
+- Better Auth (email/password authentication with email verification)
 - Supabase (Postgres + Realtime for metadata only)
 - IPFS/Pinata (encrypted blob storage)
 - TanStack React Query (async data)
 - Zustand (persisted settings state)
 - Dexie.js (IndexedDB for local photos)
 - tweetnacl (Encryption)
+- heic2any (HEIC to JPEG conversion)
 - Framer Motion (animations)
 - Lucide React (Icons - do NOT use custom SVG imports)
 
@@ -183,8 +206,18 @@ const cid = await remoteStorage.upload(encrypted);  // → IPFS via Pinata
 await uploadCIDMetadata(cid, file.size, deviceId, nonce, mimeType, userKeyHash);  // → Supabase
 ```
 
+### HEIC Conversion
+iOS photos in HEIC format are auto-converted to JPEG via `heic2any` before encryption. See `src/lib/heic-converter.ts`.
+
 ### Device Identity
 Each browser/device gets a unique ID via `getDeviceId()` from `src/lib/deviceId.ts`. Devices are registered to Supabase with both `user_key_hash` and `user_id`.
+
+### Tauri Native Features
+When running as a Tauri desktop app (`src/lib/storage/native-keychain.ts`):
+- Encryption keys stored in OS keychain (macOS Keychain, Windows Credential Manager)
+- Device ID persists in app data directory (survives browser storage clears)
+- Check `isTauri()` to detect desktop environment
+- Falls back to localStorage automatically in web mode
 
 ### Multi-Device Sync
 Photos and devices are grouped by `user_key_hash`. Devices with the same recovery phrase (and thus same key) see each other's photos.
@@ -201,4 +234,4 @@ iOS-inspired design with:
 - SF Pro Display font family
 - iOS color palette (#007AFF blue, #30D158 green, #FF3B30 red)
 - 1200px max-width container
-- Bottom navigation with 3 tabs (Gallery, Backup, Settings)
+- Bottom navigation with 2 tabs (Gallery, Settings)

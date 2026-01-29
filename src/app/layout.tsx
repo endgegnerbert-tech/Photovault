@@ -115,6 +115,7 @@ export const viewport: Viewport = {
 import { Analytics } from "@vercel/analytics/react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import SkipToContent from "@/components/a11y/SkipToContent";
+import { TauriRedirectHandler } from "@/components/layout/AppRedirect";
 
 export default function RootLayout({
     children,
@@ -131,7 +132,11 @@ export default function RootLayout({
             </head>
             <body>
                 <SkipToContent />
-                <Providers>{children}</Providers>
+                <Providers>
+                    <TauriRedirectHandler>
+                        {children}
+                    </TauriRedirectHandler>
+                </Providers>
                 <Analytics />
             </body>
         </html>

@@ -1,33 +1,27 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { 
-  Plus, 
-  Loader2, 
-  Check, 
-  Cloud, 
-  Folder, 
-  Image as ImageIcon, 
-  AlertTriangle, 
-  Trash2, 
-  Download, 
-  Key, 
-  Smartphone, 
+import { useState, useMemo } from "react";
+import {
+  Loader2,
+  Cloud,
+  Folder,
+  AlertTriangle,
+  Key,
+  Smartphone,
   ChevronRight,
-  RotateCcw
+  RotateCcw,
+  LogOut,
+  MessageSquare,
+  HelpCircle,
+  Shield,
+  X,
+  Send,
+  CheckCircle2,
+  Calendar,
 } from "lucide-react";
-import { CustomIcon } from "@/components/ui/custom-icon";
 import type { AppState } from "./PhotoVaultApp";
 import { useEncryption } from "@/hooks/use-encryption";
-import {
-  getDevicesForUser,
-  uploadCIDMetadata,
-  cidExistsInSupabase,
-} from "@/lib/supabase";
-import { getDeviceId } from "@/lib/deviceId";
-import { remoteStorage } from "@/lib/storage/remote-storage";
-import { getAllPhotos, getPhotoCount } from "@/lib/storage/local-db";
-import { getUserKeyHash } from "@/lib/crypto";
+import { getDevicesForUser } from "@/lib/supabase";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { signOut } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
@@ -53,28 +47,33 @@ function formatDate(dateStr?: string): string {
   return date.toLocaleDateString("en-US");
 }
 
+function formatMemberSince(dateStr?: string): string {
+  if (!dateStr) return "Recently joined";
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+}
+
 interface SettingsPanelProps {
   state: AppState;
   setState: React.Dispatch<React.SetStateAction<AppState>>;
   onRestartOnboarding: () => void;
-  authUser: { id: string; email: string; vaultKeyHash: string | null } | null;
+  authUser: { id: string; email: string; vaultKeyHash: string | null; createdAt?: string } | null;
 }
 
 export function SettingsPanel({ state: appState, setState: setAppState, onRestartOnboarding, authUser }: SettingsPanelProps) {
   const queryClient = useQueryClient();
   const { secretKey, recoveryPhrase, generateNewKey } = useEncryption();
-  const { 
-    autoBackupEnabled, 
-    setAutoBackupEnabled, 
-    backgroundBackupEnabled, 
+  const {
+    autoBackupEnabled,
+    setAutoBackupEnabled,
+    backgroundBackupEnabled,
     setBackgroundBackupEnabled,
     selectedPlan,
     setSelectedPlan,
-    lastBackup,
     setLastBackup
   } = useSettingsStore();
-  
-  const { photoCount: realPhotoCount, isUploading, uploadProgress } = useGalleryData(secretKey);
+
+  const { photoCount: realPhotoCount, isUploading } = useGalleryData(secretKey);
 
   const [showDevices, setShowDevices] = useState(false);
   const [showPhraseWarning, setShowPhraseWarning] = useState(false);
@@ -84,6 +83,7 @@ export function SettingsPanel({ state: appState, setState: setAppState, onRestar
   const [showPlanSelector, setShowPlanSelector] = useState(false);
   const [showClearCacheWarning, setShowClearCacheWarning] = useState(false);
   const [showPairingFromSettings, setShowPairingFromSettings] = useState(false);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   // Fetch devices
   const { data: realDevices = [] } = useQuery({
@@ -92,17 +92,10 @@ export function SettingsPanel({ state: appState, setState: setAppState, onRestar
     enabled: !!authUser?.vaultKeyHash,
   });
 
-  const toggleAutoBackup = () => {
-    setAutoBackupEnabled(!autoBackupEnabled);
-  };
-
-  const toggleBackgroundBackup = () => {
-    setBackgroundBackupEnabled(!backgroundBackupEnabled);
-  };
+  const toggleAutoBackup = () => setAutoBackupEnabled(!autoBackupEnabled);
+  const toggleBackgroundBackup = () => setBackgroundBackupEnabled(!backgroundBackupEnabled);
 
   const triggerManualBackup = async () => {
-    // Manual backup logic would go here
-    // For now, we use the one from useGalleryData via the button in the UI
     console.log("[Backup] Manual backup triggered");
     queryClient.invalidateQueries({ queryKey: ["photoCount"] });
     setLastBackup(new Date().toISOString());
@@ -114,7 +107,7 @@ export function SettingsPanel({ state: appState, setState: setAppState, onRestar
   };
 
   const handleGenerateNewKey = async () => {
-    const newPhrase = await generateNewKey();
+    await generateNewKey();
     setShowNewKeyWarning(false);
     alert("New key generated. Please save your new recovery phrase.");
     setShowBackupPhrase(true);
@@ -127,8 +120,20 @@ export function SettingsPanel({ state: appState, setState: setAppState, onRestar
     window.location.reload();
   };
 
+  const handleSignOut = async () => {
+    try {
+      const { db } = await import("@/lib/storage/local-db");
+      await db.delete();
+      localStorage.clear();
+      await signOut();
+      window.location.reload();
+    } catch (e) {
+      console.error("Sign out failed", e);
+      window.location.reload();
+    }
+  };
+
   const changeSource = (source: "photos-app" | "files-app") => {
-    // Update local state or store
     console.log("[Source] Changed to", source);
     setShowSourceSelector(false);
   };
@@ -139,6 +144,7 @@ export function SettingsPanel({ state: appState, setState: setAppState, onRestar
   };
 
   const realBackupPhraseWords = recoveryPhrase ? recoveryPhrase.split(" ") : [];
+  const userInitials = authUser?.email ? authUser.email.substring(0, 2).toUpperCase() : "?";
 
   const displayDevices = useMemo(() => {
     return realDevices.map(d => ({
@@ -160,633 +166,423 @@ export function SettingsPanel({ state: appState, setState: setAppState, onRestar
   }
 
   return (
-    <div className="h-full flex flex-col pb-4 overflow-y-auto">
-      {/* Header with Sketch UI */}
-      <header className="px-5 pt-8 pb-4">
-        <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+    <div className="h-full flex flex-col pb-4 overflow-y-auto bg-gray-50/50">
+      {/* Header */}
+      <header className="px-5 pt-8 pb-2">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">Settings</h1>
       </header>
 
-      <div className="flex-1 px-5">
-        {/* Backup Settings Section */}
-        <div className="mb-8">
-          <h2 className="text-[15px] font-semibold uppercase tracking-wide px-4 mb-3 text-gray-500">
-            Backup
-          </h2>
-          <div className="bg-white dark:bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-white/10">
+      <div className="flex-1 px-4 space-y-5">
+        {/* Account Section */}
+        <section>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500 px-1 mb-2">Account</h2>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div className="p-4 flex items-center gap-4">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-lg shadow-md">
+                {userInitials}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-base font-semibold text-gray-900 truncate">
+                  {authUser?.email || "Not signed in"}
+                </p>
+                <p className="text-sm text-gray-500 flex items-center gap-1.5 mt-0.5">
+                  <Calendar className="w-3.5 h-3.5" />
+                  Member since {formatMemberSince(authUser?.createdAt)}
+                </p>
+              </div>
+            </div>
+            <div className="h-px bg-gray-100 mx-4" />
+            <button onClick={handleSignOut} className="w-full flex items-center gap-3 p-4 hover:bg-gray-50 transition-colors">
+              <LogOut className="w-5 h-5 text-gray-400" />
+              <span className="text-base text-gray-700">Sign Out</span>
+            </button>
+          </div>
+        </section>
+
+        {/* Backup Section */}
+        <section>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500 px-1 mb-2">Backup</h2>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-4 flex items-center justify-between">
               <div>
-                <p className="text-[17px] font-medium">Auto Backup</p>
-                <p className="text-[13px] text-gray-500">Back up new photos automatically</p>
+                <p className="text-base font-medium text-gray-900">Auto Backup</p>
+                <p className="text-sm text-gray-500">Back up new photos automatically</p>
               </div>
               <Switch checked={autoBackupEnabled} onCheckedChange={toggleAutoBackup} />
             </div>
-
-            <div className="h-[1px] bg-gray-200 dark:bg-white/10 mx-4" />
-
+            <div className="h-px bg-gray-100 mx-4" />
             <div className="p-4 flex items-center justify-between">
               <div>
-                <p className="text-[17px] font-medium">Background Backup</p>
-                <p className="text-[13px] text-gray-500">Continue backing up when app is closed</p>
+                <p className="text-base font-medium text-gray-900">Background Backup</p>
+                <p className="text-sm text-gray-500">Continue when app is closed</p>
               </div>
               <Switch checked={backgroundBackupEnabled} onCheckedChange={toggleBackgroundBackup} />
             </div>
-
-            <div className="h-[1px] bg-gray-200 dark:bg-white/10 mx-4" />
-
-            <button
-              onClick={() => setShowSourceSelector(true)}
-              className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
-            >
-              <div className="flex items-center gap-4">
-                <Folder className="w-6 h-6 text-blue-500" />
+            <div className="h-px bg-gray-100 mx-4" />
+            <button onClick={() => setShowSourceSelector(true)} className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <Folder className="w-5 h-5 text-blue-500" />
                 <div className="text-left">
-                  <span className="text-[17px] font-medium block">Backup Source</span>
-                  <span className="text-[14px] text-gray-500">Photos App</span>
+                  <span className="text-base font-medium text-gray-900 block">Backup Source</span>
+                  <span className="text-sm text-gray-500">Photos App</span>
                 </div>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-400" />
             </button>
           </div>
+          <Button onClick={triggerManualBackup} disabled={isUploading || !secretKey} className="w-full mt-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-11">
+            {isUploading ? (<><Loader2 className="w-4 h-4 animate-spin mr-2" />Processing...</>) : "Back Up Now"}
+          </Button>
+        </section>
 
-          <div className="px-4 mt-4">
-            <Button
-              onClick={triggerManualBackup}
-              disabled={isUploading || !secretKey}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12 text-[16px]"
-              size="lg"
-            >
-              {isUploading ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                  Processing...
-                </>
-              ) : (
-                "Back up now"
-              )}
-            </Button>
-          </div>
-          <p className="text-[13px] text-gray-500 px-4 mt-3 text-center">
-            Upload all local photos to cloud
-          </p>
-        </div>
-
-        {/* Storage Section */}
-        <div className="mb-8">
-          <h2 className="text-[15px] font-semibold uppercase tracking-wide px-4 mb-3 text-gray-500">
-            Storage
-          </h2>
-          <div className="bg-white dark:bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-white/10">
-            <div className="p-4">
-              <div className="flex items-center justify-between mb-1">
-                <span className="text-[17px] font-medium">Current Plan</span>
-                <span className="text-[16px] font-medium text-blue-600">
-                  {selectedPlan === "free" ? "Free" : "Backup+"}
-                </span>
+        {/* Storage & Devices */}
+        <section>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500 px-1 mb-2">Storage & Devices</h2>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <button onClick={() => setShowPlanSelector(true)} className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <Cloud className="w-5 h-5 text-blue-500" />
+                <div className="text-left">
+                  <span className="text-base font-medium text-gray-900 block">Storage Plan</span>
+                  <span className="text-sm text-gray-500">{selectedPlan === "free" ? "Free" : "Backup+"} · {realPhotoCount} photos</span>
+                </div>
               </div>
-              <p className="text-[14px] text-gray-500">
-                {selectedPlan === "free"
-                  ? "Photos only on your devices"
-                  : "200 GB Cloud Backup active"}
-              </p>
-            </div>
-            <div className="h-[1px] bg-gray-200 dark:bg-white/10 mx-4" />
-            <div className="p-4">
-              <div className="flex items-center justify-between">
-                <span className="text-[15px] text-gray-500">Used</span>
-                <span className="text-[15px] font-medium">
-                  {realPhotoCount.toLocaleString()} Photos (local)
-                </span>
-              </div>
-            </div>
-            <div className="h-[1px] bg-gray-200 dark:bg-white/10 mx-4" />
-            <button
-              onClick={() => setShowPlanSelector(true)}
-              className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
-            >
-              <span className="text-[17px] font-medium text-blue-600">
-                {selectedPlan === "free" ? "Upgrade to Backup+" : "Manage Plan"}
-              </span>
               <ChevronRight className="w-4 h-4 text-gray-400" />
             </button>
-          </div>
-        </div>
-
-        {/* Devices Section */}
-        <div className="mb-8">
-          <h2 className="text-[15px] font-semibold uppercase tracking-wide px-4 mb-3 text-gray-500">
-            Devices
-          </h2>
-          <div className="bg-white dark:bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-white/10">
-            <button
-              onClick={() => setShowDevices(true)}
-              className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
-            >
-              <div className="flex items-center gap-4">
-                <Smartphone className="w-7 h-7 text-gray-900 dark:text-gray-100" />
-                <span className="text-[17px] font-medium">Connected Devices</span>
-              </div>
+            <div className="h-px bg-gray-100 mx-4" />
+            <button onClick={() => setShowDevices(true)} className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
               <div className="flex items-center gap-3">
-                <span className="text-[15px] text-gray-500">
-                  {realDevices.length || 1}
-                </span>
+                <Smartphone className="w-5 h-5 text-gray-600" />
+                <span className="text-base font-medium text-gray-900">Connected Devices</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-500">{realDevices.length || 1}</span>
                 <ChevronRight className="w-4 h-4 text-gray-400" />
               </div>
             </button>
           </div>
-        </div>
+        </section>
 
-        {/* Security Section */}
-        <div className="mb-8">
-          <h2 className="text-[15px] font-semibold uppercase tracking-wide px-4 mb-3 text-gray-500">
-            Security
-          </h2>
-          <div className="bg-white dark:bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-white/10">
-            <button
-              onClick={() => setShowPhraseWarning(true)}
-              className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
-            >
-              <span className="text-[17px] font-medium">Show Backup Phrase</span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
-            </button>
-            <div className="h-[1px] bg-gray-200 dark:bg-white/10 mx-4" />
-            <button
-              onClick={() => setShowNewKeyWarning(true)}
-              className="w-full flex items-center justify-between p-4 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors"
-            >
-              <span className="text-[17px] font-medium text-red-500">Generate New Key</span>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
-            </button>
-          </div>
-          <p className="text-[13px] text-gray-500 px-4 mt-3">
-            Never share these words with anyone.
-          </p>
-        </div>
-
-        {/* Maintenance Section */}
-        <div className="mb-8">
-          <h2 className="text-[15px] font-semibold uppercase tracking-wide px-4 mb-3 text-gray-500">
-            Maintenance
-          </h2>
-          <div className="bg-white dark:bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-white/10">
-            <button
-              onClick={() => setShowClearCacheWarning(true)}
-              className="w-full flex items-center justify-between p-4 hover:bg-orange-50 dark:hover:bg-orange-900/10 transition-colors"
-            >
-              <div className="flex items-center gap-4">
-                <AlertTriangle className="w-7 h-7 text-orange-500" />
-                <span className="text-[17px] font-medium text-orange-500">Clear Local Cache</span>
+        {/* Security */}
+        <section>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500 px-1 mb-2">Security</h2>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <button onClick={() => setShowPhraseWarning(true)} className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <Key className="w-5 h-5 text-amber-500" />
+                <span className="text-base font-medium text-gray-900">Recovery Phrase</span>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-400" />
             </button>
-            <div className="h-[1px] bg-gray-200 dark:bg-white/10 mx-4" />
-            <button
-              onClick={onRestartOnboarding}
-              className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
-            >
-              <div className="flex items-center gap-4">
-                <RotateCcw className="w-7 h-7 text-blue-500" />
-                <span className="text-[17px] font-medium text-blue-500">Sign Out</span>
+            <div className="h-px bg-gray-100 mx-4" />
+            <button onClick={() => setShowNewKeyWarning(true)} className="w-full flex items-center justify-between p-4 hover:bg-red-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <Shield className="w-5 h-5 text-red-500" />
+                <span className="text-base font-medium text-red-600">Generate New Key</span>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-400" />
             </button>
           </div>
-          <p className="text-[13px] text-gray-500 px-4 mt-3">
-            Clear cache will reload the app. Sign out will clear local keys.
-          </p>
-        </div>
+          <p className="text-xs text-gray-500 px-1 mt-2">Your recovery phrase is the only way to restore access.</p>
+        </section>
+
+        {/* Support */}
+        <section>
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-500 px-1 mb-2">Support</h2>
+          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <button onClick={() => setShowFeedbackModal(true)} className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <MessageSquare className="w-5 h-5 text-blue-500" />
+                <span className="text-base font-medium text-gray-900">Send Feedback</span>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-400" />
+            </button>
+            <div className="h-px bg-gray-100 mx-4" />
+            <a href="mailto:support@saecretheaven.com" className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <HelpCircle className="w-5 h-5 text-gray-500" />
+                <span className="text-base font-medium text-gray-900">Get Help</span>
+              </div>
+              <ChevronRight className="w-4 h-4 text-gray-400" />
+            </a>
+          </div>
+        </section>
 
         {/* Danger Zone */}
-        <div className="mb-8">
-          <h2 className="text-[15px] font-semibold uppercase tracking-wide px-4 mb-3 text-red-500">
-            Danger Zone
-          </h2>
-          <div className="bg-white dark:bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm border border-red-200 dark:border-red-900/30">
+        <section className="pb-8">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-red-500 px-1 mb-2">Danger Zone</h2>
+          <div className="bg-white rounded-2xl shadow-sm border border-red-100 overflow-hidden">
+            <button onClick={() => setShowClearCacheWarning(true)} className="w-full flex items-center justify-between p-4 hover:bg-orange-50 transition-colors">
+              <div className="flex items-center gap-3">
+                <RotateCcw className="w-5 h-5 text-orange-500" />
+                <div className="text-left">
+                  <span className="text-base font-medium text-orange-600 block">Clear Local Cache</span>
+                  <span className="text-xs text-gray-500">Removes thumbnails, keeps cloud data</span>
+                </div>
+              </div>
+            </button>
+            <div className="h-px bg-red-100 mx-4" />
             <button
               onClick={async () => {
-                if (confirm("WARNING: Do you really want to delete your account?\n\nThis will delete all local data and your account link. Cloud data is unusable without the key. This action cannot be undone.")) {
-                    try {
-                        const { db } = await import("@/lib/storage/local-db");
-                        await db.delete();
-                        localStorage.clear();
-                        await signOut();
-                        window.location.reload();
-                    } catch(e) {
-                         alert("Error deleting account.");
-                    }
+                if (confirm("WARNING: Delete your account?\n\nThis removes all local data. Cloud data becomes unusable without your key.")) {
+                  try {
+                    const { db } = await import("@/lib/storage/local-db");
+                    await db.delete();
+                    localStorage.clear();
+                    await signOut();
+                    window.location.reload();
+                  } catch (e) {
+                    alert("Error deleting account.");
+                  }
                 }
               }}
-              className="w-full flex items-center justify-between p-4 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors group"
+              className="w-full flex items-center justify-between p-4 hover:bg-red-50 transition-colors"
             >
-              <div className="flex items-center gap-4">
-                 <div className="p-1 rounded-full bg-red-100 dark:bg-red-900/20">
-                    <AlertTriangle className="w-6 h-6 text-red-500" />
-                 </div>
+              <div className="flex items-center gap-3">
+                <AlertTriangle className="w-5 h-5 text-red-500" />
                 <div className="text-left">
-                  <span className="text-[17px] font-medium text-red-500 block">Delete Account</span>
-                  <span className="text-[13px] text-red-400">Permanently delete data</span>
+                  <span className="text-base font-medium text-red-600 block">Delete Account</span>
+                  <span className="text-xs text-gray-500">Permanently delete all data</span>
                 </div>
               </div>
             </button>
           </div>
-        </div>
+        </section>
       </div>
 
-      {/* View Backup Phrase Warning Modal */}
+      {/* Modals */}
       {showPhraseWarning && (
-        <Modal
-          title="Security Warning"
-          message="Your backup phrase gives full access to your encrypted photos. Only view in a private place."
-          confirmLabel="Show Phrase"
-          confirmDestructive={false}
-          onConfirm={viewBackupPhrase}
-          onCancel={() => setShowPhraseWarning(false)}
-        />
+        <Modal title="Security Warning" message="Your recovery phrase gives full access. Only view in a private place." confirmLabel="Show Phrase" confirmDestructive={false} onConfirm={viewBackupPhrase} onCancel={() => setShowPhraseWarning(false)} />
       )}
 
-      {/* Show Backup Phrase Modal */}
-      {showBackupPhrase && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-6 backdrop-blur-sm">
-          <div className="bg-white dark:bg-gray-900 w-full max-w-[400px] p-6 shadow-2xl rounded-3xl border border-white/20">
-            <h3 className="text-2xl font-bold text-center mb-2">Backup Phrase</h3>
-            <p className="text-[14px] text-gray-500 text-center mb-6">
-              Write these words down securely.
-            </p>
+      {showBackupPhrase && <BackupPhraseModal words={realBackupPhraseWords} onClose={() => setShowBackupPhrase(false)} />}
 
-            {realBackupPhraseWords.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3 mb-6">
-                {realBackupPhraseWords.map((word, index) => (
-                  <div
-                    key={index}
-                    className="p-2 text-center bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800"
-                  >
-                    <span className="text-[10px] text-gray-400 block uppercase tracking-wider">
-                      {index + 1}
-                    </span>
-                    <span className="text-[14px] font-medium font-mono">{word}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="mb-6">
-                <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 p-4 rounded-xl">
-                  <p className="text-[13px] text-orange-600 text-center font-medium">
-                    No key found.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <Button
-              onClick={() => setShowBackupPhrase(false)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12 text-[16px]"
-            >
-              Done
-            </Button>
-          </div>
-        </div>
-      )}
-
-      {/* Generate New Key Warning Modal */}
       {showNewKeyWarning && (
-        <Modal
-          title="Data Loss Warning"
-          message="Generating a new key will permanently delete all existing backup data. This action cannot be undone."
-          confirmLabel="Generate New Key"
-          confirmDestructive={true}
-          onConfirm={handleGenerateNewKey}
-          onCancel={() => setShowNewKeyWarning(false)}
-        />
+        <Modal title="Data Loss Warning" message="Generating a new key will make existing backups unreadable." confirmLabel="Generate New Key" confirmDestructive={true} onConfirm={handleGenerateNewKey} onCancel={() => setShowNewKeyWarning(false)} />
       )}
 
-      {/* Source Selector Modal */}
-      {showSourceSelector && (
-        <SourceSelectorModal
-          currentSource={appState.photoSource}
-          onSelect={changeSource}
-          onClose={() => setShowSourceSelector(false)}
-        />
-      )}
+      {showSourceSelector && <SourceSelectorModal currentSource={appState.photoSource} onSelect={changeSource} onClose={() => setShowSourceSelector(false)} />}
 
-      {/* Plan Selector Modal */}
-      {showPlanSelector && (
-        <PlanSelectorModal
-          currentPlan={selectedPlan}
-          onSelect={changePlan}
-          onClose={() => setShowPlanSelector(false)}
-        />
-      )}
+      {showPlanSelector && <PlanSelectorModal currentPlan={selectedPlan} onSelect={changePlan} onClose={() => setShowPlanSelector(false)} />}
 
-      {/* Clear Cache Warning Modal */}
       {showClearCacheWarning && (
-        <Modal
-          title="Clear Cache?"
-          message="This will clear local thumbnails and device data. Your encrypted cloud photos remain safe. App will reload."
-          confirmLabel="Clear Cache"
-          confirmDestructive={true}
-          onConfirm={handleClearCache}
-          onCancel={() => setShowClearCacheWarning(false)}
-        />
+        <Modal title="Clear Cache?" message="This removes local thumbnails. Your cloud photos remain safe." confirmLabel="Clear Cache" confirmDestructive={true} onConfirm={handleClearCache} onCancel={() => setShowClearCacheWarning(false)} />
       )}
 
-      {/* Device Pairing Modal */}
-      <DevicePairing
-        isOpen={showPairingFromSettings || false}
-        onClose={() => setShowPairingFromSettings(false)}
-      />
+      {showFeedbackModal && <FeedbackModal userEmail={authUser?.email} onClose={() => setShowFeedbackModal(false)} />}
+
+      <DevicePairing isOpen={showPairingFromSettings} onClose={() => setShowPairingFromSettings(false)} />
     </div>
   );
 }
 
-function DevicesView({
-  devices,
-  onBack,
-  onAddDevice,
-}: {
-  devices: {
-    id: string;
-    name: string;
-    lastActive: string;
-    syncing?: boolean;
-  }[];
-  onBack: () => void;
-  onAddDevice: () => void;
-}) {
-  return (
-    <div className="h-full flex flex-col pb-4 overflow-y-auto">
-      <header className="px-5 pt-6 pb-4">
-        <button
-          onClick={onBack}
-          className="text-blue-600 mb-2 flex items-center gap-2 hover:underline"
-        >
-          ← Back
-        </button>
-        <h1 className="text-3xl font-bold tracking-tight">Devices</h1>
-      </header>
+function FeedbackModal({ userEmail, onClose }: { userEmail?: string; onClose: () => void }) {
+  const [message, setMessage] = useState("");
+  const [category, setCategory] = useState("general");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-      <div className="flex-1 px-5">
-        <div className="bg-white dark:bg-black/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-white/10">
+  const categories = [
+    { id: "general", label: "General" },
+    { id: "bug", label: "Bug Report" },
+    { id: "feature", label: "Feature Request" },
+    { id: "other", label: "Other" },
+  ];
+
+  const handleSubmit = async () => {
+    if (!message.trim()) {
+      setError("Please enter a message");
+      return;
+    }
+    setIsSubmitting(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail, message: message.trim(), category }),
+      });
+      if (!response.ok) throw new Error("Failed");
+      setIsSuccess(true);
+      setTimeout(() => onClose(), 2000);
+    } catch {
+      setError("Failed to send feedback. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+      <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl overflow-hidden">
+        <div className="flex items-center justify-between p-4 border-b border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900">Send Feedback</h3>
+          <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-full"><X className="w-5 h-5 text-gray-500" /></button>
+        </div>
+        {isSuccess ? (
+          <div className="p-8 text-center">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
+              <CheckCircle2 className="w-8 h-8 text-green-600" />
+            </div>
+            <h4 className="text-lg font-semibold text-gray-900 mb-1">Thank You!</h4>
+            <p className="text-gray-500">Your feedback has been sent.</p>
+          </div>
+        ) : (
+          <div className="p-4 space-y-4">
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">Category</label>
+              <div className="flex gap-2 flex-wrap">
+                {categories.map((cat) => (
+                  <button key={cat.id} onClick={() => setCategory(cat.id)} className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${category === cat.id ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}>
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-gray-700 mb-2 block">Your Feedback</label>
+              <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us what you think..." className="w-full h-32 px-3 py-2 border border-gray-200 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900 placeholder:text-gray-400" />
+            </div>
+            {error && <p className="text-sm text-red-600 flex items-center gap-1"><AlertTriangle className="w-4 h-4" />{error}</p>}
+            <Button onClick={handleSubmit} disabled={isSubmitting || !message.trim()} className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-xl">
+              {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Send className="w-4 h-4 mr-2" />Send Feedback</>}
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function BackupPhraseModal({ words, onClose }: { words: string[]; onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm">
+      <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl p-6">
+        <h3 className="text-xl font-bold text-center mb-1">Recovery Phrase</h3>
+        <p className="text-sm text-gray-500 text-center mb-5">Write these down and store securely.</p>
+        {words.length > 0 ? (
+          <div className="grid grid-cols-2 gap-2 mb-6">
+            {words.map((word, i) => (
+              <div key={i} className="p-2.5 bg-gray-50 rounded-lg border border-gray-200 text-center">
+                <span className="text-xs text-gray-400 block">{i + 1}</span>
+                <span className="text-sm font-mono font-medium">{word}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-amber-50 border border-amber-200 p-4 rounded-xl mb-6">
+            <p className="text-sm text-amber-700 text-center font-medium">No recovery phrase found.</p>
+          </div>
+        )}
+        <Button onClick={onClose} className="w-full bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-xl">Done</Button>
+      </div>
+    </div>
+  );
+}
+
+function DevicesView({ devices, onBack, onAddDevice }: { devices: { id: string; name: string; lastActive: string; syncing?: boolean }[]; onBack: () => void; onAddDevice: () => void }) {
+  return (
+    <div className="h-full flex flex-col pb-4 overflow-y-auto bg-gray-50/50">
+      <header className="px-5 pt-6 pb-4">
+        <button onClick={onBack} className="text-blue-600 mb-2 flex items-center gap-1 text-sm font-medium">
+          <ChevronRight className="w-4 h-4 rotate-180" />Back
+        </button>
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900">Devices</h1>
+      </header>
+      <div className="flex-1 px-4">
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           {devices.map((device, index) => (
             <div key={device.id}>
-              {index > 0 && <div className="h-[1px] bg-gray-200 dark:bg-white/10 mx-4" />}
+              {index > 0 && <div className="h-px bg-gray-100 mx-4" />}
               <div className="flex items-center gap-4 p-4">
-                <Smartphone className="w-8 h-8 text-gray-400" />
+                <Smartphone className="w-7 h-7 text-gray-400" />
                 <div className="flex-1">
-                  <p className="text-[17px] font-medium text-gray-900 dark:text-gray-100">
-                    {device.name}
-                  </p>
-                  <p className="text-[13px] text-gray-500">{device.lastActive}</p>
+                  <p className="text-base font-medium text-gray-900">{device.name}</p>
+                  <p className="text-sm text-gray-500">{device.lastActive}</p>
                 </div>
-                {device.syncing ? (
-                  <Loader2 className="w-5 h-5 text-blue-500 animate-spin" />
-                ) : device.lastActive === "Active" || device.lastActive === "Just now" ? (
+                {device.syncing ? <Loader2 className="w-5 h-5 text-blue-500 animate-spin" /> : device.lastActive === "Just now" && (
                   <div className="flex items-center gap-1">
                     <div className="w-2 h-2 rounded-full bg-green-500" />
-                    <span className="text-[13px] font-medium text-green-500">Active</span>
+                    <span className="text-xs font-medium text-green-600">Active</span>
                   </div>
-                ) : null}
+                )}
               </div>
             </div>
           ))}
         </div>
-
-        <Button onClick={onAddDevice} className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-12" size="lg">
-          Connect New Device
-        </Button>
-
-        <p className="text-[13px] text-gray-500 text-center mt-4 px-4">
-          Scan key or enter recovery phrase from your main device.
-        </p>
+        <Button onClick={onAddDevice} className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white h-11 rounded-xl">Connect New Device</Button>
+        <p className="text-xs text-gray-500 text-center mt-3 px-4">Enter your recovery phrase on a new device to sync.</p>
       </div>
     </div>
   );
 }
 
-function SourceSelectorModal({
-  currentSource,
-  onSelect,
-  onClose,
-}: {
-  currentSource: "photos-app" | "files-app";
-  onSelect: (source: "photos-app" | "files-app") => void;
-  onClose: () => void;
-}) {
+function SourceSelectorModal({ currentSource, onSelect, onClose }: { currentSource: "photos-app" | "files-app"; onSelect: (source: "photos-app" | "files-app") => void; onClose: () => void }) {
   const sources = [
-    {
-      id: "photos-app" as const,
-      label: "Photos App",
-      description: "All photos from your iOS photo library",
-    },
-    {
-      id: "files-app" as const,
-      label: "Files App",
-      description: "Photos from a specific folder",
-    },
+    { id: "photos-app" as const, label: "Photos App", description: "All photos from your library" },
+    { id: "files-app" as const, label: "Files App", description: "Photos from a specific folder" },
   ];
-
   return (
     <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50">
-      <div className="bg-white dark:bg-gray-900 w-full max-w-[428px] rounded-t-2xl p-6 pb-10 border-t border-gray-200 dark:border-gray-800">
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-2">
-          Backup Source
-        </h3>
-        <p className="text-[15px] text-gray-500 text-center mb-6">
-          Where are your photos stored?
-        </p>
-
-        <div className="space-y-3 mb-6">
+      <div className="bg-white w-full max-w-md rounded-t-2xl p-5 pb-8">
+        <h3 className="text-lg font-bold text-center mb-4">Backup Source</h3>
+        <div className="space-y-2 mb-4">
           {sources.map((source) => (
-            <button
-              key={source.id}
-              onClick={() => onSelect(source.id)}
-              className={`w-full p-4 rounded-xl bg-gray-50 dark:bg-white/5 text-left ios-tap-target transition-all ${
-                currentSource === source.id ? "ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-900/20" : "hover:bg-gray-100 dark:hover:bg-white/10"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-[17px] font-medium text-gray-900 dark:text-white">
-                    {source.label}
-                  </p>
-                  <p className="text-[13px] text-gray-500 mt-0.5">
-                    {source.description}
-                  </p>
-                </div>
-                <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                    currentSource === source.id
-                      ? "border-blue-500 bg-blue-500"
-                      : "border-gray-300 dark:border-gray-600"
-                  }`}
-                >
-                  {currentSource === source.id && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-white" />
-                  )}
-                </div>
-              </div>
+            <button key={source.id} onClick={() => onSelect(source.id)} className={`w-full p-4 rounded-xl text-left transition-all ${currentSource === source.id ? "bg-blue-50 ring-2 ring-blue-500" : "bg-gray-50 hover:bg-gray-100"}`}>
+              <p className="font-medium text-gray-900">{source.label}</p>
+              <p className="text-sm text-gray-500">{source.description}</p>
             </button>
           ))}
         </div>
-
-        <button
-          onClick={onClose}
-          className="w-full h-[44px] text-[#007AFF] text-[17px] ios-tap-target"
-        >
-          Cancel
-        </button>
+        <button onClick={onClose} className="w-full py-3 text-blue-600 font-medium">Cancel</button>
       </div>
     </div>
   );
 }
 
-function PlanSelectorModal({
-  currentPlan,
-  onSelect,
-  onClose,
-}: {
-  currentPlan: "free" | "backup-plus";
-  onSelect: (plan: "free" | "backup-plus") => void;
-  onClose: () => void;
-}) {
+function PlanSelectorModal({ currentPlan, onSelect, onClose }: { currentPlan: "free" | "backup-plus"; onSelect: (plan: "free" | "backup-plus") => void; onClose: () => void }) {
   const plans = [
-    {
-      id: "free" as const,
-      label: "FREE",
-      subtitle: "On your devices",
-      price: "$0/month",
-      features: [
-        "Unlimited photos",
-        "Zero-Knowledge encryption",
-        "Multi-device sync",
-      ],
-    },
-    {
-      id: "backup-plus" as const,
-      label: "BACKUP+ (Coming Soon)",
-      subtitle: "Always in the cloud",
-      price: "$2.99/month",
-      features: [
-        "Everything in Free",
-        "200 GB Cloud Backup",
-        "Faster synchronization",
-      ],
-      disabled: true,
-    },
+    { id: "free" as const, label: "Free", subtitle: "On your devices", price: "$0/month", features: ["Unlimited photos", "End-to-end encryption", "Multi-device sync"] },
+    { id: "backup-plus" as const, label: "Backup+", subtitle: "Coming Soon", price: "$2.99/month", features: ["Everything in Free", "200 GB Cloud Storage", "Priority support"], disabled: true },
   ];
-
   return (
     <div className="fixed inset-0 bg-black/40 flex items-end justify-center z-50">
-      <div className="bg-white dark:bg-gray-900 w-full max-w-[428px] rounded-t-2xl p-6 pb-10 max-h-[80vh] overflow-y-auto border-t border-gray-200 dark:border-gray-800">
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-white text-center mb-2">
-          Storage Plan
-        </h3>
-        <p className="text-[15px] text-gray-500 text-center mb-6">
-          You can change your plan any time
-        </p>
-
-        <div className="space-y-3 mb-6">
+      <div className="bg-white w-full max-w-md rounded-t-2xl p-5 pb-8 max-h-[80vh] overflow-y-auto">
+        <h3 className="text-lg font-bold text-center mb-4">Storage Plan</h3>
+        <div className="space-y-3 mb-4">
           {plans.map((plan) => (
-            <button
-              key={plan.id}
-              onClick={() => !plan.disabled && onSelect(plan.id)}
-              disabled={plan.disabled}
-              className={`w-full p-4 rounded-xl text-left ios-tap-target transition-all ${
-                plan.disabled
-                  ? "bg-gray-50 dark:bg-white/5 cursor-not-allowed opacity-60"
-                  : currentPlan === plan.id
-                    ? "bg-blue-50 dark:bg-blue-900/20 ring-2 ring-blue-500"
-                    : "bg-gray-50 dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10"
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <p className="text-[13px] font-bold text-blue-600 dark:text-blue-400 tracking-wide">
-                    {plan.label}
-                  </p>
-                  <p className="text-[17px] font-semibold text-gray-900 dark:text-white mt-0.5">
-                    {plan.subtitle}
-                  </p>
-                  <ul className="mt-2 space-y-1">
-                    {plan.features.map((feature) => (
-                      <li
-                        key={feature}
-                        className="text-[13px] text-gray-500 flex items-center gap-2"
-                      >
-                        <span className="text-green-500">✓</span> {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-[15px] font-semibold text-gray-900 dark:text-white mt-3">
-                    {plan.price}
-                  </p>
+            <button key={plan.id} onClick={() => !plan.disabled && onSelect(plan.id)} disabled={plan.disabled} className={`w-full p-4 rounded-xl text-left transition-all ${plan.disabled ? "bg-gray-50 opacity-60 cursor-not-allowed" : currentPlan === plan.id ? "bg-blue-50 ring-2 ring-blue-500" : "bg-gray-50 hover:bg-gray-100"}`}>
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <p className="font-semibold text-gray-900">{plan.label}</p>
+                  <p className="text-sm text-gray-500">{plan.subtitle}</p>
                 </div>
-                <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                    currentPlan === plan.id
-                      ? "border-blue-500 bg-blue-500"
-                      : "border-gray-300 dark:border-gray-600"
-                  }`}
-                >
-                  {currentPlan === plan.id && (
-                    <div className="w-2.5 h-2.5 rounded-full bg-white" />
-                  )}
-                </div>
+                <span className="font-semibold text-gray-900">{plan.price}</span>
               </div>
+              <ul className="space-y-1">
+                {plan.features.map((f) => <li key={f} className="text-sm text-gray-600 flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-green-500" />{f}</li>)}
+              </ul>
             </button>
           ))}
         </div>
-
-        <button
-          onClick={onClose}
-          className="w-full h-[44px] text-[#007AFF] text-[17px] ios-tap-target"
-        >
-          Cancel
-        </button>
+        <button onClick={onClose} className="w-full py-3 text-blue-600 font-medium">Cancel</button>
       </div>
     </div>
   );
 }
 
-function Modal({
-  title,
-  message,
-  confirmLabel,
-  confirmDestructive,
-  onConfirm,
-  onCancel,
-}: {
-  title: string;
-  message: string;
-  confirmLabel: string;
-  confirmDestructive: boolean;
-  onConfirm: () => void;
-  onCancel: () => void;
-}) {
+function Modal({ title, message, confirmLabel, confirmDestructive, onConfirm, onCancel }: { title: string; message: string; confirmLabel: string; confirmDestructive: boolean; onConfirm: () => void; onCancel: () => void }) {
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-8">
-      <div className="bg-white dark:bg-gray-800 w-full max-w-[270px] rounded-2xl overflow-hidden shadow-2xl">
-        <div className="p-4 text-center">
-          <h3 className="text-[17px] font-semibold text-gray-900 dark:text-white mb-1">
-            {title}
-          </h3>
-          <p className="text-[13px] text-gray-500 leading-relaxed">
-            {message}
-          </p>
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-6">
+      <div className="bg-white w-full max-w-[280px] rounded-2xl overflow-hidden shadow-2xl">
+        <div className="p-5 text-center">
+          <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
+          <p className="text-sm text-gray-500 leading-relaxed">{message}</p>
         </div>
-        <div className="border-t border-[#E5E5EA]">
-          <button
-            onClick={onCancel}
-            className="w-full py-3 text-[17px] text-[#007AFF] border-b border-[#E5E5EA] ios-tap-target"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={onConfirm}
-            className={`w-full py-3 text-[17px] font-semibold ios-tap-target ${
-              confirmDestructive ? "text-[#FF3B30]" : "text-[#007AFF]"
-            }`}
-          >
-            {confirmLabel}
-          </button>
+        <div className="border-t border-gray-200">
+          <button onClick={onCancel} className="w-full py-3 text-blue-600 font-medium border-b border-gray-200">Cancel</button>
+          <button onClick={onConfirm} className={`w-full py-3 font-semibold ${confirmDestructive ? "text-red-500" : "text-blue-600"}`}>{confirmLabel}</button>
         </div>
       </div>
     </div>

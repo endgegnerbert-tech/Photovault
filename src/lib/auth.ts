@@ -146,12 +146,14 @@ export const auth = betterAuth({
         max: 100, // Increased to 100 to handle startup bursts
     },
 
-    // Trusted origins for CORS
+    // Trusted origins for CORS (including Tauri desktop app)
     trustedOrigins: [
         process.env.BETTER_AUTH_URL || "http://localhost:3000",
         "https://www.saecretheaven.com",
         "https://saecretheaven.com",
         "http://localhost:3000",
+        "tauri://localhost",  // Tauri desktop app
+        "https://tauri.localhost",  // Tauri v2 secure context
     ].filter(Boolean),
 });
 

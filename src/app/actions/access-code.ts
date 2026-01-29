@@ -1,6 +1,7 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 /**
  * Server Action to verify an access code.
@@ -40,7 +41,8 @@ export async function consumeAccessCode(code: string) {
     if (!code) return { success: false };
 
     try {
-        const { error } = await supabase
+        // Use admin client to bypass RLS for updating the code status
+        const { error } = await supabaseAdmin
             .from("access_codes")
             .update({ is_used: true })
             .eq("code", code.trim());

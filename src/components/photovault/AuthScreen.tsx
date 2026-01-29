@@ -104,6 +104,7 @@ export function AuthScreen({ onSuccess, initialMode = "welcome", userEmail }: Au
       // 4. Show verification screen - DO NOT auto-login
       // User must verify email before proceeding
       setMode("verification-sent");
+      return;
     } catch (err) {
       console.error("Registration error:", err);
       setError("An error occurred. Please try again.");

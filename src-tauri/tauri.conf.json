@@ -4,10 +4,10 @@
   "version": "0.1.0",
   "identifier": "com.saecretheaven.app",
   "build": {
-    "frontendDist": "../out",
     "devUrl": "http://localhost:3000",
+    "frontendDist": "https://saecretheaven.com",
     "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build"
+    "beforeBuildCommand": ""
   },
   "app": {
     "windows": [
@@ -17,11 +17,12 @@
         "height": 800,
         "resizable": true,
         "fullscreen": false,
-        "center": true
+        "center": true,
+        "url": "/app"
       }
     ],
     "security": {
-      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://photovault-mu.vercel.app https://jextayidnmtsoofugnig.supabase.co https://*.supabase.co wss://*.supabase.co https://api.pinata.cloud https://red-able-bug-554.mypinata.cloud https://*.mypinata.cloud https://cloudflare-ipfs.com https://dweb.link https://ipfs.io https://gateway.pinata.cloud; img-src 'self' data: blob: https:; font-src 'self' data:; object-src 'none'; frame-ancestors 'none'"
+      "csp": "default-src 'self' https://saecretheaven.com https://www.saecretheaven.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://saecretheaven.com; style-src 'self' 'unsafe-inline' https://saecretheaven.com; connect-src 'self' http://localhost:3000 https://saecretheaven.com https://www.saecretheaven.com https://jextayidnmtsoofugnig.supabase.co https://*.supabase.co wss://*.supabase.co https://api.pinata.cloud https://red-able-bug-554.mypinata.cloud https://*.mypinata.cloud https://cloudflare-ipfs.com https://dweb.link https://ipfs.io https://gateway.pinata.cloud https://va.vercel-scripts.com; img-src 'self' data: blob: https:; font-src 'self' data: https://saecretheaven.com; object-src 'none'; frame-ancestors 'none'; frame-src 'none'"
     }
   },
   "bundle": {

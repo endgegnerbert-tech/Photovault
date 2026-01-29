@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback, useMemo, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { CustomIcon } from "@/components/ui/custom-icon";
 import { useEncryption } from "@/hooks/use-encryption";
@@ -28,6 +28,9 @@ import {
   CloudOff,
   Download,
   Cloud,
+  Lock,
+  Info,
+  ChevronLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,6 +43,31 @@ interface PhotoGalleryProps {
   photosCount?: number;
   authUser: { id: string; email: string } | null;
 }
+
+// Allowed MIME types for upload
+const ALLOWED_MIME_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/gif",
+  "image/webp",
+  "image/heic",
+  "image/heif",
+];
+
+// Get file extension from MIME type
+const getExtensionFromMime = (mimeType: string): string => {
+  const mimeToExt: Record<string, string> = {
+    "image/jpeg": ".jpg",
+    "image/jpg": ".jpg",
+    "image/png": ".png",
+    "image/gif": ".gif",
+    "image/webp": ".webp",
+    "image/heic": ".jpg", // HEIC gets converted to JPEG
+    "image/heif": ".jpg",
+  };
+  return mimeToExt[mimeType] || ".jpg";
+};
 
 // Generate placeholder photo URLs with dates
 const generatePhotos = (count: number) => {
@@ -125,6 +153,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
   );
   const [isLoadingFullscreen, setIsLoadingFullscreen] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [fullscreenVisible, setFullscreenVisible] = useState(false);
 
   const longPressTimer = useRef<NodeJS.Timeout | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -246,6 +275,15 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
     [filteredPhotos],
   );
 
+  // Animate fullscreen entrance
+  useEffect(() => {
+    if (fullscreenPhoto) {
+      requestAnimationFrame(() => {
+        setFullscreenVisible(true);
+      });
+    }
+  }, [fullscreenPhoto]);
+
   // Load fullscreen photo (on-demand from IPFS if needed)
   const loadFullscreenPhoto = async (photo: (typeof photos)[0]) => {
     if (!secretKey || !photo.metadata) return;
@@ -286,7 +324,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
     }
   };
 
-  // Download photo to device
+  // Download photo to device with correct extension
   const downloadPhoto = async (photo: (typeof photos)[0]) => {
     if (!secretKey || !photo.metadata) return;
 
@@ -311,22 +349,35 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
       );
 
       if (decrypted) {
-        // Create download link
+        // Create download link with correct extension
         const url = URL.createObjectURL(decrypted);
         const a = document.createElement("a");
         a.href = url;
-        a.download =
-          photo.metadata.fileName || `photo_${photo.cid.slice(0, 8)}.jpg`;
+
+        // Ensure correct file extension
+        const ext = getExtensionFromMime(photo.metadata.mimeType);
+        let fileName = photo.metadata.fileName || `photo_${photo.cid.slice(0, 8)}`;
+
+        // Remove existing extension if present and add correct one
+        const lastDot = fileName.lastIndexOf(".");
+        if (lastDot > 0) {
+          fileName = fileName.substring(0, lastDot);
+        }
+        fileName = fileName + ext;
+
+        a.download = fileName;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
-        setSyncNotification("Photo downloaded!");
+        setSyncNotification("Photo saved to device");
         setTimeout(() => setSyncNotification(null), 2000);
       }
     } catch (error) {
       console.error("Failed to download photo:", error);
+      setSyncNotification("Download failed");
+      setTimeout(() => setSyncNotification(null), 2000);
     } finally {
       setIsDownloading(false);
     }
@@ -352,11 +403,14 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
   };
 
   const closeFullscreen = () => {
-    setFullscreenPhoto(null);
-    if (fullscreenImageUrl) {
-      URL.revokeObjectURL(fullscreenImageUrl);
-      setFullscreenImageUrl(null);
-    }
+    setFullscreenVisible(false);
+    setTimeout(() => {
+      setFullscreenPhoto(null);
+      if (fullscreenImageUrl) {
+        URL.revokeObjectURL(fullscreenImageUrl);
+        setFullscreenImageUrl(null);
+      }
+    }, 200);
   };
 
   const handleTouchStart = (photoId: string) => {
@@ -373,20 +427,42 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
     }
   };
 
+  // Filter categories - all disabled for now
   const categories = [
-    { id: "nature", label: "Nature (Coming Soon)" },
-    { id: "architecture", label: "Architecture (Coming Soon)" },
-    { id: "travel", label: "Travel (Coming Soon)" },
-    { id: "food", label: "Food (Coming Soon)" },
-    { id: "animals", label: "Animals (Coming Soon)" },
-    { id: "city", label: "City (Coming Soon)" },
-    { id: "landscape", label: "Landscape (Coming Soon)" },
+    { id: "nature", label: "Nature" },
+    { id: "architecture", label: "Architecture" },
+    { id: "travel", label: "Travel" },
+    { id: "food", label: "Food" },
+    { id: "animals", label: "Animals" },
+    { id: "city", label: "City" },
+    { id: "landscape", label: "Landscape" },
   ];
 
-  // Handle file upload
+  // Handle file upload with strict type validation
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
-    files.forEach((file) => uploadPhoto(file));
+
+    // Filter valid files
+    const validFiles = files.filter((file) => {
+      const isValidType = ALLOWED_MIME_TYPES.includes(file.type.toLowerCase());
+      if (!isValidType) {
+        console.warn(`Rejected file ${file.name}: invalid type ${file.type}`);
+      }
+      return isValidType;
+    });
+
+    if (validFiles.length < files.length) {
+      const rejected = files.length - validFiles.length;
+      setSyncNotification(`${rejected} file(s) skipped (unsupported format)`);
+      setTimeout(() => setSyncNotification(null), 3000);
+    }
+
+    validFiles.forEach((file) => uploadPhoto(file));
+
+    // Reset input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleUploadClick = () => {
@@ -397,62 +473,82 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
 
   return (
     <div className="flex flex-col h-full bg-[#FAFBFC]">
-      {/* Header with Sketch UI */}
-      <header className="px-5 pt-10 pb-4 bg-[#FAFBFC] sticky top-0 z-30 border-b-2 border-[#2563EB]/10">
+      {/* Header with refined UI */}
+      <header className="px-5 pt-10 pb-4 bg-[#FAFBFC] sticky top-0 z-30 border-b border-gray-200/60">
         <div className="flex items-center justify-between mb-2">
-          <h1 className="text-2xl font-bold tracking-tight">Gallery</h1>
-          <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900">Gallery</h1>
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setShowSearch(!showSearch)}
-              className={`p-2 rounded-full transition-colors ${showSearch ? "bg-[#2563EB]/10 text-[#2563EB]" : "text-[#6E6E73]"}`}
+              className={`p-2.5 rounded-full transition-all duration-200 ${
+                showSearch
+                  ? "bg-blue-100 text-blue-600"
+                  : "text-gray-500 hover:bg-gray-100"
+              }`}
             >
-              <Search className="w-6 h-6" />
+              <Search className="w-5 h-5" />
             </button>
             <Button
               onClick={handleUploadClick}
               size="sm"
-              className="scale-90 bg-blue-600 hover:bg-blue-700 text-white rounded-full"
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-4 py-2 text-sm font-medium shadow-sm"
             >
-              Hinzufügen
+              <Plus className="w-4 h-4 mr-1.5" />
+              Add
             </Button>
           </div>
         </div>
 
         {/* Subtitle / Status */}
-        <div className="flex items-center justify-between px-1 mb-4">
-          <p className="text-[15px] font-medium text-[#3B82F6]">
-            {allPhotosCount} photos backed up
+        <div className="flex items-center justify-between px-0.5 mb-4">
+          <p className="text-sm font-medium text-gray-500">
+            {allPhotosCount} {allPhotosCount === 1 ? "photo" : "photos"} backed up
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             {isConnected ? (
-              <Cloud className="w-5 h-5 text-[#30D158]" />
+              <div className="flex items-center gap-1.5 text-green-600">
+                <Cloud className="w-4 h-4" />
+                <span className="text-xs font-medium">Synced</span>
+              </div>
             ) : (
-              <AlertTriangle className="w-5 h-5 text-[#8E8E93]" />
+              <div className="flex items-center gap-1.5 text-gray-400">
+                <CloudOff className="w-4 h-4" />
+                <span className="text-xs font-medium">Offline</span>
+              </div>
             )}
           </div>
         </div>
 
         {/* Search Bar */}
         {showSearch && (
-          <div className="mb-4 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+          <div className="mb-4 relative animate-in slide-in-from-top-2 duration-200">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search..."
-              className="w-full pl-9 bg-gray-100 border-none rounded-xl h-10"
+              placeholder="Search photos..."
+              className="w-full pl-10 bg-gray-100 border-none rounded-xl h-11 text-sm focus:ring-2 focus:ring-blue-500/20"
+              autoFocus
             />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-gray-200"
+              >
+                <X className="w-3.5 h-3.5 text-gray-400" />
+              </button>
+            )}
           </div>
         )}
 
-        {/* Filter Bar with Sketch UI */}
-        <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1">
+        {/* Filter Bar - Disabled categories */}
+        <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
           <button
             onClick={() => setSelectedFilter(null)}
-            className={`sketch-subheading text-[15px] px-4 py-1.5 rounded-full transition-colors ${
+            className={`text-sm font-medium px-4 py-2 rounded-full transition-all duration-200 whitespace-nowrap ${
               selectedFilter === null
-                ? "bg-[#2563EB] text-white"
-                : "bg-[#2563EB]/5 text-[#2563EB]"
+                ? "bg-blue-600 text-white shadow-sm"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
             All
@@ -460,13 +556,11 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setSelectedFilter(cat.id)}
-              className={`text-sm font-medium px-4 py-1.5 rounded-full transition-colors whitespace-nowrap ${
-                selectedFilter === cat.id
-                  ? "bg-[#2563EB] text-white"
-                  : "bg-[#2563EB]/5 text-[#2563EB]"
-              }`}
+              disabled
+              className="text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap flex items-center gap-1.5 bg-gray-100/60 text-gray-400 cursor-not-allowed opacity-60"
+              title="Coming Soon"
             >
+              <Lock className="w-3 h-3" />
               {cat.label}
             </button>
           ))}
@@ -474,31 +568,40 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
       </header>
 
       {/* Gallery Grid */}
-      <main className="flex-1 overflow-y-auto px-1 pb-[100px]">
+      <main className="flex-1 overflow-y-auto pb-[100px]">
         {filteredGroups.length === 0 ? (
           <div className="pt-20 text-center px-10">
-            <ImageIcon className="w-16 h-16 mx-auto mb-4 opacity-20" />
-            <p className="text-lg font-medium text-[#6E6E73]">
-              No photos found
+            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gray-100 flex items-center justify-center">
+              <ImageIcon className="w-10 h-10 text-gray-300" />
+            </div>
+            <p className="text-lg font-semibold text-gray-700">
+              No photos yet
             </p>
-            <p className="text-sm text-[#8E8E93] mt-2">
-              Try a different search term or filter
+            <p className="text-sm text-gray-500 mt-2 mb-6">
+              Start by adding your first photo
             </p>
+            <Button
+              onClick={handleUploadClick}
+              className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Photos
+            </Button>
           </div>
         ) : (
           filteredGroups.map((group) => (
-            <div key={group.date} className="mb-8">
-              <h2 className="text-lg font-semibold px-4 mb-3 sticky top-[160px] bg-[#FAFBFC]/90 backdrop-blur-md z-10 py-2">
+            <div key={group.date} className="mb-6">
+              <h2 className="text-sm font-semibold text-gray-500 px-4 mb-2 sticky top-0 bg-[#FAFBFC]/95 backdrop-blur-sm z-10 py-2">
                 {group.label}
               </h2>
-              <div className="grid grid-cols-3 gap-1">
+              <div className="grid grid-cols-3 gap-[2px] px-[2px]">
                 {group.photos.map((photo) => (
                   <div
                     key={photo.id}
-                    className={`relative aspect-square overflow-hidden cursor-pointer active:opacity-70 transition-opacity ${
+                    className={`relative aspect-square overflow-hidden cursor-pointer transition-all duration-150 ${
                       selectedPhotos.has(photo.id)
-                        ? "ring-4 ring-[#2563EB] ring-inset"
-                        : ""
+                        ? "ring-2 ring-blue-500 ring-inset scale-[0.96]"
+                        : "hover:opacity-90 active:scale-[0.98]"
                     }`}
                     onClick={() => handlePhotoTap(photo.id, photo)}
                     onTouchStart={() => handleTouchStart(photo.id)}
@@ -517,9 +620,13 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
 
                     {/* Select Indicator */}
                     {selectMode && (
-                      <div className="absolute top-2 right-2 z-10 w-6 h-6">
+                      <div className="absolute top-2 right-2 z-10">
                         <div
-                          className={`w-6 h-6 rounded-full p-0 flex items-center justify-center transition-all ${selectedPhotos.has(photo.id) ? "bg-[#2563EB] border border-[#2563EB]" : "bg-white/80 border border-[#2563EB] backdrop-blur-sm"}`}
+                          className={`w-6 h-6 rounded-full flex items-center justify-center transition-all duration-150 ${
+                            selectedPhotos.has(photo.id)
+                              ? "bg-blue-600 shadow-lg"
+                              : "bg-white/90 border-2 border-gray-300 backdrop-blur-sm"
+                          }`}
                         >
                           {selectedPhotos.has(photo.id) && (
                             <Check className="w-3.5 h-3.5 text-white" />
@@ -535,115 +642,185 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
         )}
       </main>
 
-      {/* Sync Notifications */}
+      {/* Non-blocking Status Pill for Notifications */}
       {syncNotification && (
-        <div className="fixed bottom-[100px] left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[400px]">
-          <div className="bg-sky-500/90 dark:bg-sky-600/90 border border-sky-400/50 py-3 px-5 shadow-xl rounded-2xl backdrop-blur-md">
-            <p className="text-white text-sm font-medium text-center flex items-center justify-center gap-3">
-              <Loader2 className="w-4 h-4 animate-spin text-white/90" />
+        <div className="fixed bottom-[100px] left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-4 fade-in duration-300">
+          <div className="bg-gray-900/90 backdrop-blur-md py-2.5 px-5 rounded-full shadow-lg">
+            <p className="text-white text-sm font-medium flex items-center gap-2">
+              {syncNotification.includes("received") && <Cloud className="w-4 h-4 text-blue-400" />}
+              {syncNotification.includes("saved") && <Check className="w-4 h-4 text-green-400" />}
+              {syncNotification.includes("deleted") && <Trash2 className="w-4 h-4 text-red-400" />}
+              {syncNotification.includes("skipped") && <AlertTriangle className="w-4 h-4 text-yellow-400" />}
               {syncNotification}
             </p>
           </div>
         </div>
       )}
 
-      {/* Fullscreen Viewer */}
+      {/* Non-blocking Upload Status Pill */}
+      {isUploading && (
+        <div className="fixed bottom-[100px] left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-bottom-4 fade-in duration-300">
+          <div className="bg-white/95 backdrop-blur-md py-3 px-5 rounded-2xl shadow-xl border border-gray-200/50 min-w-[200px]">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-gray-900">Uploading...</p>
+                <div className="flex items-center gap-2 mt-1">
+                  <div className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-blue-600 rounded-full transition-all duration-300"
+                      style={{ width: `${uploadProgress}%` }}
+                    />
+                  </div>
+                  <span className="text-xs text-gray-500 tabular-nums">
+                    {Math.round(uploadProgress)}%
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Premium Fullscreen Viewer */}
       {fullscreenPhoto && (
-        <div className="fixed inset-0 bg-black z-[100] flex flex-col">
-          {/* Header */}
-          <div className="p-4 flex items-center justify-between">
-            <button
-              onClick={closeFullscreen}
-              className="p-2 text-white/80 hover:text-white"
-            >
-              <X className="w-6 h-6" />
-            </button>
-            <div className="flex items-center gap-4">
-              <button className="p-2 text-white/80 hover:text-white">
-                <Share2 className="w-6 h-6" />
-              </button>
-              <button className="p-2 text-white/80 hover:text-white">
-                <Heart className="w-6 h-6" />
-              </button>
+        <div
+          className={`fixed inset-0 z-[100] transition-all duration-300 ease-out ${
+            fullscreenVisible
+              ? "bg-black/95 backdrop-blur-xl"
+              : "bg-black/0 backdrop-blur-none"
+          }`}
+          onClick={closeFullscreen}
+        >
+          {/* Glassmorphism Header */}
+          <div
+            className={`absolute top-0 left-0 right-0 z-10 transition-all duration-300 ${
+              fullscreenVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="bg-white/10 backdrop-blur-2xl border-b border-white/10">
+              <div className="flex items-center justify-between p-4 safe-top">
+                <button
+                  onClick={closeFullscreen}
+                  className="flex items-center gap-2 text-white/90 hover:text-white transition-colors"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                  <span className="text-sm font-medium">Back</span>
+                </button>
+                <div className="flex items-center gap-1">
+                  <button className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                    <Heart className="w-5 h-5" />
+                  </button>
+                  <button className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                    <Share2 className="w-5 h-5" />
+                  </button>
+                  <button className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                    <Info className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* Image Container */}
-          <div className="flex-1 relative flex items-center justify-center overflow-hidden">
+          <div
+            className={`absolute inset-0 flex items-center justify-center p-4 pt-20 pb-28 transition-all duration-300 ${
+              fullscreenVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
             {isLoadingFullscreen ? (
               <div className="flex flex-col items-center gap-4">
-                <Loader2 className="w-12 h-12 text-[#2563EB] animate-spin" />
-                <p className="sketch-body text-white/60">Decrypting...</p>
+                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
+                  <Loader2 className="w-8 h-8 text-white animate-spin" />
+                </div>
+                <p className="text-white/60 text-sm font-medium">Decrypting...</p>
               </div>
             ) : fullscreenImageUrl ? (
               <img
                 src={fullscreenImageUrl}
-                alt="Fullscreen"
-                className="max-w-full max-h-full object-contain"
+                alt="Photo"
+                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
               />
             ) : (
-              <div className="text-center p-10">
-                <AlertTriangle className="w-12 h-12 text-[#FF3B30] mx-auto mb-4" />
-                <p className="text-white font-medium">Loading failed</p>
+              <div className="text-center p-10 bg-white/5 backdrop-blur-md rounded-2xl">
+                <AlertTriangle className="w-12 h-12 text-orange-400 mx-auto mb-4" />
+                <p className="text-white font-medium">Unable to load photo</p>
+                <p className="text-white/50 text-sm mt-1">Please try again</p>
               </div>
             )}
           </div>
 
-          {/* Footer Actions */}
-          <div className="p-6 flex items-center justify-around bg-black/40 backdrop-blur-md">
-            <button
-              className="flex flex-col items-center gap-1 text-white/70"
-              onClick={() => {
-                const photo = photos.find((p) => p.id === fullscreenPhoto);
-                if (photo) downloadPhoto(photo);
-              }}
-              disabled={isDownloading}
-            >
-              {isDownloading ? (
-                <Loader2 className="w-6 h-6 animate-spin" />
-              ) : (
-                <Download className="w-6 h-6" />
-              )}
-              <span className="sketch-body text-[10px]">Save</span>
-            </button>
-            <button className="flex flex-col items-center gap-1 text-white/70">
-              <ExternalLink className="w-6 h-6" />
-              <span className="sketch-body text-[10px]">Export</span>
-            </button>
-            <button 
-              className="flex flex-col items-center gap-1 text-[#FF3B30] hover:text-[#FF3B30]/80"
-              onClick={async () => {
-                const photo = photos.find((p) => p.id === fullscreenPhoto);
-                if (!photo) return;
-                
-                if (confirm("Do you really want to permanently delete this photo?")) {
-                  try {
-                    // Falls ID ein String ist und mit 'photo-' anfängt (Placeholder), kann man es nicht löschen
-                    const isPlaceholder = photo.id.startsWith('photo-');
-                    if (isPlaceholder) {
-                      alert("Placeholder photos cannot be deleted.");
-                      return;
-                    }
+          {/* Glassmorphism Footer Actions */}
+          <div
+            className={`absolute bottom-0 left-0 right-0 z-10 transition-all duration-300 ${
+              fullscreenVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="bg-white/10 backdrop-blur-2xl border-t border-white/10 safe-bottom">
+              <div className="flex items-center justify-around py-4 px-6">
+                <button
+                  className="flex flex-col items-center gap-1.5 text-white/80 hover:text-white transition-colors min-w-[64px]"
+                  onClick={() => {
+                    const photo = photos.find((p) => p.id === fullscreenPhoto);
+                    if (photo) downloadPhoto(photo);
+                  }}
+                  disabled={isDownloading}
+                >
+                  {isDownloading ? (
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                  ) : (
+                    <Download className="w-6 h-6" />
+                  )}
+                  <span className="text-xs font-medium">Save</span>
+                </button>
 
-                    // Für echte Fotos: deletePhoto aufrufen
-                    // photo.metadata hat die echten Daten
-                    if (photo.metadata) {
-                        await deletePhoto({ 
-                            cid: photo.metadata.cid, 
-                            id: photo.metadata.id 
-                        });
-                        closeFullscreen();
+                <button className="flex flex-col items-center gap-1.5 text-white/80 hover:text-white transition-colors min-w-[64px]">
+                  <Share2 className="w-6 h-6" />
+                  <span className="text-xs font-medium">Share</span>
+                </button>
+
+                <button
+                  className="flex flex-col items-center gap-1.5 text-red-400 hover:text-red-300 transition-colors min-w-[64px]"
+                  onClick={async () => {
+                    const photo = photos.find((p) => p.id === fullscreenPhoto);
+                    if (!photo) return;
+
+                    if (confirm("Delete this photo permanently?")) {
+                      try {
+                        const isPlaceholder = photo.id.startsWith('photo-');
+                        if (isPlaceholder) {
+                          setSyncNotification("Demo photo cannot be deleted");
+                          setTimeout(() => setSyncNotification(null), 2000);
+                          return;
+                        }
+
+                        if (photo.metadata) {
+                          await deletePhoto({
+                            cid: photo.metadata.cid,
+                            id: photo.metadata.id
+                          });
+                          closeFullscreen();
+                          setSyncNotification("Photo deleted");
+                          setTimeout(() => setSyncNotification(null), 2000);
+                        }
+                      } catch (e) {
+                        console.error("Delete failed", e);
+                        setSyncNotification("Failed to delete photo");
+                        setTimeout(() => setSyncNotification(null), 2000);
+                      }
                     }
-                  } catch (e) {
-                    console.error("Delete failed", e);
-                    alert("Error deleting photo.");
-                  }
-                }
-              }}
-            >
-              <Trash2 className="w-6 h-6" />
-              <span className="sketch-body text-[10px]">Delete</span>
-            </button>
+                  }}
+                >
+                  <Trash2 className="w-6 h-6" />
+                  <span className="text-xs font-medium">Delete</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -653,35 +830,10 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
         ref={fileInputRef}
         type="file"
         multiple
-        accept="image/*"
+        accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,image/heic,image/heif"
         onChange={handleFileUpload}
         className="hidden"
       />
-
-      {/* Upload Progress Overlay */}
-      {isUploading && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] flex items-center justify-center p-6">
-          <div className="bg-white/95 dark:bg-black/90 w-full max-w-[280px] p-6 flex flex-col items-center rounded-3xl shadow-2xl border border-white/20">
-            <div className="w-16 h-16 rounded-full bg-[#2563EB]/10 flex items-center justify-center mb-4">
-              <Loader2 className="w-8 h-8 text-[#2563EB] animate-spin" />
-            </div>
-            <h3 className="text-lg font-bold text-center mb-2">
-              Backup in progress...
-            </h3>
-            <p className="text-sm text-[#6E6E73] text-center mb-4">
-              {uploadProgress > 0
-                ? `${Math.round(uploadProgress)}% uploaded`
-                : "Preparing..."}
-            </p>
-            <div className="w-full bg-[#E5E7EB] h-2 rounded-full overflow-hidden">
-              <div
-                className="bg-[#2563EB] h-full transition-all duration-300"
-                style={{ width: `${uploadProgress}%` }}
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
