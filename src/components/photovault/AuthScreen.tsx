@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, Loader2, Key } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Loader2, Key, MailCheck } from "lucide-react";
 import { CustomIcon } from "@/components/ui/custom-icon";
 import { signIn, signUp } from "@/lib/auth-client";
 import { verifyAccessCode, consumeAccessCode } from "@/app/actions/access-code";
@@ -15,13 +15,15 @@ interface AuthScreenProps {
     email: string;
     vaultKeyHash: string | null;
   }) => void;
+  initialMode?: AuthMode;
+  userEmail?: string;
 }
 
-type AuthMode = "welcome" | "login" | "register";
+type AuthMode = "welcome" | "login" | "register" | "verification-sent";
 
-export function AuthScreen({ onSuccess }: AuthScreenProps) {
-  const [mode, setMode] = useState<AuthMode>("welcome");
-  const [email, setEmail] = useState("");
+export function AuthScreen({ onSuccess, initialMode = "welcome", userEmail }: AuthScreenProps) {
+  const [mode, setMode] = useState<AuthMode>(initialMode);
+  const [email, setEmail] = useState(userEmail || "");
   const [password, setPassword] = useState("");
   const [accessCode, setAccessCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -99,14 +101,9 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       // 3. Consume Code
       await consumeAccessCode(accessCode);
 
-      // 4. Success
-      if (result.data?.user) {
-        onSuccess({
-          id: result.data.user.id,
-          email: result.data.user.email,
-          vaultKeyHash: null,
-        });
-      }
+      // 4. Show verification screen - DO NOT auto-login
+      // User must verify email before proceeding
+      setMode("verification-sent");
     } catch (err) {
       console.error("Registration error:", err);
       setError("An error occurred. Please try again.");
@@ -114,6 +111,51 @@ export function AuthScreen({ onSuccess }: AuthScreenProps) {
       setIsLoading(false);
     }
   };
+
+  // Verification Sent Screen
+  if (mode === "verification-sent") {
+    return (
+      <div className="min-h-screen flex flex-col px-6 pt-16 pb-8 safe-area-inset bg-[#FAFBFC]">
+        <div className="flex-1 flex flex-col items-center justify-center text-center">
+          {/* Success Icon */}
+          <div className="relative w-24 h-24 mb-8 flex items-center justify-center bg-green-50 dark:bg-green-900/10 rounded-full shadow-lg shadow-green-500/10">
+            <MailCheck className="w-12 h-12 text-green-600 dark:text-green-400" />
+          </div>
+
+          <h1 className="text-3xl font-bold mb-3 tracking-tight text-gray-900 dark:text-white">
+            Check your email
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 max-w-[300px] mb-4 text-base">
+            We sent a verification link to:
+          </p>
+          <p className="text-blue-600 dark:text-blue-400 font-semibold mb-8 text-lg">
+            {email}
+          </p>
+          <p className="text-gray-500 dark:text-gray-500 max-w-[300px] mb-12 text-sm">
+            Click the link in your email to verify your account. Then come back here to log in.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <Button
+            onClick={() => setMode("login")}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl h-14 text-lg font-semibold shadow-lg shadow-blue-500/20"
+            size="lg"
+          >
+            Go to Login
+          </Button>
+          <Button
+            onClick={() => setMode("welcome")}
+            variant="outline"
+            className="w-full border-2 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400 rounded-xl h-14 text-lg font-semibold"
+            size="lg"
+          >
+            Back to Home
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   // Welcome Screen
   if (mode === "welcome") {

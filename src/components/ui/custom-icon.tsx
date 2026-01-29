@@ -1,19 +1,34 @@
-import Image from "next/image";
+import { 
+  Key, 
+  Lock, 
+  Shield, 
+  Upload, 
+  Smartphone, 
+  Cloud, 
+  Clock, 
+  Search, 
+  Image as ImageIcon, 
+  FolderOpen, 
+  RefreshCw, 
+  ChevronRight,
+  User
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const ICONS = {
-  key: "/key.svg",
-  lock: "/lock.svg",
-  shield: "/shield.svg",
-  upload: "/upload.svg",
-  smartphone: "/smartphone.svg",
-  cloud: "/cloud.svg",
-  clock: "/clock.svg",
-  search: "/search.svg",
-  image: "/image.svg",
-  folder: "/Openfolder.svg",
-  refresh: "/RefreshCw.svg",
-  chevronRight: "/ChevronRight.svg",
+  key: Key,
+  lock: Lock,
+  shield: Shield,
+  upload: Upload,
+  smartphone: Smartphone,
+  cloud: Cloud,
+  clock: Clock,
+  search: Search,
+  image: ImageIcon,
+  folder: FolderOpen,
+  refresh: RefreshCw,
+  chevronRight: ChevronRight,
+  user: User
 } as const;
 
 export type IconName = keyof typeof ICONS;
@@ -25,18 +40,14 @@ interface CustomIconProps {
 }
 
 export function CustomIcon({ name, className, size = 24 }: CustomIconProps) {
+  const Icon = ICONS[name];
+  
+  if (!Icon) return null;
+
   return (
-    <div
-      className={cn("relative inline-block shrink-0", className)}
-      style={{ width: size, height: size }}
-    >
-      <Image
-        src={ICONS[name]}
-        alt={name}
-        fill
-        className="object-contain"
-        unoptimized
-      />
-    </div>
+    <Icon 
+      className={cn("shrink-0", className)} 
+      size={size}
+    />
   );
 }

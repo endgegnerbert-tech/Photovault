@@ -119,12 +119,28 @@ export function PhotoVaultApp() {
             }
 
             // Have session - fetch vault_key_hash from API (not session)
-            const user = session.user as { id: string; email: string };
+            const user = session.user as { id: string; email: string; emailVerified: boolean };
+
+            // STRICT: If email is not verified, do not proceed.
+            // This keeps the user on the AuthScreen (where "Check your email" is shown).
+            if (!user.emailVerified) {
+                console.log("[Auth] User is authenticated but not verified. Staying on AuthScreen.");
+                setAppPhase("auth");
+                return;
+            }
 
             // Fetch the actual vault_key_hash from the database
             let vaultKeyHash: string | null = null;
             try {
                 const response = await fetch("/api/auth/get-vault-key-hash");
+                
+                if (response.status === 401) {
+                    console.warn("Session unauthorized (401) - possibly unverified email.");
+                    // If unauthorized, we shouldn't proceed as if logged in
+                    setAppPhase("auth");
+                    return;
+                }
+
                 if (response.ok) {
                     const data = await response.json();
                     vaultKeyHash = data.vaultKeyHash;
@@ -177,6 +193,12 @@ export function PhotoVaultApp() {
         let vaultKeyHash: string | null = user.vaultKeyHash;
         try {
             const response = await fetch("/api/auth/get-vault-key-hash");
+            
+            if (response.status === 401) {
+                console.warn("Session unauthorized (401) - possibly unverified email.");
+                return;
+            }
+
             if (response.ok) {
                 const data = await response.json();
                 vaultKeyHash = data.vaultKeyHash;
@@ -263,10 +285,17 @@ export function PhotoVaultApp() {
 
     // Auth screen (login/signup)
     if (appPhase === "auth") {
+        // Check if we have an unverified session to show the correct initial screen
+        const isUnverified = session?.user && !(session.user as any).emailVerified;
+        
         return (
             <div className="min-h-screen ios-bg-gray">
                 <div className="max-w-[1200px] mx-auto min-h-screen bg-[#F2F2F7]">
-                    <AuthScreen onSuccess={handleAuthSuccess} />
+                    <AuthScreen 
+                        onSuccess={handleAuthSuccess} 
+                        initialMode={isUnverified ? "verification-sent" : "welcome"}
+                        userEmail={session?.user?.email || undefined}
+                    />
                 </div>
             </div>
         );
@@ -344,6 +373,11 @@ async function updateUserVaultKeyHash(userId: string, keyHash: string): Promise<
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userId, keyHash }),
         });
+
+        if (response.status === 401) {
+            console.warn("Session unauthorized (401) - possibly unverified email.");
+            return;
+        }
 
         if (!response.ok) {
             throw new Error("Failed to update vault key hash");

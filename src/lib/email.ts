@@ -1,9 +1,9 @@
 /**
- * Email Sending Utility
- * 
- * Uses Resend to send branded emails for authentication.
- * Requires RESEND_API_KEY environment variable.
- */
+* Email Sending Utility
+* 
+* Uses Resend to send branded emails for authentication.
+* Requires RESEND_API_KEY environment variable.
+*/
 
 import { Resend } from 'resend';
 
@@ -32,7 +32,7 @@ export async function sendVerificationEmail({ to, url, userName }: SendVerificat
 
     try {
         const { data, error } = await resend.emails.send({
-            from: 'SaecretHeaven <noreply@saecretheaven.com>',
+            from: 'SaecretHeaven <noreply@send.saecretheaven.com>',
             to: [to],
             subject: 'Verify your email for SaecretHeaven',
             html: generateVerificationEmailHtml({ url, firstName }),
@@ -65,7 +65,7 @@ export async function sendPasswordResetEmail({ to, url, userName }: SendPassword
 
     try {
         const { data, error } = await resend.emails.send({
-            from: 'SaecretHeaven <noreply@saecretheaven.com>',
+            from: 'SaecretHeaven <noreply@send.saecretheaven.com>',
             to: [to],
             subject: 'Reset your SaecretHeaven password',
             html: generatePasswordResetEmailHtml({ url, firstName }),
