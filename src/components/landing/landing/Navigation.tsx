@@ -69,7 +69,7 @@ export default function Navigation() {
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-4">
           <a
-            href="https://github.com/endgegnerbert-tech/Photovault"
+            href="https://github.com/endgegnerbert-tech/Saecretheaven"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 text-charcoal/70 hover:text-charcoal transition-colors"

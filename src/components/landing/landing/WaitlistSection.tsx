@@ -9,7 +9,7 @@ import { Check, Download, Smartphone } from "lucide-react";
 import Link from "next/link";
 
 // GitHub Release download URLs
-const GITHUB_REPO = "endgegnerbert-tech/Photovault";
+const GITHUB_REPO = "endgegnerbert-tech/Saecretheaven";
 const VERSION = "0.1.0";
 
 const getDownloadUrl = () => {
@@ -283,7 +283,7 @@ export default function WaitlistSection() {
               ))}
             </div>
             <a
-              href="https://github.com/endgegnerbert-tech/Photovault"
+              href="https://github.com/endgegnerbert-tech/Saecretheaven"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 backdrop-blur-sm border border-gray-200 rounded-full hover:bg-white hover:shadow-md transition-all duration-300"

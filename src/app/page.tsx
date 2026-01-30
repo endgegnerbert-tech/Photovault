@@ -68,7 +68,7 @@ export default function LandingPage() {
                 </p>
                 <div className="flex flex-col gap-3 mb-4">
                   <a
-                    href="https://github.com/endgegnerbert-tech/Photovault"
+                    href="https://github.com/endgegnerbert-tech/Saecretheaven"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
