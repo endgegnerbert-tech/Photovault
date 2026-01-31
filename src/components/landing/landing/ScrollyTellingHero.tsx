@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { SketchButton } from "@/sketch-ui/SketchButton";
 import { Smartphone, Lock, Cloud, Eye, Play, Check, ChevronDown, Volume2, VolumeX } from "lucide-react";
 import { joinWaitlist, getWaitlistCount } from "@/app/actions/waitlist";
+import HeroTestimonials from "./HeroTestimonials";
 
 // --- Split Tile Component ---
 interface SplitTileProps {
@@ -297,6 +298,9 @@ export default function ScrollyTellingHero() {
                   <div className="flex flex-col justify-center w-full pt-[12vh] lg:pt-0 pointer-events-none relative z-40">
                       {/* TYPEWRTIER TEXT COMPONENT */}
                       <TypingHeader />
+
+                      {/* Top Comments Ticker (Desktop Only) */}
+                      <HeroTestimonials />
 
                       {/* Text Content with Mobile Backdrop */}
                       <div className="lg:contents flex flex-col items-center text-center lg:text-left bg-white/80 lg:bg-transparent backdrop-blur-lg lg:backdrop-blur-none p-8 lg:p-0 rounded-3xl lg:rounded-none shadow-xl lg:shadow-none border border-white/50 lg:border-none mx-4 lg:mx-0">

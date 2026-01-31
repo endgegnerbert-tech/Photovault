@@ -38,7 +38,39 @@ export default function LandingComments() {
 
   useEffect(() => {
     fetchTopComments();
+    
+    // Fingerprint for voting
+    let fp = localStorage.getItem("comment_fingerprint");
+    if (!fp) {
+        fp = Math.random().toString(36).substring(2) + Date.now().toString(36);
+        localStorage.setItem("comment_fingerprint", fp);
+    }
+    setFingerprint(fp);
   }, []);
+  
+  const [fingerprint, setFingerprint] = useState("");
+
+  const handleUpvote = async (commentId: string) => {
+    const { error } = await supabase.from("comment_upvotes").insert({
+      comment_id: commentId,
+      voter_fingerprint: fingerprint,
+    });
+
+    if (!error) {
+      // Optimistic update locally for speed
+      setComments(prev => prev.map(c => 
+        c.id === commentId ? { ...c, upvotes: c.upvotes + 1 } : c
+      ));
+
+      // Actual DB update (fallback/sync)
+      const { data: current } = await supabase.from("feature_comments").select("upvotes").eq("id", commentId).single();
+      if (current) {
+        await supabase.from("feature_comments").update({ upvotes: current.upvotes + 1 }).eq("id", commentId);
+      }
+    } else {
+       if (error.code === '23505') alert("You already upvoted this!");
+    }
+  };
 
   const fetchTopComments = async () => {
     const { data } = await supabase
@@ -195,9 +227,15 @@ export default function LandingComments() {
                       <ExternalLink size={10} />
                     </a>
                   </div>
-                  <div className="flex items-center gap-1 text-gray-500 bg-gray-50 px-2 py-1 rounded">
-                    <ArrowBigUp size={16} />
-                    <span className="text-sm font-medium">{comment.upvotes}</span>
+                  <div className="flex flex-col items-center gap-1 min-w-[32px]">
+                    <button
+                        onClick={() => handleUpvote(comment.id)}
+                        className="p-1 hover:bg-gray-50 rounded text-gray-400 hover:text-blue-600 transition-colors"
+                        aria-label="Upvote"
+                    >
+                        <ArrowBigUp size={24} />
+                    </button>
+                    <span className="text-sm font-medium text-gray-600">{comment.upvotes}</span>
                   </div>
                 </div>
                 

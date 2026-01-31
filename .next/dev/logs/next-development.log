@@ -5504,3 +5504,10 @@ Import traces:
 https://nextjs.org/docs/messages/module-not-found
 [02:42:11.001] Server  LOG     ✓ Compiled in 469ms
 [02:43:13.634] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[03:41:13.400] Browser ERROR   unhandledRejection: TypeError: Load failed
+[03:41:13.400] Browser ERROR   unhandledRejection: TypeError: Load failed
+[03:41:14.821] Browser LOG     [App] Device ID ensured: 04ed5b4c-e173-4a26-b283-67a3d5e6e13d
+[03:41:14.821] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:41:14.821] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"o":"http://localhost:3002/","sdkn":"@vercel/analytics/react","sdkv":"1.6.1","sv":"0.1.3","ts":1769892382042}
+[03:41:14.821] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[03:45:58.647] Server  LOG     ✓ Compiled in 1793ms
