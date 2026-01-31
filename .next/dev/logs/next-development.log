@@ -3160,3 +3160,2347 @@ https://nextjs.org/docs/messages/module-not-found
 
 
 [02:27:19.355] Server  LOG     ✓ Compiled in 2.2s
+[02:36:32.132] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.168] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.327] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.350] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.369] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:1:1
+Export default doesn't exist in target module
+> 1 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // ... inside component
+  4 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:1:1
+Export default doesn't exist in target module
+> 1 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // ... inside component
+  4 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:1:1
+Export default doesn't exist in target module
+> 1 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // ... inside component
+  4 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:1:1
+Export default doesn't exist in target module
+> 1 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // ... inside component
+  4 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:1:1
+Export default doesn't exist in target module
+> 1 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // ... inside component
+  4 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:1:1
+Export default doesn't exist in target module
+> 1 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // ... inside component
+  4 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:1:1
+Export default doesn't exist in target module
+> 1 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // ... inside component
+  4 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:1:1
+Export default doesn't exist in target module
+> 1 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  2 |
+  3 | // ... inside component
+  4 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:6:1
+Export default doesn't exist in target module
+  4 | import { createClient } from "@supabase/supabase-js";
+  5 | import { ArrowBigUp, Loader2, MessageSquare, Send } from "lucide-react";
+> 6 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // ... imports
+  9 | import { Button } from "@/components/ui/button";
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:6:1
+Export default doesn't exist in target module
+  4 | import { createClient } from "@supabase/supabase-js";
+  5 | import { ArrowBigUp, Loader2, MessageSquare, Send } from "lucide-react";
+> 6 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // ... imports
+  9 | import { Button } from "@/components/ui/button";
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:6:1
+Export default doesn't exist in target module
+  4 | import { createClient } from "@supabase/supabase-js";
+  5 | import { ArrowBigUp, Loader2, MessageSquare, Send } from "lucide-react";
+> 6 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // ... imports
+  9 | import { Button } from "@/components/ui/button";
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:6:1
+Export default doesn't exist in target module
+  4 | import { createClient } from "@supabase/supabase-js";
+  5 | import { ArrowBigUp, Loader2, MessageSquare, Send } from "lucide-react";
+> 6 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // ... imports
+  9 | import { Button } from "@/components/ui/button";
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser WARN    Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:28:9
+Ecmascript file had an error
+  26 | // ... inside component
+  27 |
+> 28 |   const containsProfanity = (text: string) => {
+     |         ^^^^^^^^^^^^^^^^^
+  29 |     const filter = new Filter();
+  30 |     try {
+  31 |         return filter.isProfane(text);
+
+the name `containsProfanity` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:28:9
+Ecmascript file had an error
+  26 | // ... inside component
+  27 |
+> 28 |   const containsProfanity = (text: string) => {
+     |         ^^^^^^^^^^^^^^^^^
+  29 |     const filter = new Filter();
+  30 |     try {
+  31 |         return filter.isProfane(text);
+
+the name `containsProfanity` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:76:1
+Parsing ecmascript source code failed
+  74 |
+  75 |
+> 76 | import { germanBadWords } from "@/lib/badWordsList";
+     | ^^^^^^
+  77 |
+  78 | // ...
+  79 |
+
+'import', and 'export' cannot be used outside of module code
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:28:9
+Ecmascript file had an error
+  26 | // ... inside component
+  27 |
+> 28 |   const containsProfanity = (text: string) => {
+     |         ^^^^^^^^^^^^^^^^^
+  29 |     const filter = new Filter();
+  30 |     try {
+  31 |         return filter.isProfane(text);
+
+the name `containsProfanity` is defined multiple times
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:76:1
+Parsing ecmascript source code failed
+  74 |
+  75 |
+> 76 | import { germanBadWords } from "@/lib/badWordsList";
+     | ^^^^^^
+  77 |
+  78 | // ...
+  79 |
+
+'import', and 'export' cannot be used outside of module code
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:76:1
+Parsing ecmascript source code failed
+  74 |
+  75 |
+> 76 | import { germanBadWords } from "@/lib/badWordsList";
+     | ^^^^^^
+  77 |
+  78 | // ...
+  79 |
+
+'import', and 'export' cannot be used outside of module code
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:76:1
+Parsing ecmascript source code failed
+  74 |
+  75 |
+> 76 | import { germanBadWords } from "@/lib/badWordsList";
+     | ^^^^^^
+  77 |
+  78 | // ...
+  79 |
+
+'import', and 'export' cannot be used outside of module code
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser WARN    Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:7:1
+Export default doesn't exist in target module
+   5 | import { MessageSquare, ArrowBigUp, ExternalLink } from "lucide-react";
+   6 | import { motion } from "framer-motion";
+>  7 | import Filter from "bad-words";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | import { germanBadWords } from "@/lib/badWordsList";
+  10 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:7:1
+Export default doesn't exist in target module
+   5 | import { MessageSquare, ArrowBigUp, ExternalLink } from "lucide-react";
+   6 | import { motion } from "framer-motion";
+>  7 | import Filter from "bad-words";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | import { germanBadWords } from "@/lib/badWordsList";
+  10 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:7:1
+Export default doesn't exist in target module
+   5 | import { MessageSquare, ArrowBigUp, ExternalLink } from "lucide-react";
+   6 | import { motion } from "framer-motion";
+>  7 | import Filter from "bad-words";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | import { germanBadWords } from "@/lib/badWordsList";
+  10 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/landing/landing/LandingComments.tsx:7:1
+Export default doesn't exist in target module
+   5 | import { MessageSquare, ArrowBigUp, ExternalLink } from "lucide-react";
+   6 | import { motion } from "framer-motion";
+>  7 | import Filter from "bad-words";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | import { germanBadWords } from "@/lib/badWordsList";
+  10 |
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component Browser]
+    ./src/app/page.tsx [Client Component Browser]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/landing/landing/LandingComments.tsx [Client Component SSR]
+    ./src/app/page.tsx [Client Component SSR]
+    ./src/app/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:6:1
+Export default doesn't exist in target module
+  4 | import { createClient } from "@supabase/supabase-js";
+  5 | import { ArrowBigUp, Loader2, MessageSquare, Send } from "lucide-react";
+> 6 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { germanBadWords } from "@/lib/badWordsList";
+  8 |
+  9 | // ... imports
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:6:1
+Export default doesn't exist in target module
+  4 | import { createClient } from "@supabase/supabase-js";
+  5 | import { ArrowBigUp, Loader2, MessageSquare, Send } from "lucide-react";
+> 6 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { germanBadWords } from "@/lib/badWordsList";
+  8 |
+  9 | // ... imports
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:6:1
+Export default doesn't exist in target module
+  4 | import { createClient } from "@supabase/supabase-js";
+  5 | import { ArrowBigUp, Loader2, MessageSquare, Send } from "lucide-react";
+> 6 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { germanBadWords } from "@/lib/badWordsList";
+  8 |
+  9 | // ... imports
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-client] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser ERROR   ./src/components/features/CommentSection.tsx:6:1
+Export default doesn't exist in target module
+  4 | import { createClient } from "@supabase/supabase-js";
+  5 | import { ArrowBigUp, Loader2, MessageSquare, Send } from "lucide-react";
+> 6 | import Filter from "bad-words";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 | import { germanBadWords } from "@/lib/badWordsList";
+  8 |
+  9 | // ... imports
+
+The export default was not found in module [project]/node_modules/bad-words/dist/esm/index.js [app-ssr] (ecmascript).
+Did you mean to import Filter?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./src/components/features/CommentSection.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Client Component Browser]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/features/CommentSection.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Client Component SSR]
+    ./src/app/features/secure-drop/page.tsx [Server Component]
+[02:36:32.394] Browser WARN    Multiple GoTrueClient instances detected in the same browser context. It is not an error, but this should be avoided as it may produce undefined behavior when used concurrently under the same storage key.
+[02:36:32.394] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:32.394] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:32.795] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.821] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:32.871] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.892] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.927] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:32.998] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:33.008] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:33.022] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:33.132] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:33.164] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:33.164] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:33.208] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:33.251] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:33.376] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:33.376] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:33.377] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:33.377] Browser ERROR   unhandledRejection: Error: An unexpected response was received from the server.
+[02:36:33.377] Browser ERROR   unhandledRejection: Error: An unexpected response was received from the server.
+[02:36:33.377] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:33.457] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:34.656] Browser ERROR   uncaughtError: Error: ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:34.909] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:34.909] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:34.909] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:34.909] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  #1 [Client Component Browser]:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  #2 [Client Component Browser]:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  #3 [Client Component SSR]:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  #4 [Client Component SSR]:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:34.909] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:34.909] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:34.909] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:43.842] Server  ERROR   ⨯ ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:44.302] Browser ERROR   uncaughtError: Error: ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:36:44.302] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:44.302] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:44.302] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:44.302] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  #1 [Client Component Browser]:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  #2 [Client Component Browser]:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  #3 [Client Component SSR]:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  #4 [Client Component SSR]:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:44.302] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:44.302] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:36:44.302] Browser ERROR   ./src/lib/storage/native-keychain.ts:8:1
+Module not found: Can't resolve '@tauri-apps/api/core'
+   6 |  */
+   7 |
+>  8 | import { invoke } from '@tauri-apps/api/core';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |
+  10 | /**
+  11 |  * Detect if we're running in a Tauri environment
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/storage/native-keychain.ts [Client Component Browser]
+    ./src/lib/deviceId.ts [Client Component Browser]
+    ./src/app/providers.tsx [Client Component Browser]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/storage/native-keychain.ts [Client Component SSR]
+    ./src/lib/deviceId.ts [Client Component SSR]
+    ./src/app/providers.tsx [Client Component SSR]
+    ./src/app/providers.tsx [Server Component]
+    ./src/app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:37:31.122] Server  LOG     ✓ Compiled in 609ms
+[02:37:33.331] Server  WARN    ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3002". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+[02:38:29.612] Browser LOG     [App] Device ID ensured: 04ed5b4c-e173-4a26-b283-67a3d5e6e13d
+[02:38:29.613] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:38:29.613] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"o":"http://localhost:3002/","sdkn":"@vercel/analytics/react","sdkv":"1.6.1","sv":"0.1.3","ts":1769888616654}
+[02:38:29.683] Server  LOG     ✓ Finished filesystem cache database compaction in 15.7s
+[02:40:04.549] Server  LOG     ✓ Compiled in 1045ms
+[02:40:07.861] Server  WARN    ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3002". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+[02:40:19.593] Browser LOG     [App] Device ID ensured: 04ed5b4c-e173-4a26-b283-67a3d5e6e13d
+[02:40:19.593] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:40:19.593] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3002/ color: rgb(120, 120, 120) color: inherit {"o":"http://localhost:3002/","sdkn":"@vercel/analytics/react","sdkv":"1.6.1","sv":"0.1.3","ts":1769888727021}
+[02:40:20.978] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:20.980] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:20.988] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:20.990] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:20.992] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:20.996] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:21.001] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:21.003] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:21.005] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:21.008] Server  ERROR   ⨯ ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[02:40:25.182] Browser ERROR   ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:40:41.671] Browser ERROR   ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:40:41.671] Browser ERROR   ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:40:41.935] Browser ERROR   ./src/lib/crypto.ts:8:1
+Module not found: Can't resolve './storage/native-keychain'
+   6 | import nacl from 'tweetnacl';
+   7 | import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+>  8 | import {
+     | ^^^^^^^^
+>  9 |     isTauri,
+     | ^^^^^^^^^^^^
+> 10 |     storeKeyNative,
+     | ^^^^^^^^^^^^
+> 11 |     loadKeyNative,
+     | ^^^^^^^^^^^^
+> 12 |     clearKeyNative
+     | ^^^^^^^^^^^^
+> 13 | } from './storage/native-keychain';
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  14 |
+  15 | export interface EncryptionKey {
+  16 |     publicKey: Uint8Array;
+
+Import traces:
+  Client Component Browser:
+    ./src/lib/crypto.ts [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component Browser]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/lib/crypto.ts [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Client Component SSR]
+    ./src/components/photovault/PhotoVaultApp.tsx [Server Component]
+    ./src/app/app/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[02:42:11.001] Server  LOG     ✓ Compiled in 469ms
+[02:43:13.634] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.

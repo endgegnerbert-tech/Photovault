@@ -1,4 +1,3 @@
-import { isTauri, getDeviceIdNative } from './storage/native-keychain'
 
 const DEVICE_ID_KEY = 'photovault_device_id'
 const DEVICE_NAME_KEY = 'photovault_device_name'
@@ -103,7 +102,7 @@ export function getDeviceId(): string {
   }
 
   // Async save to IndexedDB for iOS PWA persistence
-  saveToIndexedDB(DEVICE_ID_KEY, deviceId).catch(() => {})
+  saveToIndexedDB(DEVICE_ID_KEY, deviceId).catch(() => { })
 
   return deviceId
 }
@@ -117,27 +116,6 @@ export function getDeviceId(): string {
 export async function ensureDeviceIdPersistence(): Promise<string> {
   if (typeof window === 'undefined') {
     return 'server'
-  }
-
-  // For Tauri desktop: use native persistent storage
-  if (isTauri()) {
-    try {
-      const deviceId = await getDeviceIdNative()
-      console.log('[DeviceID] Using native device ID:', deviceId)
-
-      // Also save to localStorage for consistency
-      try {
-        localStorage.setItem(DEVICE_ID_KEY, deviceId)
-        sessionStorage.setItem(DEVICE_ID_KEY, deviceId)
-      } catch (e) {
-        console.warn('[DeviceID] Failed to sync to localStorage:', e)
-      }
-
-      return deviceId
-    } catch (error) {
-      console.error('[DeviceID] Native device ID failed, falling back to localStorage:', error)
-      // Fall through to localStorage logic
-    }
   }
 
   // PWA/Browser logic (original implementation)

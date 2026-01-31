@@ -5,12 +5,6 @@
 
 import nacl from 'tweetnacl';
 import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
-import {
-    isTauri,
-    storeKeyNative,
-    loadKeyNative,
-    clearKeyNative
-} from './storage/native-keychain';
 
 export interface EncryptionKey {
     publicKey: Uint8Array;
@@ -96,7 +90,7 @@ export async function encryptFile(
 
     // Konvertiere Base64 zurück zu Blob für Storage
     const ciphertextBytes = decodeBase64(encrypted.ciphertext);
-    const blob = new Blob([ciphertextBytes], { type: 'application/octet-stream' });
+    const blob = new Blob([ciphertextBytes as any], { type: 'application/octet-stream' });
 
     return {
         encrypted: blob,
@@ -124,7 +118,7 @@ export async function decryptFile(
     const decrypted = decrypt(encrypted, secretKey);
     if (!decrypted) return null;
 
-    return new Blob([decrypted], { type: originalMimeType });
+    return new Blob([decrypted as any], { type: originalMimeType });
 }
 
 /**
@@ -173,41 +167,21 @@ export function clearKeyFromStorage(): void {
 }
 
 /**
- * Async: Speichert Secret Key mit Platform-Detection
- *
- * - Tauri Desktop: OS native keychain (macOS Keychain, Windows Credential Manager)
- * - PWA/Browser: localStorage (fallback)
+ * Async: Speichert Secret Key (PWA Wrapper)
  *
  * @param secretKey - The 32-byte encryption key
  */
 export async function saveKeyToStorageAsync(secretKey: Uint8Array): Promise<void> {
-    if (isTauri()) {
-        // Use native keychain on desktop
-        await storeKeyNative(secretKey);
-        console.log('[Crypto] Secret key stored in native keychain');
-    } else {
-        // Fallback to localStorage for PWA/browser
-        saveKeyToStorage(secretKey);
-        console.log('[Crypto] Secret key stored in localStorage');
-    }
+    saveKeyToStorage(secretKey);
+    console.log('[Crypto] Secret key stored in localStorage');
 }
 
 /**
- * Async: Lädt Secret Key mit Platform-Detection
+ * Async: Lädt Secret Key (PWA Wrapper)
  *
  * @returns The secret key or null if not found
  */
 export async function loadKeyFromStorageAsync(): Promise<Uint8Array | null> {
-    if (isTauri()) {
-        // Try native keychain first
-        const key = await loadKeyNative();
-        if (key) {
-            console.log('[Crypto] Secret key loaded from native keychain');
-            return key;
-        }
-    }
-
-    // Fallback to localStorage
     const key = loadKeyFromStorage();
     if (key) {
         console.log('[Crypto] Secret key loaded from localStorage');
@@ -216,15 +190,9 @@ export async function loadKeyFromStorageAsync(): Promise<Uint8Array | null> {
 }
 
 /**
- * Async: Löscht Key aus Storage mit Platform-Detection
+ * Async: Löscht Key aus Storage (PWA Wrapper)
  */
 export async function clearKeyFromStorageAsync(): Promise<void> {
-    if (isTauri()) {
-        await clearKeyNative();
-        console.log('[Crypto] Secret key cleared from native keychain');
-    }
-
-    // Always clear localStorage as well (migration case)
     clearKeyFromStorage();
     console.log('[Crypto] Secret key cleared from localStorage');
 }
