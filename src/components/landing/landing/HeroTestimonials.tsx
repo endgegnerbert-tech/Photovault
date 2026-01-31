@@ -1,13 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, Star } from "lucide-react";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from "@/lib/supabase";
 
 interface Comment {
   id: string;
@@ -47,8 +43,8 @@ export default function HeroTestimonials() {
   if (comments.length === 0) return null;
 
   return (
-    <div className="absolute bottom-8 left-8 right-8 z-50 pointer-events-none hidden lg:block">
-        <div className="max-w-md mx-auto pointer-events-auto"> 
+    <div className="fixed bottom-4 left-4 z-50 pointer-events-none hidden lg:block max-w-sm">
+        <div className="pointer-events-auto"> 
             <AnimatePresence mode="wait">
                 <motion.div
                     key={currentIndex}
@@ -56,7 +52,8 @@ export default function HeroTestimonials() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
-                    className="bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-white/50 shadow-lg flex items-start gap-3"
+                    onClick={() => document.getElementById('community')?.scrollIntoView({ behavior: 'smooth' })}
+                    className="cursor-pointer bg-white/80 backdrop-blur-md rounded-2xl p-4 border border-white/50 shadow-lg flex items-start gap-3 hover:bg-white/90 transition-colors"
                 >
                     <div className="bg-blue-100 p-2 rounded-full text-blue-600 flex-shrink-0">
                         <MessageSquare size={16} />
@@ -64,9 +61,6 @@ export default function HeroTestimonials() {
                     <div>
                         <div className="flex items-center gap-2 mb-1">
                             <span className="font-bold text-gray-900 text-sm">{comments[currentIndex].author_name}</span>
-                            <div className="flex text-yellow-500">
-                                {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" />)}
-                            </div>
                         </div>
                         <p className="text-gray-600 text-xs leading-relaxed line-clamp-2">
                             "{comments[currentIndex].content}"

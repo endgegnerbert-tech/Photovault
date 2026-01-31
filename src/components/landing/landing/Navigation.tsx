@@ -59,13 +59,13 @@ export default function Navigation() {
         <nav className="hidden lg:flex items-center gap-8">
           {/* Features Dropdown */}
           <div
-            className="relative"
+            className="relative h-20 flex items-center"
             onMouseEnter={() => setFeaturesDropdownOpen(true)}
             onMouseLeave={() => setFeaturesDropdownOpen(false)}
           >
             <button
               onClick={() => scrollToSection('security')}
-              className="font-inter text-sm text-charcoal/70 hover:text-charcoal transition-colors flex items-center gap-1"
+              className="font-inter text-sm text-charcoal/70 hover:text-charcoal transition-colors flex items-center gap-1 h-full"
             >
               Features
               <ChevronDown size={16} className={`transition-transform ${featuresDropdownOpen ? 'rotate-180' : ''}`} />
@@ -73,7 +73,9 @@ export default function Navigation() {
 
             {/* Dropdown Menu */}
             {featuresDropdownOpen && (
-              <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
+              <div 
+                className="absolute top-[80%] left-0 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-200"
+              >
                 {featurePages.map((feature) => (
                   <a
                     key={feature.href}

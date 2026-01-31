@@ -19,8 +19,10 @@ export function SketchButton({
   ...props
 }: SketchButtonProps) {
   // Generiere einmalig die "Jitter"-Werte für den handgezeichneten Effekt
-  const jitterValues = useMemo(() => {
-    return Array.from({ length: 8 }, () => (Math.random() - 0.5) * 4);
+  const [jitterValues, setJitterValues] = React.useState<number[]>(Array(8).fill(0));
+
+  React.useEffect(() => {
+    setJitterValues(Array.from({ length: 8 }, () => (Math.random() - 0.5) * 4));
   }, []);
 
   const sizes = {
