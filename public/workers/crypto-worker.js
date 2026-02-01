@@ -45,19 +45,11 @@ function encrypt(data, secretKey) {
     const nonce = nacl.randomBytes(nacl.secretbox.nonceLength);
     const nonceBase64 = naclUtil.encodeBase64(nonce);
 
-    // Debug: Log encryption parameters INCLUDING nonce (compare with main thread decrypt)
-    console.log('[Crypto Worker] encrypt params:', {
-        keyLength: secretKey.length,
-        keyFirst4: Array.from(secretKey.slice(0, 4)),
-        nonceLength: nonce.length,
-        nonceFirst4: Array.from(nonce.slice(0, 4)),
-        nonceBase64: nonceBase64,
-        dataLength: data.length,
-    });
+
 
     const ciphertext = nacl.secretbox(data, nonce, secretKey);
 
-    console.log('[Crypto Worker] ciphertext created, length:', ciphertext.length);
+
 
     return {
         ciphertext: ciphertext,
@@ -81,7 +73,7 @@ self.onmessage = async function (e) {
     }
 
     try {
-        console.log('[Crypto Worker] Starting encryption, size:', arrayBuffer.byteLength);
+
         const startTime = performance.now();
 
         // Convert ArrayBuffer to Uint8Array
@@ -89,13 +81,13 @@ self.onmessage = async function (e) {
 
         // Pad data (masks file size for traffic analysis protection)
         const padded = padData(data);
-        console.log('[Crypto Worker] Padded size:', padded.length);
+
 
         // Encrypt
         const { ciphertext, nonce } = encrypt(padded, new Uint8Array(secretKey));
 
         const endTime = performance.now();
-        console.log('[Crypto Worker] Encryption complete in', Math.round(endTime - startTime), 'ms');
+
 
         // Ensure we send ONLY the active bytes, not the whole underlying buffer if it's larger
         // nacl.secretbox might return a view on a larger buffer

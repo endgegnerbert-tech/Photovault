@@ -7,6 +7,7 @@ import { useEncryption } from "@/hooks/use-encryption";
 import { useGalleryData } from "@/hooks/use-gallery-data";
 import { useRealtimeSync, type SyncedPhoto } from "@/hooks/useRealtimeSync";
 import { DecryptedThumbnail } from "./DecryptedThumbnail";
+import { SecureShareDialog } from "./SecureShareDialog";
 import {
   Plus,
   Search,
@@ -38,6 +39,7 @@ import { AlertTriangle } from "lucide-react";
 import { remoteStorage, isRealIPFSCID } from "@/lib/storage/remote-storage";
 import { decryptFile } from "@/lib/crypto";
 import { getPhotoBlob, type PhotoMetadata } from "@/lib/storage/local-db";
+
 
 interface PhotoGalleryProps {
   photosCount?: number;
@@ -138,6 +140,14 @@ const formatDateLabel = (dateStr: string) => {
 
 export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
   const queryClient = useQueryClient();
+  const [showShareDialog, setShowShareDialog] = useState(false);
+  const [photoToShare, setPhotoToShare] = useState<any>(null);
+
+  const handleShareClick = (photo: any) => {
+    setPhotoToShare(photo);
+    setShowShareDialog(true);
+  };
+
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
@@ -437,16 +447,8 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
     }
   };
 
-  // Filter categories - all disabled for now
-  const categories = [
-    { id: "nature", label: "Nature" },
-    { id: "architecture", label: "Architecture" },
-    { id: "travel", label: "Travel" },
-    { id: "food", label: "Food" },
-    { id: "animals", label: "Animals" },
-    { id: "city", label: "City" },
-    { id: "landscape", label: "Landscape" },
-  ];
+  // Filter categories - removed as per request
+
 
   // Handle file upload with strict type validation
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -551,30 +553,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
           </div>
         )}
 
-        {/* Filter Bar - Disabled categories */}
-        <div className="flex gap-2 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
-          <button
-            onClick={() => setSelectedFilter(null)}
-            className={`text-sm font-medium px-4 py-2 rounded-full transition-all duration-200 whitespace-nowrap ${
-              selectedFilter === null
-                ? "bg-blue-600 text-white shadow-sm"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-            }`}
-          >
-            All
-          </button>
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              disabled
-              className="text-sm font-medium px-4 py-2 rounded-full whitespace-nowrap flex items-center gap-1.5 bg-gray-100/60 text-gray-400 cursor-not-allowed opacity-60"
-              title="Coming Soon"
-            >
-              <Lock className="w-3 h-3" />
-              {cat.label}
-            </button>
-          ))}
-        </div>
+
       </header>
 
       {/* Gallery Grid */}
@@ -721,13 +700,28 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
                   <span className="text-sm font-medium">Back</span>
                 </button>
                 <div className="flex items-center gap-1">
-                  <button className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                  <button 
+                    className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                    onClick={() => {
+                        setSyncNotification("Favorites coming soon");
+                        setTimeout(() => setSyncNotification(null), 2000);
+                    }}
+                  >
                     <Heart className="w-5 h-5" />
                   </button>
-                  <button className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                  <button 
+                    className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                    onClick={() => handleShareClick(photos.find(p => p.id === fullscreenPhoto))}
+                  >
                     <Share2 className="w-5 h-5" />
                   </button>
-                  <button className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all">
+                  <button 
+                    className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+                    onClick={() => {
+                        setSyncNotification("Info view coming soon");
+                        setTimeout(() => setSyncNotification(null), 2000);
+                    }}
+                  >
                     <Info className="w-5 h-5" />
                   </button>
                 </div>
@@ -789,7 +783,10 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
                   <span className="text-xs font-medium">Save</span>
                 </button>
 
-                <button className="flex flex-col items-center gap-1.5 text-white/80 hover:text-white transition-colors min-w-[64px]">
+                <button 
+                  className="flex flex-col items-center gap-1.5 text-white/80 hover:text-white transition-colors min-w-[64px]"
+                  onClick={() => handleShareClick(photos.find(p => p.id === fullscreenPhoto))}
+                >
                   <Share2 className="w-6 h-6" />
                   <span className="text-xs font-medium">Share</span>
                 </button>
@@ -834,6 +831,14 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
           </div>
         </div>
       )}
+
+      {/* Share Dialog */}
+      <SecureShareDialog 
+         isOpen={showShareDialog} 
+         onClose={() => setShowShareDialog(false)}
+         photo={photoToShare}
+         secretKey={secretKey}
+       />
 
       {/* Hidden upload input */}
       <input

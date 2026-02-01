@@ -147,17 +147,9 @@ export async function POST(request: NextRequest) {
                     );
                 }
 
-                // Debug: Log what's being returned
-                console.log("[Supabase Proxy] loadCIDs query hash:", userKeyHash);
-                console.log("[Supabase Proxy] loadCIDs result count:", data?.length || 0);
-                if (data?.length) {
-                    console.log("[Supabase Proxy] First photo hash:", data[0].user_key_hash);
-                }
-
                 return NextResponse.json({ success: true, data: data || [] });
             }
 
-            // DEBUG: List all user_key_hash values in database (for troubleshooting)
             case "debugListHashes": {
                 const { data, error } = await supabase
                     .from("photos_metadata")

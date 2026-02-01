@@ -846,16 +846,10 @@ function StealthUploadsView({
   const { data: uploads = [], isLoading } = useQuery({
     queryKey: ['stealthUploads', userId],
     queryFn: async () => {
-      // Get all burner links first
-      const linksResponse = await fetch('/api/burner/create');
-      if (!linksResponse.ok) return [];
-      const linksData = await linksResponse.json();
-      const links = linksData.links as BurnerLink[];
-
-      // For each link, we'd need to fetch uploads
-      // For now, return empty - the actual uploads are stored in Supabase
-      // and need a separate endpoint
-      return [];
+      const response = await fetch('/api/burner/uploads');
+      if (!response.ok) throw new Error('Failed to fetch uploads');
+      const data = await response.json();
+      return data.uploads as (StealthUpload & { burner_links: BurnerLink })[];
     },
   });
 

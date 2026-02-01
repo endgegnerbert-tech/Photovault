@@ -30,7 +30,7 @@ function getCryptoWorker(): Worker | null {
 
     if (!cryptoWorker) {
         try {
-            cryptoWorker = new Worker('/workers/crypto-worker.js?v=' + Date.now());
+            cryptoWorker = new Worker('/workers/crypto-worker.js?v=2');
             cryptoWorker.onmessage = handleCryptoWorkerMessage;
             cryptoWorker.onerror = handleCryptoWorkerError;
             console.log('[Crypto] Worker initialized');
@@ -174,13 +174,7 @@ export function encrypt(
 ): EncryptedData {
     const nonce = nacl.randomBytes(nacl.secretbox.nonceLength);
 
-    // Debug: Log encryption parameters
-    console.log('[Crypto] encrypt params:', {
-        keyLength: secretKey.length,
-        keyFirst4: Array.from(secretKey.slice(0, 4)),
-        nonceLength: nonce.length,
-        dataLength: data.length,
-    });
+
 
     const ciphertext = nacl.secretbox(data, nonce, secretKey);
 
@@ -200,16 +194,7 @@ export function decrypt(
     const ciphertext = decodeBase64(encrypted.ciphertext);
     const nonce = decodeBase64(encrypted.nonce);
 
-    // Debug: Log all parameters for troubleshooting
-    console.log('[Crypto] decrypt params:', {
-        keyLength: secretKey.length,
-        keyFirst4: Array.from(secretKey.slice(0, 4)),
-        nonceLength: nonce.length,
-        nonceFirst4: Array.from(nonce.slice(0, 4)),
-        ciphertextLength: ciphertext.length,
-        expectedNonceLength: nacl.secretbox.nonceLength,
-        expectedKeyLength: nacl.secretbox.keyLength,
-    });
+
 
     const decrypted = nacl.secretbox.open(ciphertext, nonce, secretKey);
     if (!decrypted) {
@@ -284,9 +269,7 @@ export async function encryptFile(
     file: File,
     secretKey: Uint8Array
 ): Promise<{ encrypted: Blob; nonce: string }> {
-    // Debug: Log key hash for encryption
-    const keyHash = await getUserKeyHash(secretKey);
-    console.log('[Crypto] encryptFile using key hash:', keyHash, 'key length:', secretKey.length);
+
 
     const arrayBuffer = await file.arrayBuffer();
 
@@ -362,9 +345,7 @@ export async function decryptFile(
     secretKey: Uint8Array,
     originalMimeType: string
 ): Promise<Blob | null> {
-    // Debug: Log key hash for decryption
-    const keyHash = await getUserKeyHash(secretKey);
-    console.log('[Crypto] decryptFile using key hash:', keyHash, 'key length:', secretKey.length, 'nonce:', nonce.slice(0, 10) + '...');
+
 
     const arrayBuffer = await encryptedBlob.arrayBuffer();
     const ciphertext = new Uint8Array(arrayBuffer);
@@ -557,10 +538,103 @@ export async function loadKeyFromStorageAsync(): Promise<Uint8Array | null> {
     return key;
 }
 
+
 /**
  * Async: Löscht Key aus Storage (PWA Wrapper)
  */
 export async function clearKeyFromStorageAsync(): Promise<void> {
     clearKeyFromStorage();
     console.log('[Crypto] Secret key cleared from localStorage');
+}
+
+// ============================================================================
+// Password Based Encryption (PBKDF2) - For One-Time Links
+// ============================================================================
+
+/**
+ * Derives a 32-bye key from a password and salt using PBKDF2
+ */
+export async function deriveKeyFromPassword(password: string, salt: Uint8Array): Promise<Uint8Array> {
+    const enc = new TextEncoder();
+    const keyMaterial = await crypto.subtle.importKey(
+        "raw",
+        enc.encode(password),
+        { name: "PBKDF2" },
+        false,
+        ["deriveBits", "deriveKey"]
+    );
+
+    const key = await crypto.subtle.deriveKey(
+        {
+            name: "PBKDF2",
+            salt: salt,
+            iterations: 100000,
+            hash: "SHA-256"
+        },
+        keyMaterial,
+        { name: "AES-GCM", length: 256 },
+        true,
+        ["encrypt", "decrypt"]
+    );
+
+    // Export as raw bytes to use with tweetnacl if needed, or just return the CryptoKey?
+    // TweetNaCl user secretbox (Salsa20), which needs 32 bytes.
+    // Let's prompt deriveBits instead to get raw bytes for TweetNaCl.
+
+    const bits = await crypto.subtle.deriveBits(
+        {
+            name: "PBKDF2",
+            salt: salt,
+            iterations: 100000,
+            hash: "SHA-256"
+        },
+        keyMaterial,
+        256 // 256 bits = 32 bytes
+    );
+
+    return new Uint8Array(bits);
+}
+
+/**
+ * Encrypts a string payload with a password.
+ * Returns { ciphertext, nonce, salt } as Base64.
+ */
+export async function encryptWithPassword(payload: string, password: string): Promise<{ ciphertext: string; nonce: string; salt: string }> {
+    const salt = nacl.randomBytes(16);
+    const key = await deriveKeyFromPassword(password, salt);
+
+    // Use tweetnacl secretbox for consistency
+    const nonce = nacl.randomBytes(nacl.secretbox.nonceLength);
+    const msg = new TextEncoder().encode(payload);
+    const ciphertext = nacl.secretbox(msg, nonce, key);
+
+    return {
+        ciphertext: encodeBase64(ciphertext),
+        nonce: encodeBase64(nonce),
+        salt: encodeBase64(salt)
+    };
+}
+
+/**
+ * Decrypts a payload with a password.
+ */
+export async function decryptWithPassword(
+    encrypted: { ciphertext: string; nonce: string; salt: string },
+    password: string
+): Promise<string | null> {
+    try {
+        const salt = decodeBase64(encrypted.salt);
+        const key = await deriveKeyFromPassword(password, salt);
+
+        const ciphertext = decodeBase64(encrypted.ciphertext);
+        const nonce = decodeBase64(encrypted.nonce);
+
+        const decrypted = nacl.secretbox.open(ciphertext, nonce, key);
+        if (!decrypted) return null;
+
+        return new TextDecoder().decode(decrypted);
+    } catch (e) {
+        console.error("Decrypt with password failed", e);
+        return null;
+    }
 }
