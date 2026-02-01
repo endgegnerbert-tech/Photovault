@@ -132,9 +132,10 @@ export async function POST(request: NextRequest) {
                     );
                 }
 
+                // Debug: Also select user_key_hash to verify it matches
                 const { data, error } = await supabase
                     .from("photos_metadata")
-                    .select("cid, device_id, uploaded_at, file_size_bytes, nonce, mime_type")
+                    .select("cid, device_id, uploaded_at, file_size_bytes, nonce, mime_type, user_key_hash")
                     .eq("user_key_hash", userKeyHash)
                     .order("uploaded_at", { ascending: false });
 
@@ -145,7 +146,43 @@ export async function POST(request: NextRequest) {
                         { status: 500 }
                     );
                 }
+
+                // Debug: Log what's being returned
+                console.log("[Supabase Proxy] loadCIDs query hash:", userKeyHash);
+                console.log("[Supabase Proxy] loadCIDs result count:", data?.length || 0);
+                if (data?.length) {
+                    console.log("[Supabase Proxy] First photo hash:", data[0].user_key_hash);
+                }
+
                 return NextResponse.json({ success: true, data: data || [] });
+            }
+
+            // DEBUG: List all user_key_hash values in database (for troubleshooting)
+            case "debugListHashes": {
+                const { data, error } = await supabase
+                    .from("photos_metadata")
+                    .select("cid, user_key_hash, uploaded_at")
+                    .order("uploaded_at", { ascending: false })
+                    .limit(20);
+
+                if (error) {
+                    return NextResponse.json({ error: error.message }, { status: 500 });
+                }
+
+                // Get unique hashes
+                const hashes = Array.from(new Set(data?.map(d => d.user_key_hash) || []));
+                console.log("[Supabase Proxy] DEBUG - All hashes:", hashes);
+                console.log("[Supabase Proxy] DEBUG - Photos:", data?.map(d => ({ cid: d.cid?.slice(0, 20), hash: d.user_key_hash })));
+
+                return NextResponse.json({
+                    success: true,
+                    hashes,
+                    photos: data?.map(d => ({
+                        cid: d.cid,
+                        hash: d.user_key_hash,
+                        date: d.uploaded_at
+                    }))
+                });
             }
 
             case "deleteMetadata": {
