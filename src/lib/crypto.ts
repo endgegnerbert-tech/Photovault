@@ -167,6 +167,111 @@ export function clearKeyFromStorage(): void {
 }
 
 /**
+ * PANIC PROTOCOL: Securely wipe encryption key from storage
+ *
+ * SECURITY: Overwrites the key 3 times with random data before deletion.
+ * This makes forensic recovery significantly harder.
+ *
+ * Also wipes related storage keys.
+ */
+export function secureWipeKey(): void {
+    const keysToWipe = [
+        'photovault_secret_key',
+        'vault_key',
+        'deviceId',
+        'photovault_burner_keys',
+    ];
+
+    for (const key of keysToWipe) {
+        // Only wipe if key exists
+        if (localStorage.getItem(key) !== null) {
+            // Overwrite 3 times with random data
+            for (let i = 0; i < 3; i++) {
+                const noise = new Uint8Array(64);
+                crypto.getRandomValues(noise);
+                localStorage.setItem(key, Array.from(noise).join(''));
+            }
+            localStorage.removeItem(key);
+        }
+    }
+}
+
+/**
+ * PANIC PROTOCOL: Complete secure wipe of all app data
+ *
+ * This function:
+ * 1. Overwrites all localStorage keys with random data
+ * 2. Deletes all IndexedDB databases
+ * 3. Clears service worker caches
+ * 4. Unregisters service workers
+ *
+ * Use this when physical safety is at risk.
+ */
+export async function executePanicProtocol(): Promise<void> {
+    // 1. Secure wipe localStorage keys
+    secureWipeKey();
+
+    // 2. Clear all localStorage (overwrite then delete)
+    const allKeys = Object.keys(localStorage);
+    for (const key of allKeys) {
+        for (let i = 0; i < 3; i++) {
+            const noise = new Uint8Array(32);
+            crypto.getRandomValues(noise);
+            localStorage.setItem(key, Array.from(noise).join(''));
+        }
+        localStorage.removeItem(key);
+    }
+
+    // 3. Clear sessionStorage
+    sessionStorage.clear();
+
+    // 4. Delete all IndexedDB databases
+    if ('indexedDB' in window && 'databases' in indexedDB) {
+        try {
+            const databases = await indexedDB.databases();
+            await Promise.all(
+                databases.map((db) => {
+                    if (db.name) {
+                        return new Promise<void>((resolve) => {
+                            const deleteRequest = indexedDB.deleteDatabase(db.name!);
+                            deleteRequest.onsuccess = () => resolve();
+                            deleteRequest.onerror = () => resolve();
+                            deleteRequest.onblocked = () => resolve();
+                        });
+                    }
+                    return Promise.resolve();
+                })
+            );
+        } catch {
+            // IndexedDB API may not be available
+        }
+    }
+
+    // 5. Clear service worker caches
+    if ('caches' in window) {
+        try {
+            const cacheNames = await caches.keys();
+            await Promise.all(cacheNames.map((name) => caches.delete(name)));
+        } catch {
+            // Caches API may not be available
+        }
+    }
+
+    // 6. Unregister service workers
+    if ('serviceWorker' in navigator) {
+        try {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(registrations.map((reg) => reg.unregister()));
+        } catch {
+            // Service worker API may not be available
+        }
+    }
+
+    // 7. Force navigation to blank page (clears memory)
+    window.location.replace('about:blank');
+}
+
+/**
  * Async: Speichert Secret Key (PWA Wrapper)
  *
  * @param secretKey - The 32-byte encryption key

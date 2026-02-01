@@ -381,3 +381,139 @@ export async function getStorageUsage(userKeyHash: string): Promise<number> {
 
   return data?.reduce((acc, p) => acc + (p.file_size_bytes || 0), 0) || 0;
 }
+
+// ============================================================
+// BURNER LINKS OPERATIONS
+// For Stealth Drop anonymous uploads
+// ============================================================
+
+export interface BurnerLink {
+  id: string;
+  slug: string;
+  public_key: string;
+  theme: string;
+  content_slug: string;
+  creator_user_id: string;
+  creator_vault_key_hash: string;
+  created_at: string;
+  expires_at: string | null;
+  max_uploads: number | null;
+  upload_count: number;
+  is_active: boolean;
+}
+
+export interface StealthUpload {
+  id: string;
+  burner_link_id: string;
+  cid: string;
+  ephemeral_public_key: string;
+  iv: string;
+  file_size_bytes: number | null;
+  mime_type: string | null;
+  uploaded_at: string;
+}
+
+/**
+ * Get all burner links for a user
+ */
+export async function getBurnerLinks(userId: string): Promise<BurnerLink[]> {
+  const { data, error } = await supabase
+    .from('burner_links')
+    .select('*')
+    .eq('creator_user_id', userId)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('[Supabase] Get Burner Links Error:', error);
+    throw error;
+  }
+
+  return data || [];
+}
+
+/**
+ * Get stealth uploads for a burner link
+ */
+export async function getStealthUploads(burnerLinkId: string): Promise<StealthUpload[]> {
+  const { data, error } = await supabase
+    .from('stealth_uploads')
+    .select('*')
+    .eq('burner_link_id', burnerLinkId)
+    .order('uploaded_at', { ascending: false });
+
+  if (error) {
+    console.error('[Supabase] Get Stealth Uploads Error:', error);
+    throw error;
+  }
+
+  return data || [];
+}
+
+/**
+ * Get all stealth uploads for a user's vault (by vault_key_hash)
+ */
+export async function getAllStealthUploadsForVault(vaultKeyHash: string): Promise<(StealthUpload & { burner_link: BurnerLink })[]> {
+  const { data, error } = await supabase
+    .from('stealth_uploads')
+    .select(`
+      *,
+      burner_link:burner_links!inner(*)
+    `)
+    .eq('burner_links.creator_vault_key_hash', vaultKeyHash)
+    .order('uploaded_at', { ascending: false });
+
+  if (error) {
+    console.error('[Supabase] Get All Stealth Uploads Error:', error);
+    throw error;
+  }
+
+  return data || [];
+}
+
+/**
+ * Deactivate a burner link
+ */
+export async function deactivateBurnerLink(slug: string, userId: string): Promise<void> {
+  const { error } = await supabase
+    .from('burner_links')
+    .update({ is_active: false })
+    .eq('slug', slug)
+    .eq('creator_user_id', userId);
+
+  if (error) {
+    console.error('[Supabase] Deactivate Burner Link Error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Delete a stealth upload
+ */
+export async function deleteStealthUpload(uploadId: string): Promise<void> {
+  const { error } = await supabase
+    .from('stealth_uploads')
+    .delete()
+    .eq('id', uploadId);
+
+  if (error) {
+    console.error('[Supabase] Delete Stealth Upload Error:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get total count of stealth uploads for a user
+ */
+export async function getStealthUploadCount(vaultKeyHash: string): Promise<number> {
+  const { count, error } = await supabase
+    .from('stealth_uploads')
+    .select('id', { count: 'exact', head: true })
+    .eq('burner_links.creator_vault_key_hash', vaultKeyHash);
+
+  if (error) {
+    console.error('[Supabase] Get Stealth Upload Count Error:', error);
+    return 0;
+  }
+
+  return count || 0;
+}
