@@ -6,7 +6,7 @@ import { CustomIcon } from "@/components/ui/custom-icon";
 import { decryptFile } from "@/lib/crypto";
 import { remoteStorage } from "@/lib/storage/remote-storage";
 import { isRealIPFSCID } from "@/lib/storage/remote-storage";
-import type { PhotoMetadata } from "@/lib/storage/local-db";
+import { getPhotoBlob, type PhotoMetadata } from "@/lib/storage/local-db";
 
 interface DecryptedThumbnailProps {
     photo: PhotoMetadata;
@@ -39,7 +39,12 @@ export function DecryptedThumbnail({
             try {
                 let blobToDecrypt: Blob | undefined = photo.encryptedBlob;
 
-                // If no local blob, try to fetch from IPFS (cloud)
+                // If no blob in memory, try to lazy-load from local IndexedDB first
+                if (!blobToDecrypt && photo.id) {
+                    blobToDecrypt = await getPhotoBlob(photo.id);
+                }
+
+                // If still no local blob, try to fetch from IPFS (cloud)
                 if (!blobToDecrypt && photo.cid && isRealIPFSCID(photo.cid)) {
                     setIsFetchingFromCloud(true);
                     setIsCloudPhoto(true);

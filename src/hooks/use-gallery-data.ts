@@ -9,7 +9,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
-    getAllPhotos,
+    getAllPhotosMetadataOnly,
+    getPhotoBlob,
     savePhoto,
     deletePhoto,
     getPhotoCount,
@@ -41,13 +42,15 @@ export function useGalleryData(secretKey: Uint8Array | null) {
     // Query: Load all photos from local IndexedDB
     // WICHTIG: Query ist IMMER enabled - IndexedDB braucht kein secretKey
     // Decryption passiert separat wenn secretKey vorhanden ist
+    // Query: Load all photo metadata (WITHOUT blobs) from local IndexedDB
+    // PERFORMANCE: Blobs are lazy-loaded on-demand via getPhotoBlob
     const {
         data: photos = [],
         isLoading,
         error,
     } = useQuery({
         queryKey: ['photos'],
-        queryFn: getAllPhotos,
+        queryFn: getAllPhotosMetadataOnly,
         enabled: true, // Immer laden, unabhängig von secretKey
     });
 
@@ -241,13 +244,21 @@ export function useGalleryData(secretKey: Uint8Array | null) {
         },
     });
 
-    // Decrypt photo for display
+    // Decrypt photo for display (with lazy blob loading)
     const decryptPhoto = useCallback(
         async (photo: PhotoMetadata): Promise<string | null> => {
-            if (!secretKey || !photo.encryptedBlob) return null;
+            if (!secretKey) return null;
+
+            // Lazy-load blob from IndexedDB if not already loaded
+            let blobToDecrypt = photo.encryptedBlob;
+            if (!blobToDecrypt && photo.id) {
+                blobToDecrypt = await getPhotoBlob(photo.id);
+            }
+
+            if (!blobToDecrypt) return null;
 
             const decrypted = await decryptFile(
-                photo.encryptedBlob,
+                blobToDecrypt,
                 photo.nonce,
                 secretKey,
                 photo.mimeType

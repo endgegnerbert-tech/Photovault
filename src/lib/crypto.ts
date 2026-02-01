@@ -1,10 +1,103 @@
 /**
  * Crypto Layer - Client-Side Encryption mit tweetnacl
  * Alle Daten werden VOR dem Upload verschlüsselt
+ *
+ * BIP39: Uses @scure/bip39 for 24-word recovery phrases (256-bit entropy)
+ * Web Worker: Encryption offloaded to background thread for UI responsiveness
  */
 
 import nacl from 'tweetnacl';
 import { encodeBase64, decodeBase64 } from 'tweetnacl-util';
+import { mnemonicToEntropy, entropyToMnemonic, validateMnemonic } from '@scure/bip39';
+import { wordlist } from '@scure/bip39/wordlists/english.js';
+
+// ============================================================================
+// Web Worker for non-blocking encryption
+// ============================================================================
+
+let cryptoWorker: Worker | null = null;
+let workerMessageId = 0;
+const pendingEncryptions = new Map<number, {
+    resolve: (result: { encrypted: Blob; nonce: string }) => void;
+    reject: (error: Error) => void;
+}>();
+
+/**
+ * Initialize the crypto worker (lazy initialization)
+ */
+function getCryptoWorker(): Worker | null {
+    if (typeof window === 'undefined') return null;
+
+    if (!cryptoWorker) {
+        try {
+            cryptoWorker = new Worker('/workers/crypto-worker.js');
+            cryptoWorker.onmessage = handleCryptoWorkerMessage;
+            cryptoWorker.onerror = handleCryptoWorkerError;
+            console.log('[Crypto] Worker initialized');
+        } catch (error) {
+            console.warn('[Crypto] Worker creation failed, will use main thread:', error);
+            return null;
+        }
+    }
+
+    return cryptoWorker;
+}
+
+/**
+ * Handle messages from the crypto worker
+ */
+function handleCryptoWorkerMessage(e: MessageEvent) {
+    const { id, success, ciphertext, nonce, error } = e.data;
+
+    const pending = pendingEncryptions.get(id);
+    if (!pending) return;
+
+    pendingEncryptions.delete(id);
+
+    if (!success) {
+        pending.reject(new Error(error || 'Encryption failed in worker'));
+        return;
+    }
+
+    // Convert ArrayBuffer back to Blob
+    const blob = new Blob([new Uint8Array(ciphertext)], { type: 'application/octet-stream' });
+
+    pending.resolve({
+        encrypted: blob,
+        nonce: nonce
+    });
+}
+
+/**
+ * Handle worker errors
+ */
+function handleCryptoWorkerError(error: ErrorEvent) {
+    console.error('[Crypto] Worker error:', error);
+    // Reject all pending encryptions
+    pendingEncryptions.forEach(({ reject }) => {
+        reject(new Error('Worker error: ' + error.message));
+    });
+    pendingEncryptions.clear();
+
+    // Reset worker for retry
+    cryptoWorker = null;
+}
+
+/**
+ * Terminate the crypto worker (call on app cleanup)
+ */
+export function terminateCryptoWorker(): void {
+    if (cryptoWorker) {
+        cryptoWorker.terminate();
+        cryptoWorker = null;
+        pendingEncryptions.clear();
+        console.log('[Crypto] Worker terminated');
+    }
+}
+
+// ============================================================================
+// Core Types
+// ============================================================================
 
 export interface EncryptionKey {
     publicKey: Uint8Array;
@@ -28,22 +121,48 @@ export function generateKeyPair(): EncryptionKey {
 }
 
 /**
- * Generiert eine 12-Wort Recovery Phrase aus dem Secret Key
- * Vereinfachte Version - in Production würde man BIP39 verwenden
+ * Generates a 24-word BIP39 recovery phrase from the 32-byte secret key
+ * 32 bytes = 256 bits entropy = 24 words (BIP39 standard)
  */
 export function keyToRecoveryPhrase(secretKey: Uint8Array): string {
-    const base64 = encodeBase64(secretKey);
-    // Für MVP: Base64 in Chunks aufteilen
-    // TODO: BIP39 Wordlist für bessere UX
-    return base64.match(/.{1,8}/g)?.join('-') || base64;
+    // Ensure we have exactly 32 bytes for 24-word mnemonic
+    if (secretKey.length !== 32) {
+        console.warn('[Crypto] Key length is not 32 bytes, using legacy encoding');
+        // Fallback for legacy keys
+        const base64 = encodeBase64(secretKey);
+        return base64.match(/.{1,8}/g)?.join('-') || base64;
+    }
+
+    // Convert 32 bytes to 24-word BIP39 mnemonic
+    return entropyToMnemonic(secretKey, wordlist);
 }
 
 /**
- * Recovered Secret Key aus Recovery Phrase
+ * Recovers secret key from BIP39 recovery phrase
+ * Supports both new 24-word BIP39 and legacy base64-dash format
  */
 export function recoveryPhraseToKey(phrase: string): Uint8Array {
-    const base64 = phrase.replace(/-/g, '');
-    return decodeBase64(base64);
+    const trimmedPhrase = phrase.trim();
+
+    // Check if it's a valid BIP39 mnemonic (24 words)
+    if (validateMnemonic(trimmedPhrase, wordlist)) {
+        // BIP39 mnemonic -> 32 bytes entropy
+        const entropy = mnemonicToEntropy(trimmedPhrase, wordlist);
+        return entropy;
+    }
+
+    // Legacy format: base64 with dashes
+    if (trimmedPhrase.includes('-')) {
+        const base64 = trimmedPhrase.replace(/-/g, '');
+        return decodeBase64(base64);
+    }
+
+    // Try as raw base64
+    try {
+        return decodeBase64(trimmedPhrase);
+    } catch {
+        throw new Error('Invalid recovery phrase format');
+    }
 }
 
 /**
@@ -135,12 +254,62 @@ export function unpadData(data: Uint8Array): Uint8Array {
 
 /**
  * Verschlüsselt ein File (Blob/File) und gibt encrypted Blob zurück
+ * Uses Web Worker for non-blocking encryption (keeps UI responsive)
+ * Falls back to main thread if worker is unavailable
  */
 export async function encryptFile(
     file: File,
     secretKey: Uint8Array
 ): Promise<{ encrypted: Blob; nonce: string }> {
     const arrayBuffer = await file.arrayBuffer();
+
+    // Try to use Web Worker for non-blocking encryption
+    const worker = getCryptoWorker();
+
+    if (worker) {
+        return new Promise((resolve, reject) => {
+            const id = ++workerMessageId;
+            pendingEncryptions.set(id, { resolve, reject });
+
+            // Set timeout for encryption (2 minutes max for large files)
+            const timeoutId = setTimeout(() => {
+                if (pendingEncryptions.has(id)) {
+                    pendingEncryptions.delete(id);
+                    console.warn('[Crypto] Worker timeout, falling back to main thread');
+                    encryptFileMainThread(arrayBuffer, secretKey).then(resolve).catch(reject);
+                }
+            }, 120000);
+
+            // Clear timeout when resolved
+            const originalResolve = resolve;
+            const wrappedResolve = (result: { encrypted: Blob; nonce: string }) => {
+                clearTimeout(timeoutId);
+                originalResolve(result);
+            };
+            pendingEncryptions.set(id, { resolve: wrappedResolve, reject });
+
+            // Send to worker (transferable for zero-copy)
+            worker.postMessage({
+                id,
+                type: 'encrypt',
+                arrayBuffer: arrayBuffer,
+                secretKey: Array.from(secretKey) // Convert to regular array for transfer
+            }, [arrayBuffer]);
+        });
+    }
+
+    // Fallback to main thread
+    console.log('[Crypto] Using main thread encryption');
+    return encryptFileMainThread(arrayBuffer, secretKey);
+}
+
+/**
+ * Main thread encryption fallback
+ */
+async function encryptFileMainThread(
+    arrayBuffer: ArrayBuffer,
+    secretKey: Uint8Array
+): Promise<{ encrypted: Blob; nonce: string }> {
     const data = new Uint8Array(arrayBuffer);
     const padded = padData(data);
 
@@ -148,7 +317,7 @@ export async function encryptFile(
 
     // Konvertiere Base64 zurück zu Blob für Storage
     const ciphertextBytes = decodeBase64(encrypted.ciphertext);
-    const blob = new Blob([ciphertextBytes as any], { type: 'application/octet-stream' });
+    const blob = new Blob([ciphertextBytes as BlobPart], { type: 'application/octet-stream' });
 
     return {
         encrypted: blob,

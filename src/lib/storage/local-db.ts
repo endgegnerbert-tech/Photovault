@@ -284,3 +284,28 @@ export async function getPhotoBlob(id: number): Promise<Blob | undefined> {
     if (!record?.encryptedData) return undefined;
     return arrayBufferToBlob(record.encryptedData, record.mimeType);
 }
+
+/**
+ * Lädt alle Photos OHNE Blobs (für schnelles initiales Laden)
+ * Blobs werden on-demand via getPhotoBlob nachgeladen
+ *
+ * PERFORMANCE: Vermeidet das Laden von MB/GB an Blob-Daten in den Speicher
+ */
+export async function getAllPhotosMetadataOnly(): Promise<PhotoMetadata[]> {
+    const records = await db.photos.orderBy('uploadedAt').reverse().toArray();
+
+    // Return metadata without converting ArrayBuffer to Blob
+    return records.map(record => ({
+        id: record.id,
+        cid: record.cid,
+        nonce: record.nonce,
+        fileName: record.fileName,
+        mimeType: record.mimeType,
+        fileSize: record.fileSize,
+        width: record.width,
+        height: record.height,
+        uploadedAt: record.uploadedAt,
+        // encryptedBlob is undefined - will be lazy-loaded via getPhotoBlob when needed
+        encryptedBlob: undefined,
+    }));
+}

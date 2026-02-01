@@ -37,7 +37,7 @@ import { Input } from "@/components/ui/input";
 import { AlertTriangle } from "lucide-react";
 import { remoteStorage, isRealIPFSCID } from "@/lib/storage/remote-storage";
 import { decryptFile } from "@/lib/crypto";
-import type { PhotoMetadata } from "@/lib/storage/local-db";
+import { getPhotoBlob, type PhotoMetadata } from "@/lib/storage/local-db";
 
 interface PhotoGalleryProps {
   photosCount?: number;
@@ -284,7 +284,7 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
     }
   }, [fullscreenPhoto]);
 
-  // Load fullscreen photo (on-demand from IPFS if needed)
+  // Load fullscreen photo (lazy-load from IndexedDB, then IPFS if needed)
   const loadFullscreenPhoto = async (photo: (typeof photos)[0]) => {
     if (!secretKey || !photo.metadata) return;
 
@@ -294,7 +294,12 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
     try {
       let blobToDecrypt: Blob | undefined = photo.metadata.encryptedBlob;
 
-      // Fetch from IPFS if not local
+      // Lazy-load from local IndexedDB first
+      if (!blobToDecrypt && photo.metadata.id) {
+        blobToDecrypt = await getPhotoBlob(photo.metadata.id);
+      }
+
+      // Fetch from IPFS if not in local DB
       if (!blobToDecrypt && photo.cid && isRealIPFSCID(photo.cid)) {
         console.log("Loading full-res from IPFS:", photo.cid);
         blobToDecrypt = await remoteStorage.download(photo.cid);
@@ -333,7 +338,12 @@ export function PhotoGallery({ photosCount = 0, authUser }: PhotoGalleryProps) {
     try {
       let blobToDecrypt: Blob | undefined = photo.metadata.encryptedBlob;
 
-      // Fetch from IPFS if not local
+      // Lazy-load from local IndexedDB first
+      if (!blobToDecrypt && photo.metadata.id) {
+        blobToDecrypt = await getPhotoBlob(photo.metadata.id);
+      }
+
+      // Fetch from IPFS if not in local DB
       if (!blobToDecrypt && photo.cid && isRealIPFSCID(photo.cid)) {
         blobToDecrypt = await remoteStorage.download(photo.cid);
       }
