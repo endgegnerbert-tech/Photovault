@@ -59,6 +59,8 @@ export default function TechnicalAccordion() {
              <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 mb-4">
                 <span className="flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">
                     <Cloud className="w-3 h-3" /> IN DEVELOPMENT
+
+
                 </span>
                 <p className="text-xs text-blue-900/80">
                     The "Authenticity Proof" module is currently focused on <strong>Metadata Stripping</strong>. Full C2PA signature support is scheduled for Q3.
@@ -121,7 +123,8 @@ export default function TechnicalAccordion() {
         <div className="space-y-4">
              <div className="p-4 bg-blue-50 rounded-lg border border-blue-100 mb-4">
                 <span className="flex items-center gap-2 text-xs font-bold text-blue-600 uppercase tracking-widest mb-2">
-                    <EyeOff className="w-3 h-3" /> IN DEVELOPMENT
+                    <EyeOff className="w-3 h-3" /> TESTING
+
                 </span>
                 <p className="text-xs text-blue-900/80">
                     Anonymous source uploads without forensic trace. Photos processed entirely in RAM, never touching disk.

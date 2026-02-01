@@ -181,7 +181,8 @@ export default function SharedLinkPage() {
                             disabled={phase === "unlocking" || !password}
                             className="w-full bg-white text-black hover:bg-zinc-200 h-12 text-base font-semibold"
                         >
-                            {phase === "unlocking" ? <ShieldLoader size={20} /> : "Entschlüsseln"}
+                            {phase === "unlocking" ? <ShieldLoader /> : "Entschlüsseln"}
+
                         </Button>
 
                         {error && (

@@ -8,9 +8,12 @@ interface SecurityCardProps {
   description: string;
   index: number;
   link?: string;
+  status?: string;
 }
 
-function SecurityCard({ icon, title, description, index, link }: SecurityCardProps) {
+
+function SecurityCard({ icon, title, description, index, link, status = "In Development" }: SecurityCardProps) {
+
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-20%" });
 
@@ -18,7 +21,7 @@ function SecurityCard({ icon, title, description, index, link }: SecurityCardPro
     <>
       <div className="absolute top-6 right-6">
         <span className="text-[10px] uppercase font-bold px-2 py-1 rounded border bg-blue-100 text-blue-700 border-blue-200">
-          In Development
+          {status}
         </span>
       </div>
 
@@ -82,27 +85,31 @@ export default function SecurityGrid() {
   const cards = [
     {
       icon: <Lock size={28} strokeWidth={2} />,
-      title: "Military-Grade Encryption",
-      description: "TweetNaCl with XSalsa20-Poly1305 encryption. Authenticated encryption that ensures your data cannot be tampered with.",
-      link: "/features/panic-button"
+      title: "Secure Link Sharing",
+      description: "Generate one-time burner links. Encrypted locally, decrypted only by the recipient with a password. Zero knowledge storage.",
+      link: "/features/secure-share",
+      status: "Testing"
     },
     {
       icon: <EyeOff size={28} strokeWidth={2} />,
-      title: "Zero-Trace Capture",
-      description: "Photos never touch the disk. RAM-only processing for anonymous source uploads without forensic trace.",
-      link: "/features/secure-drop"
+      title: "Burner Uploads",
+      description: "Upload sensitive content via burner links. Zero-trace capture ensures no local data residue. Perfect for anonymous sources.",
+      link: "/features/secure-drop",
+      status: "Testing"
     },
     {
       icon: <FileCheck size={28} strokeWidth={2} />,
       title: "Metadata Removal",
       description: "Strip EXIF data to protect sources while preserving cryptographic proof of authenticity with C2PA.",
-      link: "/features/metadata-removal"
+      link: "/features/metadata-removal",
+      status: "In Development"
     },
     {
       icon: <AlertTriangle size={28} strokeWidth={2} />,
       title: "Panic Button",
       description: "Emergency key wipe protocol. Shake your device to instantly destroy encryption keys during seizure scenarios.",
-      link: "/features/panic-button"
+      link: "/features/panic-button",
+      status: "In Development"
     }
   ];
 
