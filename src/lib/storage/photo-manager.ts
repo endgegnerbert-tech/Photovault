@@ -181,16 +181,44 @@ export interface OrphanReport {
 
 /**
  * Check for storage inconsistencies
- * (placeholder for future implementation)
+ * Identifies discrepancies between local IndexedDB and remote Supabase metadata.
+ * Ignores mock/temp CIDs.
  */
 export async function findOrphanedPhotos(
-    _localPhotos: PhotoMetadata[],
-    _supabaseCIDs: string[]
+    localPhotos: PhotoMetadata[],
+    supabaseCIDs: string[]
 ): Promise<OrphanReport> {
-    // TODO: Implement orphan detection
+    const validSupabaseCIDs = new Set<string>();
+
+    // Filter Supabase CIDs
+    for (const cid of supabaseCIDs) {
+        if (!cid) continue;
+        if (cid.startsWith('mock-') || cid.startsWith('temp-')) continue;
+        if (!isValidCID(cid)) continue;
+        validSupabaseCIDs.add(cid);
+    }
+
+    // Filter Local Photos
+    const validLocalPhotos = localPhotos.filter(p => {
+        if (!p.cid) return false;
+        if (p.cid.startsWith('mock-') || p.cid.startsWith('temp-')) return false;
+        if (!isValidCID(p.cid)) return false;
+        return true;
+    });
+
+    const localCIDsSet = new Set(validLocalPhotos.map(p => p.cid));
+
+    // Find Local Only (In Local but not in Supabase)
+    // These need to be synced UP to Supabase
+    const localOnly = validLocalPhotos.filter(p => !validSupabaseCIDs.has(p.cid));
+
+    // Find Supabase Only (In Supabase but not in Local)
+    // These need to be synced DOWN to Local
+    const supabaseOnly = Array.from(validSupabaseCIDs).filter(cid => !localCIDsSet.has(cid));
+
     return {
-        localOnly: [],
-        supabaseOnly: [],
-        unpinnedCIDs: []
+        localOnly,
+        supabaseOnly,
+        unpinnedCIDs: [] // Pinning check is a separate, on-demand health check
     };
 }
